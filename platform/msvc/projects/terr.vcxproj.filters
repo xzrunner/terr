@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="roam">
+      <UniqueIdentifier>{f701babb-b977-4c4b-aaa7-de072e68569e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="texture">
+      <UniqueIdentifier>{71597015-8dae-47f4-90fd-1674d64e7874}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\terr\BinTri.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\BinTriPool.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\SplitMergeROAM.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\HeightMapTex.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\Texture.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\TileMapTex.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp">
+      <Filter>roam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
+      <Filter>roam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HeightMapTex.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Texture.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\TileMapTex.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

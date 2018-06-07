@@ -1,0 +1,5 @@
+terr/
+projects/*
+
+!projects/terr.vcxproj
+!projects/terr.vcxproj.filters
