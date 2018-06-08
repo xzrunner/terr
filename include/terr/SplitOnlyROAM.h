@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "terr/BinTri.h"
-
 #include <functional>
+
+#include <assert.h>
 
 #define DEFAULT_POLYGON_TARGET	10000
 
@@ -17,6 +17,46 @@ struct BinTriPool;
 
 class SplitOnlyROAM
 {
+public:
+	struct BinTri
+	{
+		BinTri* left_child = nullptr;
+		BinTri* right_child = nullptr;
+		BinTri* base_neighbor = nullptr;
+		BinTri* left_neighbor = nullptr;
+		BinTri* right_neighbor = nullptr;
+	};
+
+	struct BinTriPool
+	{
+	public:
+		BinTriPool(int cap)
+			: m_size(cap)
+			, m_next(0)
+		{
+			m_tris = new BinTri[cap];
+		}
+		~BinTriPool()
+		{
+			delete[] m_tris;
+		}
+
+		BinTri* Alloc() {
+			assert(m_next < m_size);
+			return &m_tris[m_next++];
+		}
+
+		int Size() const { return m_size; }
+		int Next() const { return m_next; }
+
+		void Reset() { m_next = 0; }
+
+	private:
+		BinTri * m_tris;
+		int m_size, m_next;
+
+	}; // BinTriPool
+
 public:
 	SplitOnlyROAM(int size, BinTriPool& pool);
 	~SplitOnlyROAM();
@@ -55,7 +95,7 @@ private:
 	void AdjustQualityConstant();
 	void SplitIfNeeded(int num, BinTri *tri, const Pos& v0, const Pos& v1, const Pos& va, bool entirely_in_frustum, int level);
 	void Split(BinTri* tri);
-	void Split2(BinTri* tri);
+	void SplitNoBaseN(BinTri* tri);
 
 	// draw
 	void RenderTri(BinTri* tri, const Pos& v0, const Pos& v1, const Pos& va) const;

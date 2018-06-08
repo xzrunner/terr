@@ -3,7 +3,6 @@
 // based on the ideas and input of Seumas McNally.
 
 #include "terr/SplitOnlyROAM.h"
-#include "terr/BinTriPool.h"
 
 #include <cmath>
 
@@ -218,14 +217,14 @@ void SplitOnlyROAM::SplitIfNeeded(int num, BinTri *tri, const Pos& v0, const Pos
 
 void SplitOnlyROAM::Split(BinTri* tri)
 {
-	if (tri->base_neighbor != NULL)
+	if (tri->base_neighbor != nullptr)
 	{
 		if (tri->base_neighbor->base_neighbor != tri)
 		{
 			Split(tri->base_neighbor);
 		}
-		Split2(tri);
-		Split2(tri->base_neighbor);
+		SplitNoBaseN(tri);
+		SplitNoBaseN(tri->base_neighbor);
 		tri->left_child->right_neighbor = tri->base_neighbor->right_child;
 		tri->right_child->left_neighbor = tri->base_neighbor->left_child;
 		tri->base_neighbor->left_child->right_neighbor = tri->right_child;
@@ -233,41 +232,58 @@ void SplitOnlyROAM::Split(BinTri* tri)
 	}
 	else
 	{
-		Split2(tri);
-		tri->left_child->right_neighbor = NULL;
-		tri->right_child->left_neighbor = NULL;
+		SplitNoBaseN(tri);
+		tri->left_child->right_neighbor = nullptr;
+		tri->right_child->left_neighbor = nullptr;
 	}
 }
 
-void SplitOnlyROAM::Split2(BinTri* tri)
+void SplitOnlyROAM::SplitNoBaseN(BinTri* tri)
 {
-	tri->left_child = m_pool.Alloc();
+	if (tri->left_child) {
+		return;
+	}
+
+	tri->left_child  = m_pool.Alloc();
 	tri->right_child = m_pool.Alloc();
-	tri->left_child->left_neighbor = tri->right_child;
+
+	tri->left_child->left_neighbor   = tri->right_child;
 	tri->right_child->right_neighbor = tri->left_child;
-	tri->left_child->base_neighbor = tri->left_neighbor;
+	tri->left_child->right_neighbor  = nullptr;
+	tri->right_child->left_neighbor  = nullptr;
 
-	// Simplified implementation by Andreas Ogren (omits 2 ifs)
-	if (tri->left_neighbor != NULL)
-	{
-		if (tri->left_neighbor->base_neighbor == tri)
-			tri->left_neighbor->base_neighbor = tri->left_child;
-		else
-			tri->left_neighbor->right_neighbor = tri->left_child;
-	}
+	tri->left_child->left_child   = nullptr;
+	tri->left_child->right_child  = nullptr;
+	tri->right_child->left_child  = nullptr;
+	tri->right_child->right_child = nullptr;
+
+	// connect with neighbor
+	tri->left_child->base_neighbor  = tri->left_neighbor;
 	tri->right_child->base_neighbor = tri->right_neighbor;
-	if (tri->right_neighbor != NULL)
+	if (tri->left_neighbor != nullptr)
 	{
-		if (tri->right_neighbor->base_neighbor == tri)
-			tri->right_neighbor->base_neighbor = tri->right_child;
-		else
-			tri->right_neighbor->left_neighbor = tri->right_child;
+		if (tri->left_neighbor->base_neighbor == tri) {
+			tri->left_neighbor->base_neighbor = tri->left_child;
+		} else if (tri->left_neighbor->left_neighbor == tri) {
+			tri->left_neighbor->left_neighbor = tri->left_child;
+		} else if (tri->left_neighbor->right_neighbor == tri) {
+			tri->left_neighbor->right_neighbor = tri->left_child;
+		} else {
+			assert(0);
+		}
 	}
-
-	tri->left_child->left_child = NULL;
-	tri->left_child->right_child = NULL;
-	tri->right_child->left_child = NULL;
-	tri->right_child->right_child = NULL;
+	if (tri->right_neighbor != nullptr)
+	{
+		if (tri->right_neighbor->base_neighbor == tri) {
+			tri->right_neighbor->base_neighbor = tri->right_child;
+		} else if (tri->right_neighbor->left_neighbor == tri) {
+			tri->right_neighbor->left_neighbor = tri->right_child;
+		} else if (tri->right_neighbor->right_neighbor == tri) {
+			tri->right_neighbor->right_neighbor = tri->right_child;
+		} else {
+			assert(0);
+		}
+	}
 }
 
 void SplitOnlyROAM::RenderTri(BinTri* tri, const Pos& v0, const Pos& v1, const Pos& va) const

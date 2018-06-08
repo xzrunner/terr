@@ -1,819 +1,524 @@
-// code from http://www.cognigraph.com/ROAM_homepage/
-//
-//#include "terr/SplitMergeROAM.h"
-//
-//#include <cmath>
-//#include <iostream>
-//
-//#include <string.h>
-//
-//namespace terr
-//{
-//
-//SplitMergeROAM::SplitMergeROAM(int max_level, int pool_size, int size,
-//	                           const pt3::Camera& cam, const pt3::ViewFrustum& vf,
-//	                           std::function<float(float, float)> get_height_cb)
-//	: m_camera(cam)
-//	, m_frustum(vf)
-//	, m_get_height_cb(get_height_cb)
-//{
-//	m_size = size;
-//
-//	m_pool_size = pool_size;
-//	m_pool = new Diamond[m_pool_size];
-//	// init diamond
-//	for (int i = 0; i < m_pool_size; ++i)
-//	{
-//		auto& dm = m_pool[i];
-//		memset(&dm, 0, sizeof(dm));
-//
-//		dm.queue_idx = QUEUE_CAP / 2;
-//		dm.bound_rad = -1;
-//		dm.error_rad = 10;
-//		dm.frame_count = 255;
-//		dm.level = -100;
-//	}
-//	// connect
-//	Diamond *temp_dm0, *temp_dm1;
-//	for (int i = 0; i < m_pool_size - 1; ++i)
-//	{
-//		temp_dm0 = m_pool + i;
-//		temp_dm1 = m_pool + i + 1;
-//
-//		temp_dm0->next = temp_dm1;
-//		temp_dm1->prev = temp_dm0;
-//	}
-//	m_pool_begin = m_pool;
-//	m_pool_end = m_pool + m_pool_size;
-//	m_pool_begin->prev = nullptr;
-//	m_pool_end->next = nullptr;
-//
-//	m_free_count = m_pool_size;
-//
-//	m_max_level = max_level;
-//	m_level_md_size = new float[m_max_level + 1];
-//	for (int i = 0; i <= m_max_level; ++i) {
-//		m_level_md_size[i] = 255.0f / ((float)std::sqrt((float)((__int64)1 << i)));
-//	}
-//
-//	m_max_tri_chunks = TRI_IMAX;
-//	m_tri_dm_ij = new int[m_max_tri_chunks];
-//	m_vert_buf = new float[m_max_tri_chunks * 15];
-//	for (int i = 0; i < m_max_tri_chunks; ++i) {
-//		m_tri_dm_ij[i] = -1;
-//	}
-//	m_free_tri = 1;
-//	m_free_tri_count = m_max_tri_chunks - 1;
-//	m_max_tris = 30000;			//set the default maximum triangle count (max triangles visible per frame)
-//
-//	memset(&m_split_queue[0], 0, sizeof(m_split_queue));
-//	memset(&m_merge_queue[0], 0, sizeof(m_merge_queue));
-//	m_queue_max = -1;
-//	m_queue_min = QUEUE_CAP;
-//	m_queue_coarse = 1990; //1990 happened to be the "magic number" for the queue "fineness"
-//
-//	//generate a LUT for float->int conversations (huge speed-saver later on)
-//	float f;
-//	int* pint = (int*)(&f);
-//	for (int i = 0; i < 256; ++i)
-//	{
-//		*pint = 0x3f800000 + (i << 15);
-//		m_log2table[i] = (int)floor(m_size*(log(f) / log(2.0) - (float)i / 256.0) + 0.5f) << 12;
-//	}
-//
-//	m_root = NewDiamond();
-//
-//	m_verts_per_frame = 0;
-//	m_tris_per_frame = 0;
-//}
-//
-//SplitMergeROAM::~SplitMergeROAM()
-//{
-//	delete[] m_pool;
-//	delete[] m_level_md_size;
-//	delete[] m_vert_buf;
-//	delete[] m_tri_dm_ij;
-//}
-//
-//void SplitMergeROAM::Update()
-//{
-//	// update all active diamonds with a recursive culling update
-//	UpdateKidsCull(m_root);
-//
-//	// update all queued diamonds' priority
-//	static const int U = 10;	// compute 1/U of the priority updates each frame
-//	static int i0 = 0;
-//	int i1 = i0 + (m_pool_size + (U - 1)) / U;
-//	if (i1 >= m_pool_size) {
-//		i1 = m_pool_size - 1;
-//	}
-//	for (int i = i0; i <= i1; ++i)
-//	{
-//		Diamond* dm = m_pool + i;
-//		if (dm->flags & ROAM_ALLQ) {
-//			UpdatePriority(dm);
-//		}
-//	}
-//	i0 = (i1 + 1) % m_pool_size;
-//
-//	/*
-//	* keep splitting/merging until either
-//	*  (a) no split/merge priority iOverlap and:
-//	*      target tri count reached or accuracy target reached
-//	* or
-//	*  (b) time is up (limit optimization-loop iterations)
-//	* or
-//	*  (c) not enough free (unlocked) diamonds in cache
-//	*
-//	* Note: this implementation handles non-monotonic priorities,
-//	* i.e. where a child can have a higher priority than its parent.
-//	* Also, we are careful to be just one force-split away from being
-//	* beyond the target triangle/accuracy count.  As a iSide effect, this
-//	* eliminates one kind of oscillation that might occur if using
-//	* the suggested pseudocode from the original SplitMergeROAM paper (see Vis 1997).
-//	*
-//	*/
-//	const int max_opt_count = 2000; /* split/merge limit */
-//	int opt_count = 0;
-//	int overlap = m_queue_max - m_queue_min;
-//	int overlap0 = overlap;
-//
-//#define TOO_COARSE \
-//	(m_tris_per_frame <= m_max_tris && m_queue_max >= m_queue_coarse && \
-//	 m_free_count > 128 && m_free_tri_count > 128)
-//
-//	int side = TOO_COARSE ? -1 : 1;
-//	while ((side != 0 || overlap0 > 1) && opt_count < max_opt_count)
-//	{
-//		if (side <= 0)
-//		{
-//			if (m_queue_max > 0)
-//			{
-//				Split(m_split_queue[m_queue_max]);
-//				if (!TOO_COARSE) {
-//					side = 1;
-//				}
-//			}
-//			else
-//			{
-//				side = 0;
-//			}
-//		}
-//		else
-//		{
-//			Merge(m_merge_queue[m_queue_min]);
-//			if (TOO_COARSE) {
-//				side = 0;
-//			}
-//		}
-//
-//		overlap = m_queue_max - m_queue_min;
-//		if (overlap < overlap0) {
-//			overlap0 = overlap;
-//		}
-//
-//		opt_count++;
-//	}
-//
-//	m_frame_count = (m_frame_count + 1) & 255;
-//}
-//
-//SplitMergeROAM::Diamond* SplitMergeROAM::NewDiamond()
-//{
-//	Diamond* dm = m_pool_begin;
-//	if (!dm) {
-//		std::cerr << "No space: diamond pool." << std::endl;
-//		exit(1);
-//	}
-//
-//	/* if not NEW, unlink from parents, otherwise set to not NEW */
-//	if (dm->bound_rad >= 0.0f)
-//	{
-//		dm->p[0]->k[dm->i[0]] = nullptr; RemoveRef(dm->p[0]);
-//		dm->p[1]->k[dm->i[1]] = nullptr; RemoveRef(dm->p[1]);
-//		dm->queue_idx = QUEUE_CAP >> 1;
-//	}
-//	else
-//	{
-//		dm->bound_rad = 0.0f;
-//	}
-//
-//	// make sure the framecnt is old
-//	dm->frame_count = (m_free_count - 1) & 255;
-//
-//	AddRef(dm);
-//
-//	return dm;
-//}
-//
-//void SplitMergeROAM::AddRef(Diamond* dm)
-//{
-//	if (dm->ref_count == 0)
-//	{
-//		Diamond* prev = dm->prev;
-//		Diamond* next = dm->next;
-//
-//		if (prev) {
-//			prev->next = dm->next;
-//		} else {
-//			m_pool_begin = next;
-//		}
-//
-//		if (next) {
-//			next->prev = dm->prev;
-//		} else {
-//			m_pool_end = prev;
-//		}
-//
-//		--m_free_count;
-//	}
-//
-//	++dm->ref_count;
-//}
-//
-//void SplitMergeROAM::RemoveRef(Diamond* dm)
-//{
-//	--dm->ref_count;
-//
-//	if (dm->ref_count == 0)
-//	{
-//		Diamond* prev = m_pool_end;
-//
-//		dm->prev = prev;
-//		dm->next = nullptr;
-//
-//		if (prev) {
-//			prev->next = dm;
-//		} else {
-//			m_pool_begin = dm;
-//		}
-//
-//		m_pool_end = dm;
-//
-//		++m_free_count;
-//	}
-//}
-//
-//void SplitMergeROAM::AllocateTri(Diamond* dm, int j)
-//{
-//	//CLIPPED diamonds never have triangles
-//	if (dm->flags & ROAM_CLIPPED) {
-//		return;
-//	}
-//
-//	int flags = dm->p[j]->flags;
-//
-//	//CLIPPED parent j means no triangle on iSide j
-//	if (flags & ROAM_CLIPPED) {
-//		return;
-//	}
-//
-//	//indicate that the triangle on side j is active
-//	dm->flags |= ROAM_TRI0 << j;
-//
-//	//if not IN, take the triangle off of the OUT list
-//	if (!(dm->cull & CULL_OUT)) {
-//		AddTri(dm, j);
-//	}
-//}
-//
-//void SplitMergeROAM::FreeTri(Diamond* dm, int j)
-//{
-//	//CLIPPED diamonds never have triangles
-//	if (dm->flags & ROAM_CLIPPED) {
-//		return;
-//	}
-//
-//	int flags = dm->p[j]->flags;
-//
-//	//CLIPPED parent j means no triangle on iSide j
-//	if (flags & ROAM_CLIPPED) {
-//		return;
-//	}
-//
-//	//indicate that the triangle on iSide j is not active
-//	dm->flags &= ~(ROAM_TRI0 << j);
-//
-//	//if not OUT, take the triangle off of the IN list
-//	if (!(dm->cull & CULL_OUT)) {
-//		RemoveTri(dm, j);
-//	}
-//}
-//
-//void SplitMergeROAM::AddTri(Diamond* dm, int j)
-//{
-//	/* grab free tri and fill in */
-//	//get a free triangle and "fill" it in
-//	int i = m_free_tri++;
-//	if (i >= m_max_tri_chunks)
-//	{
-//		std::cerr << "roam: out of triangle memory\n";
-//		/* should deal with this more gracefully... */
-//		exit(1);
-//	}
-//	m_free_tri_count--;
-//	dm->tri_idx[j] = i;
-//	m_tri_dm_ij[i] = ((dm - m_pool) << 1) | j;
-//
-//	//fill in the information for the triangle
-//	Diamond* dmnd_table[3];
-//	dmnd_table[1] = dm->p[j];
-//	if (j)
-//	{
-//		dmnd_table[0] = dm->a[1];
-//		dmnd_table[2] = dm->a[0];
-//	}
-//	else
-//	{
-//		dmnd_table[0] = dm->a[0];
-//		dmnd_table[2] = dm->a[1];
-//	}
-//
-//	//fill the vertex buffer with the information
-//	float* vb = (float*)m_vert_buf + 15 * i;
-//	for (int vi = 0; vi < 3; vi++, vb += 5)
-//	{
-//		vb[2] = dmnd_table[vi]->pos[0];
-//		vb[3] = dmnd_table[vi]->pos[1];
-//		vb[4] = dmnd_table[vi]->pos[2];
-//
-//		vb[0] = vb[2] / m_size;
-//		vb[1] = vb[4] / m_size;
-//	}
-//
-//	m_verts_per_frame += 3;
-//	m_tris_per_frame++;
-//}
-//
-//void SplitMergeROAM::RemoveTri(Diamond* dm, int j)
-//{
-//	int i = dm->tri_idx[j];
-//
-//	//put the triangle back on the "free" list for use
-//	dm->tri_idx[j] = 0;
-//	m_free_tri--;
-//	m_free_count++;
-//
-//	//copy the last triangle on the list (non-free) to the freed triangle
-//	int ix = m_free_tri;
-//	int dmnd_ij = m_tri_dm_ij[ix];
-//	int jx = dmnd_ij & 1;
-//	Diamond* dmnd_x = m_pool + (dmnd_ij >> 1);
-//
-//	dmnd_x->tri_idx[jx] = i;
-//	m_tri_dm_ij[i] = dmnd_ij;
-//
-//	float* vb = (float*)m_vert_buf;
-//	float* vb_idx = vb + 15 * ix;
-//	vb += 15 * i;
-//	memcpy((void*)vb, (void*)vb_idx, 15 * sizeof(float));
-//
-//	m_verts_per_frame -= 3;
-//	m_tris_per_frame--;
-//}
-//
-//SplitMergeROAM::Diamond* SplitMergeROAM::GetKid(Diamond* c, int i)
-//{
-//	if (auto k = c->k[i]) {
-//		AddRef(k);
-//		return k;
-//	}
-//
-//	// avoid early recycling
-//	AddRef(c);
-//
-//	// recursively create other parent to kid i
-//	// c's parent on kid side
-//	Diamond* px;
-//	int ix;
-//	if (i < 2)
-//	{
-//		px = c->p[0];
-//		ix = (c->i[0] + (i == 0 ? 1 : -1)) & 3;
-//	}
-//	else
-//	{
-//		px = c->p[1];
-//		ix = (c->i[1] + (i == 2 ? 1 : -1)) & 3;
-//	}
-//	// c's brother in parent
-//	Diamond* cx = GetKid(px, ix);
-//
-//	// return
-//	Diamond* k = NewDiamond();
-//
-//	// set all the links
-//	c->k[i] = k;
-//	ix = (i & 1) ^ 1;
-//	if (cx->p[1] == px) {
-//		ix |= 2;
-//	} else {
-//		cx->k[ix] = k;
-//	}
-//	if (i & 1)
-//	{
-//		k->p[0] = cx;
-//		k->i[0] = ix;
-//		k->p[1] = c;
-//		k->i[1] = i;
-//	}
-//	else
-//	{
-//		k->p[0] = c;
-//		k->i[0] = i;
-//		k->p[1] = cx;
-//		k->i[1] = ix;
-//	}
-//	k->a[0] = c->p[i >> 1];
-//	k->a[1] = c->a[((i + 1) & 2) >> 1];
-//	k->k[0] = k->k[1] = k->k[2] = k->k[3] = nullptr;
-//
-//	// flags
-//	k->cull = 0;
-//	k->flags = 0;
-//	k->split_flags = 0;
-//	// todo ?
-//	if ((k->a[0]->flags & ROAM_CLIPPED) ||
-//		((c->flags & ROAM_CLIPPED) && (cx->flags & ROAM_CLIPPED))) {
-//		k->flags |= ROAM_CLIPPED;
-//	}
-//	k->queue_idx = -10;
-//	k->level = c->level + 1;
-//
-//	// vertex
-//	float* a0_pos = k->a[0]->pos;
-//	float* a1_pos = k->a[1]->pos;
-//	k->pos[0] = (a0_pos[0] + a1_pos[0]) * 0.5f;
-//	k->pos[2] = (a0_pos[2] + a1_pos[2]) * 0.5f;
-//	k->pos[1] = m_get_height_cb(k->pos[0], k->pos[1]);
-////	float* center = k->pos;
-//
-//	// rad
-//	float* vc = k->pos;
-//	float rd, rc, dx, dy, dz;
-//	float* v;
-//	v = k->p[0]->pos; dx = v[0] - vc[0]; dy = v[1] - vc[1]; dz = v[2] - vc[2];
-//	rd = dx * dx + dy * dy + dz * dz;
-//	v = k->p[1]->pos; dx = v[0] - vc[0]; dy = v[1] - vc[1]; dz = v[2] - vc[2];
-//	rc = dx * dx + dy * dy + dz * dz; if (rc>rd) rd = rc;
-//	v = k->a[0]->pos; dx = v[0] - vc[0]; dy = v[1] - vc[1]; dz = v[2] - vc[2];
-//	rc = dx * dx + dy * dy + dz * dz; if (rc>rd) rd = rc;
-//	v = k->a[1]->pos; dx = v[0] - vc[0]; dy = v[1] - vc[1]; dz = v[2] - vc[2];
-//	rc = dx * dx + dy * dy + dz * dz; if (rc>rd) rd = rc;
-//	k->bound_rad = rd;
-//	k->error_rad = std::pow(m_level_md_size[k->level], 2);
-//
-//	return k;
-//}
-//
-//void SplitMergeROAM::Enqueue(Diamond* dm, char queue_flag, int new_idx)
-//{
-//	if (dm->flags & ROAM_ALLQ && dm->queue_idx == new_idx) {
-//		return;
-//	}
-//
-//	int ref_count = 0;
-//	if (dm->flags & ROAM_ALLQ) {
-//		--ref_count;
-//	}
-//	if (queue_flag & ROAM_ALLQ) {
-//		++ref_count;
-//	}
-//
-//	// remove from old queue
-//	if (dm->flags & ROAM_ALLQ)
-//	{
-//		auto& queue = (queue_flag & ROAM_SPLITQ) ? m_split_queue : m_merge_queue;
-//		if (dm->prev) {
-//			dm->prev->next = dm->next;
-//		} else {
-//			queue[dm->queue_idx] = dm->next;
-//			if (!dm->next)
-//			{
-//				if (dm->flags & ROAM_SPLITQ)
-//				{
-//					if (dm->queue_idx == m_queue_max)
-//					{
-//						auto tmp = queue[0];
-//						queue[0] = (Diamond*)1;
-//						int i;
-//						for (i = dm->queue_idx; !queue[i]; --i)
-//							;
-//						if (!(queue[0] = tmp) && i == 0) {
-//							--i;
-//						}
-//						m_queue_max = i;
-//					}
-//				}
-//				else
-//				{
-//					if (dm->queue_idx == m_queue_min)
-//					{
-//						auto tmp = queue[QUEUE_CAP - 1];
-//						queue[QUEUE_CAP - 1] = (Diamond*)1;
-//						int i;
-//						for (i = dm->queue_idx; !queue[i]; ++i)
-//							;
-//						if (!(queue[QUEUE_CAP - 1] = tmp) && i == QUEUE_CAP - 1) {
-//							++i;
-//						}
-//						m_queue_min = i;
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	// update priority
-//	dm->queue_idx = new_idx;
-//
-//	// insert
-//	if (queue_flag & ROAM_ALLQ)
-//	{
-//		auto& queue = (queue_flag & ROAM_SPLITQ) ? m_split_queue : m_merge_queue;
-//		dm->prev = nullptr;
-//		dm->next = queue[dm->queue_idx];
-//
-//		queue[dm->queue_idx] = dm;
-//		if (dm->next) {
-//			dm->next->prev = dm;
-//		} else {
-//			if (queue_flag & ROAM_SPLITQ) {
-//				if (dm->queue_idx > m_queue_max) {
-//					m_queue_max = dm->queue_idx;
-//				}
-//			} else {
-//				if (dm->queue_idx < m_queue_min) {
-//					m_queue_min = dm->queue_idx;
-//				}
-//			}
-//		}
-//
-//		dm->flags |= queue_flag;
-//	}
-//
-//	if (ref_count != 0)
-//	{
-//		if (ref_count < 0) {
-//			RemoveRef(dm);
-//		} else {
-//			AddRef(dm);
-//		}
-//	}
-//}
-//
-//void SplitMergeROAM::Split(Diamond* dm)
-//{
-////	SROAM_DIAMOND* pChild, *pParent;
-////	int i, s;
-//
-//	//if the diamond has already been split, then skip it! And skip it good!
-//	if (dm->flags & ROAM_SPLIT) {
-//		return;
-//	}
-//
-//	//split parents recursively (as needed)
-//	for(int i = 0; i < 2; i++)
-//	{
-//		Diamond* p = dm->p[i];
-//		Split(p);
-//
-//		//if the diamond is p's first split child, take p off of the merge queue
-//		if (!(p->split_flags & SPLIT_K)) {
-//			Enqueue(p, ROAM_UNQ, p->queue_idx);
-//		}
-//		p->split_flags |= SPLIT_K0 << dm->i[i];
-//	}
-//
-//	//get the children, update flags, and put on the split queue
-//	for(int i = 0; i < 4; i++)
-//	{
-//		Diamond* k = GetKid(dm, i);
-//		UpdateCull(k);
-//		UpdatePriority(k);
-//
-//		//children of the newly split diamond now go on the split queue
-//		Enqueue(k, ROAM_SPLITQ, k->queue_idx);
-//		int s= k->p[1] == dm ? 1 :0 ;
-//		k->split_flags |= SPLIT_P0 << s;
-//		RemoveRef(k);
-//
-//		//put the child triangles on the render list
-//		AllocateTri(k, s);
-//	}
-//
-//	//diamond is split, update it's queue, and add to "check list"
-//	dm->flags |= ROAM_SPLIT;
-//	Enqueue(dm, ROAM_MERGEQ, dm->queue_idx);	//newly split diamond goes on merge queue
-//
-//	//put parent tris back on the free list
-//	FreeTri(dm, 0);
-//	FreeTri(dm, 1);
-//}
-//
-//void SplitMergeROAM::Merge(Diamond* dm)
-//{
-//	//	SROAM_DIAMOND* k, *pParent;
-//	//int i, s;
-//
-//	//if this diamond has already been merged, then skip
-//	if (!(dm->flags & ROAM_SPLIT)) {
-//		return;
-//	}
-//
-//	//children off split queue if their other parent is not split
-//	for(int i = 0; i < 4; i++)
-//	{
-//		Diamond* k = dm->k[i];
-//		int s = k->p[1] == dm ? 1 : 0;
-//
-//		k->split_flags &= ~(SPLIT_P0 << s);
-//		if (!(k->split_flags & SPLIT_P)) {
-//			Enqueue(k, ROAM_UNQ, k->queue_idx);
-//		}
-//
-//		//put the tris back on the free list
-//		FreeTri( k, s );
-//	}
-//
-//	//diamond is not split, update it's queue, and add to "check list"
-//	dm->flags &= ~ROAM_SPLIT;
-//	Enqueue(dm, ROAM_SPLITQ, dm->queue_idx);
-//
-//	//update the diamond's parents, only if it is needed
-//	for (int i = 0; i < 2; i++)
-//	{
-//		Diamond* p = dm->p[i];
-//
-//		p->split_flags &= ~(SPLIT_K0 << dm->i[i]);
-//		if (!(p->split_flags & SPLIT_K)) {
-//			UpdatePriority(p);
-//			Enqueue(p, ROAM_MERGEQ, p->queue_idx);
-//		}
-//	}
-//
-//	//put the parent tris on the triangle render list
-//	AllocateTri(dm, 0);
-//	AllocateTri(dm, 1);
-//}
-//
-//void SplitMergeROAM::UpdateKidsCull(Diamond* dm)
-//{
-//	// CLIPPED diamonds have no interest here, back out
-//	if (dm->flags & ROAM_CLIPPED) {
-//		return;
-//	}
-//
-//	int cull = dm->cull; //save old culling flag for comparison
-//
-//	// update the diamond's culling flags
-//	UpdateCull(dm);
-//
-//	// skip subtree if nothing has really changed
-//	if (cull == dm->cull && (cull == CULL_OUT || cull == CULL_ALLIN)) {
-//		return;
-//	}
-//
-//	//update diamond priority if culling OUT state has changed
-//	if ((cull ^ dm->cull) & CULL_OUT) {
-//		UpdatePriority(dm);
-//	}
-//
-//	//if diamond is split, recurse down to it's four children if they exist
-//	if(dm->flags & ROAM_SPLIT)
-//	{
-//		for(int i = 0; i < 4; i+=2)
-//		{
-//			if (auto k = dm->k[i])
-//			{
-//				if (k->p[0] == dm)
-//				{
-//					if (k->k[0]) {
-//						UpdateKidsCull(k->k[0]);
-//					}
-//					if (k->k[1]) {
-//						UpdateKidsCull(k->k[1]);
-//					}
-//				}
-//				else
-//				{
-//					if (k->k[2]) {
-//						UpdateKidsCull(k->k[2]);
-//					}
-//					if (k->k[3]) {
-//						UpdateKidsCull(k->k[3]);
-//					}
-//				}
-//			}
-//		}
-//	}
-//}
-//
-//void SplitMergeROAM::UpdateCull(Diamond* dm)
-//{
-//	//get the diamond's parent's culling flag
-//	int cull = dm->a[0]->cull;
-//
-//	//if needed, update for all non-IN halfspaces
-//	if (cull != CULL_ALLIN && cull != CULL_OUT)
-//	{
-//		auto& frustum = m_frustum.GetViewFrustum();
-//		for (int j = 0, m = 1; j < 6; j++, m<<= 1)
-//		{
-//			if (!(cull & m))
-//			{
-//				float r = frustum[j][0] * dm->pos[0] +
-//					      frustum[j][1] * dm->pos[1] +
-//					      frustum[j][2] * dm->pos[2] +
-//					      frustum[j][3];
-//
-//				//cull the diamond
-//				if (std::pow(r, 2) > dm->bound_rad)
-//				{
-//					if (r < 0.0f) {
-//						cull = CULL_OUT;
-//					} else {
-//						cull |= m; //IN
-//					}
-//				}
-//				//else still overlaps this frustum plane
-//			}
-//		}
-//	}
-//
-//    //if OUT state changes, update in/out listing on any draw tris
-//	if ((dm->cull ^ cull) & CULL_OUT)
-//	{
-//		for (int j = 0; j < 2; j++)
-//		{
-//			if (dm->flags & (ROAM_TRI0 << j))
-//			{
-//				if (cull & CULL_OUT) {
-//					RemoveTri(dm, j);
-//				} else {
-//					AddTri(dm, j);
-//				}
-//			}
-//		}
-//	}
-//
-//	//store the updated cull flags
-//	dm->cull = cull;
-//}
-//
-//void SplitMergeROAM::UpdatePriority(Diamond* dm)
-//{
-//	if (m_frame_count == dm->frame_count) {
-//		return;
-//	}
-//	dm->frame_count = m_frame_count;
-//
-//	int k;
-//	if ((dm->flags & ROAM_CLIPPED) ||
-//		(dm->level >= m_max_level)) {
-//		k = 0;
-//	} else {
-//		//set the local integer pointer (for the IEEE floating-point tricks)
-//		float d;
-//		int* ip = (int*)(&d);
-//		d = dm->error_rad;
-//		//set the local integer pointer (for the IEEE floating-point tricks)
-//		k = *ip;
-//		k += m_log2table[(k >> 15) & 0xff];
-//
-//		//distance calculation
-//		auto& cam_pos = m_camera.GetPos();
-//		d = std::pow((dm->pos[0] - cam_pos.x), 2) +
-//			std::pow((dm->pos[1] - cam_pos.y), 2) +
-//			std::pow((dm->pos[2] - cam_pos.z), 2);
-//
-//		//compute the fixed-point log_2 value (based on the distance to the camera)
-//		int j = *ip;
-//		j += m_log2table[(j >> 15) & 0xff];
-//
-//		//compute the fixed-point log_2(error/distance)
-//		k = (k - j) + 0x10000000;
-//
-//		//scale and clamp the priority index to [1, IQMAX-1]
-//		if (k<0)
-//			k = 0;
-//
-//		k = (k >> 16) + 1;
-//		if (k >= QUEUE_CAP)
-//			k = QUEUE_CAP - 1;
-//
-//		//for OUT diamonds, reduce priority (but leave them ordered)
-//		if (dm->cull & CULL_OUT)
-//		{
-//			if (k > m_size) {
-//				k -= (m_size / 2);
-//			} else {
-//				k = (k + 1) >> 1;
-//			}
-//		}
-//	}
-//
-//	Enqueue(dm, dm->flags & ROAM_ALLQ, k);
-//}
-//
-//}
+#include "terr/SplitMergeROAM.h"
+
+#include <cmath>
+
+#define ADAPTION_SPEED			.00003f
+#define QUALITYCONSTANT_MIN		0.002f
+
+namespace
+{
+
+/**
+* Compute base-2 logarithm of an integer.
+* There's probably an even simpler way to do this with sneaky
+* logical ops or without a loop, but this works.
+*/
+int log2(int n)
+{
+	int temp = n, i;
+	for (i = 0; temp > 1; i++)
+		temp >>= 1;
+	return i;
+}
+
+}
+
+namespace terr
+{
+
+SplitMergeROAM::SplitMergeROAM(int size, BinTriPool& pool)
+	: m_size(size)
+	, m_pool(pool)
+	, m_variance(nullptr)
+	, m_hypo_len(nullptr)
+{
+	int n = log2(m_size - 1);
+	// the triangle bintree will have (2n + 2) levels
+	m_levels = 2 * n + 2;
+	// however, we don't need to store variance for the bottom-most nodes
+	// of the tree, so use one less level, and add 1 for 1-based numbering
+	m_used_nodes = (1 << (m_levels - 1));
+
+	m_split_cutoff = (1 << (m_levels - 2));
+
+	m_quality_constant = 0.1f;	// safe initial value
+//	m_drawn_tris = -1;
+
+	Reset();
+}
+
+SplitMergeROAM::~SplitMergeROAM()
+{
+	delete[] m_variance;
+	delete[] m_hypo_len;
+}
+
+void SplitMergeROAM::Reset()
+{
+	m_pool.Reset();
+
+	m_nw_tri = m_pool.Alloc();
+	m_se_tri = m_pool.Alloc();
+
+	m_nw_tri->left_child     = nullptr;
+	m_nw_tri->right_child    = nullptr;
+	m_nw_tri->left_neighbor  = nullptr;
+	m_nw_tri->right_neighbor = nullptr;
+	m_nw_tri->base_neighbor  = m_se_tri;
+	m_nw_tri->parent         = nullptr;
+
+	m_se_tri->left_child     = nullptr;
+	m_se_tri->right_child    = nullptr;
+	m_se_tri->left_neighbor  = nullptr;
+	m_se_tri->right_neighbor = nullptr;
+	m_se_tri->base_neighbor  = m_nw_tri;
+	m_se_tri->parent         = nullptr;
+
+	m_nw_tri->next = nullptr;
+	m_se_tri->next = nullptr;
+
+	m_nw_tri->v0.Assign(0, 0);
+	m_nw_tri->v1.Assign(m_size - 1, m_size - 1);
+	m_nw_tri->va.Assign(0, m_size - 1);
+	m_nw_tri->level = 2;
+	m_nw_tri->number = 2;
+
+	m_se_tri->v0.Assign(m_size - 1, m_size - 1);
+	m_se_tri->v1.Assign(0, 0);
+	m_se_tri->va.Assign(m_size - 1, 0);
+	m_se_tri->level = 2;
+	m_se_tri->number = 3;
+
+	m_nw_tri->flags = 0;
+	m_se_tri->flags = 0;
+}
+
+void SplitMergeROAM::Init()
+{
+	m_variance = new uint8_t[m_used_nodes];
+	ComputeVariances();
+
+	m_hypo_len = new float[m_levels];
+	// todo: 0, 1 ?
+	float sqrt2 = static_cast<float>(std::sqrt(2));
+	float diagonal_len = m_size * sqrt2;
+	m_hypo_len[2] = diagonal_len;
+	for (int i = 3; i < m_levels; ++i) {
+		m_hypo_len[i] = m_hypo_len[i - 1] / sqrt2;
+	}
+}
+
+bool SplitMergeROAM::Update()
+{
+//	AdjustQualityConstant();
+
+	RecurseTesselate(m_nw_tri, false);
+	RecurseTesselate(m_se_tri, false);
+
+	return true;
+}
+
+void SplitMergeROAM::Draw() const
+{
+	if (m_nw_tri) {
+		RenderTri(m_nw_tri, Pos(0, 0), Pos(m_size - 1, m_size - 1), Pos(0, m_size - 1));
+		RenderTri(m_se_tri, Pos(m_size - 1, m_size - 1), Pos(0, 0), Pos(m_size - 1, 0));
+	}
+}
+
+void SplitMergeROAM::ComputeVariances()
+{
+	// Using 1-based numbering for levels of the bintree, level 1 is
+	// the parent quad, and level 2 is each of the 2 main triangles.
+
+	// Using 1-based numbering for the nodes, the parent quad is 1.
+	// To find any nodes left and right children, use:
+	//   left child: (1 << node)
+	//   right child: (1 << node) + 1
+
+	// Level1  Level2  Level3
+	// +-----+ +-----+ +-----+
+	// |     | |    /| |\ 5 /|
+	// |     | | 2 / | | \ / |
+	// |  1  | |  /  | |4 X 6|
+	// |     | | / 3 | | / \ |
+	// |     | |/    | |/ 7 \|
+	// +-----+ +-----+ +-----+
+
+	ComputeTriangleVariance(2, Pos(0, 0), Pos(m_size - 1, m_size - 1), Pos(0, m_size - 1), 2);
+	ComputeTriangleVariance(3, Pos(m_size - 1, m_size - 1), Pos(0, 0), Pos(m_size - 1, 0), 2);
+}
+
+uint8_t SplitMergeROAM::ComputeTriangleVariance(int num, const Pos& v0, const Pos& v1, const Pos& va, int level)
+{
+	uint8_t h = (m_cb.get_height(v0.x, v0.y) + m_cb.get_height(v1.x, v1.y)) >> 1;
+
+	Pos vc((v0.x + v1.x) >> 1, (v0.y + v1.y) >> 1);
+	uint8_t h_real = m_cb.get_height(vc.x, vc.y);
+
+	uint8_t variance = std::abs(h - h_real);
+
+	if (level < m_levels - 1)
+	{
+		uint8_t child_var;
+
+		// descend to compute variance of the left child triangle
+		child_var = ComputeTriangleVariance((num << 1), va, v0, vc, level + 1);
+		if (child_var > variance) variance = child_var;
+
+		// descend to compute variance of the right child triangle
+		child_var = ComputeTriangleVariance((num << 1) + 1, v1, va, vc, level + 1);
+		if (child_var > variance) variance = child_var;
+	}
+
+	m_variance[num] = variance;
+
+	return variance;
+}
+
+void SplitMergeROAM::AdjustQualityConstant()
+{
+	//// do we need to expand our triangle pool?
+	//if (DEFAULT_POLYGON_TARGET * 3 > m_iTriPoolSize)
+	//	AllocatePool();
+
+	// The number of split triangles in the triangle pool will be roughly
+	// 2x the number of drawn polygons, and provides a more robust metric
+	// than using the polygon count itself.
+	int diff = (m_pool.GetNext() / 2) - DEFAULT_POLYGON_TARGET;
+
+	// adjust if necessary
+	int range = DEFAULT_POLYGON_TARGET / 20;
+	float adjust = 1.0f;
+	if (diff < -range) adjust = 1.0f + ((diff + range) * ADAPTION_SPEED);
+	if (diff > range) adjust = 1.0f + ((diff - range) * ADAPTION_SPEED);
+
+	m_quality_constant *= adjust;
+	if (m_quality_constant < QUALITYCONSTANT_MIN)
+		m_quality_constant = QUALITYCONSTANT_MIN;
+}
+
+void SplitMergeROAM::RecurseTesselate(BinTri* tri, bool entirely_in_frustum)
+{
+	Pos vc((tri->v0.x + tri->v1.x) >> 1, (tri->v0.y + tri->v1.y) >> 1);
+	if (!entirely_in_frustum)
+	{
+		if (m_cb.sphere_in_frustum(vc.x, vc.y, m_hypo_len[tri->level] / 2.0f)) {
+			entirely_in_frustum = true;
+		} else {
+			return;
+		}
+	}
+
+	// if unsplit and variance is too high, split
+	if (!tri->left_child &&
+		m_pool.GetNext() < m_pool.GetSize() - 50)	// safety check!  don't overflow
+	{
+		// do the correct split test
+		float dis = m_cb.dis_to_camera(vc.x, vc.y);
+		float variance = m_variance[tri->number];
+		if (variance / m_quality_constant > dis - m_hypo_len[tri->level] && !tri->left_child) {
+			Split(tri);
+		}
+	}
+	else
+	{
+		float dis = m_cb.dis_to_camera(vc.x, vc.y);
+		float variance = m_variance[tri->number];
+		if (variance / m_quality_constant < dis - m_hypo_len[tri->level] && tri->left_child) {
+			Merge(tri);
+		}
+	}
+
+	// if now split, descend the tree
+	if (tri->left_child && tri->number < m_split_cutoff)
+	{
+		RecurseTesselate(tri->left_child, entirely_in_frustum);
+		RecurseTesselate(tri->right_child, entirely_in_frustum);
+	}
+}
+
+void SplitMergeROAM::Split(BinTri* tri)
+{
+	// already split
+	if (tri->left_child) {
+		return;
+	}
+
+	if (tri->base_neighbor != nullptr)
+	{
+		if (tri->base_neighbor->base_neighbor != tri) {
+			Split(tri->base_neighbor);
+		}
+		SplitNoBaseN(tri);
+		SplitNoBaseN(tri->base_neighbor);
+		tri->left_child->right_neighbor = tri->base_neighbor->right_child;
+		tri->right_child->left_neighbor = tri->base_neighbor->left_child;
+		tri->base_neighbor->left_child->right_neighbor = tri->right_child;
+		tri->base_neighbor->right_child->left_neighbor = tri->left_child;
+	}
+	else
+	{
+		SplitNoBaseN(tri);
+	}
+}
+
+void SplitMergeROAM::SplitNoBaseN(BinTri* tri)
+{
+	if (tri->left_child) {
+		return;
+	}
+
+	auto l = m_pool.Alloc();
+	auto r = m_pool.Alloc();
+	tri->left_child  = l;
+	tri->right_child = r;
+
+	l->parent = tri;
+	r->parent = tri;
+
+	l->left_neighbor  = r;
+	r->right_neighbor = l;
+	l->right_neighbor = nullptr;
+	r->left_neighbor  = nullptr;
+
+	l->left_child  = nullptr;
+	l->right_child = nullptr;
+	r->left_child  = nullptr;
+	r->right_child = nullptr;
+
+	// connect with neighbor
+	l->base_neighbor  = tri->left_neighbor;
+	r->base_neighbor = tri->right_neighbor;
+	if (tri->left_neighbor != nullptr)
+	{
+		if (tri->left_neighbor->base_neighbor == tri) {
+			tri->left_neighbor->base_neighbor = l;
+		} else if (tri->left_neighbor->left_neighbor == tri) {
+			tri->left_neighbor->left_neighbor = l;
+		} else if (tri->left_neighbor->right_neighbor == tri) {
+			tri->left_neighbor->right_neighbor = l;
+		} else {
+			assert(0);
+		}
+	}
+	if (tri->right_neighbor != nullptr)
+	{
+		if (tri->right_neighbor->base_neighbor == tri) {
+			tri->right_neighbor->base_neighbor = r;
+		} else if (tri->right_neighbor->left_neighbor == tri) {
+			tri->right_neighbor->left_neighbor = r;
+		} else if (tri->right_neighbor->right_neighbor == tri) {
+			tri->right_neighbor->right_neighbor = r;
+		} else {
+			assert(0);
+		}
+	}
+
+	l->next = nullptr;
+	r->next = nullptr;
+
+	Pos vc((tri->v0.x + tri->v1.x) >> 1, (tri->v0.y + tri->v1.y) >> 1);
+
+	l->v0 = tri->va;
+	l->v1 = tri->v0;
+	l->va = vc;
+	l->level = tri->level + 1;
+	l->number = (tri->number << 1);
+
+	r->v0 = tri->v1;
+	r->v1 = tri->va;
+	r->va = vc;
+	r->level = tri->level + 1;
+	r->number = (tri->number << 1) + 1;
+
+	l->flags = 0;
+	r->flags = 0;
+}
+
+bool SplitMergeROAM::GoodForMerge(BinTri* tri) const
+{
+	// already merged
+	if (tri->left_child == nullptr) {
+		return false;
+	}
+
+	// todo variance
+
+	if (tri->left_child->left_child == nullptr &&
+		tri->right_child->left_child == nullptr) {
+		return true;
+	}
+
+	return false;
+}
+
+void SplitMergeROAM::Merge(BinTri* tri)
+{
+	// already merged
+	if (tri->left_child == nullptr) {
+		return;
+	}
+
+	if (GoodForMerge(tri))
+	{
+		if (tri->base_neighbor == nullptr)
+		{
+			MergeNoBaseN(tri);
+		}
+		else
+		{
+			if (GoodForMerge(tri->base_neighbor))
+			{
+				MergeNoBaseN(tri->base_neighbor);
+				MergeNoBaseN(tri);
+			}
+			else
+			{
+				//// force merge base neighbor
+				//Merge(tri->base_neighbor);
+				//MergeNoBaseN(tri);
+			}
+		}
+		return;
+	}
+
+	Merge(tri->left_child);
+	Merge(tri->right_child);
+}
+
+void SplitMergeROAM::MergeNoBaseN(BinTri* tri)
+{
+	auto l = tri->left_child;
+	if (l->base_neighbor)
+	{
+		if (l->base_neighbor->left_neighbor == tri->left_child) {
+			l->base_neighbor->left_neighbor = tri;
+		}
+		if (l->base_neighbor->right_neighbor == tri->left_child) {
+			l->base_neighbor->right_neighbor = tri;
+		}
+		if (l->base_neighbor->base_neighbor == tri->left_child) {
+			l->base_neighbor->base_neighbor = tri;
+			if (tri->left_neighbor == l->base_neighbor->parent) {
+				tri->left_neighbor = l->base_neighbor;
+			}
+		}
+
+		auto p = l->base_neighbor->parent;
+		if (p)
+		{
+			if (p->left_neighbor == tri->left_child) {
+				p->left_neighbor = tri;
+			}
+			if (p->right_neighbor == tri->left_child) {
+				p->right_neighbor = tri;
+			}
+			if (p->base_neighbor == tri->left_child) {
+				p->base_neighbor = tri;
+			}
+		}
+	}
+
+	auto r = tri->right_child;
+	if (r->base_neighbor)
+	{
+		if (r->base_neighbor->left_neighbor == tri->right_child) {
+			r->base_neighbor->left_neighbor = tri;
+		}
+		if (r->base_neighbor->right_neighbor == tri->right_child) {
+			r->base_neighbor->right_neighbor = tri;
+		}
+		if (r->base_neighbor->base_neighbor == tri->right_child) {
+			r->base_neighbor->base_neighbor = tri;
+			if (tri->right_neighbor == r->base_neighbor->parent) {
+				tri->right_neighbor = r->base_neighbor;
+			}
+		}
+
+		auto p = r->base_neighbor->parent;
+		if (p)
+		{
+			if (p->left_neighbor == tri->right_child) {
+				p->left_neighbor = tri;
+			}
+			if (p->right_neighbor == tri->right_child) {
+				p->right_neighbor = tri;
+			}
+			if (p->base_neighbor == tri->right_child) {
+				p->base_neighbor = tri;
+			}
+		}
+	}
+
+	m_pool.Free(tri->left_child);
+	m_pool.Free(tri->right_child);
+	tri->left_child = nullptr;
+	tri->right_child = nullptr;
+}
+
+void SplitMergeROAM::RenderTri(BinTri* tri, const Pos& v0, const Pos& v1, const Pos& va) const
+{
+	if (tri->left_child)
+	{
+		Pos vc((v0.x + v1.x) >> 1, (v0.y + v1.y) >> 1);
+		RenderTri(tri->right_child, v1, va, vc);
+		RenderTri(tri->left_child, va, v0, vc);
+	}
+	else
+	{
+		m_cb.send_vertex(v0.x, v0.y);
+		m_cb.send_vertex(v1.x, v1.y);
+		m_cb.send_vertex(va.x, va.y);
+	}
+}
+
+/************************************************************************/
+/* class SplitMergeROAM::BinTriPool                                     */
+/************************************************************************/
+
+SplitMergeROAM::BinTriPool::BinTriPool(int cap)
+	: m_size(cap)
+	, m_next(0)
+	, m_freelist(nullptr)
+{
+	m_tris = new BinTri[cap];
+}
+
+SplitMergeROAM::BinTriPool::~BinTriPool()
+{
+	delete[] m_tris;
+}
+
+SplitMergeROAM::BinTri* SplitMergeROAM::BinTriPool::Alloc()
+{
+	if (m_freelist)
+	{
+		auto ret = m_freelist;
+		m_freelist = m_freelist->next;
+		return ret;
+	}
+	else
+	{
+		assert(m_next < m_size);
+		return &m_tris[m_next++];
+	}
+}
+
+void SplitMergeROAM::BinTriPool::Free(BinTri* tri)
+{
+	if (m_freelist) {
+		tri->next = m_freelist;
+	} else {
+		tri->next = nullptr;
+	}
+	m_freelist = tri;
+}
+
+void SplitMergeROAM::BinTriPool::Reset()
+{
+	m_next = 0;
+	m_freelist = nullptr;
+}
+
+}

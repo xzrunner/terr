@@ -11,17 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\terr\BinTri.h" />
-    <ClInclude Include="..\..\..\include\terr\BinTriPool.h" />
     <ClInclude Include="..\..\..\include\terr\HeightMapTex.h" />
+    <ClInclude Include="..\..\..\include\terr\SplitMergeQueueROAM.h" />
     <ClInclude Include="..\..\..\include\terr\SplitMergeROAM.h" />
+    <ClInclude Include="..\..\..\include\terr\SplitMergeROAMOld.h" />
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h" />
     <ClInclude Include="..\..\..\include\terr\Texture.h" />
     <ClInclude Include="..\..\..\include\terr\TileMapTex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\HeightMapTex.cpp" />
+    <ClCompile Include="..\..\..\source\SplitMergeQueueROAM.cpp" />
     <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp" />
+    <ClCompile Include="..\..\..\source\SplitMergeROAMOld.cpp" />
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp" />
     <ClCompile Include="..\..\..\source\Texture.cpp" />
     <ClCompile Include="..\..\..\source\TileMapTex.cpp" />

@@ -1,183 +1,141 @@
-// code from http://www.cognigraph.com/ROAM_homepage/
-//
-//#pragma once
-//
-//#include <painting3/Camera.h>
-//#include <painting3/ViewFrustum.h>
-//
-//#include <functional>
-//
-//namespace terr
-//{
-//
-//class SplitMergeROAM
-//{
-//public:
-//	//+..................................................................+
-//	//+                                                                  +
-//	//+                                *                                 +
-//	//+                               / \                                +
-//	//+                              /   \                               +
-//	//+                             /     \                              +
-//	//+                            o       o                             +
-//	//+                           / \     / \                            +
-//	//+                          /   \   /   \                           +
-//	//+                         /     \ /     \                          +
-//	//+                        o...x...a0..w...o                         +
-//	//+                       ..\  .  /|\  .  /..                        +
-//	//+                      . . \ .k0 | k3. / . .                       +
-//	//+                     .  .  \./  |  \./  .  .                      +
-//	//+                    .   .  p0...c...p1  .   .                     +
-//	//+                   .    .  ..\  |  /..  .    .                    +
-//	//+                  .     . . .k1 | k2. . .     .                   +
-//	//+                 .      ..  .  \|/  .  ..      .                  +
-//	//+                .       ....y..a1...z....       .                 +
-//	//+                 .       .     . .     .       .                  +
-//	//+                  .       .   .   .   .       .                   +
-//	//+                   .       . .     . .       .                    +
-//	//+                    .       .       .       .                     +
-//	//+                     .     .         .     .                      +
-//	//+                      .   .           .   .                       +
-//	//+                       . .             . .                        +
-//	//+                        .               .                         +
-//	//+                                                                  +
-//	//+..................................................................+
-//	//
-//	// c -- the center diamond referencing all its relatives
-//	// p0 -- left parent
-//	// p1 -- right parent
-//	// a0 -- quadtree parent (up ancestor)
-//	// a1 -- down ancestor
-//	// k0 -- upper-left kid
-//	// k1 -- lower-left kid
-//	// k2 -- lower-right kid
-//	// k3 -- upper-right kid
-//	// x,y,z,w  -- opposite parent with respect to kids 0,1,2,3
-//	struct Diamond
-//	{
-//		Diamond* p[2];		// left and right parent
-//		Diamond* a[2];		// up and down ancestor
-//		Diamond* k[4];		// kids
-//
-//		// in queue
-//		Diamond *prev, *next;
-//
-//		float pos[3];       // vertex position
-//		float bound_rad;	// radius of sphere bound squared (-1 if NEW)
-//		float error_rad;	// radius of pointwise error squared
-//
-//		int ref_count;
-//
-//		unsigned short queue_idx;
-//		unsigned short tri_idx[2];
-//
-//		uint8_t i[2];		// kid index within each of parents
-//
-//		int8_t level;
-//
-//		uint8_t cull;
-//		uint8_t flags;
-//		uint8_t split_flags;
-//
-//		uint8_t frame_count;
-//	};
-//
-//	SplitMergeROAM(int max_level, int pool_size, int size,
-//		const pt3::Camera& cam, const pt3::ViewFrustum& vf,
-//		std::function<float(float, float)> get_height_cb);
-//	~SplitMergeROAM();
-//
-//	void Update();
-//
-//private:
-//	Diamond* NewDiamond();
-//
-//	void AddRef(Diamond* dm);
-//	void RemoveRef(Diamond* dm);
-//
-//	void AllocateTri(Diamond* dm, int j);
-//	void FreeTri(Diamond* dm, int j);
-//	void AddTri(Diamond* dm, int j);
-//	void RemoveTri(Diamond* dm, int j);
-//
-//	Diamond* GetKid(Diamond* dm, int kid_idx);
-//
-//	void Enqueue(Diamond* dm, char queue_flag, int new_idx);
-//
-//	void Split(Diamond* dm);
-//	void Merge(Diamond* dm);
-//
-//	void UpdateKidsCull(Diamond* dm);
-//	void UpdateCull(Diamond* dm);
-//	void UpdatePriority(Diamond* dm);
-//
-//private:
-//	static const size_t QUEUE_CAP = 4096;
-//	static const size_t TRI_IMAX  = 65536;
-//
-//private:
-//	// flags
-//	static const uint8_t ROAM_SPLIT   = 0x01;
-//	static const uint8_t ROAM_TRI0    = 0x04;
-//	static const uint8_t ROAM_TRI1    = 0x08;
-//	static const uint8_t ROAM_CLIPPED = 0x10;
-//	static const uint8_t ROAM_SPLITQ  = 0x40;
-//	static const uint8_t ROAM_MERGEQ  = 0x80;
-//	static const uint8_t ROAM_ALLQ    = 0xc0;
-//	static const uint8_t ROAM_UNQ     = 0x00;
-//
-//	// cull
-//	static const uint8_t CULL_ALLIN   = 0x3f;
-//	static const uint8_t CULL_OUT     = 0x40;
-//
-//	// split
-//	static const uint8_t SPLIT_K0     = 0x01;
-//	static const uint8_t SPLIT_K      = 0x0f;
-//	static const uint8_t SPLIT_P0     = 0x10;
-//	static const uint8_t SPLIT_P      = 0x30;
-//
-//private:
-//	const pt3::Camera&      m_camera;
-//	const pt3::ViewFrustum& m_frustum;
-//
-//	std::function<float(float, float)> m_get_height_cb;
-//
-//	Diamond* m_pool;
-//	int m_pool_size;
-//	Diamond *m_pool_begin, *m_pool_end;
-//	int m_free_count;			// number of elements on free list
-//
-//	float* m_level_md_size;		// max midpoint displacement per level
-//	int m_max_level;
-//
-//	Diamond* m_root;
-//
-//	Diamond* m_split_queue[QUEUE_CAP];		//split priority queue
-//	Diamond* m_merge_queue[QUEUE_CAP];		//merge priority queue
-//	int m_queue_min, m_queue_max;			//min/max occupied bucket
-//	int m_queue_coarse;						// coarseness limit on priority index
-//
-//	////most recently unlocked diamonds
-//	//Diamond* free_dm[2];
-//
-//	uint8_t m_frame_count;		// current frame count
-//
-//	int m_log2table[256];		//correction to float->int conversions
-//
-//	int* m_tri_dm_ij;			//packed diamond index and side
-//	int m_max_tris;				// target triangle count
-//	int m_max_tri_chunks;		//max number of tri chunks allowed
-//	int m_free_tri;				//first free tri chunk
-//	int m_free_tri_count;		//number of triangles on free list
-//
-//	float* m_vert_buf;			//data attachment specific to a library step
-//
-//	int m_size;
-//
-//	// stat
-//	int m_verts_per_frame;
-//	int m_tris_per_frame;
-//
-//}; // SplitMergeROAM
-//
-//}
+#pragma once
+
+#include <functional>
+
+#include <assert.h>
+
+#define DEFAULT_POLYGON_TARGET	10000
+
+namespace terr
+{
+
+struct BinTriPool;
+
+class SplitMergeROAM
+{
+public:
+	struct Pos
+	{
+		int16_t x, y;
+
+		Pos() : x(0), y(0) {}
+		Pos(int16_t x, int16_t y) : x(x), y(y) {}
+
+		void Assign(int16_t x, int16_t y) {
+			this->x = x; this->y = y;
+		}
+	};
+
+	struct BinTri
+	{
+		BinTri* left_child = nullptr;
+		BinTri* right_child = nullptr;
+		BinTri* base_neighbor = nullptr;
+		BinTri* left_neighbor = nullptr;
+		BinTri* right_neighbor = nullptr;
+
+		BinTri* parent = nullptr;
+
+		// for freelist
+		BinTri* next = nullptr;
+
+		Pos v0, v1, va;
+		uint8_t level = 0;
+//		uint8_t variance = 0;
+		uint8_t padding;
+		uint32_t number = 0;
+
+		uint8_t flags = 0;
+		uint8_t padding1[3];
+	};
+
+	struct BinTriPool
+	{
+	public:
+		BinTriPool(int cap);
+		~BinTriPool();
+
+		BinTri* Alloc();
+		void Free(BinTri* tri);
+
+		int GetSize() const { return m_size; }
+		int GetNext() const { return m_next; }
+
+		void Reset();
+
+	private:
+		BinTri* m_tris;
+		int m_size, m_next;
+
+		BinTri* m_freelist;
+
+	}; // BinTriPool
+
+public:
+	SplitMergeROAM(int size, BinTriPool& pool);
+	~SplitMergeROAM();
+
+	void Init();
+	bool Update();
+	void Draw() const;
+
+public:
+	struct CallbackFuncs
+	{
+		std::function<uint8_t(int x, int y)> get_height = nullptr;
+		std::function<float(int x, int y)> dis_to_camera = nullptr;
+		std::function<bool(float x, float y, float radius)> sphere_in_frustum = nullptr;
+		std::function<void(int x, int y)> send_vertex = nullptr;
+	}; // CallbackFuncs
+
+	void RegisterCallback(const CallbackFuncs& cb) { m_cb = cb; }
+
+private:
+	void Reset();
+
+	// init
+	void ComputeVariances();
+	uint8_t ComputeTriangleVariance(int num, const Pos& v0, const Pos& v1, const Pos& va, int level);
+
+	// update
+	void AdjustQualityConstant();
+
+	void RecurseTesselate(BinTri* tri, bool entirely_in_frustum);
+
+	void Split(BinTri* tri);
+	void SplitNoBaseN(BinTri* tri);
+
+	bool GoodForMerge(BinTri* tri) const;
+	void Merge(BinTri* tri);
+	void MergeNoBaseN(BinTri* tri);
+
+	// draw
+	void RenderTri(BinTri* tri, const Pos& v0, const Pos& v1, const Pos& va) const;
+
+private:
+	CallbackFuncs m_cb;
+
+	int m_size;
+
+	BinTriPool& m_pool;
+
+	BinTri* m_nw_tri = nullptr;
+	BinTri* m_se_tri = nullptr;
+
+	int m_levels;
+
+	float m_quality_constant;
+
+	int m_used_nodes;		// number of nodes needed for variance tree
+	uint8_t* m_variance;	// the variance implicit binary tree
+
+	float* m_hypo_len;		// table of hypotenuse lengths
+
+	int m_split_cutoff;
+
+	//// stat
+	//int m_drawn_tris;
+
+}; // SplitMergeROAM
+
+}
