@@ -2,9 +2,11 @@
 
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
+#include <gimg_import.h>
 
 #include <fstream>
 #include <vector>
+#include <assert.h>
 
 namespace
 {
@@ -41,12 +43,37 @@ void HeightMapTex::LoadFromRawFile(const char* filepath, size_t size)
 	size_t sz = static_cast<size_t>(fin.tellg());
 	fin.seekg(0, std::ios::beg);
 
+	assert(sz == size * size);
 	auto pixels = new char[size * size];
 	if (fin.read(pixels, size * size))
 	{
 		auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 		int texid = rc.CreateTexture(pixels, size, size, ur::TEXTURE_A8);
 		m_tex = std::make_unique<Texture>(texid, size, size, ur::TEXTURE_A8);
+	}
+	fin.close();
+
+	if (m_use_height_info) {
+		if (m_height_info) {
+			delete[] m_height_info;
+		}
+		m_height_info = (uint8_t*)pixels;
+	} else {
+		delete[] pixels;
+	}
+}
+
+void HeightMapTex::LoadFromImgFile(const char* filepath)
+{
+	int width, height, format;
+	uint8_t* pixels = gimg_import(filepath, &width, &height, &format);
+	memset(pixels, 0, width * height);
+
+	if (pixels)
+	{
+		auto& rc = ur::Blackboard::Instance()->GetRenderContext();
+		int texid = rc.CreateTexture(pixels, width, height, ur::TEXTURE_A8);
+		m_tex = std::make_unique<Texture>(texid, width, height, ur::TEXTURE_A8);
 	}
 
 	if (m_use_height_info) {

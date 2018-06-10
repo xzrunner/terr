@@ -1,3 +1,5 @@
+// some code from http://www.flipcode.com/archives/ROAM_Implementation_Optimizations.shtml
+
 #pragma once
 
 #include <functional>

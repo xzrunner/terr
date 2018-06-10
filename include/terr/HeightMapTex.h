@@ -14,6 +14,7 @@ public:
 	~HeightMapTex();
 
 	void LoadFromRawFile(const char* filepath, size_t size);
+	void LoadFromImgFile(const char* filepath);
 
 	// gen
 	void MakeHeightMapPlasma(int size, float roughness);
@@ -22,6 +23,9 @@ public:
 	void Bind(int channel) const;
 
 	int GetHeight(int x, int z) const;
+
+	const uint8_t* Data() const { return m_height_info; }
+	int Size() const { return m_tex->Width(); }
 
 private:
 	// Scale the terrain height values to a range of 0-255

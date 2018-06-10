@@ -30,6 +30,12 @@
     <ClInclude Include="..\..\..\include\terr\SplitMergeQueueROAM.h">
       <Filter>roam</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\TextureGen.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\TextureLoader.h">
+      <Filter>texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -52,6 +58,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\SplitMergeQueueROAM.cpp">
       <Filter>roam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\TextureGen.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\TextureLoader.cpp">
+      <Filter>texture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
