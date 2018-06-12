@@ -67,8 +67,6 @@ void HeightMapTex::LoadFromImgFile(const char* filepath)
 {
 	int width, height, format;
 	uint8_t* pixels = gimg_import(filepath, &width, &height, &format);
-	memset(pixels, 0, width * height);
-
 	if (pixels)
 	{
 		auto& rc = ur::Blackboard::Instance()->GetRenderContext();
