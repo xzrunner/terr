@@ -8,6 +8,8 @@
 
 #define DEFAULT_POLYGON_TARGET	10000
 
+#define CACHE_VERTEX
+
 namespace terr
 {
 
@@ -43,12 +45,12 @@ public:
 
 		Pos v0, v1, va;
 		uint8_t level = 0;
-//		uint8_t variance = 0;
 		uint8_t padding;
 		uint32_t number = 0;
 
-		uint8_t flags = 0;
-		uint8_t padding1[3];
+#ifdef CACHE_VERTEX
+		uint32_t tri_idx = 0;
+#endif // CACHE_VERTEX
 	};
 
 	struct BinTriPool
@@ -62,6 +64,8 @@ public:
 
 		int GetSize() const { return m_size; }
 		int GetNext() const { return m_next; }
+
+		int GetIndex(const BinTri* tri) const { return tri - m_tris; }
 
 		void Reset();
 
@@ -88,9 +92,13 @@ public:
 		std::function<float(int x, int y)> dis_to_camera = nullptr;
 		std::function<bool(float x, float y, float radius)> sphere_in_frustum = nullptr;
 		std::function<void(int x, int y)> send_vertex = nullptr;
+#ifdef CACHE_VERTEX
+		std::function<void(float* vb, float x, float y)> fill_vb = nullptr;
+		std::function<void(float* vb, int vb_n)> draw = nullptr;
+#endif // CACHE_VERTEX
 	}; // CallbackFuncs
 
-	void RegisterCallback(const CallbackFuncs& cb) { m_cb = cb; }
+	void RegisterCallback(const CallbackFuncs& cb);
 
 private:
 	void Reset();
@@ -114,6 +122,26 @@ private:
 	// draw
 	void RenderTri(BinTri* tri, const Pos& v0, const Pos& v1, const Pos& va) const;
 
+#ifdef CACHE_VERTEX
+	void AddTri(BinTri* tri);
+	void RemoveTri(BinTri* tri);
+#endif // CACHE_VERTEX
+
+private:
+#ifdef CACHE_VERTEX
+	struct VertexBuf
+	{
+		VertexBuf(int max_tris);
+		~VertexBuf();
+
+		int max_tri_chunks;
+		int next_free_tri;
+
+		float* vertices;
+		int* tri_idx;			// tri's index in verttex buf
+	};
+#endif // CACHE_VERTEX
+
 private:
 	CallbackFuncs m_cb;
 
@@ -135,8 +163,13 @@ private:
 
 	int m_split_cutoff;
 
-	//// stat
-	//int m_drawn_tris;
+#ifdef CACHE_VERTEX
+	VertexBuf m_vb;
+#endif // CACHE_VERTEX
+
+	// stat
+	int m_verts_per_frame;
+	int m_tris_per_frame;
 
 }; // SplitMergeROAM
 

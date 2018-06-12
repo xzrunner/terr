@@ -3,9 +3,14 @@
 #include "terr/SplitMergeROAM.h"
 
 #include <cmath>
+#include <iostream>
 
 #define ADAPTION_SPEED			.00003f
 #define QUALITYCONSTANT_MIN		0.002f
+
+#ifdef CACHE_VERTEX
+#define TRIANGLE_MAX 65536
+#endif // CACHE_VERTEX
 
 namespace
 {
@@ -33,6 +38,9 @@ SplitMergeROAM::SplitMergeROAM(int size, BinTriPool& pool)
 	, m_pool(pool)
 	, m_variance(nullptr)
 	, m_hypo_len(nullptr)
+#ifdef CACHE_VERTEX
+	, m_vb(TRIANGLE_MAX)
+#endif // CACHE_VERTEX
 {
 	int n = log2(m_size - 1);
 	// the triangle bintree will have (2n + 2) levels
@@ -45,8 +53,6 @@ SplitMergeROAM::SplitMergeROAM(int size, BinTriPool& pool)
 
 	m_quality_constant = 0.1f;	// safe initial value
 //	m_drawn_tris = -1;
-
-	Reset();
 }
 
 SplitMergeROAM::~SplitMergeROAM()
@@ -91,8 +97,13 @@ void SplitMergeROAM::Reset()
 	m_se_tri->level = 2;
 	m_se_tri->number = 3;
 
-	m_nw_tri->flags = 0;
-	m_se_tri->flags = 0;
+#ifdef CACHE_VERTEX
+	m_nw_tri->tri_idx = 0;
+	m_se_tri->tri_idx = 0;
+
+	AddTri(m_nw_tri);
+	AddTri(m_se_tri);
+#endif // CACHE_VERTEX
 }
 
 void SplitMergeROAM::Init()
@@ -122,10 +133,20 @@ bool SplitMergeROAM::Update()
 
 void SplitMergeROAM::Draw() const
 {
+#ifndef CACHE_VERTEX
 	if (m_nw_tri) {
 		RenderTri(m_nw_tri, Pos(0, 0), Pos(m_size - 1, m_size - 1), Pos(0, m_size - 1));
 		RenderTri(m_se_tri, Pos(m_size - 1, m_size - 1), Pos(0, 0), Pos(m_size - 1, 0));
 	}
+#else
+	m_cb.draw(m_vb.vertices, m_vb.next_free_tri);
+#endif // CACHE_VERTEX
+}
+
+void SplitMergeROAM::RegisterCallback(const CallbackFuncs& cb)
+{
+	m_cb = cb;
+	Reset();
 }
 
 void SplitMergeROAM::ComputeVariances()
@@ -334,8 +355,13 @@ void SplitMergeROAM::SplitNoBaseN(BinTri* tri)
 	r->level = tri->level + 1;
 	r->number = (tri->number << 1) + 1;
 
-	l->flags = 0;
-	r->flags = 0;
+#ifdef CACHE_VERTEX
+	l->tri_idx = 0;
+	r->tri_idx = 0;
+
+	AddTri(l);
+	AddTri(r);
+#endif // CACHE_VERTEX
 }
 
 bool SplitMergeROAM::GoodForMerge(BinTri* tri) const
@@ -453,6 +479,11 @@ void SplitMergeROAM::MergeNoBaseN(BinTri* tri)
 		}
 	}
 
+#ifdef CACHE_VERTEX
+	RemoveTri(tri->left_child);
+	RemoveTri(tri->right_child);
+#endif // CACHE_VERTEX
+
 	m_pool.Free(tri->left_child);
 	m_pool.Free(tri->right_child);
 	tri->left_child = nullptr;
@@ -474,6 +505,49 @@ void SplitMergeROAM::RenderTri(BinTri* tri, const Pos& v0, const Pos& v1, const 
 		m_cb.send_vertex(va.x, va.y);
 	}
 }
+
+#ifdef CACHE_VERTEX
+
+void SplitMergeROAM::AddTri(BinTri* tri)
+{
+	int idx = m_vb.next_free_tri;
+	if (idx >= m_vb.max_tri_chunks) {
+		std::cerr << "no tri.\n";
+		return;
+	}
+
+	++m_vb.next_free_tri;
+
+	// connect
+	tri->tri_idx = idx;
+	m_vb.tri_idx[idx] = m_pool.GetIndex(tri);
+
+	// fill
+	float* vb = m_vb.vertices + 15 * idx;
+	m_cb.fill_vb(vb, tri->v0.x, tri->v0.y);
+	vb += 5;
+	m_cb.fill_vb(vb, tri->v1.x, tri->v1.y);
+	vb += 5;
+	m_cb.fill_vb(vb, tri->va.x, tri->va.y);
+
+	m_verts_per_frame += 3;
+	m_tris_per_frame++;
+}
+
+void SplitMergeROAM::RemoveTri(BinTri* tri)
+{
+	int idx = tri->tri_idx;
+
+	//put the triangle back on the "free" list for use
+	tri->tri_idx = 0;
+	--m_vb.next_free_tri;
+	memcpy(m_vb.vertices + 15 * idx, m_vb.vertices + m_vb.next_free_tri, 15 * sizeof(float));
+
+	m_verts_per_frame -= 3;
+	m_tris_per_frame--;
+}
+
+#endif // CACHE_VERTEX
 
 /************************************************************************/
 /* class SplitMergeROAM::BinTriPool                                     */
@@ -522,5 +596,32 @@ void SplitMergeROAM::BinTriPool::Reset()
 	m_next = 0;
 	m_freelist = nullptr;
 }
+
+#ifdef CACHE_VERTEX
+
+/************************************************************************/
+/* class SplitMergeROAM::VertexBuf                                      */
+/************************************************************************/
+
+SplitMergeROAM::VertexBuf::VertexBuf(int max_tris)
+	: max_tri_chunks(max_tris)
+{
+	next_free_tri = 0;
+
+	vertices = new float[max_tri_chunks * 15];
+
+	tri_idx = new int[max_tri_chunks];
+	for (int i = 0; i < max_tri_chunks; ++i) {
+		tri_idx[i] = -1;
+	}
+}
+
+SplitMergeROAM::VertexBuf::~VertexBuf()
+{
+	delete[] vertices;
+	delete[] tri_idx;
+}
+
+#endif // CACHE_VERTEX
 
 }
