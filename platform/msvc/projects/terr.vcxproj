@@ -14,7 +14,6 @@
     <ClInclude Include="..\..\..\include\terr\HeightMapTex.h" />
     <ClInclude Include="..\..\..\include\terr\SplitMergeQueueROAM.h" />
     <ClInclude Include="..\..\..\include\terr\SplitMergeROAM.h" />
-    <ClInclude Include="..\..\..\include\terr\SplitMergeROAMOld.h" />
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h" />
     <ClInclude Include="..\..\..\include\terr\Texture.h" />
     <ClInclude Include="..\..\..\include\terr\TextureGen.h" />
@@ -25,7 +24,6 @@
     <ClCompile Include="..\..\..\source\HeightMapTex.cpp" />
     <ClCompile Include="..\..\..\source\SplitMergeQueueROAM.cpp" />
     <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp" />
-    <ClCompile Include="..\..\..\source\SplitMergeROAMOld.cpp" />
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp" />
     <ClCompile Include="..\..\..\source\Texture.cpp" />
     <ClCompile Include="..\..\..\source\TextureGen.cpp" />

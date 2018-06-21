@@ -21,9 +21,6 @@
     <ClInclude Include="..\..\..\include\terr\TileMapTex.h">
       <Filter>texture</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\SplitMergeROAMOld.h">
-      <Filter>roam</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\terr\SplitMergeROAM.h">
       <Filter>roam</Filter>
     </ClInclude>
@@ -49,9 +46,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\TileMapTex.cpp">
       <Filter>texture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\SplitMergeROAMOld.cpp">
-      <Filter>roam</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp">
       <Filter>roam</Filter>

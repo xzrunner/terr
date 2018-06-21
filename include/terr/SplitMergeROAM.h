@@ -49,7 +49,7 @@ public:
 		uint32_t number = 0;
 
 #ifdef CACHE_VERTEX
-		uint32_t tri_idx = 0;
+		int32_t tri_idx = -1;
 #endif // CACHE_VERTEX
 	};
 
@@ -66,6 +66,7 @@ public:
 		int GetNext() const { return m_next; }
 
 		int GetIndex(const BinTri* tri) const { return tri - m_tris; }
+		BinTri* QueryByIdx(int idx) const;
 
 		void Reset();
 

@@ -145,15 +145,7 @@ void SplitMergeQueueROAM::RemoveRef(BinTri* tri)
 {
 	--tri->ref_count;
 
-	if (tri->ref_count == 0)
-	{
-		// todo rm from its queue
-
-		if (m_split_queue[tri->queue_idx] == tri ||
-			m_merge_queue[tri->queue_idx] == tri) {
-			int zz = 0;
-		}
-
+	if (tri->ref_count == 0) {
 		m_pool.Free(tri);
 	}
 }
@@ -421,13 +413,6 @@ void SplitMergeQueueROAM::SplitNoBaseN(BinTri* tri)
 
 	auto l = m_pool.Alloc();
 	auto r = m_pool.Alloc();
-	if (l->next == m_pool.Freelist() && m_pool.Freelist()) {
-		int zz = 0;
-	}
-	if (r->next == m_pool.Freelist() && m_pool.Freelist()) {
-		int zz = 0;
-	}
-
 	tri->left_child  = l;
 	tri->right_child = r;
 
@@ -456,7 +441,7 @@ void SplitMergeQueueROAM::SplitNoBaseN(BinTri* tri)
 		} else if (tri->left_neighbor->right_neighbor == tri) {
 			tri->left_neighbor->right_neighbor = l;
 		} else {
-			assert(0);
+//			assert(0);
 		}
 	}
 	if (tri->right_neighbor != nullptr)
@@ -468,7 +453,7 @@ void SplitMergeQueueROAM::SplitNoBaseN(BinTri* tri)
 		} else if (tri->right_neighbor->right_neighbor == tri) {
 			tri->right_neighbor->right_neighbor = r;
 		} else {
-			assert(0);
+//			assert(0);
 		}
 	}
 
@@ -507,12 +492,6 @@ void SplitMergeQueueROAM::SplitNoBaseN(BinTri* tri)
 	UpdatePriority(r);
 
 	// update parent queue
-	if (tri->queue_idx == 3308) {
-		int zz = 0;
-	}
-	if (m_split_queue[tri->queue_idx] != tri && m_merge_queue[tri->queue_idx] != tri) {
-		int zz = 0;
-	}
 	Enqueue(tri, ROAM_MERGEQ, tri->queue_idx);
 }
 
@@ -702,11 +681,7 @@ void SplitMergeQueueROAM::UpdatePriority(BinTri* tri)
 
 void SplitMergeQueueROAM::Enqueue(BinTri* tri, int queue_flags, int queue_idx)
 {
-	if (tri->next == m_pool.Freelist() && m_pool.Freelist()) {
-		int zz = 0;
-	}
-
-	if (tri->flags & ROAM_ALLQ && tri->cull_flags == queue_idx) {
+	if ((tri->flags & ROAM_ALLQ) == queue_flags && tri->queue_idx == queue_idx) {
 		return;
 	}
 
@@ -765,13 +740,7 @@ void SplitMergeQueueROAM::Enqueue(BinTri* tri, int queue_flags, int queue_idx)
 				}
 			}
 		}
-		if (tri->next == m_pool.Freelist() && m_pool.Freelist()) {
-			int zz = 0;
-		}
 		if (tri->next) {
-			if (tri->next == m_pool.Freelist() && m_pool.Freelist()) {
-				int zz = 0;
-			}
 			tri->next->prev = tri->prev;
 		}
 		tri->prev = tri->next = nullptr;
@@ -780,26 +749,17 @@ void SplitMergeQueueROAM::Enqueue(BinTri* tri, int queue_flags, int queue_idx)
 
 	// update priority
 	tri->queue_idx = queue_idx;
-	if (queue_idx == 3308) {
-		int zz = 0;
-	}
 
 	// insert
 	if (queue_flags & ROAM_ALLQ)
 	{
 		auto queue = (queue_flags & ROAM_SPLITQ) ? m_split_queue : m_merge_queue;
-		if (queue[tri->queue_idx] == m_pool.Freelist() && m_pool.Freelist()) {
-			int zz = 0;
-		}
 		tri->prev = nullptr;
 		tri->next = queue[tri->queue_idx];
 
 		queue[tri->queue_idx] = tri;
 		if (tri->next)
 		{
-			if (tri->next == m_pool.Freelist() && m_pool.Freelist()) {
-				int zz = 0;
-			}
 			tri->next->prev = tri;
 		}
 		else
@@ -868,16 +828,10 @@ SplitMergeQueueROAM::BinTri* SplitMergeQueueROAM::BinTriPool::Alloc()
 	SplitMergeQueueROAM::BinTri* ret = nullptr;
 	if (m_freelist)
 	{
-		if (m_freelist->prev) {
-			int zz = 0;
-		}
-
 		ret = m_freelist;
 		m_freelist = m_freelist->next;
-		m_freelist->prev = nullptr;
-
-		if (m_freelist->prev) {
-			int zz = 0;
+		if (m_freelist) {
+			m_freelist->prev = nullptr;
 		}
 	}
 	else
@@ -887,6 +841,7 @@ SplitMergeQueueROAM::BinTri* SplitMergeQueueROAM::BinTriPool::Alloc()
 	}
 	assert(!ret->prev);
 	ret->prev = ret->next = nullptr;
+	ret->ref_count = 1;
 	return ret;
 }
 

@@ -98,8 +98,8 @@ void SplitMergeROAM::Reset()
 	m_se_tri->number = 3;
 
 #ifdef CACHE_VERTEX
-	m_nw_tri->tri_idx = 0;
-	m_se_tri->tri_idx = 0;
+	m_nw_tri->tri_idx = -1;
+	m_se_tri->tri_idx = -1;
 
 	AddTri(m_nw_tri);
 	AddTri(m_se_tri);
@@ -139,7 +139,7 @@ void SplitMergeROAM::Draw() const
 		RenderTri(m_se_tri, Pos(m_size - 1, m_size - 1), Pos(0, 0), Pos(m_size - 1, 0));
 	}
 #else
-	m_cb.draw(m_vb.vertices, m_vb.next_free_tri);
+	m_cb.draw(m_vb.vertices, m_vb.next_free_tri * 3);
 #endif // CACHE_VERTEX
 }
 
@@ -311,7 +311,7 @@ void SplitMergeROAM::SplitNoBaseN(BinTri* tri)
 	r->right_child = nullptr;
 
 	// connect with neighbor
-	l->base_neighbor  = tri->left_neighbor;
+	l->base_neighbor = tri->left_neighbor;
 	r->base_neighbor = tri->right_neighbor;
 	if (tri->left_neighbor != nullptr)
 	{
@@ -356,11 +356,12 @@ void SplitMergeROAM::SplitNoBaseN(BinTri* tri)
 	r->number = (tri->number << 1) + 1;
 
 #ifdef CACHE_VERTEX
-	l->tri_idx = 0;
-	r->tri_idx = 0;
+	l->tri_idx = -1;
+	r->tri_idx = -1;
 
 	AddTri(l);
 	AddTri(r);
+	RemoveTri(tri);
 #endif // CACHE_VERTEX
 }
 
@@ -482,6 +483,7 @@ void SplitMergeROAM::MergeNoBaseN(BinTri* tri)
 #ifdef CACHE_VERTEX
 	RemoveTri(tri->left_child);
 	RemoveTri(tri->right_child);
+	AddTri(tri);
 #endif // CACHE_VERTEX
 
 	m_pool.Free(tri->left_child);
@@ -510,6 +512,8 @@ void SplitMergeROAM::RenderTri(BinTri* tri, const Pos& v0, const Pos& v1, const 
 
 void SplitMergeROAM::AddTri(BinTri* tri)
 {
+	assert(tri->tri_idx < 0);
+
 	int idx = m_vb.next_free_tri;
 	if (idx >= m_vb.max_tri_chunks) {
 		std::cerr << "no tri.\n";
@@ -537,11 +541,16 @@ void SplitMergeROAM::AddTri(BinTri* tri)
 void SplitMergeROAM::RemoveTri(BinTri* tri)
 {
 	int idx = tri->tri_idx;
+	assert(idx >= 0);
 
 	//put the triangle back on the "free" list for use
-	tri->tri_idx = 0;
+	tri->tri_idx = -1;
 	--m_vb.next_free_tri;
-	memcpy(m_vb.vertices + 15 * idx, m_vb.vertices + m_vb.next_free_tri, 15 * sizeof(float));
+	memcpy(m_vb.vertices + 15 * idx, m_vb.vertices + 15 * m_vb.next_free_tri, 15 * sizeof(float));
+
+	int idx_end = m_vb.tri_idx[m_vb.next_free_tri];
+	m_pool.QueryByIdx(idx_end)->tri_idx = idx;
+	m_vb.tri_idx[idx] = idx_end;
 
 	m_verts_per_frame -= 3;
 	m_tris_per_frame--;
@@ -589,6 +598,11 @@ void SplitMergeROAM::BinTriPool::Free(BinTri* tri)
 		tri->next = nullptr;
 	}
 	m_freelist = tri;
+}
+
+SplitMergeROAM::BinTri* SplitMergeROAM::BinTriPool::QueryByIdx(int idx) const
+{
+	return idx >= 0 && idx < m_size ? &m_tris[idx] : nullptr;
 }
 
 void SplitMergeROAM::BinTriPool::Reset()
