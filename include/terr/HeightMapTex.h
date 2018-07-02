@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terr/Texture.h"
+#include <unirender/Texture.h>
 
 #include <stdint.h>
 
@@ -38,7 +38,7 @@ private:
 	bool m_use_height_info = false;
 	uint8_t* m_height_info = nullptr;
 
-	TexturePtr m_tex = nullptr;
+	ur::TexturePtr m_tex = nullptr;
 
 }; // HeightMapTex
 

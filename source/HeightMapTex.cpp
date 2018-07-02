@@ -49,7 +49,7 @@ void HeightMapTex::LoadFromRawFile(const char* filepath, size_t size)
 	{
 		auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 		int texid = rc.CreateTexture(pixels, size, size, ur::TEXTURE_A8);
-		m_tex = std::make_unique<Texture>(texid, size, size, ur::TEXTURE_A8);
+		m_tex = std::make_unique<ur::Texture>(&rc, size, size, ur::TEXTURE_A8, texid);
 	}
 	fin.close();
 
@@ -71,7 +71,7 @@ void HeightMapTex::LoadFromImgFile(const char* filepath)
 	{
 		auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 		int texid = rc.CreateTexture(pixels, width, height, ur::TEXTURE_A8);
-		m_tex = std::make_unique<Texture>(texid, width, height, ur::TEXTURE_A8);
+		m_tex = std::make_unique<ur::Texture>(&rc, width, height, ur::TEXTURE_A8, texid);
 	}
 
 	if (m_use_height_info) {
@@ -259,7 +259,7 @@ void HeightMapTex::MakeHeightMapPlasma(int size, float roughness)
 	auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 	int texid = rc.CreateTexture(pixels, size, size, ur::TEXTURE_A8);
 
-	m_tex = std::make_unique<Texture>(texid, size, size, ur::TEXTURE_A8);
+	m_tex = std::make_unique<ur::Texture>(&rc, size, size, ur::TEXTURE_A8, texid);
 
 	if (m_use_height_info) {
 		if (m_height_info) {
@@ -355,7 +355,7 @@ void HeightMapTex::MakeHeightMapFault(int size, int iIterations, int iMinDelta, 
 	auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 	int texid = rc.CreateTexture(pixels, size, size, ur::TEXTURE_A8);
 
-	m_tex = std::make_unique<Texture>(texid, size, size, ur::TEXTURE_A8);
+	m_tex = std::make_unique<ur::Texture>(&rc, size, size, ur::TEXTURE_A8, texid);
 
 	if (m_use_height_info) {
 		if (m_height_info) {
@@ -373,7 +373,7 @@ void HeightMapTex::Bind(int channel) const
 	if (m_tex)
 	{
 		auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-		rc.BindTexture(m_tex->GetTexID(), channel);
+		rc.BindTexture(m_tex->TexID(), channel);
 	}
 }
 

@@ -15,9 +15,6 @@
     <ClInclude Include="..\..\..\include\terr\HeightMapTex.h">
       <Filter>texture</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\Texture.h">
-      <Filter>texture</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\terr\TileMapTex.h">
       <Filter>texture</Filter>
     </ClInclude>
@@ -39,9 +36,6 @@
       <Filter>roam</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\HeightMapTex.cpp">
-      <Filter>texture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\Texture.cpp">
       <Filter>texture</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\TileMapTex.cpp">

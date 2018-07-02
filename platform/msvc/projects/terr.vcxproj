@@ -15,7 +15,6 @@
     <ClInclude Include="..\..\..\include\terr\SplitMergeQueueROAM.h" />
     <ClInclude Include="..\..\..\include\terr\SplitMergeROAM.h" />
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h" />
-    <ClInclude Include="..\..\..\include\terr\Texture.h" />
     <ClInclude Include="..\..\..\include\terr\TextureGen.h" />
     <ClInclude Include="..\..\..\include\terr\TextureLoader.h" />
     <ClInclude Include="..\..\..\include\terr\TileMapTex.h" />
@@ -25,7 +24,6 @@
     <ClCompile Include="..\..\..\source\SplitMergeQueueROAM.cpp" />
     <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp" />
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp" />
-    <ClCompile Include="..\..\..\source\Texture.cpp" />
     <ClCompile Include="..\..\..\source\TextureGen.cpp" />
     <ClCompile Include="..\..\..\source\TextureLoader.cpp" />
     <ClCompile Include="..\..\..\source\TileMapTex.cpp" />
@@ -73,7 +71,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\gimg\src\gimg;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\gimg\src\gimg;..\..\..\..\external\boost\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -87,7 +85,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\gimg\src\gimg;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\gimg\src\gimg;..\..\..\..\external\boost\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

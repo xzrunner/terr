@@ -1,6 +1,6 @@
 #pragma once
 
-#include "terr/Texture.h"
+#include <unirender/Texture.h>
 
 #include <array>
 
@@ -27,7 +27,7 @@ private:
 		MAX_TILE
 	};
 
-	std::array<TexturePtr, MAX_TILE> m_tile_map_tex;
+	std::array<ur::TexturePtr, MAX_TILE> m_tile_map_tex;
 
 }; // TileMapTex
 
