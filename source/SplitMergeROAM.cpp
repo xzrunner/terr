@@ -254,7 +254,7 @@ void SplitMergeROAM::RecurseTesselate(BinTri* tri, bool entirely_in_frustum)
 	}
 
 	// if now split, descend the tree
-	if (tri->left_child && tri->number < m_split_cutoff)
+	if (tri->left_child && static_cast<int>(tri->number) < m_split_cutoff)
 	{
 		RecurseTesselate(tri->left_child, entirely_in_frustum);
 		RecurseTesselate(tri->right_child, entirely_in_frustum);

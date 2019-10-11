@@ -181,7 +181,7 @@ bool SplitMergeQueueROAM::Update()
 	static int i0 = 0;
 	size_t pol_sz = m_pool.GetSize();
 	int i1 = i0 + (pol_sz + (U - 1)) / U;
-	if (i1 >= pol_sz) {
+	if (i1 >= static_cast<int>(pol_sz)) {
 		i1 = pol_sz - 1;
 	}
 	for (int i = i0; i <= i1; ++i)
@@ -373,7 +373,7 @@ void SplitMergeQueueROAM::RecurseTesselate(BinTri* tri, bool entirely_in_frustum
 	}
 
 	// if now split, descend the tree
-	if (tri->left_child && tri->number < m_split_cutoff)
+	if (tri->left_child && static_cast<int>(tri->number) < m_split_cutoff)
 	{
 		RecurseTesselate(tri->left_child, entirely_in_frustum);
 		RecurseTesselate(tri->right_child, entirely_in_frustum);

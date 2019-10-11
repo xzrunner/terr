@@ -82,7 +82,7 @@ void SplitOnlyROAM::Init()
 
 	m_hypo_len = new float[m_levels];
 	// todo: 0, 1 ?
-	float sqrt2 = std::sqrt(2);
+	float sqrt2 = std::sqrt(2.0f);
 	float diagonal_len = m_size * sqrt2;
 	m_hypo_len[2] = diagonal_len;
 	for (int i = 3; i < m_levels; ++i) {
@@ -188,7 +188,8 @@ void SplitOnlyROAM::SplitIfNeeded(int num, BinTri *tri, const Pos& v0, const Pos
 	Pos vc((v0.x + v1.x) >> 1, (v0.y + v1.y) >> 1);
 	if (!entirely_in_frustum)
 	{
-		if (m_cb.sphere_in_frustum(vc.x, vc.y, m_hypo_len[level] / 2.0f)) {
+		if (m_cb.sphere_in_frustum(static_cast<float>(vc.x), 
+            static_cast<float>(vc.y), m_hypo_len[level] / 2.0f)) {
 			entirely_in_frustum = true;
 		} else {
 			return;
