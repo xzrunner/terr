@@ -7,6 +7,24 @@
     <Filter Include="texture">
       <UniqueIdentifier>{71597015-8dae-47f4-90fd-1674d64e7874}</UniqueIdentifier>
     </Filter>
+    <Filter Include="dataset">
+      <UniqueIdentifier>{5ddc0814-efb6-4350-8a0c-0aa6a363388f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{8ee19c45-7400-4801-8f1d-49bc55eacbfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="eval">
+      <UniqueIdentifier>{ad27c0a3-15ea-424d-a706-23aea9f65b1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices">
+      <UniqueIdentifier>{85173420-db50-48a6-adb8-7d30616a205f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\generator">
+      <UniqueIdentifier>{d498651a-bc1b-4302-8ecf-96b14a27370d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\natural">
+      <UniqueIdentifier>{1020d685-ee4f-4b84-8cad-90d0026ff724}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h">
@@ -30,6 +48,56 @@
     <ClInclude Include="..\..\..\include\terr\TextureLoader.h">
       <Filter>texture</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\Context.h">
+      <Filter>dataset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\Utility.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\Evaluator.h">
+      <Filter>eval</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\typedef.h" />
+    <ClInclude Include="..\..\..\include\terr\Terr.h" />
+    <ClInclude Include="..\..\..\include\terr\Device.h">
+      <Filter>dataset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\DeviceVarType.h">
+      <Filter>dataset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Erosion.h">
+      <Filter>devices\natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Erosion.parm.h">
+      <Filter>devices\natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\HeightField.h">
+      <Filter>dataset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\PerlinNoise.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.parm.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\PlasmaFractal.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\PlasmaFractal.parm.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\BasicNoise.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\BasicNoise.parm.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\DeviceHelper.h">
+      <Filter>tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -52,6 +120,37 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\TextureLoader.cpp">
       <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Utility.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Evaluator.cpp">
+      <Filter>eval</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\RegistRTTR.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Terr.cpp" />
+    <ClCompile Include="..\..\..\source\Device.cpp">
+      <Filter>dataset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Erosion.cpp">
+      <Filter>devices\natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HeightField.cpp">
+      <Filter>dataset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp">
+      <Filter>devices\generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
+      <Filter>devices\generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\BasicNoise.cpp">
+      <Filter>devices\generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\DeviceHelper.cpp">
+      <Filter>tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
