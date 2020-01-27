@@ -138,7 +138,7 @@ void Erosion::InitializeBrushIndices(size_t size)
             {
                 for (int x = -ir; x <= ir; x++)
                 {
-                    float sqr_dst = x * x + y * y;
+                    float sqr_dst = static_cast<float>(x * x + y * y);
                     if (sqr_dst < m_radius * m_radius)
                     {
                         int coord_x = cx + x;
