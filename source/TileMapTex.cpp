@@ -16,10 +16,10 @@ TileMapTex::TileMapTex()
 
 void TileMapTex::Init()
 {
-	m_tile_map_tex[LOWEST_TILE]  = TextureLoader::LoadFromFile("lowestTile.tga");
-	m_tile_map_tex[LOW_TILE]     = TextureLoader::LoadFromFile("lowTile.tga");
-	m_tile_map_tex[HIGH_TILE]    = TextureLoader::LoadFromFile("highTile.tga");
-	m_tile_map_tex[HIGHEST_TILE] = TextureLoader::LoadFromFile("highestTile.tga");
+	m_tile_map_tex[LOWEST_TILE]  = TextureLoader::LoadFromFile("assets\\terrain\\lowestTile.tga");
+	m_tile_map_tex[LOW_TILE]     = TextureLoader::LoadFromFile("assets\\terrain\\lowTile.tga");
+	m_tile_map_tex[HIGH_TILE]    = TextureLoader::LoadFromFile("assets\\terrain\\highTile.tga");
+	m_tile_map_tex[HIGHEST_TILE] = TextureLoader::LoadFromFile("assets\\terrain\\highestTile.tga");
 }
 
 void TileMapTex::Bind(int channel_offset) const
