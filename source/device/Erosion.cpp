@@ -2,6 +2,7 @@
 #include "terr/Context.h"
 #include "terr/HeightField.h"
 #include "terr/DeviceHelper.h"
+#include "terr/HeightFieldEval.h"
 
 #include <SM_Vector.h>
 
@@ -48,7 +49,7 @@ void Erosion::Execute(const Context& ctx)
             const float cell_off_x = pos.x - node_x;
             const float cell_off_y = pos.y - node_y;
 
-            const auto gradient = m_hf->Gradient(node_x, node_y);
+            const auto gradient = HeightFieldEval::Gradient(*m_hf, node_x, node_y);
 
             // calc next pos
             dir.x = (dir.x - gradient.x) * m_ki + gradient.x;

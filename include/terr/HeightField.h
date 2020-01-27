@@ -27,8 +27,6 @@ public:
     size_t Width() const { return m_x; }
     size_t Height() const { return m_y; }
 
-    sm::vec2 Gradient(size_t x, size_t y) const;
-
 private:
     size_t m_x = 0, m_y = 0;
 

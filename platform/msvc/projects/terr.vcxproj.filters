@@ -25,6 +25,9 @@
     <Filter Include="devices\natural">
       <UniqueIdentifier>{1020d685-ee4f-4b84-8cad-90d0026ff724}</UniqueIdentifier>
     </Filter>
+    <Filter Include="dataset\height">
+      <UniqueIdentifier>{70e74652-ea7e-4465-9f08-76fb9a180668}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h">
@@ -71,9 +74,6 @@
     <ClInclude Include="..\..\..\include\terr\device\Erosion.parm.h">
       <Filter>devices\natural</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\HeightField.h">
-      <Filter>dataset</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\terr\PerlinNoise.h">
       <Filter>tools</Filter>
     </ClInclude>
@@ -97,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\DeviceHelper.h">
       <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\HeightField.h">
+      <Filter>dataset\height</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\HeightFieldEval.h">
+      <Filter>dataset\height</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +143,6 @@
     <ClCompile Include="..\..\..\source\device\Erosion.cpp">
       <Filter>devices\natural</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\HeightField.cpp">
-      <Filter>dataset</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp">
       <Filter>devices\generator</Filter>
     </ClCompile>
@@ -151,6 +154,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp">
       <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HeightField.cpp">
+      <Filter>dataset\height</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HeightFieldEval.cpp">
+      <Filter>dataset\height</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

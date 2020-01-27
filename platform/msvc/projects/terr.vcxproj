@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.parm.h" />
     <ClInclude Include="..\..\..\include\terr\Evaluator.h" />
     <ClInclude Include="..\..\..\include\terr\HeightField.h" />
+    <ClInclude Include="..\..\..\include\terr\HeightFieldEval.h" />
     <ClInclude Include="..\..\..\include\terr\HeightMapTex.h" />
     <ClInclude Include="..\..\..\include\terr\Device.h" />
     <ClInclude Include="..\..\..\include\terr\DeviceVarType.h" />
@@ -45,6 +46,7 @@
     <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp" />
     <ClCompile Include="..\..\..\source\Evaluator.cpp" />
     <ClCompile Include="..\..\..\source\HeightField.cpp" />
+    <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />
     <ClCompile Include="..\..\..\source\HeightMapTex.cpp" />
     <ClCompile Include="..\..\..\source\Device.cpp" />
     <ClCompile Include="..\..\..\source\RegistRTTR.cpp" />

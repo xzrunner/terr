@@ -111,32 +111,4 @@ void HeightField::Scale(float scale)
     }
 }
 
-sm::vec2 HeightField::Gradient(size_t x, size_t y) const
-{
-    if (x >= m_x || y >= m_y) {
-        assert(0);
-        return sm::vec2();
-    }
-    
-    sm::vec2 g;
-
-    if (x == 0) {
-        g.x = Get(x + 1, y) - Get(x, y);
-    } else if (x == m_x - 1) {
-        g.x = Get(x, y) - Get(x - 1, y);
-    } else {
-        g.x = (Get(x + 1, y) - Get(x - 1, y)) / 2;
-    }
-
-    if (y == 0) {
-        g.y = Get(x, y + 1) - Get(x, y);
-    } else if (y == m_y - 1) {
-        g.y = Get(x, y) - Get(x, y - 1);
-    } else {
-        g.y = (Get(x, y + 1) - Get(x, y - 1)) / 2;
-    }
-
-	return g;    
-}
-
 }
