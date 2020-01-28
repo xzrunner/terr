@@ -28,6 +28,9 @@
     <Filter Include="dataset\height">
       <UniqueIdentifier>{70e74652-ea7e-4465-9f08-76fb9a180668}</UniqueIdentifier>
     </Filter>
+    <Filter Include="dataset\device">
+      <UniqueIdentifier>{bf388a0f-0033-410a-aff9-6df11ceccc81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h">
@@ -62,12 +65,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\typedef.h" />
     <ClInclude Include="..\..\..\include\terr\Terr.h" />
-    <ClInclude Include="..\..\..\include\terr\Device.h">
-      <Filter>dataset</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\DeviceVarType.h">
-      <Filter>dataset</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\Erosion.h">
       <Filter>devices\natural</Filter>
     </ClInclude>
@@ -101,8 +98,17 @@
     <ClInclude Include="..\..\..\include\terr\HeightField.h">
       <Filter>dataset\height</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\Device.h">
+      <Filter>dataset\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\DeviceVarType.h">
+      <Filter>dataset\device</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\terr\HeightFieldEval.h">
       <Filter>dataset\height</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\TextureBaker.h">
+      <Filter>texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +143,6 @@
       <Filter>tools</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\Terr.cpp" />
-    <ClCompile Include="..\..\..\source\Device.cpp">
-      <Filter>dataset</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\device\Erosion.cpp">
       <Filter>devices\natural</Filter>
     </ClCompile>
@@ -158,8 +161,14 @@
     <ClCompile Include="..\..\..\source\HeightField.cpp">
       <Filter>dataset\height</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\Device.cpp">
+      <Filter>dataset\device</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp">
       <Filter>dataset\height</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\TextureBaker.cpp">
+      <Filter>texture</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
