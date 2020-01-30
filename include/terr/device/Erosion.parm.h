@@ -2,7 +2,7 @@
 #error "You must define PARAM_INFO macro before include this file"
 #endif
 
-PARAM_INFO(Iterations,             Int,   iter,      m_iter,      (1))
+PARAM_INFO(Iterations,             Int,   iter,      m_iter,      (5))
 PARAM_INFO(ErosionRadius,          Float, radius,    m_radius,    (3))
 
 PARAM_INFO(SedimentCapacityFactor, Float, kq,        m_kq,        (10))
