@@ -111,4 +111,27 @@ void HeightField::Scale(float scale)
     }
 }
 
+void HeightField::Normalize()
+{
+    float min = std::numeric_limits<float>::max();
+    float max = std::numeric_limits<float>::min();
+    for (auto& v : m_values)
+    {
+        if (v < min) {
+            min = v;
+        }
+        if (v > max) {
+            max = v;
+        }
+    }
+    if (min == max) {
+        return;
+    }
+
+    for (auto& v : m_values) {
+        v = (v - min) / (max - min);
+    }
+}
+
+
 }

@@ -23,6 +23,7 @@ public:
     bool Fill(const std::vector<float>& heights);
 
     void Scale(float scale);
+    void Normalize();
 
     size_t Width() const { return m_x; }
     size_t Height() const { return m_y; }

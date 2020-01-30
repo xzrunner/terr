@@ -155,36 +155,9 @@ void PlasmaFractal::MakePlasma(size_t size)
     NormalizeTerrain(fTempBuffer);
 
     m_hf->Fill(fTempBuffer);
-}
-
-void PlasmaFractal::NormalizeTerrain(std::vector<float>& height_data)
-{
-	float fMin, fMax;
-	float fHeight;
-
-	fMin = height_data[0];
-	fMax = height_data[0];
-
-	//find the min/max values of the height fTempBuffer
-	for (int i = 1, n = height_data.size(); i < n; ++i)
-	{
-		if (height_data[i]>fMax)
-			fMax = height_data[i];
-
-		else if (height_data[i]<fMin)
-			fMin = height_data[i];
+		height *= height_reducer;
 	}
 
-	//find the range of the altitude
-	if (fMax <= fMin)
-		return;
-
-	fHeight = fMax - fMin;
-
-	//scale the values to a range of 0-255 (because I like things that way)
-    for (int i = 1, n = height_data.size(); i < n; ++i) {
-        height_data[i] = ((height_data[i] - fMin) / fHeight)*255.0f;
-    }
 }
 
 }
