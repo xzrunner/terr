@@ -2,4 +2,4 @@
 #error "You must define PARAM_INFO macro before include this file"
 #endif
 
-PARAM_INFO(Roughness, Float, roughness, m_roughness, (0.5f))
+PARAM_INFO(Roughness, Float, roughness, m_roughness, (1.0f))
