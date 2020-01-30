@@ -36,7 +36,7 @@ void Erosion::Execute(const Context& ctx)
         // Create water droplet at random point on map
         sm::vec2 pos;
         pos.x = static_cast<float>(rand()) / RAND_MAX * (ctx.size - 1);
-        pos.x = static_cast<float>(rand()) / RAND_MAX * (ctx.size - 1);
+        pos.y = static_cast<float>(rand()) / RAND_MAX * (ctx.size - 1);
         sm::vec2 dir(0, 0);
         float speed = init_speed;
         float water = init_water_volume;
