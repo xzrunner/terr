@@ -17,11 +17,12 @@ void Erosion::Execute(const Context& ctx)
 {
     bool new_hf = m_hf == nullptr;
 
-    m_hf = DeviceHelper::GetInputHeight(*this, 0);
-    if (!m_hf) {
+    auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
+    if (!prev_hf) {
         return;
     }
 
+    m_hf = std::make_shared<HeightField>(*prev_hf);
     if (new_hf || m_map_sz != ctx.size) {
         InitializeBrushIndices(ctx.size);
     }
