@@ -17,30 +17,23 @@ void PlasmaFractal::Execute(const Context& ctx)
 
 void PlasmaFractal::MakePlasma(size_t size)
 {
-	float fHeight, fHeightReducer;
-	int iRectSize = size;
-	int ni, nj;
-	int mi, mj;
-	int pmi, pmj;
-	int i, j;
-	int x, z;
-
     if (m_roughness < 0) {
         m_roughness *= -1;
     }
 
-	fHeight = (float)iRectSize / 2;
-	fHeightReducer = (float)pow(2, -1 * m_roughness);
+    int rect_size = size;
+	float height = (float)rect_size / 2;
+	float height_reducer = (float)pow(2, -1 * m_roughness);
 
 	//allocate the memory for our height data
 
-	std::vector<float> fTempBuffer(size * size, 0);
+	std::vector<float> temp_buf(size * size, 0);
 
 	//set the first value in the height field
-	fTempBuffer[0] = 0.0f;
+	temp_buf[0] = 0.0f;
 
 	//being the displacement process
-	while (iRectSize>0)
+	while (rect_size > 0)
 	{
 		/*Diamond step -
 
@@ -62,17 +55,17 @@ void PlasmaFractal::MakePlasma(size_t size)
 		c = (i,nj)
 		d = (ni,nj)
 		e = (mi,mj)   */
-		for (i = 0; i<size; i += iRectSize)
+		for (int i = 0; i < size; i += rect_size)
 		{
-			for (j = 0; j<size; j += iRectSize)
+			for (int j = 0; j < size; j += rect_size)
 			{
-				ni = (i + iRectSize) % size;
-				nj = (j + iRectSize) % size;
+                int ni = (i + rect_size) % size;
+                int nj = (j + rect_size) % size;
 
-				mi = (i + iRectSize / 2);
-				mj = (j + iRectSize / 2);
+                int mi = (i + rect_size / 2);
+                int mj = (j + rect_size / 2);
 
-				fTempBuffer[mi + mj * size] = (float)((fTempBuffer[i + j * size] + fTempBuffer[ni + j * size] + fTempBuffer[i + nj * size] + fTempBuffer[ni + nj * size]) / 4 + Utility::RangedRandom(-fHeight / 2, fHeight / 2));
+				temp_buf[mi + mj * size] = (float)((temp_buf[i + j * size] + temp_buf[ni + j * size] + temp_buf[i + nj * size] + temp_buf[ni + nj * size]) / 4 + Utility::RangedRandom(-height / 2, height / 2));
 			}
 		}
 
@@ -113,51 +106,46 @@ void PlasmaFractal::MakePlasma(size_t size)
 		f = (mi,mj)
 		g = (mi,j)
 		h = (i,mj)*/
-		for (i = 0; i<size; i += iRectSize)
+		for (int i = 0; i<size; i += rect_size)
 		{
-			for (j = 0; j<size; j += iRectSize)
+			for (int j = 0; j<size; j += rect_size)
 			{
 
-				ni = (i + iRectSize) % size;
-				nj = (j + iRectSize) % size;
+                int ni = (i + rect_size) % size;
+                int nj = (j + rect_size) % size;
 
-				mi = (i + iRectSize / 2);
-				mj = (j + iRectSize / 2);
+                int mi = (i + rect_size / 2);
+                int mj = (j + rect_size / 2);
 
-				pmi = (i - iRectSize / 2 + size) % size;
-				pmj = (j - iRectSize / 2 + size) % size;
+                int pmi = (i - rect_size / 2 + size) % size;
+                int pmj = (j - rect_size / 2 + size) % size;
 
 				//Calculate the square value for the top side of the rectangle
-				fTempBuffer[mi + j * size] = (float)((fTempBuffer[i + j * size] +
-					fTempBuffer[ni + j * size] +
-					fTempBuffer[mi + pmj * size] +
-					fTempBuffer[mi + mj * size]) / 4 +
-                    Utility::RangedRandom(-fHeight / 2, fHeight / 2));
+				temp_buf[mi + j * size] = (float)((temp_buf[i + j * size] +
+					temp_buf[ni + j * size] +
+					temp_buf[mi + pmj * size] +
+					temp_buf[mi + mj * size]) / 4 +
+                    Utility::RangedRandom(-height / 2, height / 2));
 
 				//Calculate the square value for the left side of the rectangle
-				fTempBuffer[i + mj * size] = (float)((fTempBuffer[i + j * size] +
-					fTempBuffer[i + nj * size] +
-					fTempBuffer[pmi + mj * size] +
-					fTempBuffer[mi + mj * size]) / 4 +
-                    Utility::RangedRandom(-fHeight / 2, fHeight / 2));
+				temp_buf[i + mj * size] = (float)((temp_buf[i + j * size] +
+					temp_buf[i + nj * size] +
+					temp_buf[pmi + mj * size] +
+					temp_buf[mi + mj * size]) / 4 +
+                    Utility::RangedRandom(-height / 2, height / 2));
 			}
 		}
 
 		//reduce the rectangle size by two to prepare for the next
 		//displacement stage
-		iRectSize /= 2;
+		rect_size /= 2;
 
 		//reduce the height by the height reducer
-		fHeight *= fHeightReducer;
-	}
-
-	//normalize the terrain for our purposes
-    NormalizeTerrain(fTempBuffer);
-
-    m_hf->Fill(fTempBuffer);
 		height *= height_reducer;
 	}
 
+    m_hf->Fill(temp_buf);
+    m_hf->Normalize();
 }
 
 }
