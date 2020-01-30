@@ -110,6 +110,12 @@
     <ClInclude Include="..\..\..\include\terr\TextureBaker.h">
       <Filter>texture</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\FaultFractal.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\FaultFractal.parm.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -169,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\TextureBaker.cpp">
       <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
+      <Filter>devices\generator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
