@@ -31,6 +31,9 @@
     <Filter Include="dataset\device">
       <UniqueIdentifier>{bf388a0f-0033-410a-aff9-6df11ceccc81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="devices\combiner">
+      <UniqueIdentifier>{5f61cd72-cb33-45f7-94e8-ca85ed3d6ffd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h">
@@ -122,6 +125,12 @@
     <ClInclude Include="..\..\..\include\terr\device\FileInput.parm.h">
       <Filter>devices\generator</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Combiner.h">
+      <Filter>devices\combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Combiner.parm.h">
+      <Filter>devices\combiner</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -187,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\FileInput.cpp">
       <Filter>devices\generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Combiner.cpp">
+      <Filter>devices\combiner</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

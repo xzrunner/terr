@@ -28,6 +28,9 @@ public:
     size_t Width() const { return m_x; }
     size_t Height() const { return m_y; }
 
+    auto& GetValues() const { return m_values; }
+    void SetValues(const std::vector<float>& values);
+
 private:
     size_t m_x = 0, m_y = 0;
 

@@ -133,5 +133,14 @@ void HeightField::Normalize()
     }
 }
 
+void HeightField::SetValues(const std::vector<float>& values)
+{
+    if (m_x * m_y != values.size()) {
+        return;
+    }
+
+    assert(m_values.size() == values.size());
+    m_values = values;
+}
 
 }

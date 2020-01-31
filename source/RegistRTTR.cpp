@@ -4,6 +4,8 @@
 #include "terr/device/FileInput.h"
 #include "terr/device/PerlinNoise.h"
 #include "terr/device/PlasmaFractal.h"
+// combiner
+#include "terr/device/Combiner.h"
 // natural
 #include "terr/device/Erosion.h"
 
@@ -13,6 +15,10 @@
 	rttr::registration::class_<terr::device::type>("terr::"#name) \
 		.constructor<>()                                        \
 	;
+
+#define REGIST_ENUM_ITEM(type, name, label) \
+    rttr::value(name, type),                \
+    rttr::metadata(type, label)             \
 
 RTTR_REGISTRATION
 {
@@ -70,6 +76,27 @@ rttr::registration::class_<terr::device::PlasmaFractal>("terr::plasma_fractal")
 .constructor<>()
 #define PARM_FILEPATH "terr/device/PlasmaFractal.parm.h"
 #define PARM_NODE_CLASS terr::device::PlasmaFractal
+#include <dag/rttr_prop_gen.h>
+#undef PARM_NODE_CLASS
+#undef PARM_FILEPATH
+;
+
+// combiner
+
+rttr::registration::enumeration < terr::device::Combiner::Method> ("cga_extrusion_type")
+(
+    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Average,  "average",  "Average"),
+    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Add,      "add",      "Add"),
+    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Subtract, "subtract", "Subtract"),
+    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Multiply, "multiply", "Multiply"),
+    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Divide,   "divide",   "Divide"),
+    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Max,      "max",      "Max"),
+    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Min,      "min",      "Min")
+);
+rttr::registration::class_<terr::device::Combiner>("terr::combiner")
+.constructor<>()
+#define PARM_FILEPATH "terr/device/Combiner.parm.h"
+#define PARM_NODE_CLASS terr::device::Combiner
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
