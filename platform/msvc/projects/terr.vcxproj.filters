@@ -116,6 +116,12 @@
     <ClInclude Include="..\..\..\include\terr\device\FaultFractal.parm.h">
       <Filter>devices\generator</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\FileInput.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\FileInput.parm.h">
+      <Filter>devices\generator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -177,6 +183,9 @@
       <Filter>texture</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
+      <Filter>devices\generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FileInput.cpp">
       <Filter>devices\generator</Filter>
     </ClCompile>
   </ItemGroup>
