@@ -6,6 +6,8 @@
 #include "terr/device/PlasmaFractal.h"
 // combiner
 #include "terr/device/Combiner.h"
+// filter
+#include "terr/device/Curves.h"
 // natural
 #include "terr/device/Erosion.h"
 
@@ -81,9 +83,25 @@ rttr::registration::class_<terr::device::PlasmaFractal>("terr::plasma_fractal")
 #undef PARM_FILEPATH
 ;
 
+// filter
+
+rttr::registration::enumeration<terr::device::Curves::Type> ("terr_curves_type")
+(
+    REGIST_ENUM_ITEM(terr::device::Curves::Type::Linear, "linear", "Linear"),
+    REGIST_ENUM_ITEM(terr::device::Curves::Type::Spline, "spline", "Spline")
+);
+rttr::registration::class_<terr::device::Curves>("terr::curves")
+.constructor<>()
+#define PARM_FILEPATH "terr/device/Curves.parm.h"
+#define PARM_NODE_CLASS terr::device::Curves
+#include <dag/rttr_prop_gen.h>
+#undef PARM_NODE_CLASS
+#undef PARM_FILEPATH
+;
+
 // combiner
 
-rttr::registration::enumeration < terr::device::Combiner::Method> ("cga_extrusion_type")
+rttr::registration::enumeration<terr::device::Combiner::Method> ("terr_combiner_method")
 (
     REGIST_ENUM_ITEM(terr::device::Combiner::Method::Average,  "average",  "Average"),
     REGIST_ENUM_ITEM(terr::device::Combiner::Method::Add,      "add",      "Add"),

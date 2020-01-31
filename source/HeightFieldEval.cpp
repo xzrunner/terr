@@ -35,7 +35,7 @@ sm::vec2 HeightFieldEval::Gradient(const HeightField& hf, size_t x, size_t y)
 }
 
 sm::vec3 HeightFieldEval::Normal(const HeightField& hf, size_t x,
-                            size_t y, const sm::vec3& scale)
+                                 size_t y, const sm::vec3& scale)
 {
     const auto w = hf.Width();
     const auto h = hf.Height();
@@ -92,6 +92,22 @@ sm::vec3 HeightFieldEval::Normal(const HeightField& hf, size_t x,
         num += 2;
     }
     return tot_norm / static_cast<float>(num);
+}
+
+void HeightFieldEval::Region(const HeightField& hf, float& min, float& max)
+{
+    min = std::numeric_limits<float>::max();
+    max = -std::numeric_limits<float>::max();
+    auto& vals = hf.GetValues();
+    for (auto& v : vals)
+    {
+        if (v < min) {
+            min = v;
+        }
+        if (v > max) {
+            max = v;
+        }
+    }
 }
 
 }

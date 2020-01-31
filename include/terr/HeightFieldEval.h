@@ -15,6 +15,8 @@ public:
     static sm::vec3 Normal(const HeightField& hf,
         size_t x, size_t y, const sm::vec3& scale);
 
+    static void Region(const HeightField& hf, float& min, float& max);
+
 }; // HeightFieldEval
 
 }

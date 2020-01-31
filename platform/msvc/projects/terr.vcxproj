@@ -17,6 +17,8 @@
     <ClInclude Include="..\..\..\include\terr\device\BasicNoise.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\Combiner.h" />
     <ClInclude Include="..\..\..\include\terr\device\Combiner.parm.h" />
+    <ClInclude Include="..\..\..\include\terr\device\Curves.h" />
+    <ClInclude Include="..\..\..\include\terr\device\Curves.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\FaultFractal.h" />
     <ClInclude Include="..\..\..\include\terr\device\FaultFractal.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\FileInput.h" />
@@ -46,6 +48,7 @@
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp" />
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Combiner.cpp" />
+    <ClCompile Include="..\..\..\source\device\Curves.cpp" />
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
     <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp" />
