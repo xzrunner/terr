@@ -21,29 +21,13 @@ TextureBaker::GenHeightMap(const HeightField& hf,
         ret = std::make_shared<ur::Texture>();
     }
 
-    float min = std::numeric_limits<float>::max();
-    float max = std::numeric_limits<float>::min();
-    for (size_t y = 0; y < h; ++y) {
-        for (size_t x = 0; x < w; ++x) {
-            auto h = hf.Get(x, y);
-            if (h < min) {
-                min = h;
-            }
-            if (h > max) {
-                max = h;
-            }
-        }
-    }
-
     std::vector<unsigned char> pixels;
     pixels.reserve(w * h);
 
-    const float scale = 255.0f / (max - min);
-
     for (size_t y = 0; y < h; ++y) {
         for (size_t x = 0; x < w; ++x) {
             auto h = hf.Get(x, y);
-            pixels.push_back(static_cast<unsigned char>((h - min) * scale));
+            pixels.push_back(static_cast<unsigned char>(h * 255.0f));
         }
     }
 
