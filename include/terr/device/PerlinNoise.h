@@ -20,7 +20,7 @@ public:
     PerlinNoise()
     {
         m_exports = {
-            {{ DeviceVarType::Any, "out" }},
+            {{ DeviceVarType::Heightmap, "out" }},
         };
     }
 
