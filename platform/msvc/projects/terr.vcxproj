@@ -31,7 +31,6 @@
     <ClInclude Include="..\..\..\include\terr\HeightField.h" />
     <ClInclude Include="..\..\..\include\terr\HeightFieldEval.h" />
     <ClInclude Include="..\..\..\include\terr\TextureBaker.h" />
-    <ClInclude Include="..\..\..\include\terr\HeightMapTex.h" />
     <ClInclude Include="..\..\..\include\terr\Device.h" />
     <ClInclude Include="..\..\..\include\terr\DeviceVarType.h" />
     <ClInclude Include="..\..\..\include\terr\PerlinNoise.h" />
@@ -40,8 +39,6 @@
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h" />
     <ClInclude Include="..\..\..\include\terr\Terr.h" />
     <ClInclude Include="..\..\..\include\terr\TextureGen.h" />
-    <ClInclude Include="..\..\..\include\terr\TextureLoader.h" />
-    <ClInclude Include="..\..\..\include\terr\TileMapTex.h" />
     <ClInclude Include="..\..\..\include\terr\typedef.h" />
     <ClInclude Include="..\..\..\include\terr\Utility.h" />
   </ItemGroup>
@@ -58,7 +55,6 @@
     <ClCompile Include="..\..\..\source\HeightField.cpp" />
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />
     <ClCompile Include="..\..\..\source\TextureBaker.cpp" />
-    <ClCompile Include="..\..\..\source\HeightMapTex.cpp" />
     <ClCompile Include="..\..\..\source\Device.cpp" />
     <ClCompile Include="..\..\..\source\RegistRTTR.cpp" />
     <ClCompile Include="..\..\..\source\SplitMergeQueueROAM.cpp" />
@@ -66,8 +62,6 @@
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp" />
     <ClCompile Include="..\..\..\source\Terr.cpp" />
     <ClCompile Include="..\..\..\source\TextureGen.cpp" />
-    <ClCompile Include="..\..\..\source\TextureLoader.cpp" />
-    <ClCompile Include="..\..\..\source\TileMapTex.cpp" />
     <ClCompile Include="..\..\..\source\Utility.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

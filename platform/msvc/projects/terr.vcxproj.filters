@@ -39,12 +39,6 @@
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h">
       <Filter>roam</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\HeightMapTex.h">
-      <Filter>texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\TileMapTex.h">
-      <Filter>texture</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\terr\SplitMergeROAM.h">
       <Filter>roam</Filter>
     </ClInclude>
@@ -52,9 +46,6 @@
       <Filter>roam</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\TextureGen.h">
-      <Filter>texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\TextureLoader.h">
       <Filter>texture</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\Context.h">
@@ -136,12 +127,6 @@
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
       <Filter>roam</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\HeightMapTex.cpp">
-      <Filter>texture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\TileMapTex.cpp">
-      <Filter>texture</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp">
       <Filter>roam</Filter>
     </ClCompile>
@@ -149,9 +134,6 @@
       <Filter>roam</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\TextureGen.cpp">
-      <Filter>texture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\TextureLoader.cpp">
       <Filter>texture</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\Utility.cpp">
