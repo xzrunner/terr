@@ -10,7 +10,7 @@ namespace terr
 class HeightField
 {
 public:
-    HeightField(size_t x, size_t y);
+    HeightField(size_t width, size_t height);
 
     bool Set(size_t x, size_t y, float h);
     float Get(size_t x, size_t y) const;
@@ -25,14 +25,14 @@ public:
     void Scale(float scale);
     void Normalize();
 
-    size_t Width() const { return m_x; }
-    size_t Height() const { return m_y; }
+    size_t Width() const { return m_width; }
+    size_t Height() const { return m_height; }
 
     auto& GetValues() const { return m_values; }
     void SetValues(const std::vector<float>& values);
 
 private:
-    size_t m_x = 0, m_y = 0;
+    size_t m_width = 0, m_height = 0;
 
     std::vector<float> m_values;
 

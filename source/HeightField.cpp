@@ -5,16 +5,16 @@
 namespace terr
 {
 
-HeightField::HeightField(size_t x, size_t y)
-    : m_x(x)
-    , m_y(y)
+HeightField::HeightField(size_t width, size_t height)
+    : m_width(width)
+    , m_height(height)
 {
-    m_values.resize(x * y, 0);
+    m_values.resize(m_width * m_height, 0);
 }
 
 bool HeightField::Set(size_t x, size_t y, float h)
 {
-    const size_t idx = y * m_x + x;
+    const size_t idx = y * m_width + x;
     if (idx >= m_values.size()) {
         assert(0);
         return false;
@@ -26,7 +26,7 @@ bool HeightField::Set(size_t x, size_t y, float h)
 
 float HeightField::Get(size_t x, size_t y) const
 {
-    const size_t idx = y * m_x + x;
+    const size_t idx = y * m_width + x;
     if (idx >= m_values.size()) {
         assert(0);
         return 0;
@@ -37,16 +37,16 @@ float HeightField::Get(size_t x, size_t y) const
 
 float HeightField::Get(float x, float y) const
 {
-    if (x < 0 || x >= m_x ||
-        y < 0 || y >= m_y) {
+    if (x < 0 || x >= m_width ||
+        y < 0 || y >= m_height) {
         assert(0);
         return 0;
     }
 
     const size_t ix = static_cast<size_t>(std::floor(x));
     const size_t iy = static_cast<size_t>(std::floor(y));
-    const size_t nix = (ix == m_x - 1) ? ix : ix + 1;
-    const size_t niy = (iy == m_y - 1) ? iy : iy + 1;
+    const size_t nix = (ix == m_width - 1) ? ix : ix + 1;
+    const size_t niy = (iy == m_height - 1) ? iy : iy + 1;
     const float h00 = Get(ix,  iy);
     const float h10 = Get(nix, iy);
     const float h01 = Get(ix,  niy);
@@ -69,13 +69,13 @@ float HeightField::Get(size_t idx) const
 
 bool HeightField::Add(size_t x, size_t y, float dh)
 {
-    if (x < 0 || x >= m_x ||
-        y < 0 || y >= m_y) {
+    if (x < 0 || x >= m_width ||
+        y < 0 || y >= m_height) {
         assert(0);
         return false;
     }
 
-    const size_t idx = y * m_x + x;
+    const size_t idx = y * m_width + x;
     m_values[idx] += dh;
 
     return true;
@@ -135,7 +135,7 @@ void HeightField::Normalize()
 
 void HeightField::SetValues(const std::vector<float>& values)
 {
-    if (m_x * m_y != values.size()) {
+    if (m_width * m_height != values.size()) {
         return;
     }
 
