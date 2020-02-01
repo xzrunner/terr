@@ -7,12 +7,12 @@ Bitmap::Bitmap(size_t width, size_t height)
     : m_width(width)
     , m_height(height)
 {
-    m_values.resize(m_width * m_height, sm::vec3(0, 0, 0));
+    m_values.resize(m_width * m_height * 3, 255);
 }
 
-void Bitmap::SetValues(const std::vector<sm::vec3>& values)
+void Bitmap::SetValues(const std::vector<unsigned char>& values)
 {
-    if (m_width * m_height != values.size()) {
+    if (m_width * m_height * 3 != values.size()) {
         return;
     }
 

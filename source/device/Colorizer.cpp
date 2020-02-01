@@ -29,7 +29,7 @@ void Colorizer::Execute(const Context& ctx)
 
     auto& heights = prev_hf->GetValues();
     auto vals = m_bmp->GetValues();
-    assert(heights.size() == vals.size());
+    assert(heights.size() * 3 == vals.size());
     for (size_t i = 0, n = heights.size(); i < n; ++i)
     {
         auto h = heights[i];
@@ -42,7 +42,10 @@ void Colorizer::Execute(const Context& ctx)
                 sm::vec3 col1(m_gradient[j + 1].xyzw);
                 assert(m_gradient[j].w != m_gradient[j + 1].w);
                 float p = (h - m_gradient[j].w) / (m_gradient[j + 1].w - m_gradient[j].w);
-                vals[i] = col0 + (col1 - col0) * p;
+                auto col = col0 + (col1 - col0) * p;
+                vals[i * 3 + 0] = static_cast<unsigned char>(col.x * 255);
+                vals[i * 3 + 1] = static_cast<unsigned char>(col.y * 255);
+                vals[i * 3 + 2] = static_cast<unsigned char>(col.z * 255);
                 break;
             }
         }
