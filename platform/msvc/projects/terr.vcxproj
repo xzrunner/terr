@@ -11,10 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\terr\Bitmap.h" />
     <ClInclude Include="..\..\..\include\terr\Context.h" />
     <ClInclude Include="..\..\..\include\terr\DeviceHelper.h" />
     <ClInclude Include="..\..\..\include\terr\device\BasicNoise.h" />
     <ClInclude Include="..\..\..\include\terr\device\BasicNoise.parm.h" />
+    <ClInclude Include="..\..\..\include\terr\device\Colorizer.h" />
+    <ClInclude Include="..\..\..\include\terr\device\Colorizer.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\Combiner.h" />
     <ClInclude Include="..\..\..\include\terr\device\Combiner.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\Curves.h" />
@@ -45,8 +48,10 @@
     <ClInclude Include="..\..\..\include\terr\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\Bitmap.cpp" />
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp" />
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp" />
+    <ClCompile Include="..\..\..\source\device\Colorizer.cpp" />
     <ClCompile Include="..\..\..\source\device\Combiner.cpp" />
     <ClCompile Include="..\..\..\source\device\Curves.cpp" />
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />

@@ -10,6 +10,8 @@
 #include "terr/device/Curves.h"
 // natural
 #include "terr/device/Erosion.h"
+// converter
+#include "terr/device/Colorizer.h"
 
 #include <rttr/registration>
 
@@ -126,6 +128,17 @@ rttr::registration::class_<terr::device::Erosion>("terr::erosion")
 .constructor<>()
 #define PARM_FILEPATH "terr/device/Erosion.parm.h"
 #define PARM_NODE_CLASS terr::device::Erosion
+#include <dag/rttr_prop_gen.h>
+#undef PARM_NODE_CLASS
+#undef PARM_FILEPATH
+;
+
+// converter
+
+rttr::registration::class_<terr::device::Colorizer>("terr::colorizer")
+.constructor<>()
+#define PARM_FILEPATH "terr/device/Colorizer.parm.h"
+#define PARM_NODE_CLASS terr::device::Colorizer
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH

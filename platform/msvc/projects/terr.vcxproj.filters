@@ -19,9 +19,6 @@
     <Filter Include="devices">
       <UniqueIdentifier>{85173420-db50-48a6-adb8-7d30616a205f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="dataset\height">
-      <UniqueIdentifier>{70e74652-ea7e-4465-9f08-76fb9a180668}</UniqueIdentifier>
-    </Filter>
     <Filter Include="dataset\device">
       <UniqueIdentifier>{bf388a0f-0033-410a-aff9-6df11ceccc81}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,12 @@
     </Filter>
     <Filter Include="devices\07.converter">
       <UniqueIdentifier>{586826eb-383a-423a-ac78-6bed9f7a2dd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\heightfield">
+      <UniqueIdentifier>{70e74652-ea7e-4465-9f08-76fb9a180668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\bitmap">
+      <UniqueIdentifier>{a37d33b7-c147-4e23-bc6e-e8dedf2a2c60}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,7 +105,7 @@
       <Filter>tools</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\HeightField.h">
-      <Filter>dataset\height</Filter>
+      <Filter>dataset\heightfield</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\Device.h">
       <Filter>dataset\device</Filter>
@@ -111,7 +114,7 @@
       <Filter>dataset\device</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\HeightFieldEval.h">
-      <Filter>dataset\height</Filter>
+      <Filter>dataset\heightfield</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\TextureBaker.h">
       <Filter>texture</Filter>
@@ -139,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\Curves.parm.h">
       <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Colorizer.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Colorizer.parm.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\Bitmap.h">
+      <Filter>dataset\bitmap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -180,13 +192,13 @@
       <Filter>tools</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\HeightField.cpp">
-      <Filter>dataset\height</Filter>
+      <Filter>dataset\heightfield</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\Device.cpp">
       <Filter>dataset\device</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp">
-      <Filter>dataset\height</Filter>
+      <Filter>dataset\heightfield</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\TextureBaker.cpp">
       <Filter>texture</Filter>
@@ -202,6 +214,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Curves.cpp">
       <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Colorizer.cpp">
+      <Filter>devices\07.converter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Bitmap.cpp">
+      <Filter>dataset\bitmap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
