@@ -27,11 +27,11 @@ public:
     Combiner()
     {
         m_imports = {
-            {{ DeviceVarType::Heightmap, "in0" }},
-            {{ DeviceVarType::Heightmap, "in1" }},
+            {{ DeviceVarType::Heightfield, "in0" }},
+            {{ DeviceVarType::Heightfield, "in1" }},
         };
         m_exports = {
-            {{ DeviceVarType::Heightmap, "out" }},
+            {{ DeviceVarType::Heightfield, "out" }},
         };
     }
 

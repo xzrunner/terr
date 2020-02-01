@@ -15,7 +15,7 @@ public:
     FaultFractal()
     {
         m_exports = {
-            {{ DeviceVarType::Heightmap, "out" }},
+            {{ DeviceVarType::Heightfield, "out" }},
         };
     }
 

@@ -15,7 +15,7 @@ public:
     PlasmaFractal()
     {
         m_exports = {
-            {{ DeviceVarType::Heightmap, "out" }},
+            {{ DeviceVarType::Heightfield, "out" }},
         };
     }
 

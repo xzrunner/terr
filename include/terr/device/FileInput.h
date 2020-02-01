@@ -15,7 +15,7 @@ public:
     FileInput()
     {
         m_exports = {
-            {{ DeviceVarType::Heightmap, "out" }},
+            {{ DeviceVarType::Heightfield, "out" }},
         };
     }
 

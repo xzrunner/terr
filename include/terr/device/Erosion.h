@@ -15,10 +15,10 @@ public:
     Erosion()
     {
         m_imports = {
-            {{ DeviceVarType::Heightmap, "in" }},
+            {{ DeviceVarType::Heightfield, "in" }},
         };
         m_exports = {
-            {{ DeviceVarType::Heightmap, "out" }},
+            {{ DeviceVarType::Heightfield, "out" }},
         };
     }
 

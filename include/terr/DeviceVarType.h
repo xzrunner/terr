@@ -7,7 +7,7 @@ enum class DeviceVarType
 {
     Any,
 
-    Heightmap,
+    Heightfield,
 
 }; // DeviceVarType
 
