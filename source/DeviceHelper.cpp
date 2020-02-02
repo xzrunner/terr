@@ -33,4 +33,15 @@ DeviceHelper::GetInputHeight(const Device& dev, size_t idx)
     }
 }
 
+std::shared_ptr<Bitmap>
+DeviceHelper::GetInputBitmap(const Device& dev, size_t idx)
+{
+    auto prev_dev = GetInputDevice(dev, idx);
+    if (prev_dev) {
+        return prev_dev->GetBitmap();
+    } else {
+        return nullptr;
+    }
+}
+
 }

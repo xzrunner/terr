@@ -4,6 +4,8 @@
 #include "terr/device/FileInput.h"
 #include "terr/device/PerlinNoise.h"
 #include "terr/device/PlasmaFractal.h"
+// output
+#include "terr/device/OverlayView.h"
 // combiner
 #include "terr/device/Combiner.h"
 // filter
@@ -85,17 +87,12 @@ rttr::registration::class_<terr::device::PlasmaFractal>("terr::plasma_fractal")
 #undef PARM_FILEPATH
 ;
 
-// filter
+// output
 
-rttr::registration::enumeration<terr::device::Curves::Type> ("terr_curves_type")
-(
-    REGIST_ENUM_ITEM(terr::device::Curves::Type::Linear, "linear", "Linear"),
-    REGIST_ENUM_ITEM(terr::device::Curves::Type::Spline, "spline", "Spline")
-);
-rttr::registration::class_<terr::device::Curves>("terr::curves")
+rttr::registration::class_<terr::device::OverlayView>("terr::overlay_view")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/Curves.parm.h"
-#define PARM_NODE_CLASS terr::device::Curves
+#define PARM_FILEPATH "terr/device/OverlayView.parm.h"
+#define PARM_NODE_CLASS terr::device::OverlayView
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
@@ -117,6 +114,22 @@ rttr::registration::class_<terr::device::Combiner>("terr::combiner")
 .constructor<>()
 #define PARM_FILEPATH "terr/device/Combiner.parm.h"
 #define PARM_NODE_CLASS terr::device::Combiner
+#include <dag/rttr_prop_gen.h>
+#undef PARM_NODE_CLASS
+#undef PARM_FILEPATH
+;
+
+// filter
+
+rttr::registration::enumeration<terr::device::Curves::Type>("terr_curves_type")
+(
+    REGIST_ENUM_ITEM(terr::device::Curves::Type::Linear, "linear", "Linear"),
+    REGIST_ENUM_ITEM(terr::device::Curves::Type::Spline, "spline", "Spline")
+    );
+rttr::registration::class_<terr::device::Curves>("terr::curves")
+.constructor<>()
+#define PARM_FILEPATH "terr/device/Curves.parm.h"
+#define PARM_NODE_CLASS terr::device::Curves
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH

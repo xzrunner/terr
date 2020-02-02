@@ -149,6 +149,12 @@
     <ClInclude Include="..\..\..\include\terr\device\Colorizer.parm.h">
       <Filter>devices\07.converter</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\OverlayView.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\OverlayView.parm.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\terr\Bitmap.h">
       <Filter>dataset\bitmap</Filter>
     </ClInclude>
@@ -217,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Colorizer.cpp">
       <Filter>devices\07.converter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\OverlayView.cpp">
+      <Filter>devices\02.output</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\Bitmap.cpp">
       <Filter>dataset\bitmap</Filter>
