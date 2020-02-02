@@ -1,5 +1,8 @@
 #include "terr/TextureBaker.h"
 #include "terr/HeightField.h"
+#include "terr/Bitmap.h"
+
+#include <unirender/RenderContext.h>
 
 namespace terr
 {
@@ -34,6 +37,22 @@ TextureBaker::GenHeightMap(const HeightField& hf,
     ret->Upload(&rc, hf.Width(), hf.Height(), ur::TEXTURE_A8, pixels.data());
 
     return ret;
+}
+
+ur::TexturePtr
+TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
+{
+    auto& pixels = bmp.GetValues();
+    if (pixels.empty()) {
+        return nullptr;
+    }
+
+    auto w = bmp.Width();
+    auto h = bmp.Height();
+    assert(pixels.size() == w * h * 3);
+
+    int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_RGB);
+    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
 }
 
 }
