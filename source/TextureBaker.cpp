@@ -7,6 +7,22 @@
 namespace terr
 {
 
+bool TextureBaker::GenHeightMap(const HeightField& src,
+                                std::vector<unsigned char>& dst)
+{
+    if (src.Width() == 0 || src.Height() == 0) {
+        return false;
+    }
+
+    auto& s_vals = src.GetValues();
+    dst.resize(s_vals.size());
+    for (size_t i = 0, n = s_vals.size(); i < n; ++i) {
+        dst[i] = static_cast<unsigned char>(s_vals[i] * 255.0f);
+    }
+
+    return true;
+}
+
 ur::TexturePtr
 TextureBaker::GenHeightMap(const HeightField& hf,
                            ur::RenderContext& rc,
@@ -16,24 +32,15 @@ TextureBaker::GenHeightMap(const HeightField& hf,
         return nullptr;
     }
 
-    size_t w = hf.Width();
-    size_t h = hf.Height();
-
     ur::TexturePtr ret = tex;
     if (!ret) {
         ret = std::make_shared<ur::Texture>();
     }
 
     std::vector<unsigned char> pixels;
-    pixels.reserve(w * h);
-
-    for (size_t y = 0; y < h; ++y) {
-        for (size_t x = 0; x < w; ++x) {
-            auto h = hf.Get(x, y);
-            pixels.push_back(static_cast<unsigned char>(h * 255.0f));
-        }
+    if (!GenHeightMap(hf, pixels)) {
+        return nullptr;
     }
-
     ret->Upload(&rc, hf.Width(), hf.Height(), ur::TEXTURE_A8, pixels.data());
 
     return ret;

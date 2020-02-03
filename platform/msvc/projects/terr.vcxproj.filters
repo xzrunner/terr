@@ -49,6 +49,9 @@
     <Filter Include="dataset\bitmap">
       <UniqueIdentifier>{a37d33b7-c147-4e23-bc6e-e8dedf2a2c60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="devices\01.generator\terr">
+      <UniqueIdentifier>{cf4885b8-6a8a-428d-a967-2521593ee27f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\terr\SplitOnlyROAM.h">
@@ -83,24 +86,6 @@
     <ClInclude Include="..\..\..\include\terr\PerlinNoise.h">
       <Filter>tools</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.parm.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\device\PlasmaFractal.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\device\PlasmaFractal.parm.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\device\BasicNoise.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\device\BasicNoise.parm.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\terr\DeviceHelper.h">
       <Filter>tools</Filter>
     </ClInclude>
@@ -118,12 +103,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\TextureBaker.h">
       <Filter>texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\device\FaultFractal.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terr\device\FaultFractal.parm.h">
-      <Filter>devices\01.generator</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\FileInput.h">
       <Filter>devices\01.generator</Filter>
@@ -155,8 +134,56 @@
     <ClInclude Include="..\..\..\include\terr\device\OverlayView.parm.h">
       <Filter>devices\02.output</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\SelectHeight.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\SelectHeight.parm.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\terr\Bitmap.h">
       <Filter>dataset\bitmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\SelectSlope.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\SelectSlope.parm.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Chooser.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Chooser.parm.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\BasicNoise.h">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\BasicNoise.parm.h">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\FaultFractal.h">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\FaultFractal.parm.h">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.h">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.parm.h">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\PlasmaFractal.h">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\PlasmaFractal.parm.h">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Color.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\Color.parm.h">
+      <Filter>devices\01.generator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -185,15 +212,6 @@
     <ClCompile Include="..\..\..\source\device\Erosion.cpp">
       <Filter>devices\05.natural</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp">
-      <Filter>devices\01.generator</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
-      <Filter>devices\01.generator</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\device\BasicNoise.cpp">
-      <Filter>devices\01.generator</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp">
       <Filter>tools</Filter>
     </ClCompile>
@@ -208,9 +226,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\TextureBaker.cpp">
       <Filter>texture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
-      <Filter>devices\01.generator</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\FileInput.cpp">
       <Filter>devices\01.generator</Filter>
@@ -227,8 +242,32 @@
     <ClCompile Include="..\..\..\source\device\OverlayView.cpp">
       <Filter>devices\02.output</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\device\SelectHeight.cpp">
+      <Filter>devices\06.selector</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\source\Bitmap.cpp">
       <Filter>dataset\bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\terr\device\SelectSlope.cpp">
+      <Filter>devices\06.selector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Chooser.cpp">
+      <Filter>devices\03.combiner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\BasicNoise.cpp">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
+      <Filter>devices\01.generator\terr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\terr\device\Color.cpp">
+      <Filter>devices\01.generator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

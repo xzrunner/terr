@@ -16,6 +16,10 @@
     <ClInclude Include="..\..\..\include\terr\DeviceHelper.h" />
     <ClInclude Include="..\..\..\include\terr\device\BasicNoise.h" />
     <ClInclude Include="..\..\..\include\terr\device\BasicNoise.parm.h" />
+    <ClInclude Include="..\..\..\include\terr\device\Chooser.h" />
+    <ClInclude Include="..\..\..\include\terr\device\Chooser.parm.h" />
+    <ClInclude Include="..\..\..\include\terr\device\Color.h" />
+    <ClInclude Include="..\..\..\include\terr\device\Color.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\Colorizer.h" />
     <ClInclude Include="..\..\..\include\terr\device\Colorizer.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\Combiner.h" />
@@ -34,6 +38,10 @@
     <ClInclude Include="..\..\..\include\terr\device\Erosion.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.h" />
     <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.parm.h" />
+    <ClInclude Include="..\..\..\include\terr\device\SelectHeight.h" />
+    <ClInclude Include="..\..\..\include\terr\device\SelectHeight.parm.h" />
+    <ClInclude Include="..\..\..\include\terr\device\SelectSlope.h" />
+    <ClInclude Include="..\..\..\include\terr\device\SelectSlope.parm.h" />
     <ClInclude Include="..\..\..\include\terr\Evaluator.h" />
     <ClInclude Include="..\..\..\include\terr\HeightField.h" />
     <ClInclude Include="..\..\..\include\terr\HeightFieldEval.h" />
@@ -50,9 +58,12 @@
     <ClInclude Include="..\..\..\include\terr\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\include\terr\device\Color.cpp" />
+    <ClCompile Include="..\..\..\include\terr\device\SelectSlope.cpp" />
     <ClCompile Include="..\..\..\source\Bitmap.cpp" />
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp" />
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp" />
+    <ClCompile Include="..\..\..\source\device\Chooser.cpp" />
     <ClCompile Include="..\..\..\source\device\Colorizer.cpp" />
     <ClCompile Include="..\..\..\source\device\Combiner.cpp" />
     <ClCompile Include="..\..\..\source\device\Curves.cpp" />
@@ -62,6 +73,7 @@
     <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\Erosion.cpp" />
     <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp" />
+    <ClCompile Include="..\..\..\source\device\SelectHeight.cpp" />
     <ClCompile Include="..\..\..\source\Evaluator.cpp" />
     <ClCompile Include="..\..\..\source\HeightField.cpp" />
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />

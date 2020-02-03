@@ -2,6 +2,8 @@
 
 #include <unirender/Texture.h>
 
+#include <vector>
+
 namespace ur { class RenderContext; }
 
 namespace terr
@@ -13,6 +15,8 @@ class Bitmap;
 class TextureBaker
 {
 public:
+    static bool GenHeightMap(const HeightField& src,
+        std::vector<unsigned char>& dst);
     static ur::TexturePtr GenHeightMap(const HeightField& hf,
         ur::RenderContext& rc, const ur::TexturePtr& tex = nullptr);
 
