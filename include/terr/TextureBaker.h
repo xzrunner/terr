@@ -11,6 +11,7 @@ namespace terr
 
 class HeightField;
 class Bitmap;
+class Mask;
 
 class TextureBaker
 {
@@ -21,6 +22,7 @@ public:
         ur::RenderContext& rc, const ur::TexturePtr& tex = nullptr);
 
     static ur::TexturePtr GenColorMap(const Bitmap& bmp, ur::RenderContext& rc);
+    static ur::TexturePtr GenColorMap(const Mask& mask, ur::RenderContext& rc);
 
 }; // TextureBaker
 

@@ -9,6 +9,7 @@ enum class DeviceVarType
 
     Heightfield,
     Bitmap,
+    Mask,
 
 }; // DeviceVarType
 

@@ -15,7 +15,8 @@ public:
     FileInput()
     {
         m_exports = {
-            {{ DeviceVarType::Heightfield, "out" }},
+            {{ DeviceVarType::Heightfield, "heightfield" }},
+            {{ DeviceVarType::Mask,        "mask" }},
         };
     }
 

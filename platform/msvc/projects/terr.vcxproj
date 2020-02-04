@@ -45,6 +45,7 @@
     <ClInclude Include="..\..\..\include\terr\Evaluator.h" />
     <ClInclude Include="..\..\..\include\terr\HeightField.h" />
     <ClInclude Include="..\..\..\include\terr\HeightFieldEval.h" />
+    <ClInclude Include="..\..\..\include\terr\Mask.h" />
     <ClInclude Include="..\..\..\include\terr\TextureBaker.h" />
     <ClInclude Include="..\..\..\include\terr\Device.h" />
     <ClInclude Include="..\..\..\include\terr\DeviceVarType.h" />
@@ -77,6 +78,7 @@
     <ClCompile Include="..\..\..\source\Evaluator.cpp" />
     <ClCompile Include="..\..\..\source\HeightField.cpp" />
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />
+    <ClCompile Include="..\..\..\source\Mask.cpp" />
     <ClCompile Include="..\..\..\source\TextureBaker.cpp" />
     <ClCompile Include="..\..\..\source\Device.cpp" />
     <ClCompile Include="..\..\..\source\RegistRTTR.cpp" />

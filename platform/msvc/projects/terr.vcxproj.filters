@@ -49,8 +49,11 @@
     <Filter Include="dataset\bitmap">
       <UniqueIdentifier>{a37d33b7-c147-4e23-bc6e-e8dedf2a2c60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="devices\01.generator\terr">
+    <Filter Include="devices\01.generator\noise">
       <UniqueIdentifier>{cf4885b8-6a8a-428d-a967-2521593ee27f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\mask">
+      <UniqueIdentifier>{6aed1e66-8054-4ec1-82bb-16ea29bbbe62}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -156,34 +159,37 @@
       <Filter>devices\03.combiner</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\BasicNoise.h">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\BasicNoise.parm.h">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\FaultFractal.h">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\FaultFractal.parm.h">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.h">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\PerlinNoise.parm.h">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\PlasmaFractal.h">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\PlasmaFractal.parm.h">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\Color.h">
       <Filter>devices\01.generator</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terr\device\Color.parm.h">
       <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\Mask.h">
+      <Filter>dataset\mask</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -255,19 +261,22 @@
       <Filter>devices\03.combiner</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
-      <Filter>devices\01.generator\terr</Filter>
+      <Filter>devices\01.generator\noise</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\include\terr\device\Color.cpp">
       <Filter>devices\01.generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Mask.cpp">
+      <Filter>dataset\mask</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

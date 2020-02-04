@@ -1,6 +1,7 @@
 #include "terr/TextureBaker.h"
 #include "terr/HeightField.h"
 #include "terr/Bitmap.h"
+#include "terr/Mask.h"
 
 #include <unirender/RenderContext.h>
 
@@ -58,6 +59,30 @@ TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
     auto h = bmp.Height();
     assert(pixels.size() == w * h * 3);
 
+    int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_RGB);
+    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
+}
+
+ur::TexturePtr
+TextureBaker::GenColorMap(const Mask& mask, ur::RenderContext& rc)
+{
+    auto& flags = mask.GetValues();
+    if (flags.empty()) {
+        return nullptr;
+    }
+
+    auto w = mask.Width();
+    auto h = mask.Height();
+    assert(flags.size() == w * h);
+
+    std::vector<unsigned char> pixels(w * h * 3, 255);
+    for (size_t i = 0, n = w * h; i < n; ++i) {
+        if (!flags[i]) {
+            for (size_t j = 0; j < 3; ++j) {
+                pixels[i * 3 + j] = 0;
+            }
+        }
+    }
     int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_RGB);
     return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
 }
