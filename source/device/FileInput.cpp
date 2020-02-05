@@ -142,13 +142,6 @@ void FileInput::Execute(const Context& ctx)
                 }
                 break;
             case GPF_RGBA8:
-
-                for (size_t i = 0; i < sz * 4; ++i) {
-                    if (pixels[i] != 0 && pixels[i] != 255) {
-                        int zz = 0;
-                    }
-                }
-
                 for (size_t i = 0; i < sz; ++i) {
                     h_data[i] = pixels[i * 4] / 255.0f;
                 }
