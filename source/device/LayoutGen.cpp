@@ -46,16 +46,41 @@ LayoutGen::MaskToHeightField(const Mask& mask) const
 
     auto hf = std::make_shared<HeightField>(m_width, m_height);
 
-    auto mask_w = mask.Width();
-    auto mask_h = mask.Height();
-    auto mask_dist = CalcMaskDistMap(mask);
+    auto mw = mask.Width();
+    auto mh = mask.Height();
+    auto mdist = CalcMaskDistMap(mask);
     std::vector<float> heights(m_width * m_height, 0.0f);
     for (int y = 0; y < m_height; ++y) {
         for (int x = 0; x < m_width; ++x) {
-            auto idx = mask_w *
-                static_cast<int>(static_cast<float>(y) / m_height * mask_h) +
-                static_cast<int>(static_cast<float>(x) / m_width * mask_w);
-            heights[m_width * y + x] = mask_dist[idx];
+            float mx = static_cast<float>(x) / m_width * mw;
+            float my = static_cast<float>(y) / m_height * mh;
+            size_t ix = static_cast<size_t>(std::floor(mx));
+            size_t iy = static_cast<size_t>(std::floor(my));
+            float fx = mx - ix;
+            float fy = my - iy;
+            float h;
+            if (ix == mw - 1 && iy == mh - 1)
+            {
+                h = mdist[mw * iy + ix];
+            }
+            else if (ix == mw - 1)
+            {
+                h = mdist[mw * iy + ix] * (1 - fy) +
+                    mdist[mw * (iy + 1) + ix] * fy;
+            }
+            else if (iy == mh - 1)
+            {
+                h = mdist[mw * iy + ix] * (1 - fx) +
+                    mdist[mw * iy + ix + 1] * fx;
+            }
+            else
+            {
+                h = mdist[mw * iy + ix] * (1 - fx) * (1 - fy) +
+                    mdist[mw * iy + ix + 1] * fx * (1 - fy) +
+                    mdist[mw * (iy + 1) + ix] * (1 - fx) * fy +
+                    mdist[mw * (iy + 1) + ix + 1] * fx * fy;
+            }
+            heights[m_width * y + x] = h;
         }
     }
 
