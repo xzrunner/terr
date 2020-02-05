@@ -30,6 +30,8 @@
     <ClInclude Include="..\..\..\include\terr\device\FaultFractal.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\FileInput.h" />
     <ClInclude Include="..\..\..\include\terr\device\FileInput.parm.h" />
+    <ClInclude Include="..\..\..\include\terr\device\LayoutGen.h" />
+    <ClInclude Include="..\..\..\include\terr\device\LayoutGen.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\OverlayView.h" />
     <ClInclude Include="..\..\..\include\terr\device\OverlayView.parm.h" />
     <ClInclude Include="..\..\..\include\terr\device\PlasmaFractal.h" />
@@ -70,6 +72,7 @@
     <ClCompile Include="..\..\..\source\device\Curves.cpp" />
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
+    <ClCompile Include="..\..\..\source\device\LayoutGen.cpp" />
     <ClCompile Include="..\..\..\source\device\OverlayView.cpp" />
     <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\Erosion.cpp" />

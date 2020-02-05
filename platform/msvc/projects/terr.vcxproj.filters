@@ -191,6 +191,12 @@
     <ClInclude Include="..\..\..\include\terr\Mask.h">
       <Filter>dataset\mask</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\LayoutGen.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terr\device\LayoutGen.parm.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -277,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\Mask.cpp">
       <Filter>dataset\mask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\LayoutGen.cpp">
+      <Filter>devices\01.generator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

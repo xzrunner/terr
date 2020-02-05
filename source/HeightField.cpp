@@ -71,7 +71,6 @@ bool HeightField::Add(size_t x, size_t y, float dh)
 {
     if (x < 0 || x >= m_width ||
         y < 0 || y >= m_height) {
-        assert(0);
         return false;
     }
 

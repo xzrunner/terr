@@ -3,6 +3,7 @@
 #include "terr/device/Color.h"
 #include "terr/device/FaultFractal.h"
 #include "terr/device/FileInput.h"
+#include "terr/device/LayoutGen.h"
 #include "terr/device/PerlinNoise.h"
 #include "terr/device/PlasmaFractal.h"
 // output
@@ -87,6 +88,15 @@ rttr::registration::class_<terr::device::FileInput>("terr::file_input")
 .constructor<>()
 #define PARM_FILEPATH "terr/device/FileInput.parm.h"
 #define PARM_NODE_CLASS terr::device::FileInput
+#include <dag/rttr_prop_gen.h>
+#undef PARM_NODE_CLASS
+#undef PARM_FILEPATH
+;
+
+rttr::registration::class_<terr::device::LayoutGen>("terr::layout_gen")
+.constructor<>()
+#define PARM_FILEPATH "terr/device/LayoutGen.parm.h"
+#define PARM_NODE_CLASS terr::device::LayoutGen
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH

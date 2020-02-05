@@ -7,6 +7,7 @@ namespace terr
 
 class HeightField;
 class Bitmap;
+class Mask;
 
 class DeviceHelper
 {
@@ -16,6 +17,8 @@ public:
         GetInputHeight(const Device& dev, size_t idx);
     static std::shared_ptr<Bitmap>
         GetInputBitmap(const Device& dev, size_t idx);
+    static std::shared_ptr<Mask>
+        GetInputMask(const Device& dev, size_t idx);
 
 }; // DeviceHelper
 

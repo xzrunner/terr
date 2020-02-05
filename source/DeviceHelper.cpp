@@ -44,4 +44,15 @@ DeviceHelper::GetInputBitmap(const Device& dev, size_t idx)
     }
 }
 
+std::shared_ptr<Mask>
+DeviceHelper::GetInputMask(const Device& dev, size_t idx)
+{
+    auto prev_dev = GetInputDevice(dev, idx);
+    if (prev_dev) {
+        return prev_dev->GetMask();
+    } else {
+        return nullptr;
+    }
+}
+
 }
