@@ -6,7 +6,6 @@
 #include <dag/Node.h>
 
 #include <map>
-#include <vector>
 
 namespace terr
 {
@@ -33,12 +32,7 @@ public:
     void Update();
 
 private:
-    void TopologicalSorting() const;
-
-private:
     std::map<std::string, DevicePtr> m_devices_map;
-
-    mutable std::vector<DevicePtr> m_devices_sorted;
 
     bool m_dirty = false;
 
