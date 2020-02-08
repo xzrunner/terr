@@ -1,6 +1,6 @@
-#include "terr/Bitmap.h"
+#include "wm/Bitmap.h"
 
-namespace terr
+namespace wm
 {
 
 Bitmap::Bitmap(size_t width, size_t height)

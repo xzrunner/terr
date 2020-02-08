@@ -1,10 +1,10 @@
-#include "terr/device/Colorizer.h"
-#include "terr/DeviceHelper.h"
-#include "terr/HeightField.h"
-#include "terr/HeightFieldEval.h"
-#include "terr/Bitmap.h"
+#include "wm/device/Colorizer.h"
+#include "wm/DeviceHelper.h"
+#include "wm/HeightField.h"
+#include "wm/HeightFieldEval.h"
+#include "wm/Bitmap.h"
 
-namespace terr
+namespace wm
 {
 namespace device
 {

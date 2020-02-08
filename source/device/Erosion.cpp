@@ -1,14 +1,14 @@
-#include "terr/device/Erosion.h"
-#include "terr/Context.h"
-#include "terr/HeightField.h"
-#include "terr/DeviceHelper.h"
-#include "terr/HeightFieldEval.h"
+#include "wm/device/Erosion.h"
+#include "wm/Context.h"
+#include "wm/HeightField.h"
+#include "wm/DeviceHelper.h"
+#include "wm/HeightFieldEval.h"
 
 #include <SM_Vector.h>
 
 #include <vector>
 
-namespace terr
+namespace wm
 {
 namespace device
 {

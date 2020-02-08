@@ -1,8 +1,8 @@
-#include "terr/device/SelectHeight.h"
-#include "terr/DeviceHelper.h"
-#include "terr/HeightField.h"
+#include "wm/device/SelectHeight.h"
+#include "wm/DeviceHelper.h"
+#include "wm/HeightField.h"
 
-namespace terr
+namespace wm
 {
 namespace device
 {

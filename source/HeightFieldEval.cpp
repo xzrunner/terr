@@ -1,9 +1,9 @@
-#include "terr/HeightFieldEval.h"
-#include "terr/HeightField.h"
+#include "wm/HeightFieldEval.h"
+#include "wm/HeightField.h"
 
 #include <SM_Calc.h>
 
-namespace terr
+namespace wm
 {
 
 sm::vec2 HeightFieldEval::Gradient(const HeightField& hf, size_t x, size_t y)

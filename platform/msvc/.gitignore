@@ -1,5 +1,5 @@
-terr/
+wm/
 projects/*
 
-!projects/terr.vcxproj
-!projects/terr.vcxproj.filters
+!projects/wm.vcxproj
+!projects/wm.vcxproj.filters

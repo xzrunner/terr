@@ -1,9 +1,9 @@
-#include "terr/device/Curves.h"
-#include "terr/DeviceHelper.h"
-#include "terr/HeightField.h"
-#include "terr/HeightFieldEval.h"
+#include "wm/device/Curves.h"
+#include "wm/DeviceHelper.h"
+#include "wm/HeightField.h"
+#include "wm/HeightFieldEval.h"
 
-namespace terr
+namespace wm
 {
 namespace device
 {

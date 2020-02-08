@@ -1,7 +1,7 @@
-#include "terr/device/LayoutGen.h"
-#include "terr/DeviceHelper.h"
-#include "terr/HeightField.h"
-#include "terr/Mask.h"
+#include "wm/device/LayoutGen.h"
+#include "wm/DeviceHelper.h"
+#include "wm/HeightField.h"
+#include "wm/Mask.h"
 
 namespace
 {
@@ -24,7 +24,7 @@ static const sm::ivec2 QUERY_OFFSET[QUERY_COUNT] = {
 
 }
 
-namespace terr
+namespace wm
 {
 namespace device
 {

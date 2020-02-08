@@ -1,7 +1,7 @@
-#include "terr/DeviceHelper.h"
-#include "terr/Device.h"
+#include "wm/DeviceHelper.h"
+#include "wm/Device.h"
 
-namespace terr
+namespace wm
 {
 
 DevicePtr DeviceHelper::GetInputDevice(const Device& dev, size_t idx)

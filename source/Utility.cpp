@@ -1,8 +1,8 @@
-#include "terr/Utility.h"
+#include "wm/Utility.h"
 
 #include <cmath>
 
-namespace terr
+namespace wm
 {
 
 float Utility::RangedRandom(float f1, float f2)

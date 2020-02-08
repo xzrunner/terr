@@ -1,11 +1,11 @@
-#include "terr/TextureBaker.h"
-#include "terr/HeightField.h"
-#include "terr/Bitmap.h"
-#include "terr/Mask.h"
+#include "wm/TextureBaker.h"
+#include "wm/HeightField.h"
+#include "wm/Bitmap.h"
+#include "wm/Mask.h"
 
 #include <unirender/RenderContext.h>
 
-namespace terr
+namespace wm
 {
 
 bool TextureBaker::GenHeightMap(const HeightField& src,

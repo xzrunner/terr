@@ -1,8 +1,8 @@
-#include "terr/device/BasicNoise.h"
-#include "terr/Context.h"
-#include "terr/HeightField.h"
+#include "wm/device/BasicNoise.h"
+#include "wm/Context.h"
+#include "wm/HeightField.h"
 
-namespace terr
+namespace wm
 {
 namespace device
 {

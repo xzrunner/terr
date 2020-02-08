@@ -1,9 +1,9 @@
-#include "terr/device/PlasmaFractal.h"
-#include "terr/Context.h"
-#include "terr/Utility.h"
-#include "terr/HeightField.h"
+#include "wm/device/PlasmaFractal.h"
+#include "wm/Context.h"
+#include "wm/Utility.h"
+#include "wm/HeightField.h"
 
-namespace terr
+namespace wm
 {
 namespace device
 {

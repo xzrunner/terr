@@ -1,4 +1,4 @@
-#include "terr/Mask.h"
+#include "wm/Mask.h"
 
 #include <set>
 
@@ -39,7 +39,7 @@ static const sm::ivec2 QUERY_OFFSET[QUERY_COUNT] = {
 
 }
 
-namespace terr
+namespace wm
 {
 
 Mask::Mask(size_t width, size_t height)

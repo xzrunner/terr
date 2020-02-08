@@ -2,7 +2,7 @@
 // An implementation a terrain rendering engine
 // based on the ideas and input of Seumas McNally.
 
-#include "terr/SplitOnlyROAM.h"
+#include "wm/SplitOnlyROAM.h"
 
 #include <cmath>
 
@@ -27,7 +27,7 @@ int log2(int n)
 
 }
 
-namespace terr
+namespace wm
 {
 
 SplitOnlyROAM::SplitOnlyROAM(int size, BinTriPool& pool)

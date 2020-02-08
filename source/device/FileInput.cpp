@@ -1,13 +1,13 @@
-#include "terr/device/FileInput.h"
-#include "terr/HeightField.h"
-#include "terr/Mask.h"
+#include "wm/device/FileInput.h"
+#include "wm/HeightField.h"
+#include "wm/Mask.h"
 
 #include <gimg_import.h>
 #include <gimg_typedef.h>
 
 #include <boost/filesystem.hpp>
 
-namespace terr
+namespace wm
 {
 namespace device
 {

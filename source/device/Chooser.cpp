@@ -1,9 +1,9 @@
-#include "terr/device/Chooser.h"
-#include "terr/DeviceHelper.h"
-#include "terr/HeightField.h"
-#include "terr/Bitmap.h"
+#include "wm/device/Chooser.h"
+#include "wm/DeviceHelper.h"
+#include "wm/HeightField.h"
+#include "wm/Bitmap.h"
 
-namespace terr
+namespace wm
 {
 namespace device
 {

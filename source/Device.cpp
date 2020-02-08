@@ -1,6 +1,6 @@
-#include "terr/Device.h"
+#include "wm/Device.h"
 
-namespace terr
+namespace wm
 {
 
 

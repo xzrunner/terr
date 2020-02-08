@@ -1,30 +1,30 @@
 // generator
-#include "terr/device/BasicNoise.h"
-#include "terr/device/Color.h"
-#include "terr/device/FaultFractal.h"
-#include "terr/device/FileInput.h"
-#include "terr/device/LayoutGen.h"
-#include "terr/device/PerlinNoise.h"
-#include "terr/device/PlasmaFractal.h"
+#include "wm/device/BasicNoise.h"
+#include "wm/device/Color.h"
+#include "wm/device/FaultFractal.h"
+#include "wm/device/FileInput.h"
+#include "wm/device/LayoutGen.h"
+#include "wm/device/PerlinNoise.h"
+#include "wm/device/PlasmaFractal.h"
 // output
-#include "terr/device/OverlayView.h"
+#include "wm/device/OverlayView.h"
 // combiner
-#include "terr/device/Chooser.h"
-#include "terr/device/Combiner.h"
+#include "wm/device/Chooser.h"
+#include "wm/device/Combiner.h"
 // filter
-#include "terr/device/Curves.h"
+#include "wm/device/Curves.h"
 // natural
-#include "terr/device/Erosion.h"
+#include "wm/device/Erosion.h"
 // selector
-#include "terr/device/SelectHeight.h"
-#include "terr/device/SelectSlope.h"
+#include "wm/device/SelectHeight.h"
+#include "wm/device/SelectSlope.h"
 // converter
-#include "terr/device/Colorizer.h"
+#include "wm/device/Colorizer.h"
 
 #include <rttr/registration>
 
 #define REGIST_NODE_TYPE(type, name)                            \
-	rttr::registration::class_<terr::device::type>("terr::"#name) \
+	rttr::registration::class_<wm::device::type>("wm::"#name) \
 		.constructor<>()                                        \
 	;
 
@@ -37,84 +37,84 @@ RTTR_REGISTRATION
 
 // base
 
-rttr::registration::class_<dag::Node<terr::DeviceVarType>::Port>("terr::Operation::Port")
-	.property("var", &dag::Node<terr::DeviceVarType>::Port::var)
+rttr::registration::class_<dag::Node<wm::DeviceVarType>::Port>("wm::Operation::Port")
+	.property("var", &dag::Node<wm::DeviceVarType>::Port::var)
 ;
 
-rttr::registration::class_<terr::Device>("terr::Device")
-	.method("GetImports", &terr::Device::GetImports)
-	.method("GetExports", &terr::Device::GetExports)
+rttr::registration::class_<wm::Device>("wm::Device")
+	.method("GetImports", &wm::Device::GetImports)
+	.method("GetExports", &wm::Device::GetExports)
 ;
 
 // generator
 
-rttr::registration::class_<terr::device::BasicNoise>("terr::basic_noise")
+rttr::registration::class_<wm::device::BasicNoise>("wm::basic_noise")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/BasicNoise.parm.h"
-#define PARM_NODE_CLASS terr::device::BasicNoise
+#define PARM_FILEPATH "wm/device/BasicNoise.parm.h"
+#define PARM_NODE_CLASS wm::device::BasicNoise
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
 ;
 
-rttr::registration::class_<terr::device::BasicNoise>("terr::basic_noise")
+rttr::registration::class_<wm::device::BasicNoise>("wm::basic_noise")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/BasicNoise.parm.h"
-#define PARM_NODE_CLASS terr::device::BasicNoise
+#define PARM_FILEPATH "wm/device/BasicNoise.parm.h"
+#define PARM_NODE_CLASS wm::device::BasicNoise
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
 ;
 
-rttr::registration::class_<terr::device::Color>("terr::color")
+rttr::registration::class_<wm::device::Color>("wm::color")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/Color.parm.h"
-#define PARM_NODE_CLASS terr::device::Color
+#define PARM_FILEPATH "wm/device/Color.parm.h"
+#define PARM_NODE_CLASS wm::device::Color
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
 ;
 
-rttr::registration::class_<terr::device::FaultFractal>("terr::fault_fractal")
+rttr::registration::class_<wm::device::FaultFractal>("wm::fault_fractal")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/FaultFractal.parm.h"
-#define PARM_NODE_CLASS terr::device::FaultFractal
+#define PARM_FILEPATH "wm/device/FaultFractal.parm.h"
+#define PARM_NODE_CLASS wm::device::FaultFractal
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
 ;
 
-rttr::registration::class_<terr::device::FileInput>("terr::file_input")
+rttr::registration::class_<wm::device::FileInput>("wm::file_input")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/FileInput.parm.h"
-#define PARM_NODE_CLASS terr::device::FileInput
+#define PARM_FILEPATH "wm/device/FileInput.parm.h"
+#define PARM_NODE_CLASS wm::device::FileInput
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
 ;
 
-rttr::registration::class_<terr::device::LayoutGen>("terr::layout_gen")
+rttr::registration::class_<wm::device::LayoutGen>("wm::layout_gen")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/LayoutGen.parm.h"
-#define PARM_NODE_CLASS terr::device::LayoutGen
+#define PARM_FILEPATH "wm/device/LayoutGen.parm.h"
+#define PARM_NODE_CLASS wm::device::LayoutGen
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
 ;
 
-rttr::registration::class_<terr::device::PerlinNoise>("terr::perlin_noise")
+rttr::registration::class_<wm::device::PerlinNoise>("wm::perlin_noise")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/PerlinNoise.parm.h"
-#define PARM_NODE_CLASS terr::device::PerlinNoise
+#define PARM_FILEPATH "wm/device/PerlinNoise.parm.h"
+#define PARM_NODE_CLASS wm::device::PerlinNoise
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
 ;
 
-rttr::registration::class_<terr::device::PlasmaFractal>("terr::plasma_fractal")
+rttr::registration::class_<wm::device::PlasmaFractal>("wm::plasma_fractal")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/PlasmaFractal.parm.h"
-#define PARM_NODE_CLASS terr::device::PlasmaFractal
+#define PARM_FILEPATH "wm/device/PlasmaFractal.parm.h"
+#define PARM_NODE_CLASS wm::device::PlasmaFractal
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
@@ -122,10 +122,10 @@ rttr::registration::class_<terr::device::PlasmaFractal>("terr::plasma_fractal")
 
 // output
 
-rttr::registration::class_<terr::device::OverlayView>("terr::overlay_view")
+rttr::registration::class_<wm::device::OverlayView>("wm::overlay_view")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/OverlayView.parm.h"
-#define PARM_NODE_CLASS terr::device::OverlayView
+#define PARM_FILEPATH "wm/device/OverlayView.parm.h"
+#define PARM_NODE_CLASS wm::device::OverlayView
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
@@ -133,29 +133,29 @@ rttr::registration::class_<terr::device::OverlayView>("terr::overlay_view")
 
 // combiner
 
-rttr::registration::class_<terr::device::Chooser>("terr::chooser")
+rttr::registration::class_<wm::device::Chooser>("wm::chooser")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/Chooser.parm.h"
-#define PARM_NODE_CLASS terr::device::Chooser
+#define PARM_FILEPATH "wm/device/Chooser.parm.h"
+#define PARM_NODE_CLASS wm::device::Chooser
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
 ;
 
-rttr::registration::enumeration<terr::device::Combiner::Method> ("terr_combiner_method")
+rttr::registration::enumeration<wm::device::Combiner::Method> ("terr_combiner_method")
 (
-    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Average,  "average",  "Average"),
-    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Add,      "add",      "Add"),
-    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Subtract, "subtract", "Subtract"),
-    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Multiply, "multiply", "Multiply"),
-    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Divide,   "divide",   "Divide"),
-    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Max,      "max",      "Max"),
-    REGIST_ENUM_ITEM(terr::device::Combiner::Method::Min,      "min",      "Min")
+    REGIST_ENUM_ITEM(wm::device::Combiner::Method::Average,  "average",  "Average"),
+    REGIST_ENUM_ITEM(wm::device::Combiner::Method::Add,      "add",      "Add"),
+    REGIST_ENUM_ITEM(wm::device::Combiner::Method::Subtract, "subtract", "Subtract"),
+    REGIST_ENUM_ITEM(wm::device::Combiner::Method::Multiply, "multiply", "Multiply"),
+    REGIST_ENUM_ITEM(wm::device::Combiner::Method::Divide,   "divide",   "Divide"),
+    REGIST_ENUM_ITEM(wm::device::Combiner::Method::Max,      "max",      "Max"),
+    REGIST_ENUM_ITEM(wm::device::Combiner::Method::Min,      "min",      "Min")
 );
-rttr::registration::class_<terr::device::Combiner>("terr::combiner")
+rttr::registration::class_<wm::device::Combiner>("wm::combiner")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/Combiner.parm.h"
-#define PARM_NODE_CLASS terr::device::Combiner
+#define PARM_FILEPATH "wm/device/Combiner.parm.h"
+#define PARM_NODE_CLASS wm::device::Combiner
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
@@ -163,15 +163,15 @@ rttr::registration::class_<terr::device::Combiner>("terr::combiner")
 
 // filter
 
-rttr::registration::enumeration<terr::device::Curves::Type>("terr_curves_type")
+rttr::registration::enumeration<wm::device::Curves::Type>("terr_curves_type")
 (
-    REGIST_ENUM_ITEM(terr::device::Curves::Type::Linear, "linear", "Linear"),
-    REGIST_ENUM_ITEM(terr::device::Curves::Type::Spline, "spline", "Spline")
+    REGIST_ENUM_ITEM(wm::device::Curves::Type::Linear, "linear", "Linear"),
+    REGIST_ENUM_ITEM(wm::device::Curves::Type::Spline, "spline", "Spline")
     );
-rttr::registration::class_<terr::device::Curves>("terr::curves")
+rttr::registration::class_<wm::device::Curves>("wm::curves")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/Curves.parm.h"
-#define PARM_NODE_CLASS terr::device::Curves
+#define PARM_FILEPATH "wm/device/Curves.parm.h"
+#define PARM_NODE_CLASS wm::device::Curves
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
@@ -179,10 +179,10 @@ rttr::registration::class_<terr::device::Curves>("terr::curves")
 
 // natural
 
-rttr::registration::class_<terr::device::Erosion>("terr::erosion")
+rttr::registration::class_<wm::device::Erosion>("wm::erosion")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/Erosion.parm.h"
-#define PARM_NODE_CLASS terr::device::Erosion
+#define PARM_FILEPATH "wm/device/Erosion.parm.h"
+#define PARM_NODE_CLASS wm::device::Erosion
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
@@ -190,19 +190,19 @@ rttr::registration::class_<terr::device::Erosion>("terr::erosion")
 
 // selector
 
-rttr::registration::class_<terr::device::SelectHeight>("terr::select_height")
+rttr::registration::class_<wm::device::SelectHeight>("wm::select_height")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/SelectHeight.parm.h"
-#define PARM_NODE_CLASS terr::device::SelectHeight
+#define PARM_FILEPATH "wm/device/SelectHeight.parm.h"
+#define PARM_NODE_CLASS wm::device::SelectHeight
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
 ;
 
-rttr::registration::class_<terr::device::SelectSlope>("terr::select_slope")
+rttr::registration::class_<wm::device::SelectSlope>("wm::select_slope")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/SelectSlope.parm.h"
-#define PARM_NODE_CLASS terr::device::SelectSlope
+#define PARM_FILEPATH "wm/device/SelectSlope.parm.h"
+#define PARM_NODE_CLASS wm::device::SelectSlope
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
@@ -210,10 +210,10 @@ rttr::registration::class_<terr::device::SelectSlope>("terr::select_slope")
 
 // converter
 
-rttr::registration::class_<terr::device::Colorizer>("terr::colorizer")
+rttr::registration::class_<wm::device::Colorizer>("wm::colorizer")
 .constructor<>()
-#define PARM_FILEPATH "terr/device/Colorizer.parm.h"
-#define PARM_NODE_CLASS terr::device::Colorizer
+#define PARM_FILEPATH "wm/device/Colorizer.parm.h"
+#define PARM_NODE_CLASS wm::device::Colorizer
 #include <dag/rttr_prop_gen.h>
 #undef PARM_NODE_CLASS
 #undef PARM_FILEPATH
@@ -221,7 +221,7 @@ rttr::registration::class_<terr::device::Colorizer>("terr::colorizer")
 
 }
 
-namespace terr
+namespace wm
 {
 
 void regist_rttr()

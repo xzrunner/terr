@@ -1,7 +1,7 @@
-#include "terr/device/OverlayView.h"
-#include "terr/DeviceHelper.h"
+#include "wm/device/OverlayView.h"
+#include "wm/DeviceHelper.h"
 
-namespace terr
+namespace wm
 {
 namespace device
 {

@@ -1,7 +1,7 @@
 // code from lScape by Adrian Welbourn
 // http://www.futurenation.net/glbase/projects.htm
 
-#include "terr/TextureGen.h"
+#include "wm/TextureGen.h"
 
 #include <iostream>
 
@@ -124,13 +124,13 @@ void BlurLightMap(uint8_t* light_map, int size, vec3 dir)
 			for (y = 0; y < 3; y++) {
 				for (x = 0; x < 3; x++) {
 					accum += blurMap[x + 3*y]
-						* terr::TextureGen::LightMapGet(light_map, size, X+x-1, Y+y-1);
+						* wm::TextureGen::LightMapGet(light_map, size, X+x-1, Y+y-1);
 				}
 			}
 			accum /= divisor;
 			if (accum > 255)
 				accum = 255;
-			terr::TextureGen::LightMapPut(lightMap2, size, X, Y, (uint8_t)accum);
+			wm::TextureGen::LightMapPut(lightMap2, size, X, Y, (uint8_t)accum);
 		}
 	}
 	memcpy(light_map, lightMap2, size * size);
@@ -139,7 +139,7 @@ void BlurLightMap(uint8_t* light_map, int size, vec3 dir)
 
 }
 
-namespace terr
+namespace wm
 {
 
 /*

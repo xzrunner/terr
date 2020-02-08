@@ -1,11 +1,11 @@
-#include "terr/Evaluator.h"
-#include "terr/Device.h"
-#include "terr/Context.h"
-#include "terr/typedef.h"
+#include "wm/Evaluator.h"
+#include "wm/Device.h"
+#include "wm/Context.h"
+#include "wm/typedef.h"
 
 #include <dag/Evaluator.h>
 
-namespace terr
+namespace wm
 {
 
 void Evaluator::DeviceChaged(const DevicePtr& device)

@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="roam">
+      <UniqueIdentifier>{f701babb-b977-4c4b-aaa7-de072e68569e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="texture">
+      <UniqueIdentifier>{71597015-8dae-47f4-90fd-1674d64e7874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset">
+      <UniqueIdentifier>{5ddc0814-efb6-4350-8a0c-0aa6a363388f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{8ee19c45-7400-4801-8f1d-49bc55eacbfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="eval">
+      <UniqueIdentifier>{ad27c0a3-15ea-424d-a706-23aea9f65b1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices">
+      <UniqueIdentifier>{85173420-db50-48a6-adb8-7d30616a205f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\device">
+      <UniqueIdentifier>{bf388a0f-0033-410a-aff9-6df11ceccc81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator">
+      <UniqueIdentifier>{d498651a-bc1b-4302-8ecf-96b14a27370d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\02.output">
+      <UniqueIdentifier>{38a024f8-5593-470b-81dd-f2b255f0983e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\03.combiner">
+      <UniqueIdentifier>{5f61cd72-cb33-45f7-94e8-ca85ed3d6ffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\04.filter">
+      <UniqueIdentifier>{82c73997-ebb8-4ddc-a032-d7354dbf9f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\05.natural">
+      <UniqueIdentifier>{1020d685-ee4f-4b84-8cad-90d0026ff724}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\06.selector">
+      <UniqueIdentifier>{03d27cbe-5f48-4be7-a703-b02e44ac2644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\07.converter">
+      <UniqueIdentifier>{586826eb-383a-423a-ac78-6bed9f7a2dd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\heightfield">
+      <UniqueIdentifier>{70e74652-ea7e-4465-9f08-76fb9a180668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\bitmap">
+      <UniqueIdentifier>{a37d33b7-c147-4e23-bc6e-e8dedf2a2c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\noise">
+      <UniqueIdentifier>{cf4885b8-6a8a-428d-a967-2521593ee27f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\mask">
+      <UniqueIdentifier>{6aed1e66-8054-4ec1-82bb-16ea29bbbe62}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\wm\SplitOnlyROAM.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\SplitMergeROAM.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\SplitMergeQueueROAM.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\TextureGen.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\Context.h">
+      <Filter>dataset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\Utility.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\Evaluator.h">
+      <Filter>eval</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\typedef.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Erosion.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Erosion.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\PerlinNoise.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\DeviceHelper.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\HeightField.h">
+      <Filter>dataset\heightfield</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\Device.h">
+      <Filter>dataset\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\DeviceVarType.h">
+      <Filter>dataset\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\HeightFieldEval.h">
+      <Filter>dataset\heightfield</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\TextureBaker.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FileInput.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Combiner.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Combiner.parm.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Curves.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Curves.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Colorizer.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Colorizer.parm.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\OverlayView.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\OverlayView.parm.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\SelectHeight.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\SelectHeight.parm.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\Bitmap.h">
+      <Filter>dataset\bitmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\SelectSlope.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\SelectSlope.parm.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Chooser.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Chooser.parm.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\BasicNoise.h">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\BasicNoise.parm.h">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FaultFractal.h">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\PerlinNoise.h">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\PerlinNoise.parm.h">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.h">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.parm.h">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Color.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Color.parm.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\Mask.h">
+      <Filter>dataset\mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\LayoutGen.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\LayoutGen.parm.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\WM.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
+      <Filter>roam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp">
+      <Filter>roam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\SplitMergeQueueROAM.cpp">
+      <Filter>roam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\TextureGen.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Utility.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Evaluator.cpp">
+      <Filter>eval</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\RegistRTTR.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Erosion.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\DeviceHelper.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HeightField.cpp">
+      <Filter>dataset\heightfield</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Device.cpp">
+      <Filter>dataset\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HeightFieldEval.cpp">
+      <Filter>dataset\heightfield</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\TextureBaker.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FileInput.cpp">
+      <Filter>devices\01.generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Combiner.cpp">
+      <Filter>devices\03.combiner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Curves.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Colorizer.cpp">
+      <Filter>devices\07.converter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\OverlayView.cpp">
+      <Filter>devices\02.output</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\SelectHeight.cpp">
+      <Filter>devices\06.selector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Bitmap.cpp">
+      <Filter>dataset\bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\wm\device\SelectSlope.cpp">
+      <Filter>devices\06.selector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Chooser.cpp">
+      <Filter>devices\03.combiner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\BasicNoise.cpp">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
+      <Filter>devices\01.generator\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\wm\device\Color.cpp">
+      <Filter>devices\01.generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Mask.cpp">
+      <Filter>dataset\mask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\LayoutGen.cpp">
+      <Filter>devices\01.generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\WM.cpp" />
+  </ItemGroup>
+</Project>

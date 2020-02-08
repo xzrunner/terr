@@ -1,8 +1,8 @@
-#include "terr/HeightField.h"
+#include "wm/HeightField.h"
 
 #include <assert.h>
 
-namespace terr
+namespace wm
 {
 
 HeightField::HeightField(size_t width, size_t height)

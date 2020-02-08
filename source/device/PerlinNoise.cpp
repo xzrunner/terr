@@ -1,9 +1,9 @@
-#include "terr/device/PerlinNoise.h"
-#include "terr/Context.h"
-#include "terr/PerlinNoise.h"
-#include "terr/HeightField.h"
+#include "wm/device/PerlinNoise.h"
+#include "wm/Context.h"
+#include "wm/PerlinNoise.h"
+#include "wm/HeightField.h"
 
-namespace terr
+namespace wm
 {
 namespace device
 {
@@ -12,7 +12,7 @@ void PerlinNoise::Execute(const Context& ctx)
 {
     m_hf = std::make_shared<HeightField>(ctx.size, ctx.size);
 
-    terr::PerlinNoise noise;
+    wm::PerlinNoise noise;
 
     for (size_t y = 0; y < ctx.size; ++y) {
         for (size_t x = 0; x < ctx.size; ++x) {
@@ -27,7 +27,7 @@ void PerlinNoise::Execute(const Context& ctx)
     AddFractalPattern(noise);
 }
 
-void PerlinNoise::AddFractalPattern(const terr::PerlinNoise& noise)
+void PerlinNoise::AddFractalPattern(const wm::PerlinNoise& noise)
 {
     if (!m_hf || m_fractal_layer == 0) {
         return;

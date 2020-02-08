@@ -1,6 +1,6 @@
 // some code from http://www.flipcode.com/archives/ROAM_Implementation_Optimizations.shtml
 
-#include "terr/SplitMergeROAM.h"
+#include "wm/SplitMergeROAM.h"
 
 #include <cmath>
 #include <iostream>
@@ -30,7 +30,7 @@ int log2(int n)
 
 }
 
-namespace terr
+namespace wm
 {
 
 SplitMergeROAM::SplitMergeROAM(int size, BinTriPool& pool)
