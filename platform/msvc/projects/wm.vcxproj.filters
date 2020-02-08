@@ -55,6 +55,9 @@
     <Filter Include="dataset\mask">
       <UniqueIdentifier>{6aed1e66-8054-4ec1-82bb-16ea29bbbe62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tools\rtti">
+      <UniqueIdentifier>{7f122e31-c950-4d67-96eb-aa520ca64b9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\wm\SplitOnlyROAM.h">
@@ -197,6 +200,15 @@
       <Filter>devices\01.generator</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\WM.h" />
+    <ClInclude Include="..\..\..\include\wm\device_rttr_gen.h">
+      <Filter>tools\rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device_regist_cfg.h">
+      <Filter>tools\rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device_include_gen.h">
+      <Filter>tools\rtti</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -216,9 +228,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\Evaluator.cpp">
       <Filter>eval</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\RegistRTTR.cpp">
-      <Filter>tools</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Erosion.cpp">
       <Filter>devices\05.natural</Filter>
@@ -287,5 +296,8 @@
       <Filter>devices\01.generator</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\WM.cpp" />
+    <ClCompile Include="..\..\..\source\RegistRTTR.cpp">
+      <Filter>tools\rtti</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -44,6 +44,9 @@
     <ClInclude Include="..\..\..\include\wm\device\SelectHeight.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\SelectSlope.h" />
     <ClInclude Include="..\..\..\include\wm\device\SelectSlope.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device_include_gen.h" />
+    <ClInclude Include="..\..\..\include\wm\device_regist_cfg.h" />
+    <ClInclude Include="..\..\..\include\wm\device_rttr_gen.h" />
     <ClInclude Include="..\..\..\include\wm\Evaluator.h" />
     <ClInclude Include="..\..\..\include\wm\HeightField.h" />
     <ClInclude Include="..\..\..\include\wm\HeightFieldEval.h" />
