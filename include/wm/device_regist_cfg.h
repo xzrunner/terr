@@ -12,12 +12,20 @@
 #define PARM_DEVICE_NAME color
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS Constant
+#define PARM_DEVICE_NAME constant
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS FaultFractal
 #define PARM_DEVICE_NAME fault_fractal
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS FileInput
 #define PARM_DEVICE_NAME file_input
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS Gradient
+#define PARM_DEVICE_NAME gradient
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS LayoutGen

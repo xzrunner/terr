@@ -209,6 +209,18 @@
     <ClInclude Include="..\..\..\include\wm\device_include_gen.h">
       <Filter>tools\rtti</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Constant.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Constant.parm.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Gradient.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Gradient.parm.h">
+      <Filter>devices\01.generator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -298,6 +310,12 @@
     <ClCompile Include="..\..\..\source\WM.cpp" />
     <ClCompile Include="..\..\..\source\RegistRTTR.cpp">
       <Filter>tools\rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Constant.cpp">
+      <Filter>devices\01.generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Gradient.cpp">
+      <Filter>devices\01.generator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
