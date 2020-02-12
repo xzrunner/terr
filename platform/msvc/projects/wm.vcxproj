@@ -34,6 +34,8 @@
     <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gradient.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gradient.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\HeightOutput.h" />
+    <ClInclude Include="..\..\..\include\wm\device\HeightOutput.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\LayoutGen.h" />
     <ClInclude Include="..\..\..\include\wm\device\LayoutGen.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\OverlayView.h" />
@@ -81,6 +83,7 @@
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
     <ClCompile Include="..\..\..\source\device\Gradient.cpp" />
+    <ClCompile Include="..\..\..\source\device\HeightOutput.cpp" />
     <ClCompile Include="..\..\..\source\device\LayoutGen.cpp" />
     <ClCompile Include="..\..\..\source\device\OverlayView.cpp" />
     <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp" />

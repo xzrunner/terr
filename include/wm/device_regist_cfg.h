@@ -42,6 +42,10 @@
 
 // output
 
+#define PARM_DEVICE_CLASS HeightOutput
+#define PARM_DEVICE_NAME height_output
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS OverlayView
 #define PARM_DEVICE_NAME overlay_view
 #include EXE_FILEPATH

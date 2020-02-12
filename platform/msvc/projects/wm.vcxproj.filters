@@ -221,6 +221,12 @@
     <ClInclude Include="..\..\..\include\wm\device\Gradient.parm.h">
       <Filter>devices\01.generator</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\HeightOutput.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\HeightOutput.parm.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -316,6 +322,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Gradient.cpp">
       <Filter>devices\01.generator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\HeightOutput.cpp">
+      <Filter>devices\02.output</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
