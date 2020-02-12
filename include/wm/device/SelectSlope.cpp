@@ -12,7 +12,7 @@ namespace wm
 namespace device
 {
 
-void SelectSlope::Execute(const Context& ctx)
+void SelectSlope::Execute()
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf) {

@@ -6,7 +6,7 @@ namespace wm
 namespace device
 {
 
-void Color::Execute(const Context& ctx)
+void Color::Execute()
 {
     size_t w = 128;
     size_t h = 128;

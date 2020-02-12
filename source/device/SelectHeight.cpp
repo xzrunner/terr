@@ -7,7 +7,7 @@ namespace wm
 namespace device
 {
 
-void SelectHeight::Execute(const Context& ctx)
+void SelectHeight::Execute()
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf) {

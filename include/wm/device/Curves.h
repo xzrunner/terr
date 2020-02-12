@@ -29,7 +29,7 @@ public:
         };
     }
 
-    virtual void Execute(const Context& ctx) override;
+    virtual void Execute() override;
 
 private:
     float CalcHeight(float h) const;

@@ -22,7 +22,7 @@ public:
         };
     }
 
-    virtual void Execute(const Context& ctx) override;
+    virtual void Execute() override;
 
 private:
     void InitializeBrushIndices(size_t width, size_t height);

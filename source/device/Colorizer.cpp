@@ -9,7 +9,7 @@ namespace wm
 namespace device
 {
 
-void Colorizer::Execute(const Context& ctx)
+void Colorizer::Execute()
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf) {

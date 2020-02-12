@@ -1,5 +1,4 @@
 #include "wm/device/Erosion.h"
-#include "wm/Context.h"
 #include "wm/HeightField.h"
 #include "wm/DeviceHelper.h"
 #include "wm/HeightFieldEval.h"
@@ -13,7 +12,7 @@ namespace wm
 namespace device
 {
 
-void Erosion::Execute(const Context& ctx)
+void Erosion::Execute()
 {
     bool new_hf = m_hf == nullptr;
 

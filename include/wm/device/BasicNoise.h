@@ -19,10 +19,10 @@ public:
         };
     }
 
-    virtual void Execute(const Context& ctx) override;
+    virtual void Execute() override;
 
 private:
-    float GetHeight(size_t x, size_t y) const;
+    float GetValue(size_t x, size_t y) const;
     float Total(size_t x, size_t y) const;
     float GetValue(float x, float y) const;
     float Interpolate(float x, float y, float a) const;

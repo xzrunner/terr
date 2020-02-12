@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\wm\Bitmap.h" />
-    <ClInclude Include="..\..\..\include\wm\Context.h" />
     <ClInclude Include="..\..\..\include\wm\DeviceHelper.h" />
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.h" />
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.parm.h" />

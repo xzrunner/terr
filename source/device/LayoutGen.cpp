@@ -29,7 +29,7 @@ namespace wm
 namespace device
 {
 
-void LayoutGen::Execute(const Context& ctx)
+void LayoutGen::Execute()
 {
     auto mask = DeviceHelper::GetInputMask(*this, 0);
     if (!mask) {

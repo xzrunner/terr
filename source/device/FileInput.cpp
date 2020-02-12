@@ -12,7 +12,7 @@ namespace wm
 namespace device
 {
 
-void FileInput::Execute(const Context& ctx)
+void FileInput::Execute()
 {
     if (m_filepath.empty()) {
         return;

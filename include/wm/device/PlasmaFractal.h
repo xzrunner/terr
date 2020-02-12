@@ -19,10 +19,10 @@ public:
         };
     }
 
-    virtual void Execute(const Context& ctx) override;
+    virtual void Execute() override;
 
 private:
-    void MakePlasma(size_t size);
+    void MakePlasma(size_t width, size_t height);
 
     RTTR_ENABLE(Device)
 

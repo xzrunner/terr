@@ -10,7 +10,7 @@ namespace wm
 namespace device
 {
 
-void HeightOutput::Execute(const Context& ctx)
+void HeightOutput::Execute()
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf || m_filepath.empty()) {

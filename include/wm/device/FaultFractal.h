@@ -19,13 +19,13 @@ public:
         };
     }
 
-    virtual void Execute(const Context& ctx) override;
+    virtual void Execute() override;
 
 private:
-    void MakeFault(size_t size);
+    void MakeFault(size_t width, size_t height);
 
     static void FilterHeightBand(float* band, int stride, int count, float filter);
-    static void FilterHeightField(int size, std::vector<float>& height_data, float filter);
+    static void FilterHeightField(size_t width, size_t height, std::vector<float>& height_data, float filter);
 
     RTTR_ENABLE(Device)
 

@@ -35,7 +35,7 @@ public:
         };
     }
 
-    virtual void Execute(const Context& ctx) override;
+    virtual void Execute() override;
 
     RTTR_ENABLE(Device)
 

@@ -24,7 +24,7 @@ public:
         };
     }
 
-    virtual void Execute(const Context& ctx) override;
+    virtual void Execute() override;
 
 private:
     void AddFractalPattern(const wm::PerlinNoise& noise);

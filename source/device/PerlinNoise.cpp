@@ -1,5 +1,4 @@
 #include "wm/device/PerlinNoise.h"
-#include "wm/Context.h"
 #include "wm/PerlinNoise.h"
 #include "wm/HeightField.h"
 
@@ -8,17 +7,17 @@ namespace wm
 namespace device
 {
 
-void PerlinNoise::Execute(const Context& ctx)
+void PerlinNoise::Execute()
 {
-    m_hf = std::make_shared<HeightField>(ctx.size, ctx.size);
+    m_hf = std::make_shared<HeightField>(m_width, m_height);
 
     wm::PerlinNoise noise;
 
-    for (size_t y = 0; y < ctx.size; ++y) {
-        for (size_t x = 0; x < ctx.size; ++x) {
+    for (size_t y = 0; y < m_height; ++y) {
+        for (size_t x = 0; x < m_width; ++x) {
             Vec3f p;
-            p.x = static_cast<float>(x) / ctx.size;
-            p.y = static_cast<float>(y) / ctx.size;
+            p.x = static_cast<float>(x) / m_width;
+            p.y = static_cast<float>(y) / m_height;
             p.z = 0;
             m_hf->Set(x, y, (noise.eval(p) + 1) * 0.5f);
         }

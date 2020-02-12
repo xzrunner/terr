@@ -1,5 +1,4 @@
 #include "wm/device/BasicNoise.h"
-#include "wm/Context.h"
 #include "wm/HeightField.h"
 
 namespace wm
@@ -7,18 +6,18 @@ namespace wm
 namespace device
 {
 
-void BasicNoise::Execute(const Context& ctx)
+void BasicNoise::Execute()
 {
-    m_hf = std::make_shared<HeightField>(ctx.size, ctx.size);
+    m_hf = std::make_shared<HeightField>(m_width, m_height);
 
-    for (size_t y = 0; y < ctx.size; ++y) {
-        for (size_t x = 0; x < ctx.size; ++x) {
-            m_hf->Set(x, y, GetHeight(x, y));
+    for (size_t y = 0; y < m_height; ++y) {
+        for (size_t x = 0; x < m_width; ++x) {
+            m_hf->Set(x, y, GetValue(x, y));
         }
     }
 }
 
-float BasicNoise::GetHeight(size_t x, size_t y) const
+float BasicNoise::GetValue(size_t x, size_t y) const
 {
     return m_amplitude * Total(x, y);
 }

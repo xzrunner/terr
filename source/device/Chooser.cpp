@@ -8,7 +8,7 @@ namespace wm
 namespace device
 {
 
-void Chooser::Execute(const Context& ctx)
+void Chooser::Execute()
 {
     auto blend = DeviceHelper::GetInputHeight(*this, ID_CTRL);
     if (!blend) {

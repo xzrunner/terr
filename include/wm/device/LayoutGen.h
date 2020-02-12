@@ -23,7 +23,7 @@ public:
         };
     }
 
-    virtual void Execute(const Context& ctx) override;
+    virtual void Execute() override;
 
 private:
     std::shared_ptr<HeightField>

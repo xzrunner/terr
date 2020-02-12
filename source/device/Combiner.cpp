@@ -7,7 +7,7 @@ namespace wm
 namespace device
 {
 
-void Combiner::Execute(const Context& ctx)
+void Combiner::Execute()
 {
     auto hf0 = DeviceHelper::GetInputHeight(*this, 0);
     auto hf1 = DeviceHelper::GetInputHeight(*this, 1);

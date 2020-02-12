@@ -8,7 +8,7 @@ namespace wm
 namespace device
 {
 
-void Curves::Execute(const Context& ctx)
+void Curves::Execute()
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf) {

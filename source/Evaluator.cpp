@@ -1,6 +1,5 @@
 #include "wm/Evaluator.h"
 #include "wm/Device.h"
-#include "wm/Context.h"
 #include "wm/typedef.h"
 
 #include <dag/Evaluator.h>
@@ -130,12 +129,11 @@ void Evaluator::Update()
     }
     auto sorted_idx = dag::Evaluator::TopologicalSorting(devices);
 
-    Context ctx;
     for (auto& idx : sorted_idx)
     {
         auto device = devices[idx];
         if (device->IsDirty()) {
-            std::static_pointer_cast<Device>(device)->Execute(ctx);
+            std::static_pointer_cast<Device>(device)->Execute();
             device->SetDirty(false);
         }
     }

@@ -6,7 +6,7 @@ namespace wm
 namespace device
 {
 
-void OverlayView::Execute(const Context& ctx)
+void OverlayView::Execute()
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, ID_HEIGHTFIELD);
     if (!prev_hf) {
