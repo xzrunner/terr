@@ -23,9 +23,10 @@ void Erosion::Execute(const Context& ctx)
     }
 
     m_hf = std::make_shared<HeightField>(*prev_hf);
-    if (new_hf || m_map_sz != ctx.size) {
-        InitializeBrushIndices(ctx.size);
-    }
+
+    size_t w = m_hf->Width();
+    size_t h = m_hf->Height();
+    InitializeBrushIndices(w, h);
 
     const size_t max_droplet_lifetime = 30;
     const float init_water_volume = 1;
@@ -35,8 +36,8 @@ void Erosion::Execute(const Context& ctx)
     {
         // Create water droplet at random point on map
         sm::vec2 pos;
-        pos.x = static_cast<float>(rand()) / RAND_MAX * (ctx.size - 1);
-        pos.y = static_cast<float>(rand()) / RAND_MAX * (ctx.size - 1);
+        pos.x = static_cast<float>(rand()) / RAND_MAX * (w - 1);
+        pos.y = static_cast<float>(rand()) / RAND_MAX * (h - 1);
         sm::vec2 dir(0, 0);
         float speed = init_speed;
         float water = init_water_volume;
@@ -46,22 +47,29 @@ void Erosion::Execute(const Context& ctx)
         {
             const size_t node_x = static_cast<size_t>(pos.x);
             const size_t node_y = static_cast<size_t>(pos.y);
-            const size_t droplet_idx = node_y * ctx.size + node_x;
+            const size_t droplet_idx = node_y * w + node_x;
             const float cell_off_x = pos.x - node_x;
             const float cell_off_y = pos.y - node_y;
 
             const auto gradient = HeightFieldEval::Gradient(*m_hf, node_x, node_y);
 
             // calc next pos
-            dir.x = (dir.x - gradient.x) * m_ki + gradient.x;
-            dir.y = (dir.y - gradient.y) * m_ki + gradient.y;
+            //dir.x = (dir.x - gradient.x) * m_ki + gradient.x;
+            //dir.y = (dir.y - gradient.y) * m_ki + gradient.y;
+            dir.x = (dir.x * m_ki - gradient.x * (1 - m_ki));
+            dir.y = (dir.y * m_ki - gradient.y * (1 - m_ki));
+
+            // Stop simulating droplet if it's not moving
+            if (dir.x == 0 && dir.y == 0) {
+                break;
+            }
+
             dir.Normalize();
             pos += dir;
 
-            // Stop simulating droplet if it's not moving or has flowed over edge of map
-            if ((dir.x == 0 && dir.y == 0) ||
-                pos.x < 0 || pos.x >= ctx.size - 1 ||
-                pos.y < 0 || pos.y >= ctx.size - 1) {
+            // Stop simulating droplet if has flowed over edge of map
+            if (pos.x < 0 || pos.x >= w - 1 ||
+                pos.y < 0 || pos.y >= h - 1) {
                 break;
             }
 
@@ -81,10 +89,13 @@ void Erosion::Execute(const Context& ctx)
 
                 // Add the sediment to the four nodes of the current cell using bilinear interpolation
                 // Deposition is not distributed over a radius (like erosion) so that it can fill small pits
-                m_hf->Add(node_x,     node_y,     amount_to_deposit * (1 - cell_off_x) * (1 - cell_off_y));
-                m_hf->Add(node_x + 1, node_y,     amount_to_deposit * cell_off_x * (1 - cell_off_y));
-                m_hf->Add(node_x,     node_y + 1, amount_to_deposit * (1 - cell_off_x) * cell_off_y);
-                m_hf->Add(node_x + 1, node_y + 1, amount_to_deposit * cell_off_x * cell_off_y);
+                if (sediment != 0)
+                {
+                    m_hf->Add(node_x,     node_y,     amount_to_deposit * (1 - cell_off_x) * (1 - cell_off_y));
+                    m_hf->Add(node_x + 1, node_y,     amount_to_deposit * cell_off_x * (1 - cell_off_y));
+                    m_hf->Add(node_x,     node_y + 1, amount_to_deposit * (1 - cell_off_x) * cell_off_y);
+                    m_hf->Add(node_x + 1, node_y + 1, amount_to_deposit * cell_off_x * cell_off_y);
+                }
             }
             else
             {
@@ -104,17 +115,16 @@ void Erosion::Execute(const Context& ctx)
             }
 
             // Update droplet's speed and water content
-            speed = std::sqrt(speed * speed + dh * m_g);
+            auto spd_square = speed * speed + dh * m_g;
+            speed = spd_square > 0 ? std::sqrt(spd_square) : 0;
             water *= (1 - m_kw);
         }
     }
 }
 
-void Erosion::InitializeBrushIndices(size_t size)
+void Erosion::InitializeBrushIndices(size_t width, size_t height)
 {
-    m_map_sz = size;
-
-    const size_t tot_sz = m_map_sz * m_map_sz;
+    const size_t tot_sz = width * height;
     m_brush_indices.resize(tot_sz);
     m_brush_weights.resize(tot_sz);
 
@@ -127,10 +137,10 @@ void Erosion::InitializeBrushIndices(size_t size)
 
     for (size_t i = 0; i < tot_sz; ++i)
     {
-        int cx = i % m_map_sz;
-        int cy = i / m_map_sz;
+        int cx = i % width;
+        int cy = i / width;
 
-        if (cy <= m_radius || cy >= m_map_sz - m_radius || cx <= m_radius + 1 || cx >= m_map_sz - m_radius)
+        if (cy <= m_radius || cy >= height - m_radius || cx <= m_radius + 1 || cx >= width - m_radius)
         {
             weight_sum = 0;
             add_index = 0;
@@ -145,8 +155,8 @@ void Erosion::InitializeBrushIndices(size_t size)
                         int coord_x = cx + x;
                         int coord_y = cy + y;
 
-                        if (coord_x >= 0 && static_cast<size_t>(coord_x) < m_map_sz &&
-                            coord_y >= 0 && static_cast<size_t>(coord_y) < m_map_sz)
+                        if (coord_x >= 0 && static_cast<size_t>(coord_x) < width &&
+                            coord_y >= 0 && static_cast<size_t>(coord_y) < height)
                         {
                             float weight = 1 - std::sqrt(sqr_dst) / m_radius;
                             weight_sum += weight;
@@ -164,7 +174,9 @@ void Erosion::InitializeBrushIndices(size_t size)
         m_brush_indices[i].resize(num_entries);
         m_brush_weights[i].resize(num_entries);
         for (int j = 0; j < num_entries; ++j) {
-            m_brush_indices[i][j] = (y_offsets[j] + cy) * m_map_sz + x_offsets[j] + cx;
+            m_brush_indices[i][j] = (y_offsets[j] + cy) * width + x_offsets[j] + cx;
+
+            auto w = weights[j] / weight_sum;
             m_brush_weights[i][j] = weights[j] / weight_sum;
         }
     }

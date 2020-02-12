@@ -25,11 +25,9 @@ public:
     virtual void Execute(const Context& ctx) override;
 
 private:
-    void InitializeBrushIndices(size_t size);
+    void InitializeBrushIndices(size_t width, size_t height);
 
 private:
-    size_t m_map_sz = 0;
-
     std::vector<std::vector<size_t>> m_brush_indices;
     std::vector<std::vector<float>>  m_brush_weights;
 
