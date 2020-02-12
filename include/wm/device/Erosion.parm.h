@@ -12,6 +12,3 @@ PARAM_INFO(ErodeSpeed,             Float, kr,        m_kr,        (0.3))    // 0
 PARAM_INFO(DepositSpeed,           Float, kd,        m_kd,        (0.3))    // 0, 1
 PARAM_INFO(Inertia,                Float, ki,        m_ki,        (0.05))   // 0, 1
 PARAM_INFO(Gravity,                Float, g,         m_g,         (4))
-
-PARAM_INFO(Scale, Float, scale, m_scale, (1))
-PARAM_INFO(Times, Int, times, m_times, (30))
