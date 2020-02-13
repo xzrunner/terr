@@ -49,14 +49,23 @@
     <Filter Include="dataset\bitmap">
       <UniqueIdentifier>{a37d33b7-c147-4e23-bc6e-e8dedf2a2c60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="devices\01.generator\noise">
-      <UniqueIdentifier>{cf4885b8-6a8a-428d-a967-2521593ee27f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="dataset\mask">
       <UniqueIdentifier>{6aed1e66-8054-4ec1-82bb-16ea29bbbe62}</UniqueIdentifier>
     </Filter>
     <Filter Include="tools\rtti">
       <UniqueIdentifier>{7f122e31-c950-4d67-96eb-aa520ca64b9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\0.value">
+      <UniqueIdentifier>{a35f1708-fbb4-4d14-81d2-d4b9dffea69d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\1.input">
+      <UniqueIdentifier>{64d8126e-53ba-4b60-a3f5-6c0d1b564a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\2.simulate">
+      <UniqueIdentifier>{de0f439e-3c8e-47a7-ad3e-b8ca49d91182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\3.noise">
+      <UniqueIdentifier>{cf4885b8-6a8a-428d-a967-2521593ee27f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -106,12 +115,6 @@
     <ClInclude Include="..\..\..\include\wm\TextureBaker.h">
       <Filter>texture</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\FileInput.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\Combiner.h">
       <Filter>devices\03.combiner</Filter>
     </ClInclude>
@@ -158,43 +161,19 @@
       <Filter>devices\03.combiner</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.h">
-      <Filter>devices\01.generator\noise</Filter>
+      <Filter>devices\01.generator\3.noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.parm.h">
-      <Filter>devices\01.generator\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\FaultFractal.h">
-      <Filter>devices\01.generator\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h">
-      <Filter>devices\01.generator\noise</Filter>
+      <Filter>devices\01.generator\3.noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\PerlinNoise.h">
-      <Filter>devices\01.generator\noise</Filter>
+      <Filter>devices\01.generator\3.noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\PerlinNoise.parm.h">
-      <Filter>devices\01.generator\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.h">
-      <Filter>devices\01.generator\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.parm.h">
-      <Filter>devices\01.generator\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\Color.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\Color.parm.h">
-      <Filter>devices\01.generator</Filter>
+      <Filter>devices\01.generator\3.noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\Mask.h">
       <Filter>dataset\mask</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\LayoutGen.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\LayoutGen.parm.h">
-      <Filter>devices\01.generator</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\WM.h" />
     <ClInclude Include="..\..\..\include\wm\device_rttr_gen.h">
@@ -206,23 +185,62 @@
     <ClInclude Include="..\..\..\include\wm\device_include_gen.h">
       <Filter>tools\rtti</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\Constant.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\Constant.parm.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\Gradient.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\Gradient.parm.h">
-      <Filter>devices\01.generator</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\HeightOutput.h">
       <Filter>devices\02.output</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\HeightOutput.parm.h">
       <Filter>devices\02.output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FaultFractal.h">
+      <Filter>devices\01.generator\2.simulate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h">
+      <Filter>devices\01.generator\2.simulate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.h">
+      <Filter>devices\01.generator\2.simulate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.parm.h">
+      <Filter>devices\01.generator\2.simulate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Color.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Color.parm.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Constant.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Constant.parm.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Gradient.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Gradient.parm.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FileInput.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\LayoutGen.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\LayoutGen.parm.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\EvalGPU.h">
+      <Filter>eval</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,9 +280,6 @@
     <ClCompile Include="..\..\..\source\TextureBaker.cpp">
       <Filter>texture</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\device\FileInput.cpp">
-      <Filter>devices\01.generator</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\device\Combiner.cpp">
       <Filter>devices\03.combiner</Filter>
     </ClCompile>
@@ -290,38 +305,47 @@
       <Filter>devices\03.combiner</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp">
-      <Filter>devices\01.generator\noise</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
-      <Filter>devices\01.generator\noise</Filter>
+      <Filter>devices\01.generator\3.noise</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp">
-      <Filter>devices\01.generator\noise</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
-      <Filter>devices\01.generator\noise</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\include\wm\device\Color.cpp">
-      <Filter>devices\01.generator</Filter>
+      <Filter>devices\01.generator\3.noise</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\Mask.cpp">
       <Filter>dataset\mask</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\device\LayoutGen.cpp">
-      <Filter>devices\01.generator</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\WM.cpp" />
     <ClCompile Include="..\..\..\source\RegistRTTR.cpp">
       <Filter>tools\rtti</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\device\Constant.cpp">
-      <Filter>devices\01.generator</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\device\Gradient.cpp">
-      <Filter>devices\01.generator</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\device\HeightOutput.cpp">
       <Filter>devices\02.output</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\AdvanceNoise.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
+      <Filter>devices\01.generator\2.simulate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
+      <Filter>devices\01.generator\2.simulate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\wm\device\Color.cpp">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Constant.cpp">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Gradient.cpp">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FileInput.cpp">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\LayoutGen.cpp">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\EvalGPU.cpp">
+      <Filter>eval</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

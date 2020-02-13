@@ -4,10 +4,6 @@
 
 // generator
 
-#define PARM_DEVICE_CLASS BasicNoise
-#define PARM_DEVICE_NAME basic_noise
-#include EXE_FILEPATH
-
 #define PARM_DEVICE_CLASS Color
 #define PARM_DEVICE_NAME color
 #include EXE_FILEPATH
@@ -16,28 +12,36 @@
 #define PARM_DEVICE_NAME constant
 #include EXE_FILEPATH
 
-#define PARM_DEVICE_CLASS FaultFractal
-#define PARM_DEVICE_NAME fault_fractal
+#define PARM_DEVICE_CLASS Gradient
+#define PARM_DEVICE_NAME gradient
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS FileInput
 #define PARM_DEVICE_NAME file_input
 #include EXE_FILEPATH
 
-#define PARM_DEVICE_CLASS Gradient
-#define PARM_DEVICE_NAME gradient
-#include EXE_FILEPATH
-
 #define PARM_DEVICE_CLASS LayoutGen
 #define PARM_DEVICE_NAME layout_gen
 #include EXE_FILEPATH
 
-#define PARM_DEVICE_CLASS PerlinNoise
-#define PARM_DEVICE_NAME perlin_noise
+#define PARM_DEVICE_CLASS FaultFractal
+#define PARM_DEVICE_NAME fault_fractal
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS PlasmaFractal
 #define PARM_DEVICE_NAME plasma_fractal
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS AdvanceNoise
+#define PARM_DEVICE_NAME advance_noise
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS BasicNoise
+#define PARM_DEVICE_NAME basic_noise
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS PerlinNoise
+#define PARM_DEVICE_NAME perlin_noise
 #include EXE_FILEPATH
 
 // output

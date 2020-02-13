@@ -31,6 +31,8 @@
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.h" />
+    <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gradient.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gradient.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\HeightOutput.h" />
@@ -52,6 +54,7 @@
     <ClInclude Include="..\..\..\include\wm\device_include_gen.h" />
     <ClInclude Include="..\..\..\include\wm\device_regist_cfg.h" />
     <ClInclude Include="..\..\..\include\wm\device_rttr_gen.h" />
+    <ClInclude Include="..\..\..\include\wm\EvalGPU.h" />
     <ClInclude Include="..\..\..\include\wm\Evaluator.h" />
     <ClInclude Include="..\..\..\include\wm\HeightField.h" />
     <ClInclude Include="..\..\..\include\wm\HeightFieldEval.h" />
@@ -81,6 +84,7 @@
     <ClCompile Include="..\..\..\source\device\Curves.cpp" />
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
+    <ClCompile Include="..\..\..\source\device\AdvanceNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Gradient.cpp" />
     <ClCompile Include="..\..\..\source\device\HeightOutput.cpp" />
     <ClCompile Include="..\..\..\source\device\LayoutGen.cpp" />
@@ -89,6 +93,7 @@
     <ClCompile Include="..\..\..\source\device\Erosion.cpp" />
     <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\SelectHeight.cpp" />
+    <ClCompile Include="..\..\..\source\EvalGPU.cpp" />
     <ClCompile Include="..\..\..\source\Evaluator.cpp" />
     <ClCompile Include="..\..\..\source\HeightField.cpp" />
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />
@@ -146,7 +151,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -160,7 +165,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
