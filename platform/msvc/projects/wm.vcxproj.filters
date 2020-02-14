@@ -242,6 +242,36 @@
     <ClInclude Include="..\..\..\include\wm\EvalGPU.h">
       <Filter>eval</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\ErosionGPU.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\ErosionGPU.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Wind.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Wind.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Gaussian.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Gaussian.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Incline.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Incline.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Step.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Step.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -346,6 +376,21 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\EvalGPU.cpp">
       <Filter>eval</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\ErosionGPU.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Wind.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Gaussian.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Incline.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Step.cpp">
+      <Filter>devices\04.filter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,3 +9,7 @@ WorldMachine back-end.
 [SebLague/Hydraulic-Erosion](https://github.com/SebLague/Hydraulic-Erosion)
 
 [vincentriche/Outerrain](https://github.com/vincentriche/Outerrain)
+
+[scape](https://www.decarpentier.nl/scape)
+
+[lithosphere](https://github.com/rigred/lithosphere-fork)
