@@ -34,6 +34,8 @@ public:
 
     ur::TexturePtr GetHeightmap();
 
+    bool Inside(int x, int y) const;
+
 private:
     size_t m_width = 0, m_height = 0;
 

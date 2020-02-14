@@ -13,3 +13,7 @@ WorldMachine back-end.
 [scape](https://www.decarpentier.nl/scape)
 
 [lithosphere](https://github.com/rigred/lithosphere-fork)
+
+[Cellular Noise](https://thebookofshaders.com/12)
+
+[Outerrain](https://github.com/vincentriche/Outerrain)

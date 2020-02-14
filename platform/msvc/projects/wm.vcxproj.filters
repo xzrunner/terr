@@ -272,6 +272,18 @@
     <ClInclude Include="..\..\..\include\wm\device\Step.parm.h">
       <Filter>devices\04.filter</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\CellularNoise.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\CellularNoise.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\ThermalWeathering.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\ThermalWeathering.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -391,6 +403,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Step.cpp">
       <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\CellularNoise.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\ThermalWeathering.cpp">
+      <Filter>devices\05.natural</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

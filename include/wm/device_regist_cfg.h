@@ -40,6 +40,10 @@
 #define PARM_DEVICE_NAME basic_noise
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS CellularNoise
+#define PARM_DEVICE_NAME cellular_noise
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS PerlinNoise
 #define PARM_DEVICE_NAME perlin_noise
 #include EXE_FILEPATH
@@ -90,6 +94,10 @@
 
 #define PARM_DEVICE_CLASS ErosionGPU
 #define PARM_DEVICE_NAME erosion_gpu
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS ThermalWeathering
+#define PARM_DEVICE_NAME thermal_weathering
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS Wind

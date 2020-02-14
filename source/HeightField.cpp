@@ -155,4 +155,14 @@ ur::TexturePtr HeightField::GetHeightmap()
     return m_heightmap;
 }
 
+bool HeightField::Inside(int x, int y) const
+{
+    if (x < 0 || x >= m_width ||
+        y < 0 || y >= m_height) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 }

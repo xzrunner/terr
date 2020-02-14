@@ -15,6 +15,8 @@
     <ClInclude Include="..\..\..\include\wm\DeviceHelper.h" />
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.h" />
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\CellularNoise.h" />
+    <ClInclude Include="..\..\..\include\wm\device\CellularNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Chooser.h" />
     <ClInclude Include="..\..\..\include\wm\device\Chooser.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Color.h" />
@@ -59,6 +61,8 @@
     <ClInclude Include="..\..\..\include\wm\device\SelectSlope.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Step.h" />
     <ClInclude Include="..\..\..\include\wm\device\Step.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\ThermalWeathering.h" />
+    <ClInclude Include="..\..\..\include\wm\device\ThermalWeathering.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Wind.h" />
     <ClInclude Include="..\..\..\include\wm\device\Wind.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device_include_gen.h" />
@@ -87,6 +91,7 @@
     <ClCompile Include="..\..\..\source\Bitmap.cpp" />
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp" />
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp" />
+    <ClCompile Include="..\..\..\source\device\CellularNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Chooser.cpp" />
     <ClCompile Include="..\..\..\source\device\Colorizer.cpp" />
     <ClCompile Include="..\..\..\source\device\Combiner.cpp" />
@@ -107,6 +112,7 @@
     <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\SelectHeight.cpp" />
     <ClCompile Include="..\..\..\source\device\Step.cpp" />
+    <ClCompile Include="..\..\..\source\device\ThermalWeathering.cpp" />
     <ClCompile Include="..\..\..\source\device\Wind.cpp" />
     <ClCompile Include="..\..\..\source\EvalGPU.cpp" />
     <ClCompile Include="..\..\..\source\Evaluator.cpp" />
