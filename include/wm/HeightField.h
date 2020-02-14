@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SM_Vector.h>
+#include <unirender/Texture.h>
 
 #include <vector>
 
@@ -31,10 +32,14 @@ public:
     auto& GetValues() const { return m_values; }
     void SetValues(const std::vector<float>& values);
 
+    ur::TexturePtr GetHeightmap();
+
 private:
     size_t m_width = 0, m_height = 0;
 
     std::vector<float> m_values;
+
+    ur::TexturePtr m_heightmap = nullptr;
 
 }; // HeightField
 

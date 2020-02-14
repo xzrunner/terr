@@ -1,4 +1,8 @@
 #include "wm/HeightField.h"
+#include "wm/TextureBaker.h"
+
+#include <unirender/Blackboard.h>
+#include <unirender/RenderContext.h>
 
 #include <assert.h>
 
@@ -140,6 +144,15 @@ void HeightField::SetValues(const std::vector<float>& values)
 
     assert(m_values.size() == values.size());
     m_values = values;
+}
+
+ur::TexturePtr HeightField::GetHeightmap()
+{
+    if (!m_heightmap) {
+        auto& rc = ur::Blackboard::Instance()->GetRenderContext();
+        m_heightmap = TextureBaker::GenHeightMap(*this, rc);
+    }
+    return m_heightmap;
 }
 
 }
