@@ -24,6 +24,7 @@ bool HeightField::Set(size_t x, size_t y, float h)
         return false;
     } else {
         m_values[idx] = h;
+        m_dirty = true;
         return true;
     }
 }
@@ -80,6 +81,7 @@ bool HeightField::Add(size_t x, size_t y, float dh)
 
     const size_t idx = y * m_width + x;
     m_values[idx] += dh;
+    m_dirty = true;
 
     return true;
 }
@@ -92,6 +94,7 @@ bool HeightField::Add(size_t idx, float dh)
     }
 
     m_values[idx] += dh;
+    m_dirty = true;
 
     return true;
 }
@@ -103,6 +106,7 @@ bool HeightField::Fill(const std::vector<float>& heights)
         return false;
     } else {
         m_values = heights;
+        m_dirty = true;
         return true;
     }
 }
@@ -112,6 +116,7 @@ void HeightField::Scale(float scale)
     for (auto& v : m_values) {
         v *= scale;
     }
+    m_dirty = true;
 }
 
 void HeightField::Normalize()
@@ -134,6 +139,8 @@ void HeightField::Normalize()
     for (auto& v : m_values) {
         v = (v - min) / (max - min);
     }
+
+    m_dirty = true;
 }
 
 void HeightField::SetValues(const std::vector<float>& values)
@@ -144,13 +151,16 @@ void HeightField::SetValues(const std::vector<float>& values)
 
     assert(m_values.size() == values.size());
     m_values = values;
+
+    m_dirty = true;
 }
 
 ur::TexturePtr HeightField::GetHeightmap()
 {
-    if (!m_heightmap) {
+    if (!m_heightmap || m_dirty) {
         auto& rc = ur::Blackboard::Instance()->GetRenderContext();
         m_heightmap = TextureBaker::GenHeightMap(*this, rc);
+        m_dirty = true;
     }
     return m_heightmap;
 }

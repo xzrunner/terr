@@ -42,6 +42,7 @@ private:
     std::vector<float> m_values;
 
     ur::TexturePtr m_heightmap = nullptr;
+    bool m_dirty = true;
 
 }; // HeightField
 
