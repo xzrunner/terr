@@ -61,7 +61,7 @@ void FaultFractal::MakeFault(size_t _width, size_t _height)
 		FilterHeightField(_width, _height, temp_buf, m_filter);
 	}
 
-    m_hf->Fill(temp_buf);
+    m_hf->SetValues(temp_buf);
     m_hf->Normalize();
 }
 

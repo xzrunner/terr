@@ -82,7 +82,7 @@ bool EvalGPU::Run(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
     rc.ReleaseRenderTarget(fbo);
     rc.ReleaseTexture(tex);
 
-    hf.Fill(heights);
+    hf.SetValues(heights);
 
     return true;
 }

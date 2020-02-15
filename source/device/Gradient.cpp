@@ -24,7 +24,7 @@ void Gradient::Execute()
     }
 
     m_hf = std::make_shared<HeightField>(m_width, m_height);
-    m_hf->Fill(vals);
+    m_hf->SetValues(vals);
 }
 
 }

@@ -84,7 +84,7 @@ LayoutGen::MaskToHeightField(const Mask& mask) const
         }
     }
 
-    hf->Fill(heights);
+    hf->SetValues(heights);
     hf->Normalize();
 
     return hf;

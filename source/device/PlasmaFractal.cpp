@@ -145,7 +145,7 @@ void PlasmaFractal::MakePlasma(size_t _width, size_t _height)
 		height *= height_reducer;
 	}
 
-    m_hf->Fill(temp_buf);
+    m_hf->SetValues(temp_buf);
     m_hf->Normalize();
 }
 

@@ -62,7 +62,7 @@ void FileInput::Execute()
                 }
 
                 m_hf = std::make_shared<HeightField>(size, size);
-                m_hf->Fill(height);
+                m_hf->SetValues(height);
             }
         }
         fin.close();
@@ -151,7 +151,7 @@ void FileInput::Execute()
             }
 
             m_hf = std::make_shared<HeightField>(width, height);
-            m_hf->Fill(h_data);
+            m_hf->SetValues(h_data);
         }
     }
 }
