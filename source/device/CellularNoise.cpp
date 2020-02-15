@@ -113,10 +113,13 @@ void CellularNoise::Execute()
 
 void CellularNoise::Init()
 {
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
+    if (!EVAL)
+    {
+        auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 
-    std::vector<std::string> texture_names;
-    EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
+        std::vector<std::string> texture_names;
+        EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
+    }
 }
 
 }

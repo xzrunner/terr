@@ -109,12 +109,15 @@ void Wind::Execute()
 
 void Wind::Init()
 {
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
+    if (!EVAL)
+    {
+        auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 
-    std::vector<std::string> texture_names;
-    texture_names.push_back("heightmap");
+        std::vector<std::string> texture_names;
+        texture_names.push_back("heightmap");
 
-    EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
+        EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
+    }
 }
 
 }
