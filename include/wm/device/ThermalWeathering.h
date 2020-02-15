@@ -18,12 +18,17 @@ public:
         m_exports = {
             {{ DeviceVarType::Heightfield, "out" }},
         };
+
+        Init();
     }
 
     virtual void Execute() override;
 
 private:
-    void Step();
+    void Init();
+
+    void StepCPU();
+    void StepGPU(int thread_group_count);
 
     RTTR_ENABLE(Device)
 

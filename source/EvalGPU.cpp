@@ -29,7 +29,13 @@ EvalGPU::EvalGPU(ur::RenderContext& rc, const std::string& vs, const std::string
     m_shader = std::make_shared<pt3::Shader>(&rc, sp);
 }
 
-bool EvalGPU::Run(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
+EvalGPU::EvalGPU(ur::RenderContext& rc, const std::string& cs)
+{
+    m_shader = std::make_shared<ur::Shader>(&rc, cs.c_str());
+    m_compute_work_group_size = m_shader->GetComputeWorkGroupSize();
+}
+
+bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
                   const pt0::ShaderUniforms& vals, HeightField& hf) const
 {
     if (!m_shader) {
@@ -83,6 +89,45 @@ bool EvalGPU::Run(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
     rc.ReleaseTexture(tex);
 
     hf.SetValues(heights);
+
+    rc.BindShader(0);
+
+    return true;
+}
+
+bool EvalGPU::RunCS(ur::RenderContext& rc, const pt0::ShaderUniforms& vals,
+                    int thread_group_count, HeightField& hf) const
+{
+    auto values = hf.GetValues();
+
+    m_shader->Use();
+
+    // Allocate buffers
+    uint32_t data_buf = rc.CreateComputeBuffer(values);
+    //GLuint data_buf;
+    //glGenBuffers(1, &data_buf);
+    //glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, data_buf);
+    //glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(float) * values.size(), &values.front(), GL_STREAM_COPY);
+
+    // Uniforms
+    vals.Bind(*m_shader);
+
+    // Dispatch
+    rc.DispatchCompute(thread_group_count);
+    //glDispatchCompute(thread_group_count, 1, 1);
+    //glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
+
+    // Update CPU data
+    rc.GetComputeBufferData(data_buf, values);
+    //glGetNamedBufferSubData(data_buf, 0, sizeof(float) * values.size(), values.data());
+
+    // Delete buffers
+    rc.ReleaseComputeBuffer(data_buf);;
+    //glDeleteBuffers(1, &data_buf);
+
+    hf.SetValues(values);
+
+    rc.BindShader(0);
 
     return true;
 }
