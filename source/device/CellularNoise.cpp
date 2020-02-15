@@ -108,7 +108,7 @@ void CellularNoise::Execute()
     vals.AddVar("u_seed",       pt0::RenderVariant(m_seed));
 
     auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-    EVAL->Run(rc, textures, vals, *m_hf);
+    EVAL->RunPS(rc, textures, vals, *m_hf);
 }
 
 void CellularNoise::Init()

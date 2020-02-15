@@ -76,7 +76,7 @@ void Step::Execute()
     vals.AddVar("high", pt0::RenderVariant(m_high));
 
     m_hf = std::make_shared<HeightField>(prev_hf->Width(), prev_hf->Height());
-    EVAL->Run(rc, textures, vals, *m_hf);
+    EVAL->RunPS(rc, textures, vals, *m_hf);
 }
 
 void Step::Init()

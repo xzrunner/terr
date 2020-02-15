@@ -90,7 +90,7 @@ void Gaussian::Execute()
     vals.AddVar("offsets",   pt0::RenderVariant(m_offsets));
 
     m_hf = std::make_shared<HeightField>(prev_hf->Width(), prev_hf->Height());
-    EVAL->Run(rc, textures, vals, *m_hf);
+    EVAL->RunPS(rc, textures, vals, *m_hf);
 }
 
 void Gaussian::Init()

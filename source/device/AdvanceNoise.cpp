@@ -443,7 +443,7 @@ void AdvanceNoise::Execute()
     vals.AddVar("damp_scale",          pt0::RenderVariant(m_damp_scale));
 
     auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-    EVAL->Run(rc, textures, vals, *m_hf);
+    EVAL->RunPS(rc, textures, vals, *m_hf);
 }
 
 void AdvanceNoise::Init()

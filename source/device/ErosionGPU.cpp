@@ -147,7 +147,7 @@ void ErosionGPU::Execute()
     vals.AddVar("slope",   pt0::RenderVariant(m_slope));
 
     m_hf = std::make_shared<HeightField>(prev_hf->Width(), prev_hf->Height());
-    EVAL->Run(rc, textures, vals, *m_hf);
+    EVAL->RunPS(rc, textures, vals, *m_hf);
 }
 
 void ErosionGPU::Init()
