@@ -3,6 +3,8 @@
 
 #include <SM_Calc.h>
 
+#include <array>
+
 namespace wm
 {
 
@@ -108,6 +110,106 @@ void HeightFieldEval::Region(const HeightField& hf, float& min, float& max)
             max = v;
         }
     }
+}
+
+ScalarField2D HeightFieldEval::DrainageArea(const HeightField& hf)
+{
+    auto w = hf.Width();
+    auto h = hf.Height();
+
+	// Sort all point by decreasing height
+	std::deque<ScalarValue> points;
+    for (size_t y = 0; y < h; ++y) {
+        for (size_t x = 0; x < w; ++x) {
+            points.push_back(ScalarValue(x, y, hf.Get(x, y)));
+        }
+    }
+	std::sort(points.begin(), points.end(), [](ScalarValue p1, ScalarValue p2) { return p1.value > p2.value; });
+
+	std::array<float, 8> slopes;
+	std::array<sm::ivec2, 8> coords;
+	ScalarField2D DA = ScalarField2D(w, h, 1.0f);
+	while (!points.empty())
+	{
+		ScalarValue p = points.front();
+		points.pop_front();
+
+		slopes.fill(0.0f);
+		size_t i = p.x, j = p.y;
+		float h = hf.Get(i, j);
+		int neighbour_count = 0;
+		for (int k = -1; k <= 1; k++)
+		{
+			for (int l = -1; l <= 1; l++)
+			{
+				if ((k == 0 && l == 0) || hf.Inside(i + k, j + l) == false)
+					continue;
+				// If current point has lower neighbour : compute slope to later distribute accordingly.
+				float nH = hf.Get(i + k, j + l);
+				if (h > nH)
+				{
+					float dH = h - nH;
+					if (k + l == -1 || k + l == 1)
+						slopes[neighbour_count] = dH;
+					else
+						slopes[neighbour_count] = dH / sqrt(2.0f);
+
+					coords[neighbour_count] = sm::ivec2(i + k, j + l);
+					neighbour_count++;
+				}
+			}
+		}
+
+		// Distribute to those lower neighbours
+        float sum = 0;
+        for (auto& s : slopes) {
+            sum += s;
+        }
+        for (int k = 0; k < neighbour_count; k++) {
+            size_t x = static_cast<size_t>(coords[k].x);
+            size_t y = static_cast<size_t>(coords[k].y);
+            DA.Set(x, y, DA.Get(x, y) + DA.Get(i, j) * (slopes[k] / sum));
+        }
+	}
+	return DA;
+}
+
+ScalarField2D HeightFieldEval::Wetness(const HeightField& hf)
+{
+    ScalarField2D DA = DrainageArea(hf);
+    ScalarField2D S = Slope(hf);
+    for (size_t y = 0, h = hf.Height(); y < h; ++y) {
+        for (size_t x = 0, w = hf.Width(); x < w; ++x) {
+            DA.Set(x, y, abs(log(DA.Get(x, y) / (1.0f + S.Get(x, y)))));
+        }
+    }
+    return DA;
+}
+
+// Compute the StreamPower field, as described by http://geosci.uchicago.edu/~kite/doc/Whipple_and_Tucker_1999.pdf.
+ScalarField2D HeightFieldEval::StreamPower(const HeightField& hf)
+{
+    ScalarField2D DA = DrainageArea(hf);
+    ScalarField2D S = Slope(hf);
+    for (size_t y = 0, h = hf.Height(); y < h; ++y) {
+        for (size_t x = 0, w = hf.Width(); x < w; ++x) {
+            DA.Set(x, y, sqrt(DA.Get(x, y)) * S.Get(x, y));
+        }
+    }
+    return DA;
+}
+
+ScalarField2D HeightFieldEval::Slope(const HeightField& hf)
+{
+    auto w = hf.Width();
+    auto h = hf.Height();
+    ScalarField2D S = ScalarField2D(w, h);
+    for (size_t y = 0; y < h; ++y) {
+        for (size_t x = 0; x < w; ++x) {
+            S.Set(x, y, Gradient(hf, x, y).Length());
+        }
+    }
+    return S;
 }
 
 }

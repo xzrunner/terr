@@ -21,6 +21,7 @@ void ThermalWeathering::Execute()
     }
 }
 
+// from Outerrain
 /*
 \brief Perform a thermal erosion step with maximum amplitude defined by user. Based on http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.27.8939&rep=rep1&type=pdf.
 \param amplitude maximum amount of matter moved from one point to another. Something between [0.05, 0.1] gives plausible results.

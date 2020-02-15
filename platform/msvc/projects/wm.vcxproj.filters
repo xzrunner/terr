@@ -284,6 +284,21 @@
     <ClInclude Include="..\..\..\include\wm\device\ThermalWeathering.parm.h">
       <Filter>devices\05.natural</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\ScalarField2D.h">
+      <Filter>dataset\heightfield</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\StreamPowerErosion.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\StreamPowerErosion.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\HydraulicErosion.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\HydraulicErosion.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -408,6 +423,15 @@
       <Filter>devices\01.generator\3.noise</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\ThermalWeathering.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ScalarField2D.cpp">
+      <Filter>dataset\heightfield</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\StreamPowerErosionh.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\HydraulicErosion.cpp">
       <Filter>devices\05.natural</Filter>
     </ClCompile>
   </ItemGroup>

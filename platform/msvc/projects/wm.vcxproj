@@ -43,6 +43,8 @@
     <ClInclude Include="..\..\..\include\wm\device\Gradient.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\HeightOutput.h" />
     <ClInclude Include="..\..\..\include\wm\device\HeightOutput.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\HydraulicErosion.h" />
+    <ClInclude Include="..\..\..\include\wm\device\HydraulicErosion.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Incline.h" />
     <ClInclude Include="..\..\..\include\wm\device\Incline.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\LayoutGen.h" />
@@ -61,6 +63,8 @@
     <ClInclude Include="..\..\..\include\wm\device\SelectSlope.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Step.h" />
     <ClInclude Include="..\..\..\include\wm\device\Step.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\StreamPowerErosion.h" />
+    <ClInclude Include="..\..\..\include\wm\device\StreamPowerErosion.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\ThermalWeathering.h" />
     <ClInclude Include="..\..\..\include\wm\device\ThermalWeathering.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Wind.h" />
@@ -73,6 +77,7 @@
     <ClInclude Include="..\..\..\include\wm\HeightField.h" />
     <ClInclude Include="..\..\..\include\wm\HeightFieldEval.h" />
     <ClInclude Include="..\..\..\include\wm\Mask.h" />
+    <ClInclude Include="..\..\..\include\wm\ScalarField2D.h" />
     <ClInclude Include="..\..\..\include\wm\TextureBaker.h" />
     <ClInclude Include="..\..\..\include\wm\Device.h" />
     <ClInclude Include="..\..\..\include\wm\DeviceVarType.h" />
@@ -104,6 +109,7 @@
     <ClCompile Include="..\..\..\source\device\Gaussian.cpp" />
     <ClCompile Include="..\..\..\source\device\Gradient.cpp" />
     <ClCompile Include="..\..\..\source\device\HeightOutput.cpp" />
+    <ClCompile Include="..\..\..\source\device\HydraulicErosion.cpp" />
     <ClCompile Include="..\..\..\source\device\Incline.cpp" />
     <ClCompile Include="..\..\..\source\device\LayoutGen.cpp" />
     <ClCompile Include="..\..\..\source\device\OverlayView.cpp" />
@@ -112,6 +118,7 @@
     <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\SelectHeight.cpp" />
     <ClCompile Include="..\..\..\source\device\Step.cpp" />
+    <ClCompile Include="..\..\..\source\device\StreamPowerErosionh.cpp" />
     <ClCompile Include="..\..\..\source\device\ThermalWeathering.cpp" />
     <ClCompile Include="..\..\..\source\device\Wind.cpp" />
     <ClCompile Include="..\..\..\source\EvalGPU.cpp" />
@@ -119,6 +126,7 @@
     <ClCompile Include="..\..\..\source\HeightField.cpp" />
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />
     <ClCompile Include="..\..\..\source\Mask.cpp" />
+    <ClCompile Include="..\..\..\source\ScalarField2D.cpp" />
     <ClCompile Include="..\..\..\source\TextureBaker.cpp" />
     <ClCompile Include="..\..\..\source\Device.cpp" />
     <ClCompile Include="..\..\..\source\RegistRTTR.cpp" />

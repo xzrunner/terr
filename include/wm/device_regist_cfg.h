@@ -96,6 +96,14 @@
 #define PARM_DEVICE_NAME erosion_gpu
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS HydraulicErosion
+#define PARM_DEVICE_NAME hydraulic_erosion
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS StreamPowerErosion
+#define PARM_DEVICE_NAME stream_power_erosion
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS ThermalWeathering
 #define PARM_DEVICE_NAME thermal_weathering
 #include EXE_FILEPATH
