@@ -242,12 +242,6 @@
     <ClInclude Include="..\..\..\include\wm\EvalGPU.h">
       <Filter>eval</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\ErosionGPU.h">
-      <Filter>devices\05.natural</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\ErosionGPU.parm.h">
-      <Filter>devices\05.natural</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\Wind.h">
       <Filter>devices\05.natural</Filter>
     </ClInclude>
@@ -403,9 +397,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\EvalGPU.cpp">
       <Filter>eval</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\device\ErosionGPU.cpp">
-      <Filter>devices\05.natural</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Wind.cpp">
       <Filter>devices\05.natural</Filter>

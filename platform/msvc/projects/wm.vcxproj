@@ -29,8 +29,6 @@
     <ClInclude Include="..\..\..\include\wm\device\Constant.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Curves.h" />
     <ClInclude Include="..\..\..\include\wm\device\Curves.parm.h" />
-    <ClInclude Include="..\..\..\include\wm\device\ErosionGPU.h" />
-    <ClInclude Include="..\..\..\include\wm\device\ErosionGPU.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.h" />
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.h" />
@@ -102,7 +100,6 @@
     <ClCompile Include="..\..\..\source\device\Combiner.cpp" />
     <ClCompile Include="..\..\..\source\device\Constant.cpp" />
     <ClCompile Include="..\..\..\source\device\Curves.cpp" />
-    <ClCompile Include="..\..\..\source\device\ErosionGPU.cpp" />
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
     <ClCompile Include="..\..\..\source\device\AdvanceNoise.cpp" />

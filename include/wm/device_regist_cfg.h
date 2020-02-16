@@ -92,10 +92,6 @@
 #define PARM_DEVICE_NAME erosion
 #include EXE_FILEPATH
 
-#define PARM_DEVICE_CLASS ErosionGPU
-#define PARM_DEVICE_NAME erosion_gpu
-#include EXE_FILEPATH
-
 #define PARM_DEVICE_CLASS HydraulicErosion
 #define PARM_DEVICE_NAME hydraulic_erosion
 #include EXE_FILEPATH
