@@ -103,7 +103,7 @@ bool EvalGPU::RunCS(ur::RenderContext& rc, const pt0::ShaderUniforms& vals,
     m_shader->Use();
 
     // Allocate buffers
-    uint32_t data_buf = rc.CreateComputeBuffer(values);
+    uint32_t data_buf = rc.CreateComputeBuffer(values, 0);
     //GLuint data_buf;
     //glGenBuffers(1, &data_buf);
     //glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, data_buf);
@@ -122,7 +122,7 @@ bool EvalGPU::RunCS(ur::RenderContext& rc, const pt0::ShaderUniforms& vals,
     //glGetNamedBufferSubData(data_buf, 0, sizeof(float) * values.size(), values.data());
 
     // Delete buffers
-    rc.ReleaseComputeBuffer(data_buf);;
+    rc.ReleaseComputeBuffer(data_buf);
     //glDeleteBuffers(1, &data_buf);
 
     hf.SetValues(values);
