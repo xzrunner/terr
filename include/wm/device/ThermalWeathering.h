@@ -2,6 +2,8 @@
 
 #include "wm/Device.h"
 
+#define THERMAL_WEATHERING_GPU
+
 namespace wm
 {
 namespace device

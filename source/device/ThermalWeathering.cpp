@@ -94,6 +94,7 @@ void ThermalWeathering::Execute()
 
     m_hf = std::make_shared<HeightField>(*prev_hf);
 
+#ifdef THERMAL_WEATHERING_GPU
     auto num = m_hf->Width() * m_hf->Height();
     auto group_sz = EVAL->GetComputeWorkGroupSize();
     int thread_group_count = num / group_sz;
@@ -104,15 +105,22 @@ void ThermalWeathering::Execute()
     for (int i = 0; i < m_iter; ++i) {
         StepGPU(thread_group_count);
     }
+#else
+    for (int i = 0; i < m_iter; ++i) {
+        StepCPU();
+    }
+#endif // THERMAL_WEATHERING_GPU
 }
 
 void ThermalWeathering::Init()
 {
+#ifdef THERMAL_WEATHERING_GPU
     if (!EVAL)
     {
         auto& rc = ur::Blackboard::Instance()->GetRenderContext();
         EVAL = std::make_shared<EvalGPU>(rc, cs);
     }
+#endif // THERMAL_WEATHERING_GPU
 }
 
 // from Outerrain
