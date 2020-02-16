@@ -5,7 +5,7 @@
 PARAM_INFO(Width, Int, width, m_width, (512))
 PARAM_INFO(Height, Int, height, m_height, (512))
 
-PARAM_INFO(Type, wm::device::AdvanceNoise::Type, type, m_type, (wm::device::AdvanceNoise::Type::Perlin))
+PARAM_INFO(Type, wm::device::TurbulenceNoise::Type, type, m_type, (wm::device::TurbulenceNoise::Type::Perlin))
 
 PARAM_INFO(UVScale,    Float, uv_scale,   m_uv_scale,   (4))
 PARAM_INFO(Seed,       Float, seed,       m_seed,       (0))

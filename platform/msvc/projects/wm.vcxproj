@@ -33,7 +33,7 @@
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h" />
-    <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.h" />
+    <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.h" />
     <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gaussian.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gaussian.parm.h" />
@@ -102,7 +102,7 @@
     <ClCompile Include="..\..\..\source\device\Curves.cpp" />
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
-    <ClCompile Include="..\..\..\source\device\AdvanceNoise.cpp" />
+    <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Gaussian.cpp" />
     <ClCompile Include="..\..\..\source\device\Gradient.cpp" />
     <ClCompile Include="..\..\..\source\device\HeightOutput.cpp" />

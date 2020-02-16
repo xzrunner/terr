@@ -32,10 +32,6 @@
 #define PARM_DEVICE_NAME plasma_fractal
 #include EXE_FILEPATH
 
-#define PARM_DEVICE_CLASS AdvanceNoise
-#define PARM_DEVICE_NAME advance_noise
-#include EXE_FILEPATH
-
 #define PARM_DEVICE_CLASS BasicNoise
 #define PARM_DEVICE_NAME basic_noise
 #include EXE_FILEPATH
@@ -46,6 +42,10 @@
 
 #define PARM_DEVICE_CLASS PerlinNoise
 #define PARM_DEVICE_NAME perlin_noise
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS TurbulenceNoise
+#define PARM_DEVICE_NAME turbulence_noise
 #include EXE_FILEPATH
 
 // output

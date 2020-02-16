@@ -61,11 +61,11 @@
     <Filter Include="devices\01.generator\1.input">
       <UniqueIdentifier>{64d8126e-53ba-4b60-a3f5-6c0d1b564a69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="devices\01.generator\2.simulate">
-      <UniqueIdentifier>{de0f439e-3c8e-47a7-ad3e-b8ca49d91182}</UniqueIdentifier>
-    </Filter>
     <Filter Include="devices\01.generator\3.noise">
       <UniqueIdentifier>{cf4885b8-6a8a-428d-a967-2521593ee27f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\2.fractal">
+      <UniqueIdentifier>{de0f439e-3c8e-47a7-ad3e-b8ca49d91182}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -191,23 +191,20 @@
     <ClInclude Include="..\..\..\include\wm\device\HeightOutput.parm.h">
       <Filter>devices\02.output</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.h">
-      <Filter>devices\01.generator\3.noise</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.parm.h">
       <Filter>devices\01.generator\3.noise</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.h">
-      <Filter>devices\01.generator\2.simulate</Filter>
+      <Filter>devices\01.generator\2.fractal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h">
-      <Filter>devices\01.generator\2.simulate</Filter>
+      <Filter>devices\01.generator\2.fractal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.h">
-      <Filter>devices\01.generator\2.simulate</Filter>
+      <Filter>devices\01.generator\2.fractal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.parm.h">
-      <Filter>devices\01.generator\2.simulate</Filter>
+      <Filter>devices\01.generator\2.fractal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\Color.h">
       <Filter>devices\01.generator\0.value</Filter>
@@ -293,6 +290,9 @@
     <ClInclude Include="..\..\..\include\wm\device\HydraulicErosion.parm.h">
       <Filter>devices\05.natural</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -371,14 +371,11 @@
     <ClCompile Include="..\..\..\source\device\HeightOutput.cpp">
       <Filter>devices\02.output</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\device\AdvanceNoise.cpp">
-      <Filter>devices\01.generator\3.noise</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
-      <Filter>devices\01.generator\2.simulate</Filter>
+      <Filter>devices\01.generator\2.fractal</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
-      <Filter>devices\01.generator\2.simulate</Filter>
+      <Filter>devices\01.generator\2.fractal</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\include\wm\device\Color.cpp">
       <Filter>devices\01.generator\0.value</Filter>
@@ -424,6 +421,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\HydraulicErosion.cpp">
       <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

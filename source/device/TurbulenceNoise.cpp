@@ -1,4 +1,4 @@
-#include "wm/device/AdvanceNoise.h"
+#include "wm/device/TurbulenceNoise.h"
 #include "wm/HeightField.h"
 #include "wm/EvalGPU.h"
 
@@ -415,7 +415,7 @@ namespace wm
 namespace device
 {
 
-void AdvanceNoise::Execute()
+void TurbulenceNoise::Execute()
 {
     m_hf = std::make_shared<HeightField>(m_width, m_height);
 
@@ -446,7 +446,7 @@ void AdvanceNoise::Execute()
     EVAL->RunPS(rc, textures, vals, *m_hf);
 }
 
-void AdvanceNoise::Init()
+void TurbulenceNoise::Init()
 {
     if (PERLIN_PERM_TEXID == 0 || PERLIN_GRAD_TEXID == 0) {
         InitLookupTextures();
@@ -456,7 +456,7 @@ void AdvanceNoise::Init()
     }
 }
 
-void AdvanceNoise::InitLookupTextures()
+void TurbulenceNoise::InitLookupTextures()
 {
     if (PERLIN_PERM_TEXID != 0 && PERLIN_GRAD_TEXID != 0) {
         return;
@@ -511,7 +511,7 @@ void AdvanceNoise::InitLookupTextures()
     PERLIN_GRAD_TEXID = rc.CreateTexture(pixels, 256, 256, ur::TEXTURE_RGBA8);
 }
 
-void AdvanceNoise::InitEval()
+void TurbulenceNoise::InitEval()
 {
     auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 
