@@ -299,6 +299,12 @@
     <ClInclude Include="..\..\..\include\wm\device\Resize.parm.h">
       <Filter>devices\07.converter</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Inverter.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Inverter.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -433,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Resize.cpp">
       <Filter>devices\07.converter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Inverter.cpp">
+      <Filter>devices\04.filter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

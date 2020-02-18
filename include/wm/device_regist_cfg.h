@@ -16,6 +16,10 @@
 #define PARM_DEVICE_NAME gradient
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS AutoGen
+#define PARM_DEVICE_NAME auto_gen
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS FileInput
 #define PARM_DEVICE_NAME file_input
 #include EXE_FILEPATH
@@ -80,6 +84,10 @@
 
 #define PARM_DEVICE_CLASS Incline
 #define PARM_DEVICE_NAME incline
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS Inverter
+#define PARM_DEVICE_NAME inverter
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS Step

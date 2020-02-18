@@ -33,6 +33,8 @@
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Inverter.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Inverter.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Resize.h" />
     <ClInclude Include="..\..\..\include\wm\device\Resize.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.h" />
@@ -104,6 +106,7 @@
     <ClCompile Include="..\..\..\source\device\Curves.cpp" />
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
+    <ClCompile Include="..\..\..\source\device\Inverter.cpp" />
     <ClCompile Include="..\..\..\source\device\Resize.cpp" />
     <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Gaussian.cpp" />
