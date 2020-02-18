@@ -21,3 +21,13 @@ PARAM_INFO(Warp0,             Float, warp0,               m_warp0,              
 PARAM_INFO(Damp0,             Float, damp0,               m_damp0,               (1.0))
 PARAM_INFO(Damp,              Float, damp,                m_damp,                (0.8))
 PARAM_INFO(DampScale,         Float, damp_scale,          m_damp_scale,          (1.0))
+
+PARAM_INFO(NoiseLargestFeat,   Float, noise_largest_feat,   m_noise_largest_feat,   (200))
+PARAM_INFO(NoiseCoarseRough,   Float, noise_coarse_rough,   m_noise_coarse_rough,   (1))
+PARAM_INFO(NoiseFineRough,     Float, noise_fine_rough,     m_noise_fine_rough,     (1))
+PARAM_INFO(NoiseStretchAngle,  Float, noise_stretch_angle,  m_noise_stretch_angle,  (0))
+PARAM_INFO(NoiseStretchRatio,  Float, noise_stretch_ratio,  m_noise_stretch_ratio,  (1))
+
+PARAM_INFO(DistortLargestFeat, Float, distort_largest_feat, m_distort_largest_feat, (100))
+PARAM_INFO(DistortCoarseRough, Float, distort_coarse_rough, m_distort_coarse_rough, (1.2))
+PARAM_INFO(DistortFineRough,   Float, distort_fine_rough,   m_distort_fine_rough,   (0.8))

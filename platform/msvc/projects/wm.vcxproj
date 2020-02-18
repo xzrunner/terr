@@ -34,7 +34,7 @@
     <ClInclude Include="..\..\..\include\wm\device\FileInput.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.h" />
-    <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gaussian.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gaussian.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gradient.h" />

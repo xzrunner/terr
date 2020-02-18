@@ -191,9 +191,6 @@
     <ClInclude Include="..\..\..\include\wm\device\HeightOutput.parm.h">
       <Filter>devices\02.output</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\AdvanceNoise.parm.h">
-      <Filter>devices\01.generator\3.noise</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.h">
       <Filter>devices\01.generator\2.fractal</Filter>
     </ClInclude>
@@ -291,6 +288,9 @@
       <Filter>devices\05.natural</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.parm.h">
       <Filter>devices\01.generator\3.noise</Filter>
     </ClInclude>
   </ItemGroup>
