@@ -2,7 +2,9 @@
 
 #include "wm/Device.h"
 
+#if defined(_DEBUG)
 #define EROSION_GPU
+#endif
 
 namespace wm
 {
