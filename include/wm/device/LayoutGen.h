@@ -2,9 +2,6 @@
 
 #include "wm/Device.h"
 
-#include <unirender/Texture.h>
-#include <SM_Vector.h>
-
 namespace wm
 {
 namespace device

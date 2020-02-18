@@ -4,8 +4,6 @@
 
 #include "wm/Device.h"
 
-#include <unirender/Texture.h>
-
 namespace wm
 {
 
