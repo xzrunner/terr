@@ -31,13 +31,15 @@ rttr::registration::class_<wm::Device>("wm::Device")
 
 rttr::registration::enumeration<wm::device::TurbulenceNoise::Type>("terr_advance_noise_type")
 (
-    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::Perlin,            "perlin",             "Perlin"),
-    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::Turbulence,        "turbulence",         "Turbulence"),
-    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::BillowyTurbulence, "billowy_turbulence", "Billowy Turbulence"),
-    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::RidgedTurbulence,  "ridged_turbulence",  "Ridged Turbulence"),
-    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::IqTurbulence,      "iq_turbulence",      "Iq Turbulence"),
-    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::SwissTurbulence,   "swiss_turbulence",   "Swiss Turbulence"),
-    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::JordanTurbulence,  "jordan_turbulence",  "Jordan Turbulence")
+    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::Perlin,            "perlin",               "Perlin"),
+    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::Turbulence,        "turbulence",           "Turbulence"),
+    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::BillowyTurbulence, "billowy_turbulence",   "Billowy Turbulence"),
+    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::RidgedTurbulence,  "ridged_turbulence",    "Ridged Turbulence"),
+    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::IqTurbulence,      "iq_turbulence",        "Iq Turbulence"),
+    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::SwissTurbulence,   "swiss_turbulence",     "Swiss Turbulence"),
+    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::JordanTurbulence,  "jordan_turbulence",    "Jordan Turbulence"),
+    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::Erosion1Turbulence, "erosion1_turbulence", "Erosion1 Turbulence"),
+    REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::Erosion2Turbulence, "erosion2_turbulence", "Erosion2 Turbulence")
 );
 
 rttr::registration::enumeration<wm::device::Combiner::Method> ("terr_combiner_method")

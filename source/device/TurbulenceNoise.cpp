@@ -43,6 +43,12 @@ const uint8_t PERLIN_GRAD_TABLE[16] = {
     176, 10,
     245, 79 };
 
+template<class T>
+inline T lerp(const T &src, const T &dest, float blendFactor)
+{
+    return src + (dest - src) * blendFactor;
+}
+
 const char* vs = R"(
 
 #version 330 core
@@ -74,9 +80,14 @@ in VS_OUT {
 uniform sampler2D perlin_perm2d;
 uniform sampler2D perlin_grad2d;
 
-#define OCTAVES 10 // using a 'static' value here to prevent the need for dynamic loop branching
+#define OCTAVES 12 // using a 'static' value here to prevent the need for dynamic loop branching
 
 uniform int noise_type;
+
+uniform mat4 noise_octave_amps;
+uniform mat4 distort_octave_amps;
+
+uniform vec4 noise_trans;
 
 uniform float uv_scale;
 uniform float seed;
@@ -279,6 +290,31 @@ vec3 PerlinNoiseDeriv(vec2 p, float seed)
 	return vec3(n, dx, dy) * 1.5;
 }
 
+vec3 NoiseDeriv(vec2 p, float seed)
+{
+    vec2 P = floor(p);
+    p -= P;
+    vec2 w = p * p * p * (p * (p * 6 - 15) + 10); // 6p^5 - 15p^4 + 10p^3
+    vec2 dw = p * p * (p * (p * 30 - 60) + 30); // 30p^4 - 60p^3 + 30p^2
+    vec2 dwp = p * p * p * (p * (p * 36 - 75) + 40); // 36p^5 - 75p^4 + 40p^3
+
+    vec4 AA = texture2D(perlin_perm2d, P / 256) + seed / 256;
+    vec4 G1 = texture2D(perlin_grad2d, AA.xy) * 2 - 1;
+    vec4 G2 = texture2D(perlin_grad2d, AA.zw) * 2 - 1;
+
+    float k0 = G1.x*p.x + G1.y*p.y; // a
+    float k1 = (G2.x-G1.x)*p.x + (G2.y-G1.y)*p.y - G2.x; // b - a
+    float k2 = (G1.z-G1.x)*p.x + (G1.w-G1.y)*p.y - G1.w; // c - a
+    float k3 = (G1.x-G2.x-G1.z+G2.z)*p.x + (G1.y-G2.y-G1.w+G2.w)*p.y + G2.x + G1.w - G2.z - G2.w; // a - b - c + d
+
+    float n = k0 + k1*w.x + k2*w.y + k3*w.x*w.y;
+
+    float dx = (G1.x + (G1.z-G1.x)*w.y) + ((G2.y-G1.y)*p.y - G2.x + ((G1.y-G2.y-G1.w+G2.w)*p.y + G2.x + G1.w - G2.z - G2.w)*w.y)*dw.x + ((G2.x-G1.x) + (G1.x-G2.x-G1.z+G2.z)*w.y)*dwp.x;
+    float dy = (G1.y + (G2.y-G1.y)*w.x) + ((G1.z-G1.x)*p.x - G1.w + ((G1.x-G2.x-G1.z+G2.z)*p.x + G2.x + G1.w - G2.z - G2.w)*w.x)*dw.y + ((G1.w-G1.y) + (G1.y-G2.y-G1.w+G2.w)*w.x)*dwp.y;
+
+    return vec3(n, dx, dy) * 1.5;
+}
+
 float SwissTurbulence(vec2 p, float seed, int octaves,
                       float lacunarity, float gain,
 					  float warp)
@@ -325,6 +361,53 @@ float JordanTurbulence(vec2 p, float seed, int octaves, float lacunarity,
         damped_amp = amp * (1-damp_scale/(1+dot(dsum_damp,dsum_damp)));
     }
     return sum;
+}
+
+float Erosion1Turbulence(vec2 p, vec2 pdistort, mat4 octaveAmps, float seed, int octaves, float lacunarity)
+{
+    float sum = 0;
+    float freq = 1.0;
+    vec2 dsum = vec2(0,0);
+    float amp2 = 1;
+    float minus = 0;
+    for(int i=0; i < octaves; i++)
+    {
+        float amp = amp2 * octaveAmps[i/4][i%4];
+//      vec3 n = NoiseDeriv((p + pdistort*amp * clamp(2*sum, 0.0, 1.0)+ 0.15 * dsum)*freq, seed + i);
+        vec3 n = NoiseDeriv((p + 0.15 * dsum)*freq, seed + i);
+        n.yz *= -n.x; //Clamp(n.x * -2, -1, 1);
+        n.x = 1 - abs(n.x);
+        dsum += amp * n.yz;
+        sum += amp * n.x;
+        freq *= lacunarity;
+        amp2 *= clamp(sum, 0.0, 1.0) / 0.9;
+    }
+    return sum - 0.6;
+}
+
+float Erosion2Turbulence(vec2 p, vec2 pdistort, mat4 octaveAmps, float seed, int octaves, float lacunarity)
+{
+    vec3 sum = vec3(0.5, 0.0, 0.0);
+    float freq = 1.0;
+    vec2 dsum = vec2(0,0);
+    vec2 dsumo = dsum;
+    float amp2 = 1.0f;
+    for(int i=0; i < octaves; i++)
+    {
+        float amp = amp2 * octaveAmps[i/4][i%4];
+        vec3 n = NoiseDeriv((p)*freq, seed + i);
+        vec3 n2 = NoiseDeriv((p)*freq + 0.01 * n.yz, seed + i);
+
+        n.x += 5 * (n.x - n2.x) * (n.x - n2.x);
+        n.x *= exp(-dot(n.yz, n.yz));
+
+        dsumo = dsum;
+        dsum += amp * n.yz;
+        sum += amp * n;
+        freq *= lacunarity;
+        amp2 *= (1 + 0.02 * dot(n.yz, n.yz));
+    }
+    return sum.x;
 }
 
 float psPerlinNoise()
@@ -375,6 +458,22 @@ float psJordanTurbulence()
 	return height;
 }
 
+float psErosion1Turbulence()
+{
+    vec2 p = fs_in.texcoord * uv_scale;
+    //vec2 p = noise_trans.xy * fs_in.texcoord.x + noise_trans.zw * fs_in.texcoord.y;
+	float height = Erosion1Turbulence(p, vec2(0, 0), noise_octave_amps, seed, OCTAVES, lacunarity);
+	return height;
+}
+
+float psErosion2Turbulence()
+{
+    vec2 p = fs_in.texcoord * uv_scale;
+    //vec2 p = noise_trans.xy * fs_in.texcoord.x + noise_trans.zw * fs_in.texcoord.y;
+	float height = Erosion2Turbulence(p, vec2(0, 0), noise_octave_amps, seed, OCTAVES, lacunarity);
+	return height;
+}
+
 void main()
 {
     float v = 0;
@@ -401,7 +500,24 @@ void main()
     case 6:
         v = psJordanTurbulence();
         break;
+    case 7:
+        v = psErosion1Turbulence();
+        break;
+    case 8:
+        v = psErosion2Turbulence();
+        break;
     }
+
+    if (noise_type == 7 || noise_type == 8)
+    {
+        v = v * 0.25;
+
+        const float noise_blend = 1.0;
+        const float noise_peakify = 1.0;
+        v = mix(1.0f, pow(0.5 + v, noise_peakify) - pow(0.5, noise_peakify), noise_blend);
+    }
+
+    v = clamp(v, 0.0, 1.0);
 	FragColor = vec4(v, v, v, 1.0);
 }
 
@@ -424,6 +540,20 @@ void TurbulenceNoise::Execute()
     textures.push_back(PERLIN_GRAD_TEXID);
 
     pt0::ShaderUniforms vals;
+
+    sm::mat4 noise_octave_amps;
+    sm::mat4 distort_octave_amps;
+    CalcOctaveAmps(noise_octave_amps, distort_octave_amps);
+    vals.AddVar("noise_octave_amps",   pt0::RenderVariant(noise_octave_amps));
+    vals.AddVar("distort_octave_amps", pt0::RenderVariant(distort_octave_amps));
+
+    float noise_stretch_angle = SM_DEG_TO_RAD * m_noise_stretch_angle;
+    vals.AddVar("noise_trans", pt0::RenderVariant(sm::vec4(
+         cos(noise_stretch_angle) / m_noise_largest_feat * sqrtf(m_noise_stretch_ratio),
+         sin(noise_stretch_angle) / m_noise_largest_feat / sqrtf(m_noise_stretch_ratio),
+        -sin(noise_stretch_angle) / m_noise_largest_feat * sqrtf(m_noise_stretch_ratio),
+         cos(noise_stretch_angle) / m_noise_largest_feat / sqrtf(m_noise_stretch_ratio)
+    )));
 
     vals.AddVar("noise_type", pt0::RenderVariant(static_cast<int>(m_type)));
 
@@ -520,6 +650,27 @@ void TurbulenceNoise::InitEval()
     texture_names.push_back("perlin_grad2d");
 
     EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
+}
+
+void TurbulenceNoise::CalcOctaveAmps(sm::mat4& noise_octave_amps,
+                                     sm::mat4& distort_octave_amps)
+{
+	float noiseHighestOctave = log(m_noise_largest_feat) / log(2.0f);
+	float distortHighestOctave = log(m_distort_largest_feat) / log(2.0f);
+
+	float scale = 1.0f;
+	for (int index = 0; index < 16; ++index)
+	{
+        noise_octave_amps.c[index / 4][index % 4] = scale;
+		scale *= 0.5f * lerp(m_noise_coarse_rough, m_noise_fine_rough, std::min(1.0f, index / noiseHighestOctave));
+	}
+
+	scale = 1.0f;
+	for (int index = 0; index < 16; ++index)
+	{
+        distort_octave_amps.c[index / 4][index % 4] = scale;
+		scale *= 0.5f * lerp(m_distort_coarse_rough, m_distort_fine_rough, std::min(1.0f, index / distortHighestOctave));
+	}
 }
 
 }

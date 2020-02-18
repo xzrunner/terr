@@ -2,6 +2,8 @@
 
 #include "wm/Device.h"
 
+#include <SM_Matrix.h>
+
 namespace ur { class RenderContext; }
 
 namespace wm
@@ -21,6 +23,8 @@ public:
         IqTurbulence,
         SwissTurbulence,
         JordanTurbulence,
+        Erosion1Turbulence,
+        Erosion2Turbulence,
     };
 
 public:
@@ -40,6 +44,9 @@ private:
 
     void InitLookupTextures();
     void InitEval();
+
+    void CalcOctaveAmps(sm::mat4& noise_octave_amps,
+        sm::mat4& distort_octave_amps);
 
     RTTR_ENABLE(Device)
 
