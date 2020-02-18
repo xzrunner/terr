@@ -26,8 +26,7 @@ void HeightOutput::Execute()
     for (size_t i = 0, n = vals.size(); i < n; ++i) {
         pixels[i] = static_cast<uint8_t>(vals[i] * 255.0f);
     }
-    gimg_export(m_filepath.c_str(), pixels.data(), w, h, GPF_ALPHA, 1);
-
+    gimg_export(m_filepath.c_str(), pixels.data(), w, h, GPF_LUMINANCE, 1);
 }
 
 }
