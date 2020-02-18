@@ -293,6 +293,12 @@
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.parm.h">
       <Filter>devices\01.generator\3.noise</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Resize.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Resize.parm.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -424,6 +430,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp">
       <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Resize.cpp">
+      <Filter>devices\07.converter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

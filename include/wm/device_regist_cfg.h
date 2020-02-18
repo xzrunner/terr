@@ -123,3 +123,7 @@
 #define PARM_DEVICE_CLASS Colorizer
 #define PARM_DEVICE_NAME colorizer
 #include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS Resize
+#define PARM_DEVICE_NAME resize
+#include EXE_FILEPATH
