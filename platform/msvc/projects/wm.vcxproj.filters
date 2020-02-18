@@ -293,6 +293,12 @@
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.parm.h">
       <Filter>devices\01.generator\3.noise</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\AutoGen.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\AutoGen.parm.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\Resize.h">
       <Filter>devices\07.converter</Filter>
     </ClInclude>
@@ -436,6 +442,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp">
       <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\AutoGen.cpp">
+      <Filter>devices\01.generator\1.input</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Resize.cpp">
       <Filter>devices\07.converter</Filter>

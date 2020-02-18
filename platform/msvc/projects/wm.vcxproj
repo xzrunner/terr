@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\wm\Bitmap.h" />
     <ClInclude Include="..\..\..\include\wm\DeviceHelper.h" />
+    <ClInclude Include="..\..\..\include\wm\device\AutoGen.h" />
+    <ClInclude Include="..\..\..\include\wm\device\AutoGen.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.h" />
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\CellularNoise.h" />
@@ -97,6 +99,7 @@
     <ClCompile Include="..\..\..\include\wm\device\SelectSlope.cpp" />
     <ClCompile Include="..\..\..\source\Bitmap.cpp" />
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp" />
+    <ClCompile Include="..\..\..\source\device\AutoGen.cpp" />
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\CellularNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Chooser.cpp" />

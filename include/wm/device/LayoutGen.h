@@ -12,22 +12,12 @@ class LayoutGen : public Device
 public:
     LayoutGen()
     {
-        m_imports = {
-            {{ DeviceVarType::Mask, "mask" }},
-        };
         m_exports = {
             {{ DeviceVarType::Heightfield, "out" }},
         };
     }
 
     virtual void Execute() override;
-
-private:
-    std::shared_ptr<HeightField>
-        MaskToHeightField(const Mask& mask) const;
-
-    static std::vector<float>
-        CalcMaskDistMap(const Mask& mask);
 
     RTTR_ENABLE(Device)
 
