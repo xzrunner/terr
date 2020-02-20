@@ -17,3 +17,5 @@ WorldMachine back-end.
 [Cellular Noise](https://thebookofshaders.com/12)
 
 [Outerrain](https://github.com/vincentriche/Outerrain)
+
+[libnoise](http://libnoise.sourceforge.net/)

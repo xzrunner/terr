@@ -40,6 +40,10 @@
 #define PARM_DEVICE_NAME basic_noise
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS Billow
+#define PARM_DEVICE_NAME billow
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS CellularNoise
 #define PARM_DEVICE_NAME cellular_noise
 #include EXE_FILEPATH
@@ -48,8 +52,24 @@
 #define PARM_DEVICE_NAME perlin_noise
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS PerlinNoise2
+#define PARM_DEVICE_NAME perlin_noise2
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS RidgedMulti
+#define PARM_DEVICE_NAME ridged_multi
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS TurbulenceNoise
 #define PARM_DEVICE_NAME turbulence_noise
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS TurbulenceNoise2
+#define PARM_DEVICE_NAME turbulence_noise2
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS Voronoi
+#define PARM_DEVICE_NAME voronoi
 #include EXE_FILEPATH
 
 // output
@@ -74,6 +94,10 @@
 
 // filter
 
+#define PARM_DEVICE_CLASS Clamp
+#define PARM_DEVICE_NAME clamp
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS Curves
 #define PARM_DEVICE_NAME curves
 #include EXE_FILEPATH
@@ -88,6 +112,10 @@
 
 #define PARM_DEVICE_CLASS Inverter
 #define PARM_DEVICE_NAME inverter
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS ScaleBias
+#define PARM_DEVICE_NAME scale_bias
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS Step

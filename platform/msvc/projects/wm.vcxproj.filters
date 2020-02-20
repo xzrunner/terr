@@ -67,6 +67,9 @@
     <Filter Include="devices\01.generator\2.fractal">
       <UniqueIdentifier>{de0f439e-3c8e-47a7-ad3e-b8ca49d91182}</UniqueIdentifier>
     </Filter>
+    <Filter Include="dataset\noise">
+      <UniqueIdentifier>{60fa7198-432e-46f0-bac1-e3f95dfbbf60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\wm\SplitOnlyROAM.h">
@@ -311,6 +314,51 @@
     <ClInclude Include="..\..\..\include\wm\device\Inverter.parm.h">
       <Filter>devices\04.filter</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\PerlinNoise2.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\PerlinNoise2.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\NoiseQuality.h">
+      <Filter>dataset\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise2.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise2.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Voronoi.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Voronoi.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Billow.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Billow.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Clamp.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Clamp.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\ScaleBias.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\ScaleBias.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\RidgedMulti.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\RidgedMulti.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -451,6 +499,27 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Inverter.cpp">
       <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PerlinNoise2.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\TurbulenceNoise2.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Voronoi.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Billow.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Clamp.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\ScaleBias.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\RidgedMulti.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

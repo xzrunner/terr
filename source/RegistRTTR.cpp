@@ -29,6 +29,13 @@ rttr::registration::class_<wm::Device>("wm::Device")
 #include "wm/device_regist_cfg.h"
 #undef EXE_FILEPATH
 
+rttr::registration::enumeration<wm::NoiseQuality>("terr_noise_quality")
+(
+    REGIST_ENUM_ITEM(wm::NoiseQuality::Fast,     "fast",     "Fast"),
+    REGIST_ENUM_ITEM(wm::NoiseQuality::Standard, "standard", "Standard"),
+    REGIST_ENUM_ITEM(wm::NoiseQuality::Best,      "best",    "Best")
+);
+
 rttr::registration::enumeration<wm::device::TurbulenceNoise::Type>("terr_advance_noise_type")
 (
     REGIST_ENUM_ITEM(wm::device::TurbulenceNoise::Type::Perlin,            "perlin",               "Perlin"),
