@@ -150,6 +150,10 @@
 #define PARM_DEVICE_NAME select_height
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS SelectMask
+#define PARM_DEVICE_NAME select_mask
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS SelectSlope
 #define PARM_DEVICE_NAME select_slope
 #include EXE_FILEPATH

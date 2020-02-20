@@ -49,6 +49,8 @@
     <ClInclude Include="..\..\..\include\wm\device\RidgedMulti.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\ScaleBias.h" />
     <ClInclude Include="..\..\..\include\wm\device\ScaleBias.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\SelectMask.h" />
+    <ClInclude Include="..\..\..\include\wm\device\SelectMask.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.h" />
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gaussian.h" />
@@ -131,6 +133,7 @@
     <ClCompile Include="..\..\..\source\device\Resize.cpp" />
     <ClCompile Include="..\..\..\source\device\RidgedMulti.cpp" />
     <ClCompile Include="..\..\..\source\device\ScaleBias.cpp" />
+    <ClCompile Include="..\..\..\source\device\SelectMask.cpp" />
     <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Gaussian.cpp" />
     <ClCompile Include="..\..\..\source\device\Gradient.cpp" />

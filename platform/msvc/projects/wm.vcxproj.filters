@@ -359,6 +359,12 @@
     <ClInclude Include="..\..\..\include\wm\device\RidgedMulti.parm.h">
       <Filter>devices\01.generator\3.noise</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\SelectMask.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\SelectMask.parm.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -520,6 +526,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\RidgedMulti.cpp">
       <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\SelectMask.cpp">
+      <Filter>devices\06.selector</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
