@@ -79,6 +79,8 @@ void FileInput::Execute()
         switch (format)
         {
         case GPF_ALPHA:
+        case GPF_LUMINANCE:
+        case GPF_LUMINANCE_ALPHA:
             for (size_t i = 0, n = width * height; i < n; ++i) {
                 if (pixels[i] != 0 && pixels[i] != 255) {
                     is_mask = false;
@@ -115,6 +117,8 @@ void FileInput::Execute()
             switch (format)
             {
             case GPF_ALPHA:
+            case GPF_LUMINANCE:
+            case GPF_LUMINANCE_ALPHA:
                 for (size_t i = 0; i < sz; ++i) {
                     mask[i] = pixels[i] == 0 ? false : true;
                 }
@@ -137,6 +141,8 @@ void FileInput::Execute()
             switch (format)
             {
             case GPF_ALPHA:
+            case GPF_LUMINANCE:
+            case GPF_LUMINANCE_ALPHA:
                 for (size_t i = 0; i < sz; ++i) {
                     h_data[i] = pixels[i] / 255.0f;
                 }
