@@ -5,7 +5,7 @@
 #include <gimg_export.h>
 #include <gimg_typedef.h>
 
-//#define OUTPUT_SINGLE_CHANNEL
+#define OUTPUT_SINGLE_CHANNEL
 
 namespace wm
 {
