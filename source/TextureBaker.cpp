@@ -55,12 +55,32 @@ TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
         return nullptr;
     }
 
+    ur::TexturePtr tex = nullptr;
+
     auto w = bmp.Width();
     auto h = bmp.Height();
-    assert(pixels.size() == w * h * 3);
+    auto c = bmp.Channels();
+    switch (c)
+    {
+    case 1:
+    {
+        assert(pixels.size() == w * h);
+        int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_A8);
+        tex = std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_A8, tex_id);
+    }
+        break;
+    case 3:
+    {
+        assert(pixels.size() == w * h * 3);
+        int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_RGB);
+        tex = std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
+    }
+        break;
+    default:
+        assert(0);
+    }
 
-    int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_RGB);
-    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
+    return tex;
 }
 
 ur::TexturePtr

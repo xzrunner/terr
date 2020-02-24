@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\include\wm\Bitmap.h" />
     <ClInclude Include="..\..\..\include\wm\DeviceHelper.h" />
+    <ClInclude Include="..\..\..\include\wm\device\AmbientOcclusion.h" />
+    <ClInclude Include="..\..\..\include\wm\device\AmbientOcclusion.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\AutoGen.h" />
     <ClInclude Include="..\..\..\include\wm\device\AutoGen.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.h" />
@@ -39,8 +41,14 @@
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\AlbedoMap.h" />
+    <ClInclude Include="..\..\..\include\wm\device\AlbedoMap.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Inverter.h" />
     <ClInclude Include="..\..\..\include\wm\device\Inverter.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Lighting.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Lighting.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\NormalMap.h" />
+    <ClInclude Include="..\..\..\include\wm\device\NormalMap.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\PerlinNoise2.h" />
     <ClInclude Include="..\..\..\include\wm\device\PerlinNoise2.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Resize.h" />
@@ -96,6 +104,7 @@
     <ClInclude Include="..\..\..\include\wm\Evaluator.h" />
     <ClInclude Include="..\..\..\include\wm\HeightField.h" />
     <ClInclude Include="..\..\..\include\wm\HeightFieldEval.h" />
+    <ClInclude Include="..\..\..\include\wm\HemanHelper.h" />
     <ClInclude Include="..\..\..\include\wm\Mask.h" />
     <ClInclude Include="..\..\..\include\wm\NoiseQuality.h" />
     <ClInclude Include="..\..\..\include\wm\ScalarField2D.h" />
@@ -116,6 +125,7 @@
     <ClCompile Include="..\..\..\include\wm\device\SelectSlope.cpp" />
     <ClCompile Include="..\..\..\source\Bitmap.cpp" />
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp" />
+    <ClCompile Include="..\..\..\source\device\AmbientOcclusion.cpp" />
     <ClCompile Include="..\..\..\source\device\AutoGen.cpp" />
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Billow.cpp" />
@@ -128,7 +138,10 @@
     <ClCompile Include="..\..\..\source\device\Curves.cpp" />
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
     <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
+    <ClCompile Include="..\..\..\source\device\AlbedoMap.cpp" />
     <ClCompile Include="..\..\..\source\device\Inverter.cpp" />
+    <ClCompile Include="..\..\..\source\device\Lighting.cpp" />
+    <ClCompile Include="..\..\..\source\device\NormalMap.cpp" />
     <ClCompile Include="..\..\..\source\device\PerlinNoise2.cpp" />
     <ClCompile Include="..\..\..\source\device\Resize.cpp" />
     <ClCompile Include="..\..\..\source\device\RidgedMulti.cpp" />
@@ -156,6 +169,7 @@
     <ClCompile Include="..\..\..\source\Evaluator.cpp" />
     <ClCompile Include="..\..\..\source\HeightField.cpp" />
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />
+    <ClCompile Include="..\..\..\source\HemanHelper.cpp" />
     <ClCompile Include="..\..\..\source\Mask.cpp" />
     <ClCompile Include="..\..\..\source\ScalarField2D.cpp" />
     <ClCompile Include="..\..\..\source\TextureBaker.cpp" />
@@ -211,7 +225,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;NOISE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -225,7 +239,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;NOISE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

@@ -70,6 +70,9 @@
     <Filter Include="dataset\noise">
       <UniqueIdentifier>{60fa7198-432e-46f0-bac1-e3f95dfbbf60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="devices\07.converter\map">
+      <UniqueIdentifier>{e6db74cc-29b2-446e-aa31-b4afb2a9c2e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\wm\SplitOnlyROAM.h">
@@ -365,6 +368,33 @@
     <ClInclude Include="..\..\..\include\wm\device\SelectMask.parm.h">
       <Filter>devices\06.selector</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\AmbientOcclusion.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\AmbientOcclusion.parm.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\NormalMap.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\NormalMap.parm.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\AlbedoMap.parm.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\AlbedoMap.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Lighting.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Lighting.parm.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\HemanHelper.h">
+      <Filter>tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -529,6 +559,21 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\SelectMask.cpp">
       <Filter>devices\06.selector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\AmbientOcclusion.cpp">
+      <Filter>devices\07.converter\map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\NormalMap.cpp">
+      <Filter>devices\07.converter\map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\AlbedoMap.cpp">
+      <Filter>devices\07.converter\map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Lighting.cpp">
+      <Filter>devices\07.converter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HemanHelper.cpp">
+      <Filter>tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -160,8 +160,24 @@
 
 // converter
 
+#define PARM_DEVICE_CLASS AlbedoMap
+#define PARM_DEVICE_NAME albedo_map
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS AmbientOcclusion
+#define PARM_DEVICE_NAME ambient_occlusion
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS NormalMap
+#define PARM_DEVICE_NAME normal_map
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS Colorizer
 #define PARM_DEVICE_NAME colorizer
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS Lighting
+#define PARM_DEVICE_NAME lighting
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS Resize
