@@ -31,7 +31,7 @@ public:
     virtual void Execute() override;
 
     static heman_image* Baking(heman_image* height, float min_height = 0.0f,
-        float max_height = 1.0f, bool contour_lines = true);
+        float max_height = 1.0f, bool contour_lines = false);
 
     RTTR_ENABLE(Device)
 
