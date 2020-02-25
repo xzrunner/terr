@@ -428,6 +428,18 @@
     <ClInclude Include="..\..\..\include\wm\device\Archipelago.h">
       <Filter>devices\01.generator\4.type</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\ShadowMap.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\ShadowMap.parm.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\LightMap.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\LightMap.parm.h">
+      <Filter>devices\07.converter\map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -622,6 +634,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Archipelago.cpp">
       <Filter>devices\01.generator\4.type</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\ShadowMap.cpp">
+      <Filter>devices\07.converter\map</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\LightMap.cpp">
+      <Filter>devices\07.converter\map</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

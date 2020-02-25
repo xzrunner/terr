@@ -53,6 +53,8 @@
     <ClInclude Include="..\..\..\include\wm\device\Island.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Lighting.h" />
     <ClInclude Include="..\..\..\include\wm\device\Lighting.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\LightMap.h" />
+    <ClInclude Include="..\..\..\include\wm\device\LightMap.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\NormalMap.h" />
     <ClInclude Include="..\..\..\include\wm\device\NormalMap.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\PerlinNoise2.h" />
@@ -69,6 +71,8 @@
     <ClInclude Include="..\..\..\include\wm\device\ScaleBias.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\SelectMask.h" />
     <ClInclude Include="..\..\..\include\wm\device\SelectMask.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\ShadowMap.h" />
+    <ClInclude Include="..\..\..\include\wm\device\ShadowMap.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.h" />
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gaussian.h" />
@@ -154,6 +158,7 @@
     <ClCompile Include="..\..\..\source\device\Inverter.cpp" />
     <ClCompile Include="..\..\..\source\device\Island.cpp" />
     <ClCompile Include="..\..\..\source\device\Lighting.cpp" />
+    <ClCompile Include="..\..\..\source\device\LightMap.cpp" />
     <ClCompile Include="..\..\..\source\device\NormalMap.cpp" />
     <ClCompile Include="..\..\..\source\device\PerlinNoise2.cpp" />
     <ClCompile Include="..\..\..\source\device\Planet.cpp" />
@@ -162,6 +167,7 @@
     <ClCompile Include="..\..\..\source\device\Rock.cpp" />
     <ClCompile Include="..\..\..\source\device\ScaleBias.cpp" />
     <ClCompile Include="..\..\..\source\device\SelectMask.cpp" />
+    <ClCompile Include="..\..\..\source\device\ShadowMap.cpp" />
     <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Gaussian.cpp" />
     <ClCompile Include="..\..\..\source\device\Gradient.cpp" />

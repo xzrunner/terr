@@ -188,8 +188,16 @@
 #define PARM_DEVICE_NAME ambient_occlusion
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS LightMap
+#define PARM_DEVICE_NAME light_map
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS NormalMap
 #define PARM_DEVICE_NAME normal_map
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS ShadowMap
+#define PARM_DEVICE_NAME shadow_map
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS Colorizer
