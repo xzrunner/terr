@@ -88,6 +88,24 @@ void FileInput::Execute()
                 }
             }
             break;
+        case GPF_RGB:
+            for (size_t i = 0, n = width * height; i < n && is_mask; ++i)
+            {
+                for (size_t j = 0; j < 3 && is_mask; ++j) {
+                    size_t idx = i * 3 + j;
+                    if (pixels[idx] != 0 && pixels[idx] != 255) {
+                        is_mask = false;
+                        break;
+                    }
+                }
+                for (size_t j = 1; j < 3 && is_mask; ++j) {
+                    if (pixels[i * 3] != pixels[i * 3 + j]) {
+                        is_mask = false;
+                        break;
+                    }
+                }
+            }
+            break;
         case GPF_RGBA8:
             for (size_t i = 0, n = width * height; i < n && is_mask; ++i)
             {
@@ -123,6 +141,11 @@ void FileInput::Execute()
                     mask[i] = pixels[i] == 0 ? false : true;
                 }
                 break;
+            case GPF_RGB:
+                for (size_t i = 0; i < sz; ++i) {
+                    mask[i] = pixels[i * 3] == 0 ? false : true;
+                }
+                break;
             case GPF_RGBA8:
                 for (size_t i = 0; i < sz; ++i) {
                     mask[i] = pixels[i * 4] == 0 ? false : true;
@@ -145,6 +168,11 @@ void FileInput::Execute()
             case GPF_LUMINANCE_ALPHA:
                 for (size_t i = 0; i < sz; ++i) {
                     h_data[i] = pixels[i] / 255.0f;
+                }
+                break;
+            case GPF_RGB:
+                for (size_t i = 0; i < sz; ++i) {
+                    h_data[i] = pixels[i * 3] / 255.0f;
                 }
                 break;
             case GPF_RGBA8:
