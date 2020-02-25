@@ -15,6 +15,8 @@
     <ClInclude Include="..\..\..\include\wm\DeviceHelper.h" />
     <ClInclude Include="..\..\..\include\wm\device\AmbientOcclusion.h" />
     <ClInclude Include="..\..\..\include\wm\device\AmbientOcclusion.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Archipelago.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Archipelago.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\AutoGen.h" />
     <ClInclude Include="..\..\..\include\wm\device\AutoGen.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.h" />
@@ -39,22 +41,30 @@
     <ClInclude Include="..\..\..\include\wm\device\Curves.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.h" />
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\FBM.h" />
+    <ClInclude Include="..\..\..\include\wm\device\FBM.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.h" />
     <ClInclude Include="..\..\..\include\wm\device\FileInput.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\AlbedoMap.h" />
     <ClInclude Include="..\..\..\include\wm\device\AlbedoMap.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Inverter.h" />
     <ClInclude Include="..\..\..\include\wm\device\Inverter.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Island.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Island.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Lighting.h" />
     <ClInclude Include="..\..\..\include\wm\device\Lighting.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\NormalMap.h" />
     <ClInclude Include="..\..\..\include\wm\device\NormalMap.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\PerlinNoise2.h" />
     <ClInclude Include="..\..\..\include\wm\device\PerlinNoise2.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Planet.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Planet.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Resize.h" />
     <ClInclude Include="..\..\..\include\wm\device\Resize.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\RidgedMulti.h" />
     <ClInclude Include="..\..\..\include\wm\device\RidgedMulti.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Rock.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Rock.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\ScaleBias.h" />
     <ClInclude Include="..\..\..\include\wm\device\ScaleBias.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\SelectMask.h" />
@@ -126,6 +136,7 @@
     <ClCompile Include="..\..\..\source\Bitmap.cpp" />
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp" />
     <ClCompile Include="..\..\..\source\device\AmbientOcclusion.cpp" />
+    <ClCompile Include="..\..\..\source\device\Archipelago.cpp" />
     <ClCompile Include="..\..\..\source\device\AutoGen.cpp" />
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Billow.cpp" />
@@ -137,14 +148,18 @@
     <ClCompile Include="..\..\..\source\device\Constant.cpp" />
     <ClCompile Include="..\..\..\source\device\Curves.cpp" />
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
+    <ClCompile Include="..\..\..\source\device\FBM.cpp" />
     <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
     <ClCompile Include="..\..\..\source\device\AlbedoMap.cpp" />
     <ClCompile Include="..\..\..\source\device\Inverter.cpp" />
+    <ClCompile Include="..\..\..\source\device\Island.cpp" />
     <ClCompile Include="..\..\..\source\device\Lighting.cpp" />
     <ClCompile Include="..\..\..\source\device\NormalMap.cpp" />
     <ClCompile Include="..\..\..\source\device\PerlinNoise2.cpp" />
+    <ClCompile Include="..\..\..\source\device\Planet.cpp" />
     <ClCompile Include="..\..\..\source\device\Resize.cpp" />
     <ClCompile Include="..\..\..\source\device\RidgedMulti.cpp" />
+    <ClCompile Include="..\..\..\source\device\Rock.cpp" />
     <ClCompile Include="..\..\..\source\device\ScaleBias.cpp" />
     <ClCompile Include="..\..\..\source\device\SelectMask.cpp" />
     <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp" />
@@ -233,6 +248,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -246,6 +262,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

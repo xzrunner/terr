@@ -2,6 +2,8 @@
 
 #include <heman.h>
 
+#include <memory>
+
 namespace wm
 {
 
@@ -11,6 +13,8 @@ class HemanHelper
 public:
     static heman_image*
         Encode(const HeightField& hf);
+    static std::shared_ptr<HeightField>
+        Decode(heman_image* img);
 
 }; // HemanHelper
 

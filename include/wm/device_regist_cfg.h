@@ -48,6 +48,10 @@
 #define PARM_DEVICE_NAME cellular_noise
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS FBM
+#define PARM_DEVICE_NAME fbm
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS PerlinNoise
 #define PARM_DEVICE_NAME perlin_noise
 #include EXE_FILEPATH
@@ -70,6 +74,22 @@
 
 #define PARM_DEVICE_CLASS Voronoi
 #define PARM_DEVICE_NAME voronoi
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS Archipelago
+#define PARM_DEVICE_NAME archipelago
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS Island
+#define PARM_DEVICE_NAME island
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS Planet
+#define PARM_DEVICE_NAME planet
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS Rock
+#define PARM_DEVICE_NAME rock
 #include EXE_FILEPATH
 
 // output

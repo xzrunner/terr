@@ -19,3 +19,5 @@ WorldMachine back-end.
 [Outerrain](https://github.com/vincentriche/Outerrain)
 
 [libnoise](http://libnoise.sourceforge.net/)
+
+[heman](https://github.com/prideout/heman)

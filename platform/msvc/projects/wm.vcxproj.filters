@@ -64,14 +64,17 @@
     <Filter Include="devices\01.generator\3.noise">
       <UniqueIdentifier>{cf4885b8-6a8a-428d-a967-2521593ee27f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="devices\01.generator\2.fractal">
-      <UniqueIdentifier>{de0f439e-3c8e-47a7-ad3e-b8ca49d91182}</UniqueIdentifier>
-    </Filter>
     <Filter Include="dataset\noise">
       <UniqueIdentifier>{60fa7198-432e-46f0-bac1-e3f95dfbbf60}</UniqueIdentifier>
     </Filter>
     <Filter Include="devices\07.converter\map">
       <UniqueIdentifier>{e6db74cc-29b2-446e-aa31-b4afb2a9c2e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\2.iteration">
+      <UniqueIdentifier>{de0f439e-3c8e-47a7-ad3e-b8ca49d91182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\4.type">
+      <UniqueIdentifier>{f0b77103-5741-4af4-b8a3-9736b4bda786}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -198,16 +201,16 @@
       <Filter>devices\02.output</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.h">
-      <Filter>devices\01.generator\2.fractal</Filter>
+      <Filter>devices\01.generator\2.iteration</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\FaultFractal.parm.h">
-      <Filter>devices\01.generator\2.fractal</Filter>
+      <Filter>devices\01.generator\2.iteration</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.h">
-      <Filter>devices\01.generator\2.fractal</Filter>
+      <Filter>devices\01.generator\2.iteration</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\PlasmaFractal.parm.h">
-      <Filter>devices\01.generator\2.fractal</Filter>
+      <Filter>devices\01.generator\2.iteration</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\Color.h">
       <Filter>devices\01.generator\0.value</Filter>
@@ -395,6 +398,36 @@
     <ClInclude Include="..\..\..\include\wm\HemanHelper.h">
       <Filter>tools</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FBM.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\FBM.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Island.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Island.parm.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Rock.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Rock.parm.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Planet.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Planet.parm.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Archipelago.parm.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Archipelago.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -474,10 +507,10 @@
       <Filter>devices\02.output</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
-      <Filter>devices\01.generator\2.fractal</Filter>
+      <Filter>devices\01.generator\2.iteration</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
-      <Filter>devices\01.generator\2.fractal</Filter>
+      <Filter>devices\01.generator\2.iteration</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\include\wm\device\Color.cpp">
       <Filter>devices\01.generator\0.value</Filter>
@@ -574,6 +607,21 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\HemanHelper.cpp">
       <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FBM.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Island.cpp">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Rock.cpp">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Planet.cpp">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Archipelago.cpp">
+      <Filter>devices\01.generator\4.type</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
