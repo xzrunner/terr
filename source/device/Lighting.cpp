@@ -19,7 +19,7 @@ void Lighting::Execute()
         return;
     }
 
-    auto he_height = HemanHelper::ImageFromHF(*prev_hf);
+    auto he_height = HemanHelper::Encode(*prev_hf);
     auto he_albedo = AlbedoMap::Baking(he_height);
     auto he_img = heman_lighting_apply(he_height, he_albedo, 1, 1, 0.5, m_light_pos.xyz);
     auto he_img_data = heman_image_data(he_img);

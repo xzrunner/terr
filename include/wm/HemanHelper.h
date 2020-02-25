@@ -10,7 +10,7 @@ class HemanHelper
 {
 public:
     static heman_image*
-        ImageFromHF(const HeightField& hf);
+        Encode(const HeightField& hf);
 
 }; // HemanHelper
 

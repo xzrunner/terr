@@ -21,7 +21,7 @@ void AmbientOcclusion::Execute()
     size_t w = prev_hf->Width();
     size_t h = prev_hf->Height();
 
-    auto he_height = HemanHelper::ImageFromHF(*prev_hf);
+    auto he_height = HemanHelper::Encode(*prev_hf);
 
     heman_lighting_set_occlusion_scale(m_scale);
     auto he_ao = heman_lighting_compute_occlusion(he_height);

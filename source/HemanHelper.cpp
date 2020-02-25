@@ -4,7 +4,8 @@
 namespace wm
 {
 
-heman_image* HemanHelper::ImageFromHF(const HeightField& hf)
+heman_image*
+HemanHelper::Encode(const HeightField& hf)
 {
     size_t w = hf.Width();
     size_t h = hf.Height();
