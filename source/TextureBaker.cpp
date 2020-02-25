@@ -5,6 +5,8 @@
 
 #include <unirender/RenderContext.h>
 
+#include <algorithm>
+
 namespace wm
 {
 
@@ -18,7 +20,8 @@ bool TextureBaker::GenHeightMap(const HeightField& src,
     auto& s_vals = src.GetValues();
     dst.resize(s_vals.size());
     for (size_t i = 0, n = s_vals.size(); i < n; ++i) {
-        dst[i] = static_cast<unsigned char>(s_vals[i] * 255.0f);
+        const auto f01 = std::min(std::max(s_vals[i], 0.0f), 1.0f);
+        dst[i] = static_cast<unsigned char>(f01 * 255.0f);
     }
 
     return true;
