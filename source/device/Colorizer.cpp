@@ -33,7 +33,7 @@ void Colorizer::Execute()
     for (size_t i = 0, n = heights.size(); i < n; ++i)
     {
         auto h = heights[i];
-        assert(h >= m_gradient.front().w && h <= m_gradient.back().w);
+        h = std::min(std::max(h, m_gradient.front().w), m_gradient.back().w);
         for (size_t j = 0, m = m_gradient.size(); j < m - 1; ++j)
         {
             if (h >= m_gradient[j].w && h < m_gradient[j + 1].w)
