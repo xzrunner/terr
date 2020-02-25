@@ -64,11 +64,22 @@ void AlbedoMap::Execute()
     m_bmp->SetValues(albedo_data);
 }
 
-heman_image* AlbedoMap::Baking(heman_image* height,
-                               float min_height, float max_height)
+heman_image* AlbedoMap::Baking(heman_image* height, float min_height,
+                               float max_height, bool contour_lines)
 {
     heman_image* grad = heman_color_create_gradient(
         256, COUNT(cp_colors), cp_locations, cp_colors);
+
+    if (contour_lines)
+    {
+        HEMAN_FLOAT* grad_data = heman_image_data(grad);
+        for (int x = 0; x < 128; x += 8) {
+            grad_data[x * 3 + 0] *= 1 + x / 128.0;
+            grad_data[x * 3 + 1] *= 1 + x / 128.0;
+            grad_data[x * 3 + 2] *= 1 + x / 128.0;
+        }
+    }
+
     heman_image* albedo = heman_color_apply_gradient(height, min_height, max_height, grad);
     heman_image_destroy(grad);
 
