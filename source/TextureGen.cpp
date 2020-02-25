@@ -42,14 +42,14 @@ heightmap at point x, y is less than the height z of the ray at point x, y
 then a full darkness shadow pixel is drawn.
 */
 void ShadowMapPut(uint8_t* shadow_map, const uint8_t* height_map,
-	              int size, int x, int y, float z)
+                  int width, int height, int x, int y, float z)
 {
 	/* Assume size is a power of two */
-	x = x & (size - 1);
-	y = y & (size - 1);
-//	if (height_map[x + y * (size + 1)] <= z)
-	if (height_map[x + (y + 1) * size] <= z)
-		shadow_map[x + y * size] = 255;
+	x = x & (width - 1);
+	y = y & (height - 1);
+//	if (height_map[x + y * (width + 1)] <= z)
+	if (height_map[x + (y + 1) * width] <= z)
+		shadow_map[x + y * width] = 255;
 }
 
 /*
@@ -60,21 +60,21 @@ void ShadowMapPut(uint8_t* shadow_map, const uint8_t* height_map,
   noise that is used to vary the texture applied to flat areas of the map as
   if the terrain were more bumpy.
 */
-uint8_t* CalcBumps(int size)
+uint8_t* CalcBumps(int width, int height)
 {
-	uint8_t* bump_map = new uint8_t[size * size];
+	uint8_t* bump_map = new uint8_t[width * height];
 	if (!bump_map) {
 		std::cerr << "CalcBumps alloc fail.\n";
 		return bump_map;
 	}
-	memset(bump_map, 0, size * size);
+	memset(bump_map, 0, width * height);
 
-	for (int j = 0; j < size; j++) {
-		for (int i = 0; i < size; i++) {
+	for (int j = 0; j < height; j++) {
+		for (int i = 0; i < width; i++) {
 			float p = (float)rand() / (float)RAND_MAX;
 			if (p > 1.0f)
 				p = 1.0f;
-			bump_map[j*size + i] = (uint8_t)(255.0f * p);
+			bump_map[j*width + i] = (uint8_t)(255.0f * p);
 		}
 	}
 
@@ -87,19 +87,19 @@ uint8_t* CalcBumps(int size)
   Applies a simple blurring filter to the light map. The blurring filter is
   first weighted according to the light direction.
 */
-void BlurLightMap(uint8_t* light_map, int size, vec3 dir)
+void BlurLightMap(uint8_t* light_map, int width, int height, vec3 dir)
 {
 	int blurMap[9] = { 64,  64,  64,
 					   64, 255,  64,
 					   64,  64,  64 };
 	int X, Y, i, divisor = 0;
 
-	uint8_t* lightMap2 = new uint8_t[size * size];
+	uint8_t* lightMap2 = new uint8_t[width * height];
 	if (!lightMap2) {
 		std::cerr << "BlurLightMap alloc fail.\n";
 		return;
 	}
-	memset(lightMap2, 0, size * size);
+	memset(lightMap2, 0, width * height);
 
 	if (dir[0] > 0.6) {
 		blurMap[2] = blurMap[5] = blurMap[8] = 128;
@@ -118,22 +118,22 @@ void BlurLightMap(uint8_t* light_map, int size, vec3 dir)
 		divisor += blurMap[i];
 
 	/* For each heightmap vertex */
-	for (Y = 0; Y < size; Y++) {
-		for (X = 0; X < size; X++) {
+	for (Y = 0; Y < height; Y++) {
+		for (X = 0; X < width; X++) {
 			int x, y, accum = 0;
 			for (y = 0; y < 3; y++) {
 				for (x = 0; x < 3; x++) {
 					accum += blurMap[x + 3*y]
-						* wm::TextureGen::LightMapGet(light_map, size, X+x-1, Y+y-1);
+						* wm::TextureGen::LightMapGet(light_map, width, height, X+x-1, Y+y-1);
 				}
 			}
 			accum /= divisor;
 			if (accum > 255)
 				accum = 255;
-			wm::TextureGen::LightMapPut(lightMap2, size, X, Y, (uint8_t)accum);
+			wm::TextureGen::LightMapPut(lightMap2, width, height, X, Y, (uint8_t)accum);
 		}
 	}
-	memcpy(light_map, lightMap2, size * size);
+	memcpy(light_map, lightMap2, width * height);
 	delete[] lightMap2;
 }
 
@@ -147,12 +147,12 @@ lightMapPut()
 
 Put a pixel value into the light map.
 */
-void TextureGen::LightMapPut(uint8_t* light_map, int size, int x, int y, uint8_t val)
+void TextureGen::LightMapPut(uint8_t* light_map, int width, int height, int x, int y, uint8_t val)
 {
 	/* Assume size is a power of two */
-	x = x & (size - 1);
-	y = y & (size - 1);
-	light_map[x + y * size] = val;
+	x = x & (width - 1);
+	y = y & (height - 1);
+	light_map[x + y * width] = val;
 }
 
 /*
@@ -160,20 +160,20 @@ void TextureGen::LightMapPut(uint8_t* light_map, int size, int x, int y, uint8_t
 
   Get a pixel value from the light map.
 */
-uint8_t TextureGen::LightMapGet(const uint8_t* light_map, int size, int x, int y)
+uint8_t TextureGen::LightMapGet(const uint8_t* light_map, int width, int height, int x, int y)
 {
 	/* Assume size is a power of two */
-	x = x & (size - 1);
-	y = y & (size - 1);
-	return light_map[x + y*size];
+	x = x & (width - 1);
+	y = y & (height - 1);
+	return light_map[x + y* width];
 }
 
-const uint8_t* TextureGen::NormalMapGet(const uint8_t* normal_map, int size, int x, int y)
+const uint8_t* TextureGen::NormalMapGet(const uint8_t* normal_map, int width, int height, int x, int y)
 {
 	/* Assume size is a power of two */
-	x = x & (size - 1);
-	y = y & (size - 1);
-	return &normal_map[3 * (x + y * size)];
+	x = x & (width - 1);
+	y = y & (height - 1);
+	return &normal_map[3 * (x + y * width)];
 }
 
 /*
@@ -194,14 +194,15 @@ const uint8_t* TextureGen::NormalMapGet(const uint8_t* normal_map, int size, int
 
   The bump map is deleted on completion.
 */
-uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int size,
+uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int width, int height,
 	                             const float scale[3], float rand_scale,
 	                             float cutoff, int frequency)
 {
 	uint8_t* bump_map = NULL;
-	int bump_map_size;
+	int bump_map_w, bump_map_h;
 	float scale_bump = rand_scale / 255.0f;
-	float inv_freq = 1.0f;
+	float inv_freq_x = 1.0f;
+    float inv_freq_y = 1.0f;
 	uint8_t* normal_map;
 	int X, Y, i, j;
 	vec3 normal, temp, temp0, temp1;
@@ -223,16 +224,25 @@ uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int size,
 	fflush(stdout);
 
 	/* Calculate the bumpmap */
-	if (rand_scale > 0.0f && frequency > 0) {
-		if (frequency > size)
-			frequency = size;
-		bump_map_size = size / frequency;
-		bump_map = CalcBumps(bump_map_size);
-		inv_freq = 1.0f / frequency;
+	if (rand_scale > 0.0f && frequency > 0)
+    {
+        int freq_x = frequency;
+        if (freq_x > width) {
+            freq_x = width;
+        }
+        int freq_y = frequency;
+        if (freq_y > height) {
+            freq_y = height;
+        }
+		bump_map_w = width / freq_x;
+        bump_map_h = height / freq_y;
+		bump_map = CalcBumps(bump_map_w, bump_map_h);
+		inv_freq_x = 1.0f / freq_x;
+        inv_freq_y = 1.0f / freq_y;
 	}
 
 	/* Allocate space for the normal map */
-	normal_map = new uint8_t[3 * size * size];
+	normal_map = new uint8_t[3 * width * height];
 	if (!normal_map) {
 		std::cerr << "CalcNormals alloc fail.\n";
 		if (bump_map) {
@@ -240,10 +250,10 @@ uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int size,
 		}
 		return normal_map;
 	}
-	memset(normal_map, 0, 3 * size * size);
+	memset(normal_map, 0, 3 * width * height);
 
 	/* For each point in the heightmap */
-	for (Y = 0; Y < size; Y++) {
+	for (Y = 0; Y < height; Y++) {
 
 		/* Show progress */
 		if (!(Y & 0x3F)) {
@@ -251,7 +261,7 @@ uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int size,
 			fflush(stdout);
 		}
 
-		for (X = 0; X < size; X++) {
+		for (X = 0; X < width; X++) {
 
 			/* Get the eight vectors connecting
 			   this point to its neighbours */
@@ -259,12 +269,12 @@ uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int size,
 				int x, y, z;
 
 				/* Assume size is a power of two */
-				x = (X + (int)(v[3*i + 0])) & (size - 1);
-				y = (Y + (int)(v[3*i + 1])) & (size - 1);
-//				z = (int)height_map[x + y*(size + 1)]
-//					- (int)height_map[X + Y*(size + 1)];
-				z = (int)height_map[x + (Y + 1) * size]
-					- (int)height_map[X + (Y + 1) * size];
+				x = (X + (int)(v[3*i + 0])) & (width - 1);
+				y = (Y + (int)(v[3*i + 1])) & (height - 1);
+//				z = (int)height_map[x + y*(width + 1)]
+//					- (int)height_map[X + Y*(height + 1)];
+				z = (int)height_map[x + (Y + 1) * width]
+					- (int)height_map[X + (Y + 1) * width];
 				v[3*i + 2] = (float)z;
 			}
 
@@ -287,8 +297,8 @@ uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int size,
 			/* If we have a bump map and normal.z is above
 			   the threshold, apply some noise */
 			if (normal[2] >= cutoff && bump_map) {
-				float fbX = (float)X * inv_freq;
-				float fbY = (float)Y * inv_freq;
+				float fbX = (float)X * inv_freq_x;
+				float fbY = (float)Y * inv_freq_y;
 				int bX0 = (int)floor(fbX);
 				int bX1 = (int)ceil(fbX);
 				int bY0 = (int)floor(fbY);
@@ -298,16 +308,16 @@ uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int size,
 				if (bX0 == bX1 && bY0 == bY1) {
 					/* Heightmap point corresponds to an
 					   exact bump map point */
-					b = LightMapGet(bump_map, bump_map_size, bX0, bY0);
+					b = LightMapGet(bump_map, bump_map_w, bump_map_h, bX0, bY0);
 				}
 				else {
 					/* Heightmap point falls between bump
 					   map points, interpolate */
 					float scale;
-					float b00 = LightMapGet(bump_map, bump_map_size, bX0, bY0);
-					float b01 = LightMapGet(bump_map, bump_map_size, bX1, bY0);
-					float b10 = LightMapGet(bump_map, bump_map_size, bX0, bY1);
-					float b11 = LightMapGet(bump_map, bump_map_size, bX1, bY1);
+					float b00 = LightMapGet(bump_map, bump_map_w, bump_map_h, bX0, bY0);
+					float b01 = LightMapGet(bump_map, bump_map_w, bump_map_h, bX1, bY0);
+					float b10 = LightMapGet(bump_map, bump_map_w, bump_map_h, bX0, bY1);
+					float b11 = LightMapGet(bump_map, bump_map_w, bump_map_h, bX1, bY1);
 					float b0 = b00;
 					float b1 = b10;
 
@@ -362,9 +372,9 @@ uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int size,
 			}
 
 			/* Save the normal in the normal map */
-			normal_map[3*(X + Y*size) + 0] = (char)(127.0f * normal[0]);
-			normal_map[3*(X + Y*size) + 1] = (char)(127.0f * normal[1]);
-			normal_map[3*(X + Y*size) + 2] = (char)(127.0f * normal[2]);
+			normal_map[3*(X + Y * width) + 0] = (char)(127.0f * normal[0]);
+			normal_map[3*(X + Y * width) + 1] = (char)(127.0f * normal[1]);
+			normal_map[3*(X + Y * width) + 2] = (char)(127.0f * normal[2]);
 		}
 	}
 
@@ -386,7 +396,7 @@ uint8_t* TextureGen::CalcNormals(const uint8_t* height_map, int size,
   points intersected in x-y which are below the ray in z are deemed to be in
   shadow.
 */
-uint8_t* TextureGen::CalcShadows(const uint8_t* height_map, int size,
+uint8_t* TextureGen::CalcShadows(const uint8_t* height_map, int width, int height,
 	                             const float scale[3], const float dir[3])
 {
 	const float scale_normal = 1.0f / 127.0f;
@@ -398,12 +408,12 @@ uint8_t* TextureGen::CalcShadows(const uint8_t* height_map, int size,
 	fflush(stdout);
 
 	/* Allocate space for the shadow map */
-	shadow_map = new uint8_t[size * size];
+	shadow_map = new uint8_t[width * height];
 	if (!shadow_map) {
 		std::cerr << "CalcShadows alloc fail.\n";
 		return shadow_map;
 	}
-	memset(shadow_map, 0, size * size);
+	memset(shadow_map, 0, width * height);
 
 	/* Make sure the light source is normalised */
 	vec3_cpy(dir, L);
@@ -416,7 +426,7 @@ uint8_t* TextureGen::CalcShadows(const uint8_t* height_map, int size,
 	}
 
 	/* For each heightmap vertex */
-	for (Y = 0; Y < size - 1; Y++) {
+	for (Y = 0; Y < height - 1; Y++) {
 
 		/* Show progress */
 		if (!(Y & 0x3F)) {
@@ -424,17 +434,17 @@ uint8_t* TextureGen::CalcShadows(const uint8_t* height_map, int size,
 			fflush(stdout);
 		}
 
-		for (X = 0; X < size; X++) {
+		for (X = 0; X < width; X++) {
 			float z;
 
 			/* If vertex already in shadow ignore it */
-			if (shadow_map[X + Y*size])
+			if (shadow_map[X + Y * width])
 				continue;
 
 			/* Step along a line through the vertex in the direction of L */
 
-//			z = (float)height_map[X + Y*(size + 1)];
-			z = (float)height_map[X + (Y + 1) * size];
+//			z = (float)height_map[X + Y*(width + 1)];
+			z = (float)height_map[X + (Y + 1) * width];
 			if (fabs(L[0]) < fabs(L[1])) {
 				float incx = L[0] / L[1];
 				float incz = L[2] / L[1];
@@ -448,7 +458,7 @@ uint8_t* TextureGen::CalcShadows(const uint8_t* height_map, int size,
 				for (y = Y + incy; 1; x += incx, y += incy, z += incz) {
 					if (z < 0.0f)
 						break;
-					ShadowMapPut(shadow_map, height_map, size, (int)x, y, z);
+					ShadowMapPut(shadow_map, height_map, width, height, (int)x, y, z);
 				}
 			}
 			else {
@@ -459,12 +469,13 @@ uint8_t* TextureGen::CalcShadows(const uint8_t* height_map, int size,
 				if (L[0] < 0) {
 					incx = -incx; incy = -incy, incz = -incz;
 				}
+                incz = -fabs(incz); // fixme
 				y = Y + incy;
 				z += incz;
 				for (x = X + incx; 1; x += incx, y += incy, z += incz) {
 					if (z < 0.0f)
 						break;
-					ShadowMapPut(shadow_map, height_map, size, x, (int)y, z);
+					ShadowMapPut(shadow_map, height_map, width, height, x, (int)y, z);
 				}
 			}
 		}
@@ -476,8 +487,8 @@ uint8_t* TextureGen::CalcShadows(const uint8_t* height_map, int size,
 	return shadow_map;
 }
 
-uint8_t* TextureGen::CalcLighting(const uint8_t* normal_map, const uint8_t* shadow_map,
-	                              int size, const float scale[3], float amb, float diff, const float dir[3])
+uint8_t* TextureGen::CalcLighting(const uint8_t* normal_map, const uint8_t* shadow_map, int width, int height,
+                                  const float scale[3], float amb, float diff, const float dir[3])
 {
 	const float scaleNormal = 1.0f / 127.0f;
 	const float scaleShadow = 1.0f / 255.0f;
@@ -488,12 +499,12 @@ uint8_t* TextureGen::CalcLighting(const uint8_t* normal_map, const uint8_t* shad
 	fflush(stdout);
 
 	/* Allocate space for the light map */
-	uint8_t* lightMap = new uint8_t[size * size];
+	uint8_t* lightMap = new uint8_t[width * height];
 	if (!lightMap) {
 		std::cerr << "TextureGen alloc fail.\n";
 		return lightMap;
 	}
-	memset(lightMap, 0, size * size);
+	memset(lightMap, 0, width * height);
 
 	/* Make sure the light source is normalised */
 	vec3_cpy(dir, L);
@@ -502,7 +513,7 @@ uint8_t* TextureGen::CalcLighting(const uint8_t* normal_map, const uint8_t* shad
 	vec3_mulS(L, -1.0f, L);
 
 	/* For each point */
-	for (Y = 0; Y < size; Y++) {
+	for (Y = 0; Y < height; Y++) {
 
 		/* Show progress */
 		if (!(Y & 0x3F)) {
@@ -510,13 +521,13 @@ uint8_t* TextureGen::CalcLighting(const uint8_t* normal_map, const uint8_t* shad
 			fflush(stdout);
 		}
 
-		for (X = 0; X < size; X++) {
+		for (X = 0; X < width; X++) {
 			float i, s, d;
 
 			/* Get the dot product with the light source direction */
-			normal[0] = normal_map[3*(X + Y*size) + 0];
-			normal[1] = normal_map[3*(X + Y*size) + 1];
-			normal[2] = normal_map[3*(X + Y*size) + 2];
+			normal[0] = normal_map[3*(X + Y * width) + 0];
+			normal[1] = normal_map[3*(X + Y * width) + 1];
+			normal[2] = normal_map[3*(X + Y * width) + 2];
 			vec3_mulS(normal, scaleNormal, normal);
 			d = vec3_dot(L, normal);
 			if (d < 0.0f)
@@ -526,7 +537,7 @@ uint8_t* TextureGen::CalcLighting(const uint8_t* normal_map, const uint8_t* shad
 			s = 1.0f;
 
 			if (shadow_map)
-				s = 1.0f - scaleShadow * shadow_map[X + Y*size];
+				s = 1.0f - scaleShadow * shadow_map[X + Y * width];
 			i = amb + s * d * diff;
 			if (i < 0.0f)
 				i = 0.0f;
@@ -534,15 +545,15 @@ uint8_t* TextureGen::CalcLighting(const uint8_t* normal_map, const uint8_t* shad
 				i = 1.0f;
 
 			/* Save in light map */
-			lightMap[X + Y*size] = (uint8_t)(i * 255.0f);
+			lightMap[X + Y * width] = (uint8_t)(i * 255.0f);
 		}
 	}
 
 	/* Blur the light map */
 	printf("blurring");
 	fflush(stdout);
-	BlurLightMap(lightMap, size, L);
-	BlurLightMap(lightMap, size, L);
+	BlurLightMap(lightMap, width, height, L);
+	BlurLightMap(lightMap, width, height, L);
 
 	printf("\n");
 	fflush(stdout);

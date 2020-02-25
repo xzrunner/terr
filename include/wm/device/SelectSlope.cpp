@@ -28,7 +28,7 @@ void SelectSlope::Execute()
     TextureBaker::GenHeightMap(*prev_hf, h_vals);
     assert(w == h);
     float scale[] = { 1, 1, 1 };
-    auto normals = TextureGen::CalcNormals(h_vals.data(), w, scale, 0, 0, 0);
+    auto normals = TextureGen::CalcNormals(h_vals.data(), w, h, scale, 0, 0, 0);
 
     size_t ptr = 0;
     for (size_t i = 0, n = h_vals.size(); i < n; ++i)
@@ -47,6 +47,8 @@ void SelectSlope::Execute()
             vals[i] = 0;
         }
     }
+
+    delete[] normals;
 
     m_hf->SetValues(vals);
 }
