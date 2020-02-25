@@ -22,6 +22,10 @@ public:
 
     virtual void Execute() override;
 
+private:
+    void ResizeMask(const Mask& mask);
+    void ResizeHeightField(const HeightField& hf);
+
     RTTR_ENABLE(Device)
 
 #define PARM_FILEPATH "wm/device/Resize.parm.h"
