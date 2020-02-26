@@ -208,6 +208,6 @@
 #define PARM_DEVICE_NAME lighting
 #include EXE_FILEPATH
 
-#define PARM_DEVICE_CLASS Resize
-#define PARM_DEVICE_NAME resize
+#define PARM_DEVICE_CLASS Resample
+#define PARM_DEVICE_NAME resample
 #include EXE_FILEPATH

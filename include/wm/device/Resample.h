@@ -7,10 +7,10 @@ namespace wm
 namespace device
 {
 
-class Resize : public Device
+class Resample : public Device
 {
 public:
-    Resize()
+    Resample()
     {
         m_imports = {
             {{ DeviceVarType::Any, "in" }},
@@ -23,16 +23,16 @@ public:
     virtual void Execute() override;
 
 private:
-    void ResizeMask(const Mask& mask);
-    void ResizeHeightField(const HeightField& hf);
+    void ResampleMask(const Mask& mask);
+    void ResampleHeightField(const HeightField& hf);
 
     RTTR_ENABLE(Device)
 
-#define PARM_FILEPATH "wm/device/Resize.parm.h"
+#define PARM_FILEPATH "wm/device/Resample.parm.h"
 #include <dag/node_parms_gen.h>
 #undef PARM_FILEPATH
 
-}; // Resize
+}; // Resample
 
 }
 }

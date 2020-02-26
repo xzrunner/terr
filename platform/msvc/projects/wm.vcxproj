@@ -61,8 +61,8 @@
     <ClInclude Include="..\..\..\include\wm\device\PerlinNoise2.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Planet.h" />
     <ClInclude Include="..\..\..\include\wm\device\Planet.parm.h" />
-    <ClInclude Include="..\..\..\include\wm\device\Resize.h" />
-    <ClInclude Include="..\..\..\include\wm\device\Resize.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Resample.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Resample.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\RidgedMulti.h" />
     <ClInclude Include="..\..\..\include\wm\device\RidgedMulti.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Rock.h" />
@@ -162,7 +162,7 @@
     <ClCompile Include="..\..\..\source\device\NormalMap.cpp" />
     <ClCompile Include="..\..\..\source\device\PerlinNoise2.cpp" />
     <ClCompile Include="..\..\..\source\device\Planet.cpp" />
-    <ClCompile Include="..\..\..\source\device\Resize.cpp" />
+    <ClCompile Include="..\..\..\source\device\Resample.cpp" />
     <ClCompile Include="..\..\..\source\device\RidgedMulti.cpp" />
     <ClCompile Include="..\..\..\source\device\Rock.cpp" />
     <ClCompile Include="..\..\..\source\device\ScaleBias.cpp" />

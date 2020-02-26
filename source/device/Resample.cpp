@@ -1,4 +1,4 @@
-#include "wm/device/Resize.h"
+#include "wm/device/Resample.h"
 #include "wm/DeviceHelper.h"
 #include "wm/Mask.h"
 #include "wm/HeightField.h"
@@ -8,22 +8,22 @@ namespace wm
 namespace device
 {
 
-void Resize::Execute()
+void Resample::Execute()
 {
     auto prev_mask = DeviceHelper::GetInputMask(*this, 0);
     if (prev_mask) {
-        ResizeMask(*prev_mask);
+        ResampleMask(*prev_mask);
         return;
     }
 
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (prev_hf) {
-        ResizeHeightField(*prev_hf);
+        ResampleHeightField(*prev_hf);
         return;
     }
 }
 
-void Resize::ResizeMask(const Mask& mask)
+void Resample::ResampleMask(const Mask& mask)
 {
     size_t prev_w = mask.Width();
     size_t prev_h = mask.Height();
@@ -50,7 +50,7 @@ void Resize::ResizeMask(const Mask& mask)
     m_mask->SetValues(vals);
 }
 
-void Resize::ResizeHeightField(const HeightField& hf)
+void Resample::ResampleHeightField(const HeightField& hf)
 {
     size_t prev_w = hf.Width();
     size_t prev_h = hf.Height();

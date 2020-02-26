@@ -67,14 +67,14 @@
     <Filter Include="dataset\noise">
       <UniqueIdentifier>{60fa7198-432e-46f0-bac1-e3f95dfbbf60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="devices\07.converter\map">
-      <UniqueIdentifier>{e6db74cc-29b2-446e-aa31-b4afb2a9c2e9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="devices\01.generator\2.iteration">
       <UniqueIdentifier>{de0f439e-3c8e-47a7-ad3e-b8ca49d91182}</UniqueIdentifier>
     </Filter>
     <Filter Include="devices\01.generator\4.type">
       <UniqueIdentifier>{f0b77103-5741-4af4-b8a3-9736b4bda786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\07.converter\baking">
+      <UniqueIdentifier>{e6db74cc-29b2-446e-aa31-b4afb2a9c2e9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -308,12 +308,6 @@
     <ClInclude Include="..\..\..\include\wm\device\AutoGen.parm.h">
       <Filter>devices\01.generator\1.input</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\Resize.h">
-      <Filter>devices\07.converter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\wm\device\Resize.parm.h">
-      <Filter>devices\07.converter</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\Inverter.h">
       <Filter>devices\04.filter</Filter>
     </ClInclude>
@@ -372,22 +366,22 @@
       <Filter>devices\06.selector</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\AmbientOcclusion.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\AmbientOcclusion.parm.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\NormalMap.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\NormalMap.parm.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\AlbedoMap.parm.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\AlbedoMap.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\Lighting.h">
       <Filter>devices\07.converter</Filter>
@@ -429,16 +423,22 @@
       <Filter>devices\01.generator\4.type</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\ShadowMap.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\ShadowMap.parm.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\LightMap.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\LightMap.parm.h">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Resample.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Resample.parm.h">
+      <Filter>devices\07.converter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -575,9 +575,6 @@
     <ClCompile Include="..\..\..\source\device\AutoGen.cpp">
       <Filter>devices\01.generator\1.input</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\device\Resize.cpp">
-      <Filter>devices\07.converter</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\device\Inverter.cpp">
       <Filter>devices\04.filter</Filter>
     </ClCompile>
@@ -606,13 +603,13 @@
       <Filter>devices\06.selector</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\AmbientOcclusion.cpp">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\NormalMap.cpp">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\AlbedoMap.cpp">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Lighting.cpp">
       <Filter>devices\07.converter</Filter>
@@ -636,10 +633,13 @@
       <Filter>devices\01.generator\4.type</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\ShadowMap.cpp">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\LightMap.cpp">
-      <Filter>devices\07.converter\map</Filter>
+      <Filter>devices\07.converter\baking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Resample.cpp">
+      <Filter>devices\07.converter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
