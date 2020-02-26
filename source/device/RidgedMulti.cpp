@@ -40,7 +40,6 @@ void RidgedMulti::Execute()
             const float fx = static_cast<float>(x) / m_width;
             const float fy = static_cast<float>(y) / m_height;
             float v = static_cast<float>(noise.GetValue(fx, 0, fy));
-            v = std::min(std::max(v, -1.0f), 1.0f);
             m_hf->Set(x, y, (v + 1.0f) * 0.5f);
         }
     }

@@ -19,7 +19,7 @@ void Gradient::Execute()
         for (size_t x = 0; x < m_width; ++x) {
             auto new_pos = sm::rotate_vector(sm::vec2(x, y) - center, m_dir * SM_DEG_TO_RAD) + center;
             const float h = 0.5f - (new_pos.x - hw) / hw * 0.5f;
-            vals[y * m_width + x] = std::min(1.0f, std::max(0.0f, h));
+            vals[y * m_width + x] = h;
         }
     }
 
