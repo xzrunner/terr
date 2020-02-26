@@ -440,6 +440,12 @@
     <ClInclude Include="..\..\..\include\wm\device\Resample.parm.h">
       <Filter>devices\07.converter</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Transform.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\Transform.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -640,6 +646,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Resample.cpp">
       <Filter>devices\07.converter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Transform.cpp">
+      <Filter>devices\04.filter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

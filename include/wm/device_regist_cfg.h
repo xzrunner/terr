@@ -142,6 +142,10 @@
 #define PARM_DEVICE_NAME step
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS Transform
+#define PARM_DEVICE_NAME transform
+#include EXE_FILEPATH
+
 // natural
 
 #define PARM_DEVICE_CLASS Erosion

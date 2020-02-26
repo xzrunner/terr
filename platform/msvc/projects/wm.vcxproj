@@ -73,6 +73,8 @@
     <ClInclude Include="..\..\..\include\wm\device\SelectMask.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\ShadowMap.h" />
     <ClInclude Include="..\..\..\include\wm\device\ShadowMap.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Transform.h" />
+    <ClInclude Include="..\..\..\include\wm\device\Transform.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.h" />
     <ClInclude Include="..\..\..\include\wm\device\TurbulenceNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Gaussian.h" />
@@ -168,6 +170,7 @@
     <ClCompile Include="..\..\..\source\device\ScaleBias.cpp" />
     <ClCompile Include="..\..\..\source\device\SelectMask.cpp" />
     <ClCompile Include="..\..\..\source\device\ShadowMap.cpp" />
+    <ClCompile Include="..\..\..\source\device\Transform.cpp" />
     <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Gaussian.cpp" />
     <ClCompile Include="..\..\..\source\device\Gradient.cpp" />
