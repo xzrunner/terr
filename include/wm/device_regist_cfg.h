@@ -20,6 +20,10 @@
 #define PARM_DEVICE_NAME auto_gen
 #include EXE_FILEPATH
 
+#define PARM_DEVICE_CLASS TemplateBrush
+#define PARM_DEVICE_NAME template_brush
+#include EXE_FILEPATH
+
 #define PARM_DEVICE_CLASS FileInput
 #define PARM_DEVICE_NAME file_input
 #include EXE_FILEPATH

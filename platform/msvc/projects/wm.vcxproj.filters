@@ -446,6 +446,12 @@
     <ClInclude Include="..\..\..\include\wm\device\Transform.parm.h">
       <Filter>devices\04.filter</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\TemplateBrush.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\TemplateBrush.parm.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
@@ -649,6 +655,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Transform.cpp">
       <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\TemplateBrush.cpp">
+      <Filter>devices\01.generator\1.input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -23,6 +23,8 @@
     <ClInclude Include="..\..\..\include\wm\device\BasicNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Billow.h" />
     <ClInclude Include="..\..\..\include\wm\device\Billow.parm.h" />
+    <ClInclude Include="..\..\..\include\wm\device\TemplateBrush.h" />
+    <ClInclude Include="..\..\..\include\wm\device\TemplateBrush.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\CellularNoise.h" />
     <ClInclude Include="..\..\..\include\wm\device\CellularNoise.parm.h" />
     <ClInclude Include="..\..\..\include\wm\device\Chooser.h" />
@@ -146,6 +148,7 @@
     <ClCompile Include="..\..\..\source\device\AutoGen.cpp" />
     <ClCompile Include="..\..\..\source\device\BasicNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Billow.cpp" />
+    <ClCompile Include="..\..\..\source\device\TemplateBrush.cpp" />
     <ClCompile Include="..\..\..\source\device\CellularNoise.cpp" />
     <ClCompile Include="..\..\..\source\device\Chooser.cpp" />
     <ClCompile Include="..\..\..\source\device\Clamp.cpp" />

@@ -22,9 +22,11 @@ public:
 
     virtual void Execute() override;
 
+    static std::shared_ptr<HeightField>
+        ResampleHeightField(const HeightField& hf, int width, int height);
+
 private:
     void ResampleMask(const Mask& mask);
-    void ResampleHeightField(const HeightField& hf);
 
     RTTR_ENABLE(Device)
 
