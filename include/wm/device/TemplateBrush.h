@@ -3,7 +3,7 @@
 #include "wm/Device.h"
 #include "wm/NoiseQuality.h"
 
-#include <SM_Vector.h>
+#include <SM_Matrix.h>
 
 namespace wm
 {

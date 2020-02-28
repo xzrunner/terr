@@ -7,7 +7,10 @@
 
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
+#include <unirender/Shader.h>
 #include <painting0/ShaderUniforms.h>
+
+//#define USE_PINGPONG_TEXTURE
 
 namespace
 {
@@ -35,33 +38,28 @@ void main()
 const char* fs = R"(
 
 #version 330 core
-out vec4 FragColor;
+layout (location = 0) out vec4 FragColor;
 
 in VS_OUT {
     vec2 texcoord;
 } fs_in;
 
-uniform vec2  translate;
-uniform float rotate;
-uniform vec2  scale;
+uniform mat4 trans_inv;
 
-uniform sampler2D heightmap;
+uniform sampler2D brush_map;
+uniform sampler2D scene_map;
+
+uniform float height_scale;
 
 void main(void)
 {
-    vec2 uv = fs_in.texcoord;
-    // scale
-    uv = (uv - vec2(0.5, 0.5)) * scale + vec2(0.5, 0.5);
-    // rotate
-    float sin_factor = sin(rotate);
-    float cos_factor = cos(rotate);
-    uv = vec2(uv.x - 0.5, uv.y - 0.5) * mat2(cos_factor, sin_factor, -sin_factor, cos_factor) + vec2(0.5, 0.5);
-    // translate
-    uv = uv + translate;
+    vec2 src_uv = fs_in.texcoord;
+    src_uv = (trans_inv * vec4(src_uv.x, 0.0f, src_uv.y, 1.0)).xz;
+    src_uv = clamp(src_uv, vec2(0, 0), vec2(1, 1));
 
-    uv = clamp(uv, vec2(0, 0), vec2(1, 1));
-    float h = texture2D(heightmap, uv).a;
-    FragColor = vec4(h, h, h, 1.0);
+//    float h = max(texture2D(scene_map, fs_in.texcoord).r, texture2D(brush_map, src_uv).r * height_scale);
+    float h = texture2D(brush_map, src_uv).r * height_scale;
+    FragColor = vec4(h);
 }
 
 )";
@@ -98,23 +96,83 @@ void TemplateBrush::Execute()
 
     std::vector<uint32_t> textures;
     textures.push_back(m_brush->GetHeightmap()->TexID());
+    textures.push_back(m_hf->GetHeightmap()->TexID());
 
-    for (auto& p : m_positions)
+    auto w = m_hf->Width();
+    auto h = m_hf->Height();
+
+#ifdef USE_PINGPONG_TEXTURE
+    auto tex = rc.CreateTexture(nullptr, w, h, ur::TEXTURE_RED);
+    assert(tex != 0);
+
+    auto read_tex_id = m_hf->GetHeightmap()->TexID();
+    auto write_tex_id = tex;
+#endif // USE_PINGPONG_TEXTURE
+
+    auto fbo = rc.CreateRenderTarget(0);
+    assert(fbo != 0);
+
+    int vp_x, vp_y, vp_w, vp_h;
+    rc.GetViewport(vp_x, vp_y, vp_w, vp_h);
+
+    rc.BindRenderTarget(fbo);
+#ifdef USE_PINGPONG_TEXTURE
+    rc.BindRenderTargetTex(write_tex_id, ur::ATTACHMENT_COLOR0);
+#else
+    rc.BindRenderTargetTex(m_hf->GetHeightmap()->TexID(), ur::ATTACHMENT_COLOR0);
+#endif // USE_PINGPONG_TEXTURE
+    rc.SetViewport(0, 0, w, h);
+    assert(rc.CheckRenderTargetStatus());
+
+    rc.SetClearFlag(ur::MASKC | ur::MASKD);
+    rc.SetClearColor(0x0000000);
+    rc.Clear();
+
+    auto shader = EVAL->GetShader();
+    shader->SetUsedTextures(textures);
+
+    shader->Use();
+
+    for (auto& mt : m_matrixes)
     {
-        pt0::ShaderUniforms vals;
-        vals.AddVar("translate", pt0::RenderVariant(-m_translate - p / m_scale));
-        vals.AddVar("rotate",    pt0::RenderVariant(m_rotate * SM_DEG_TO_RAD));
-        vals.AddVar("scale",     pt0::RenderVariant(sm::vec2(1.0f, 1.0f) / m_scale));
+#ifdef USE_PINGPONG_TEXTURE
+        rc.BindRenderTargetTex(write_tex_id, ur::ATTACHMENT_COLOR0);
+        rc.BindTexture(read_tex_id, 1);
+#endif // USE_PINGPONG_TEXTURE
 
-        wm::HeightField hf(m_hf->Width(), m_hf->Height());
-        EVAL->RunPS(rc, textures, vals, hf);
-        auto dst = m_hf->GetValues();
-        auto& src = hf.GetValues();
-        for (size_t i = 0, n = dst.size(); i < n; ++i) {
-            dst[i] = std::max(dst[i], src[i]);
-        }
-        m_hf->SetValues(dst);
+        pt0::ShaderUniforms vals;
+        vals.AddVar("trans_inv", pt0::RenderVariant(mt.Inverted()));
+
+        auto v = mt * sm::vec4(0, 1, 0, 1);
+        vals.AddVar("height_scale", pt0::RenderVariant(fabs(v.y)));
+
+        vals.Bind(*shader);
+
+        rc.RenderQuad(ur::RenderContext::VertLayout::VL_POS_TEX);
+
+#ifdef USE_PINGPONG_TEXTURE
+        auto tmp = read_tex_id;
+        read_tex_id = write_tex_id;
+        write_tex_id = tmp;
+#endif // USE_PINGPONG_TEXTURE
     }
+
+#ifdef USE_PINGPONG_TEXTURE
+    if (write_tex_id == m_hf->GetHeightmap()->TexID()) {
+        rc.CopyTexture(0, 0, w, h, ur::TEXTURE_RED, m_hf->GetHeightmap()->TexID());
+    }
+#endif // USE_PINGPONG_TEXTURE
+
+    rc.UnbindRenderTarget();
+    rc.SetViewport(vp_x, vp_y, vp_w, vp_h);
+    rc.ReleaseRenderTarget(fbo);
+#ifdef USE_PINGPONG_TEXTURE
+    rc.ReleaseTexture(tex);
+#endif // USE_PINGPONG_TEXTURE
+
+    rc.BindShader(0);
+
+    m_hf->SetCPUDirty();
 }
 
 void TemplateBrush::Init()
@@ -123,8 +181,10 @@ void TemplateBrush::Init()
     {
         auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 
-        std::vector<std::string> texture_names;
-        texture_names.push_back("heightmap");
+        std::vector<std::string> texture_names = {
+            "brush_map",
+            "scene_map"
+        };
 
         EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
     }
