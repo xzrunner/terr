@@ -44,7 +44,7 @@ uniform float low, high;
 
 void main(void){
     vec2 pos = fs_in.texcoord;
-    float height = texture2D(heightmap, pos).a;
+    float height = texture2D(heightmap, pos).r;
     float result = smoothstep(low, high, height);
     FragColor = vec4(result, result, result, 1.0);
 }

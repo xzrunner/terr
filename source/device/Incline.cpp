@@ -47,7 +47,7 @@ uniform bool invert;
 const float pih = 3.14159265358979323846264*0.5;
 
 vec3 get(float s, float t){
-    float height = texture2D(heightmap, vec2(s, t)).a;
+    float height = texture2D(heightmap, vec2(s, t)).r;
     return vec3(s, height, t);
 }
 

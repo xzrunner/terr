@@ -47,7 +47,7 @@ TextureBaker::GenHeightMap(const HeightField& hf,
     if (!GenHeightMap(hf, pixels)) {
         return nullptr;
     }
-    ret->Upload(&rc, hf.Width(), hf.Height(), ur::TEXTURE_A8, pixels.data());
+    ret->Upload(&rc, hf.Width(), hf.Height(), ur::TEXTURE_RED, pixels.data());
 
     return ret;
 }
@@ -70,8 +70,8 @@ TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
     case 1:
     {
         assert(pixels.size() == w * h);
-        int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_A8);
-        tex = std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_A8, tex_id);
+        int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_RED);
+        tex = std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RED, tex_id);
     }
         break;
     case 3:
@@ -179,8 +179,8 @@ TextureBaker::GenAmbientOcclusionMap(const HeightField& hf, ur::RenderContext& r
     heman_image_destroy(he_height);
     heman_image_destroy(he_ao);
 
-    int tex_id = rc.CreateTexture(ao_data.data(), w, h, ur::TEXTURE_A8);
-    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_A8, tex_id);
+    int tex_id = rc.CreateTexture(ao_data.data(), w, h, ur::TEXTURE_RED);
+    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RED, tex_id);
 }
 
 ur::TexturePtr

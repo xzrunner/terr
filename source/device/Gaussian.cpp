@@ -47,7 +47,7 @@ const float b = 4.0/36.0;
 const float c = 16.0/36.0;
 
 float get(float s, float t){
-    return texture2D(heightmap, vec2(s, t)).a;
+    return texture2D(heightmap, vec2(s, t)).r;
 }
 
 void main(void){

@@ -58,7 +58,7 @@ void main(void)
     uv = uv + translate;
 
     uv = clamp(uv, vec2(0, 0), vec2(1, 1));
-    float h = texture2D(heightmap, uv).a;
+    float h = texture2D(heightmap, uv).r;
     FragColor = vec4(h, h, h, 1.0);
 }
 
