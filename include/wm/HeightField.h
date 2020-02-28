@@ -17,8 +17,22 @@ public:
 
     ur::TexturePtr GetHeightmap();
 
+    const std::vector<float>& GetValues() const;
+
+    float Get(size_t x, size_t y) const;
+    float Get(float x, float y) const;
+    float Get(size_t idx) const;
+
+    void SetCPUDirty() { m_cpu_dirty = true; }
+
 private:
-    ur::TexturePtr m_heightmap = nullptr;
+    void UpdateCPU() const;
+    void UpdateGPU() const;
+
+private:
+    mutable ur::TexturePtr m_heightmap = nullptr;
+
+    mutable bool m_cpu_dirty = false;
 
 }; // HeightField
 

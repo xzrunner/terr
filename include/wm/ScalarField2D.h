@@ -23,13 +23,10 @@ public:
     size_t Width() const { return m_width; }
     size_t Height() const { return m_height; }
 
-    auto& GetValues() const { return m_values; }
-    void SetValues(const std::vector<float>& values);
+    void SetValues(const std::vector<float>& values) const;
 
     bool Set(size_t x, size_t y, float h);
     float Get(size_t x, size_t y) const;
-    float Get(float x, float y) const;
-    float Get(size_t idx) const;
 
     bool Add(size_t x, size_t y, float dh);
     bool Add(size_t idx, float dh);
@@ -43,9 +40,9 @@ public:
 protected:
     size_t m_width = 0, m_height = 0;
 
-    std::vector<float> m_values;
+    mutable std::vector<float> m_values;
 
-    bool m_dirty = true;
+    mutable bool m_dirty = true;
 
 }; // ScalarField2D
 

@@ -35,8 +35,68 @@ EvalGPU::EvalGPU(ur::RenderContext& rc, const std::string& cs)
     m_compute_work_group_size = m_shader->GetComputeWorkGroupSize();
 }
 
+//bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
+//                    const pt0::ShaderUniforms& vals, HeightField& hf) const
+//{
+//    if (!m_shader) {
+//        return false;
+//    }
+//
+//    auto w = hf.Width();
+//    auto h = hf.Height();
+//    if (w == 0 || h == 0) {
+//        return false;
+//    }
+//
+//    auto tex = rc.CreateTexture(nullptr, w, h, ur::TEXTURE_RGBA8);
+//    assert(tex != 0);
+//
+//    auto fbo = rc.CreateRenderTarget(0);
+//    assert(fbo != 0);
+//
+//    int vp_x, vp_y, vp_w, vp_h;
+//    rc.GetViewport(vp_x, vp_y, vp_w, vp_h);
+//
+//    rc.BindRenderTarget(fbo);
+//    rc.BindRenderTargetTex(tex, ur::ATTACHMENT_COLOR0);
+//    rc.SetViewport(0, 0, w, h);
+//    assert(rc.CheckRenderTargetStatus());
+//
+//    rc.SetClearFlag(ur::MASKC | ur::MASKD);
+//    rc.SetClearColor(0x0000000);
+//    rc.Clear();
+//
+//    m_shader->SetUsedTextures(textures);
+//
+//    m_shader->Use();
+//
+//    vals.Bind(*m_shader);
+//
+//    rc.RenderQuad(ur::RenderContext::VertLayout::VL_POS_TEX);
+//
+//    uint8_t* pixels = new uint8_t[w * h];
+//    rc.ReadPixels(pixels, 1, 0, 0, w, h);
+//
+//    std::vector<float> heights(w * h);
+//    for (size_t i = 0, n = heights.size(); i < n; ++i) {
+//        heights[i] = pixels[i] / 255.0f;
+//    }
+//    delete[] pixels;
+//
+//    hf.SetValues(heights);
+//
+//    rc.UnbindRenderTarget();
+//    rc.SetViewport(vp_x, vp_y, vp_w, vp_h);
+//    rc.ReleaseRenderTarget(fbo);
+//    rc.ReleaseTexture(tex);
+//
+//    rc.BindShader(0);
+//
+//    return true;
+//}
+
 bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
-                  const pt0::ShaderUniforms& vals, HeightField& hf) const
+                    const pt0::ShaderUniforms& vals, HeightField& hf) const
 {
     if (!m_shader) {
         return false;
@@ -44,12 +104,10 @@ bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures
 
     auto w = hf.Width();
     auto h = hf.Height();
-    if (w == 0 || h == 0) {
+    auto tex = hf.GetHeightmap();
+    if (w == 0 || h == 0 || !tex) {
         return false;
     }
-
-    auto tex = rc.CreateTexture(nullptr, w, h, ur::TEXTURE_RGBA8);
-    assert(tex != 0);
 
     auto fbo = rc.CreateRenderTarget(0);
     assert(fbo != 0);
@@ -58,7 +116,7 @@ bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures
     rc.GetViewport(vp_x, vp_y, vp_w, vp_h);
 
     rc.BindRenderTarget(fbo);
-    rc.BindRenderTargetTex(tex, ur::ATTACHMENT_COLOR0);
+    rc.BindRenderTargetTex(tex->TexID(), ur::ATTACHMENT_COLOR0);
     rc.SetViewport(0, 0, w, h);
     assert(rc.CheckRenderTargetStatus());
 
@@ -74,21 +132,9 @@ bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures
 
     rc.RenderQuad(ur::RenderContext::VertLayout::VL_POS_TEX);
 
-    uint8_t* pixels = new uint8_t[w * h * 3];
-    rc.ReadPixels(pixels, 3, 0, 0, w, h);
-
-    std::vector<float> heights(w * h);
-    for (size_t i = 0, n = heights.size(); i < n; ++i) {
-        heights[i] = pixels[i * 3 + 3] / 255.0f;
-    }
-    delete[] pixels;
-
     rc.UnbindRenderTarget();
     rc.SetViewport(vp_x, vp_y, vp_w, vp_h);
     rc.ReleaseRenderTarget(fbo);
-    rc.ReleaseTexture(tex);
-
-    hf.SetValues(heights);
 
     rc.BindShader(0);
 
