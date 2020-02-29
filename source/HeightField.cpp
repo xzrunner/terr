@@ -24,13 +24,13 @@ ur::TexturePtr HeightField::GetHeightmap()
     return m_heightmap;
 }
 
-const std::vector<float>& HeightField::GetValues() const 
-{ 
+const std::vector<float>& HeightField::GetValues() const
+{
     if (m_cpu_dirty) {
         UpdateCPU();
         m_cpu_dirty = false;
     }
-    return m_values; 
+    return m_values;
 }
 
 float HeightField::Get(size_t x, size_t y) const

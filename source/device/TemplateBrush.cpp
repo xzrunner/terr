@@ -57,8 +57,8 @@ void main(void)
     src_uv = (trans_inv * vec4(src_uv.x, 0.0f, src_uv.y, 1.0)).xz;
     src_uv = clamp(src_uv, vec2(0, 0), vec2(1, 1));
 
-//    float h = max(texture2D(scene_map, fs_in.texcoord).r, texture2D(brush_map, src_uv).r * height_scale);
-    float h = texture2D(brush_map, src_uv).r * height_scale;
+    float h = max(texture2D(scene_map, fs_in.texcoord).r, texture2D(brush_map, src_uv).r * height_scale);
+//    float h = texture2D(brush_map, src_uv).r * height_scale;
     FragColor = vec4(h);
 }
 
