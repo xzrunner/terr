@@ -1,12 +1,12 @@
-#include "wm/HeightField.h"
-#include "wm/TextureBaker.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/TextureBaker.h"
 
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 
 #include <assert.h>
 
-namespace wm
+namespace terraingraph
 {
 
 HeightField::HeightField(size_t width, size_t height)

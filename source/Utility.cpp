@@ -1,8 +1,8 @@
-#include "wm/Utility.h"
+#include "terraingraph/Utility.h"
 
 #include <cmath>
 
-namespace wm
+namespace terraingraph
 {
 
 float Utility::RangedRandom(float f1, float f2)

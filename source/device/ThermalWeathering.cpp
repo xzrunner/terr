@@ -1,7 +1,7 @@
-#include "wm/device/ThermalWeathering.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HeightField.h"
-#include "wm/EvalGPU.h"
+#include "terraingraph/device/ThermalWeathering.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/EvalGPU.h"
 
 #include <unirender/Blackboard.h>
 #include <painting0/ShaderUniforms.h>
@@ -9,7 +9,7 @@
 namespace
 {
 
-std::shared_ptr<wm::EvalGPU> EVAL = nullptr;
+std::shared_ptr<terraingraph::EvalGPU> EVAL = nullptr;
 
 const char* cs = R"(
 
@@ -80,7 +80,7 @@ void main()
 
 }
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

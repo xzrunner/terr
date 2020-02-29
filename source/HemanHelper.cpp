@@ -1,7 +1,7 @@
-#include "wm/HemanHelper.h"
-#include "wm/HeightField.h"
+#include "terraingraph/HemanHelper.h"
+#include "terraingraph/HeightField.h"
 
-namespace wm
+namespace terraingraph
 {
 
 heman_image*

@@ -1,8 +1,14 @@
-# wm
+# terraingraph
 
-WorldMachine back-end.
+Node based terrain generator. Runtime of terrainlab.
 
 ## Reference
+
+[Houdini](https://www.sidefx.com/)
+
+[World Machine](https://www.world-machine.com/)
+
+[Gaea](https://quadspinner.com/)
 
 [Water erosion on heightmap terrain](http://ranmantaru.com/blog/2011/10/08/water-erosion-on-heightmap-terrain/)
 

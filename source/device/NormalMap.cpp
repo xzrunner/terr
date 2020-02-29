@@ -1,12 +1,12 @@
-#include "wm/device/NormalMap.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HemanHelper.h"
-#include "wm/HeightField.h"
-#include "wm/Bitmap.h"
+#include "terraingraph/device/NormalMap.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HemanHelper.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/Bitmap.h"
 
 #include <heman.h>
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

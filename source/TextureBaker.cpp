@@ -1,15 +1,15 @@
-#include "wm/TextureBaker.h"
-#include "wm/HeightField.h"
-#include "wm/Bitmap.h"
-#include "wm/Mask.h"
-#include "wm/HemanHelper.h"
-#include "wm/TextureGen.h"
+#include "terraingraph/TextureBaker.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/Bitmap.h"
+#include "terraingraph/Mask.h"
+#include "terraingraph/HemanHelper.h"
+#include "terraingraph/TextureGen.h"
 
 #include <unirender/RenderContext.h>
 
 #include <algorithm>
 
-namespace wm
+namespace terraingraph
 {
 
 bool TextureBaker::GenHeightMap(const HeightField& src,

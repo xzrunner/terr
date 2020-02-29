@@ -1,7 +1,7 @@
-#include "wm/device/Step.h"
-#include "wm/HeightField.h"
-#include "wm/DeviceHelper.h"
-#include "wm/EvalGPU.h"
+#include "terraingraph/device/Step.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/EvalGPU.h"
 
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
@@ -10,7 +10,7 @@
 namespace
 {
 
-std::shared_ptr<wm::EvalGPU> EVAL = nullptr;
+std::shared_ptr<terraingraph::EvalGPU> EVAL = nullptr;
 
 const char* vs = R"(
 
@@ -53,7 +53,7 @@ void main(void){
 
 }
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

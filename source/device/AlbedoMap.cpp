@@ -1,8 +1,8 @@
-#include "wm/device/AlbedoMap.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HemanHelper.h"
-#include "wm/HeightField.h"
-#include "wm/Bitmap.h"
+#include "terraingraph/device/AlbedoMap.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HemanHelper.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/Bitmap.h"
 
 namespace
 {
@@ -32,7 +32,7 @@ heman_color cp_colors[] = {
 
 }
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

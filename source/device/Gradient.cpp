@@ -1,10 +1,10 @@
-#include "wm/device/Gradient.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/Gradient.h"
+#include "terraingraph/HeightField.h"
 
 #include <sm_const.h>
 #include <SM_Calc.h>
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

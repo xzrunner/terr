@@ -1,8 +1,8 @@
-#include "wm/device/PerlinNoise.h"
-#include "wm/PerlinNoise.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/PerlinNoise.h"
+#include "terraingraph/PerlinNoise.h"
+#include "terraingraph/HeightField.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {
@@ -11,7 +11,7 @@ void PerlinNoise::Execute()
 {
     m_hf = std::make_shared<HeightField>(m_width, m_height);
 
-    wm::PerlinNoise noise;
+    terraingraph::PerlinNoise noise;
 
     for (size_t y = 0; y < m_height; ++y) {
         for (size_t x = 0; x < m_width; ++x) {
@@ -26,7 +26,7 @@ void PerlinNoise::Execute()
     AddFractalPattern(noise);
 }
 
-void PerlinNoise::AddFractalPattern(const wm::PerlinNoise& noise)
+void PerlinNoise::AddFractalPattern(const terraingraph::PerlinNoise& noise)
 {
     if (!m_hf || m_fractal_layer == 0) {
         return;

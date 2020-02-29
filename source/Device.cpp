@@ -1,6 +1,6 @@
-#include "wm/Device.h"
+#include "terraingraph/Device.h"
 
-namespace wm
+namespace terraingraph
 {
 
 

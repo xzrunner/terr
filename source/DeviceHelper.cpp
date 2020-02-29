@@ -1,7 +1,7 @@
-#include "wm/DeviceHelper.h"
-#include "wm/Device.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/Device.h"
 
-namespace wm
+namespace terraingraph
 {
 
 DevicePtr DeviceHelper::GetInputDevice(const Device& dev, size_t idx)

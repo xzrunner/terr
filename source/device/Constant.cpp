@@ -1,7 +1,7 @@
-#include "wm/device/Constant.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/Constant.h"
+#include "terraingraph/HeightField.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

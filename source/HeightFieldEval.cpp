@@ -1,11 +1,11 @@
-#include "wm/HeightFieldEval.h"
-#include "wm/HeightField.h"
+#include "terraingraph/HeightFieldEval.h"
+#include "terraingraph/HeightField.h"
 
 #include <SM_Calc.h>
 
 #include <array>
 
-namespace wm
+namespace terraingraph
 {
 
 sm::vec2 HeightFieldEval::Gradient(const HeightField& hf, size_t x, size_t y)

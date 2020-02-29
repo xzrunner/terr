@@ -1,6 +1,6 @@
-#include "wm/Bitmap.h"
+#include "terraingraph/Bitmap.h"
 
-namespace wm
+namespace terraingraph
 {
 
 Bitmap::Bitmap(size_t width, size_t height, size_t channels)

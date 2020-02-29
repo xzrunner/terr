@@ -1,11 +1,11 @@
 // from SebLague/Hydraulic-Erosion
 
-#include "wm/device/Erosion.h"
-#include "wm/HeightField.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HeightFieldEval.h"
-#include "wm/EvalGPU.h"
-#include "wm/Utility.h"
+#include "terraingraph/device/Erosion.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HeightFieldEval.h"
+#include "terraingraph/EvalGPU.h"
+#include "terraingraph/Utility.h"
 
 #include <SM_Vector.h>
 #include <unirender/Blackboard.h>
@@ -18,7 +18,7 @@
 namespace
 {
 
-std::shared_ptr<wm::EvalGPU> EVAL = nullptr;
+std::shared_ptr<terraingraph::EvalGPU> EVAL = nullptr;
 
 const char* cs = R"(
 
@@ -155,7 +155,7 @@ void main()
 
 }
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

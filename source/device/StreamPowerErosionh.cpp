@@ -1,9 +1,9 @@
-﻿#include "wm/device/StreamPowerErosion.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HeightFieldEval.h"
-#include "wm/HeightField.h"
+﻿#include "terraingraph/device/StreamPowerErosion.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HeightFieldEval.h"
+#include "terraingraph/HeightField.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

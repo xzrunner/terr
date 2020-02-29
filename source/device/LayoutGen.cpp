@@ -1,6 +1,6 @@
-#include "wm/device/LayoutGen.h"
+#include "terraingraph/device/LayoutGen.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

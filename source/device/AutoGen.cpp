@@ -1,8 +1,8 @@
-#include "wm/device/AutoGen.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HeightField.h"
-#include "wm/Mask.h"
-#include "wm/Utility.h"
+#include "terraingraph/device/AutoGen.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/Mask.h"
+#include "terraingraph/Utility.h"
 
 #include <SM_Calc.h>
 
@@ -27,7 +27,7 @@ static const sm::ivec2 QUERY_OFFSET[QUERY_COUNT] = {
 
 }
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

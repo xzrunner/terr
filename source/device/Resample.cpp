@@ -1,9 +1,9 @@
-#include "wm/device/Resample.h"
-#include "wm/DeviceHelper.h"
-#include "wm/Mask.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/Resample.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/Mask.h"
+#include "terraingraph/HeightField.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

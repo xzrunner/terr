@@ -1,4 +1,4 @@
-#include "wm/Mask.h"
+#include "terraingraph/Mask.h"
 
 #include <set>
 
@@ -39,7 +39,7 @@ static const sm::ivec2 QUERY_OFFSET[QUERY_COUNT] = {
 
 }
 
-namespace wm
+namespace terraingraph
 {
 
 Mask::Mask(size_t width, size_t height)

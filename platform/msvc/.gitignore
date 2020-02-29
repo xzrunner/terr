@@ -1,5 +1,5 @@
-wm/
+terraingraph/
 projects/*
 
-!projects/wm.vcxproj
-!projects/wm.vcxproj.filters
+!projects/terraingraph.vcxproj
+!projects/terraingraph.vcxproj.filters

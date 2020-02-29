@@ -1,4 +1,4 @@
-#include "wm/SplitMergeQueueROAM.h"
+#include "terraingraph/SplitMergeQueueROAM.h"
 
 #include <cmath>
 
@@ -37,7 +37,7 @@ int log2(int n)
 
 }
 
-namespace wm
+namespace terraingraph
 {
 
 SplitMergeQueueROAM::SplitMergeQueueROAM(int size, BinTriPool& pool)

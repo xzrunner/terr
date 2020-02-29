@@ -1,8 +1,8 @@
-#include "wm/device/PlasmaFractal.h"
-#include "wm/Utility.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/PlasmaFractal.h"
+#include "terraingraph/Utility.h"
+#include "terraingraph/HeightField.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

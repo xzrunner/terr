@@ -1,7 +1,7 @@
-#include "wm/device/OverlayView.h"
-#include "wm/DeviceHelper.h"
+#include "terraingraph/device/OverlayView.h"
+#include "terraingraph/DeviceHelper.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

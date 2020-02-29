@@ -1,8 +1,8 @@
-#include "wm/ScalarField2D.h"
+#include "terraingraph/ScalarField2D.h"
 
 #include <assert.h>
 
-namespace wm
+namespace terraingraph
 {
 
 ScalarField2D::ScalarField2D(size_t width, size_t height)

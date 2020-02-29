@@ -1,0 +1,675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="roam">
+      <UniqueIdentifier>{f701babb-b977-4c4b-aaa7-de072e68569e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="texture">
+      <UniqueIdentifier>{71597015-8dae-47f4-90fd-1674d64e7874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset">
+      <UniqueIdentifier>{5ddc0814-efb6-4350-8a0c-0aa6a363388f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools">
+      <UniqueIdentifier>{8ee19c45-7400-4801-8f1d-49bc55eacbfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="eval">
+      <UniqueIdentifier>{ad27c0a3-15ea-424d-a706-23aea9f65b1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices">
+      <UniqueIdentifier>{85173420-db50-48a6-adb8-7d30616a205f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\device">
+      <UniqueIdentifier>{bf388a0f-0033-410a-aff9-6df11ceccc81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator">
+      <UniqueIdentifier>{d498651a-bc1b-4302-8ecf-96b14a27370d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\02.output">
+      <UniqueIdentifier>{38a024f8-5593-470b-81dd-f2b255f0983e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\03.combiner">
+      <UniqueIdentifier>{5f61cd72-cb33-45f7-94e8-ca85ed3d6ffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\04.filter">
+      <UniqueIdentifier>{82c73997-ebb8-4ddc-a032-d7354dbf9f09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\05.natural">
+      <UniqueIdentifier>{1020d685-ee4f-4b84-8cad-90d0026ff724}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\06.selector">
+      <UniqueIdentifier>{03d27cbe-5f48-4be7-a703-b02e44ac2644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\07.converter">
+      <UniqueIdentifier>{586826eb-383a-423a-ac78-6bed9f7a2dd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\heightfield">
+      <UniqueIdentifier>{70e74652-ea7e-4465-9f08-76fb9a180668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\bitmap">
+      <UniqueIdentifier>{a37d33b7-c147-4e23-bc6e-e8dedf2a2c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\mask">
+      <UniqueIdentifier>{6aed1e66-8054-4ec1-82bb-16ea29bbbe62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\rtti">
+      <UniqueIdentifier>{7f122e31-c950-4d67-96eb-aa520ca64b9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\0.value">
+      <UniqueIdentifier>{a35f1708-fbb4-4d14-81d2-d4b9dffea69d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\1.input">
+      <UniqueIdentifier>{64d8126e-53ba-4b60-a3f5-6c0d1b564a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\3.noise">
+      <UniqueIdentifier>{cf4885b8-6a8a-428d-a967-2521593ee27f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataset\noise">
+      <UniqueIdentifier>{60fa7198-432e-46f0-bac1-e3f95dfbbf60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\2.iteration">
+      <UniqueIdentifier>{de0f439e-3c8e-47a7-ad3e-b8ca49d91182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\4.type">
+      <UniqueIdentifier>{f0b77103-5741-4af4-b8a3-9736b4bda786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\07.converter\baking">
+      <UniqueIdentifier>{e6db74cc-29b2-446e-aa31-b4afb2a9c2e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices\01.generator\1.input\brush">
+      <UniqueIdentifier>{6bafbc6a-f74c-4256-918c-e7b62799bb6d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\terraingraph\SplitOnlyROAM.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\SplitMergeROAM.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\SplitMergeQueueROAM.h">
+      <Filter>roam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\TextureGen.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\Utility.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\Evaluator.h">
+      <Filter>eval</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\typedef.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Erosion.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Erosion.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\PerlinNoise.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\DeviceHelper.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\HeightField.h">
+      <Filter>dataset\heightfield</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\Device.h">
+      <Filter>dataset\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\DeviceVarType.h">
+      <Filter>dataset\device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\HeightFieldEval.h">
+      <Filter>dataset\heightfield</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\TextureBaker.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Combiner.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Combiner.parm.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Curves.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Curves.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Colorizer.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Colorizer.parm.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\OverlayView.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\OverlayView.parm.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectHeight.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectHeight.parm.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\Bitmap.h">
+      <Filter>dataset\bitmap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectSlope.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectSlope.parm.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Chooser.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Chooser.parm.h">
+      <Filter>devices\03.combiner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\BasicNoise.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\BasicNoise.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\PerlinNoise.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\PerlinNoise.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\Mask.h">
+      <Filter>dataset\mask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device_rttr_gen.h">
+      <Filter>tools\rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device_regist_cfg.h">
+      <Filter>tools\rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device_include_gen.h">
+      <Filter>tools\rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\HeightOutput.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\HeightOutput.parm.h">
+      <Filter>devices\02.output</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\FaultFractal.h">
+      <Filter>devices\01.generator\2.iteration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\FaultFractal.parm.h">
+      <Filter>devices\01.generator\2.iteration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\PlasmaFractal.h">
+      <Filter>devices\01.generator\2.iteration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\PlasmaFractal.parm.h">
+      <Filter>devices\01.generator\2.iteration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Color.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Color.parm.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Constant.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Constant.parm.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Gradient.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Gradient.parm.h">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\FileInput.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\FileInput.parm.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\LayoutGen.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\LayoutGen.parm.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\EvalGPU.h">
+      <Filter>eval</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Wind.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Wind.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Gaussian.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Gaussian.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Incline.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Incline.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Step.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Step.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\CellularNoise.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\CellularNoise.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\ThermalWeathering.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\ThermalWeathering.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\ScalarField2D.h">
+      <Filter>dataset\heightfield</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\StreamPowerErosion.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\StreamPowerErosion.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\HydraulicErosion.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\HydraulicErosion.parm.h">
+      <Filter>devices\05.natural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\TurbulenceNoise.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\TurbulenceNoise.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\AutoGen.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\AutoGen.parm.h">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Inverter.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Inverter.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\PerlinNoise2.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\PerlinNoise2.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\NoiseQuality.h">
+      <Filter>dataset\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\TurbulenceNoise2.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\TurbulenceNoise2.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Voronoi.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Voronoi.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Billow.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Billow.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Clamp.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Clamp.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\ScaleBias.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\ScaleBias.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\RidgedMulti.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\RidgedMulti.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectMask.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectMask.parm.h">
+      <Filter>devices\06.selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\AmbientOcclusion.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\AmbientOcclusion.parm.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\NormalMap.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\NormalMap.parm.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\AlbedoMap.parm.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\AlbedoMap.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Lighting.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Lighting.parm.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\HemanHelper.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\FBM.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\FBM.parm.h">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Island.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Island.parm.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Rock.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Rock.parm.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Planet.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Planet.parm.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Archipelago.parm.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Archipelago.h">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\ShadowMap.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\ShadowMap.parm.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\LightMap.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\LightMap.parm.h">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Resample.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Resample.parm.h">
+      <Filter>devices\07.converter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Transform.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\Transform.parm.h">
+      <Filter>devices\04.filter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\TemplateBrush.h">
+      <Filter>devices\01.generator\1.input\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\TemplateBrush.parm.h">
+      <Filter>devices\01.generator\1.input\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\NoiseBrush.h">
+      <Filter>devices\01.generator\1.input\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\device\NoiseBrush.parm.h">
+      <Filter>devices\01.generator\1.input\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\terraingraph\TerrainGraph.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
+      <Filter>roam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp">
+      <Filter>roam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\SplitMergeQueueROAM.cpp">
+      <Filter>roam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\TextureGen.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Utility.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Evaluator.cpp">
+      <Filter>eval</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Erosion.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\DeviceHelper.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HeightField.cpp">
+      <Filter>dataset\heightfield</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Device.cpp">
+      <Filter>dataset\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HeightFieldEval.cpp">
+      <Filter>dataset\heightfield</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\TextureBaker.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Combiner.cpp">
+      <Filter>devices\03.combiner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Curves.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Colorizer.cpp">
+      <Filter>devices\07.converter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\OverlayView.cpp">
+      <Filter>devices\02.output</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\SelectHeight.cpp">
+      <Filter>devices\06.selector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Bitmap.cpp">
+      <Filter>dataset\bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\terraingraph\device\SelectSlope.cpp">
+      <Filter>devices\06.selector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Chooser.cpp">
+      <Filter>devices\03.combiner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\BasicNoise.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\Mask.cpp">
+      <Filter>dataset\mask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\RegistRTTR.cpp">
+      <Filter>tools\rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\HeightOutput.cpp">
+      <Filter>devices\02.output</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FaultFractal.cpp">
+      <Filter>devices\01.generator\2.iteration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp">
+      <Filter>devices\01.generator\2.iteration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\include\terraingraph\device\Color.cpp">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Constant.cpp">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Gradient.cpp">
+      <Filter>devices\01.generator\0.value</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FileInput.cpp">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\LayoutGen.cpp">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\EvalGPU.cpp">
+      <Filter>eval</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Wind.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Gaussian.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Incline.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Step.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\CellularNoise.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\ThermalWeathering.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\ScalarField2D.cpp">
+      <Filter>dataset\heightfield</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\StreamPowerErosionh.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\HydraulicErosion.cpp">
+      <Filter>devices\05.natural</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\AutoGen.cpp">
+      <Filter>devices\01.generator\1.input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Inverter.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\PerlinNoise2.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\TurbulenceNoise2.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Voronoi.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Billow.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Clamp.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\ScaleBias.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\RidgedMulti.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\SelectMask.cpp">
+      <Filter>devices\06.selector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\AmbientOcclusion.cpp">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\NormalMap.cpp">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\AlbedoMap.cpp">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Lighting.cpp">
+      <Filter>devices\07.converter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\HemanHelper.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\FBM.cpp">
+      <Filter>devices\01.generator\3.noise</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Island.cpp">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Rock.cpp">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Planet.cpp">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Archipelago.cpp">
+      <Filter>devices\01.generator\4.type</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\ShadowMap.cpp">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\LightMap.cpp">
+      <Filter>devices\07.converter\baking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Resample.cpp">
+      <Filter>devices\07.converter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\Transform.cpp">
+      <Filter>devices\04.filter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\TemplateBrush.cpp">
+      <Filter>devices\01.generator\1.input\brush</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\NoiseBrush.cpp">
+      <Filter>devices\01.generator\1.input\brush</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\TerrainGraph.cpp" />
+  </ItemGroup>
+</Project>

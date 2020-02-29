@@ -1,6 +1,6 @@
-#include "wm/device/TurbulenceNoise2.h"
-#include "wm/HeightField.h"
-#include "wm/DeviceHelper.h"
+#include "terraingraph/device/TurbulenceNoise2.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/DeviceHelper.h"
 
 #include <noise/module/turbulence.h>
 
@@ -10,7 +10,7 @@ namespace
 class NoiseModule : public noise::module::Module
 {
 public:
-    NoiseModule(const wm::HeightField& hf)
+    NoiseModule(const terraingraph::HeightField& hf)
         : Module(0), m_hf(hf) {}
 
     virtual int GetSourceModuleCount() const override { return 0; }
@@ -29,13 +29,13 @@ public:
     }
 
 private:
-    const wm::HeightField& m_hf;
+    const terraingraph::HeightField& m_hf;
 
 }; // NoiseModule
 
 }
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

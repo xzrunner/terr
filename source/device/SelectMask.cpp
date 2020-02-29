@@ -1,9 +1,9 @@
-#include "wm/device/SelectMask.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HeightField.h"
-#include "wm/Mask.h"
+#include "terraingraph/device/SelectMask.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/Mask.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

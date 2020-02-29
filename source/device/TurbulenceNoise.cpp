@@ -1,6 +1,6 @@
-#include "wm/device/TurbulenceNoise.h"
-#include "wm/HeightField.h"
-#include "wm/EvalGPU.h"
+#include "terraingraph/device/TurbulenceNoise.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/EvalGPU.h"
 
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
@@ -9,7 +9,7 @@
 namespace
 {
 
-std::shared_ptr<wm::EvalGPU> EVAL = nullptr;
+std::shared_ptr<terraingraph::EvalGPU> EVAL = nullptr;
 
 int PERLIN_PERM_TEXID = 0;
 int PERLIN_GRAD_TEXID = 0;
@@ -526,7 +526,7 @@ void main()
 
 }
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

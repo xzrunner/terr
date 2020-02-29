@@ -1,5 +1,5 @@
-#include "wm/EvalGPU.h"
-#include "wm/HeightField.h"
+#include "terraingraph/EvalGPU.h"
+#include "terraingraph/HeightField.h"
 
 #include <unirender/VertexAttrib.h>
 #include <unirender/RenderContext.h>
@@ -7,7 +7,7 @@
 #include <painting0/ShaderUniforms.h>
 #include <painting3/Shader.h>
 
-namespace wm
+namespace terraingraph
 {
 
 EvalGPU::EvalGPU(ur::RenderContext& rc, const std::string& vs, const std::string& fs,

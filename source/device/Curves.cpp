@@ -1,9 +1,9 @@
-#include "wm/device/Curves.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HeightField.h"
-#include "wm/HeightFieldEval.h"
+#include "terraingraph/device/Curves.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/HeightFieldEval.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

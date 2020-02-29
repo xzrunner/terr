@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\terraingraph\Bitmap.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\DeviceHelper.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\AmbientOcclusion.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\AmbientOcclusion.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Archipelago.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Archipelago.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\AutoGen.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\AutoGen.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\BasicNoise.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\BasicNoise.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Billow.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Billow.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\NoiseBrush.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\NoiseBrush.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\TemplateBrush.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\TemplateBrush.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\CellularNoise.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\CellularNoise.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Chooser.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Chooser.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Clamp.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Clamp.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Color.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Color.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Colorizer.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Colorizer.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Combiner.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Combiner.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Constant.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Constant.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Curves.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Curves.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\FaultFractal.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\FaultFractal.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\FBM.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\FBM.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\FileInput.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\FileInput.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\AlbedoMap.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\AlbedoMap.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Inverter.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Inverter.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Island.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Island.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Lighting.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Lighting.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\LightMap.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\LightMap.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\NormalMap.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\NormalMap.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\PerlinNoise2.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\PerlinNoise2.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Planet.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Planet.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Resample.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Resample.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\RidgedMulti.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\RidgedMulti.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Rock.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Rock.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\ScaleBias.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\ScaleBias.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectMask.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectMask.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\ShadowMap.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\ShadowMap.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Transform.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Transform.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\TurbulenceNoise.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\TurbulenceNoise.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Gaussian.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Gaussian.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Gradient.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Gradient.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\HeightOutput.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\HeightOutput.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\HydraulicErosion.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\HydraulicErosion.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Incline.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Incline.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\LayoutGen.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\LayoutGen.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\OverlayView.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\OverlayView.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\PlasmaFractal.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\PlasmaFractal.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Erosion.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Erosion.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\PerlinNoise.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\PerlinNoise.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectHeight.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectHeight.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectSlope.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\SelectSlope.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Step.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Step.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\StreamPowerErosion.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\StreamPowerErosion.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\ThermalWeathering.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\ThermalWeathering.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\TurbulenceNoise2.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\TurbulenceNoise2.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Voronoi.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Voronoi.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Wind.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device\Wind.parm.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device_include_gen.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device_regist_cfg.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\device_rttr_gen.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\EvalGPU.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\Evaluator.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\HeightField.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\HeightFieldEval.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\HemanHelper.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\Mask.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\NoiseQuality.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\ScalarField2D.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\TextureBaker.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\Device.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\DeviceVarType.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\PerlinNoise.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\SplitMergeQueueROAM.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\SplitMergeROAM.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\SplitOnlyROAM.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\TerrainGraph.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\TextureGen.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\typedef.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\include\terraingraph\device\Color.cpp" />
+    <ClCompile Include="..\..\..\include\terraingraph\device\SelectSlope.cpp" />
+    <ClCompile Include="..\..\..\source\Bitmap.cpp" />
+    <ClCompile Include="..\..\..\source\DeviceHelper.cpp" />
+    <ClCompile Include="..\..\..\source\device\AmbientOcclusion.cpp" />
+    <ClCompile Include="..\..\..\source\device\Archipelago.cpp" />
+    <ClCompile Include="..\..\..\source\device\AutoGen.cpp" />
+    <ClCompile Include="..\..\..\source\device\BasicNoise.cpp" />
+    <ClCompile Include="..\..\..\source\device\Billow.cpp" />
+    <ClCompile Include="..\..\..\source\device\NoiseBrush.cpp" />
+    <ClCompile Include="..\..\..\source\device\TemplateBrush.cpp" />
+    <ClCompile Include="..\..\..\source\device\CellularNoise.cpp" />
+    <ClCompile Include="..\..\..\source\device\Chooser.cpp" />
+    <ClCompile Include="..\..\..\source\device\Clamp.cpp" />
+    <ClCompile Include="..\..\..\source\device\Colorizer.cpp" />
+    <ClCompile Include="..\..\..\source\device\Combiner.cpp" />
+    <ClCompile Include="..\..\..\source\device\Constant.cpp" />
+    <ClCompile Include="..\..\..\source\device\Curves.cpp" />
+    <ClCompile Include="..\..\..\source\device\FaultFractal.cpp" />
+    <ClCompile Include="..\..\..\source\device\FBM.cpp" />
+    <ClCompile Include="..\..\..\source\device\FileInput.cpp" />
+    <ClCompile Include="..\..\..\source\device\AlbedoMap.cpp" />
+    <ClCompile Include="..\..\..\source\device\Inverter.cpp" />
+    <ClCompile Include="..\..\..\source\device\Island.cpp" />
+    <ClCompile Include="..\..\..\source\device\Lighting.cpp" />
+    <ClCompile Include="..\..\..\source\device\LightMap.cpp" />
+    <ClCompile Include="..\..\..\source\device\NormalMap.cpp" />
+    <ClCompile Include="..\..\..\source\device\PerlinNoise2.cpp" />
+    <ClCompile Include="..\..\..\source\device\Planet.cpp" />
+    <ClCompile Include="..\..\..\source\device\Resample.cpp" />
+    <ClCompile Include="..\..\..\source\device\RidgedMulti.cpp" />
+    <ClCompile Include="..\..\..\source\device\Rock.cpp" />
+    <ClCompile Include="..\..\..\source\device\ScaleBias.cpp" />
+    <ClCompile Include="..\..\..\source\device\SelectMask.cpp" />
+    <ClCompile Include="..\..\..\source\device\ShadowMap.cpp" />
+    <ClCompile Include="..\..\..\source\device\Transform.cpp" />
+    <ClCompile Include="..\..\..\source\device\TurbulenceNoise.cpp" />
+    <ClCompile Include="..\..\..\source\device\Gaussian.cpp" />
+    <ClCompile Include="..\..\..\source\device\Gradient.cpp" />
+    <ClCompile Include="..\..\..\source\device\HeightOutput.cpp" />
+    <ClCompile Include="..\..\..\source\device\HydraulicErosion.cpp" />
+    <ClCompile Include="..\..\..\source\device\Incline.cpp" />
+    <ClCompile Include="..\..\..\source\device\LayoutGen.cpp" />
+    <ClCompile Include="..\..\..\source\device\OverlayView.cpp" />
+    <ClCompile Include="..\..\..\source\device\PlasmaFractal.cpp" />
+    <ClCompile Include="..\..\..\source\device\Erosion.cpp" />
+    <ClCompile Include="..\..\..\source\device\PerlinNoise.cpp" />
+    <ClCompile Include="..\..\..\source\device\SelectHeight.cpp" />
+    <ClCompile Include="..\..\..\source\device\Step.cpp" />
+    <ClCompile Include="..\..\..\source\device\StreamPowerErosionh.cpp" />
+    <ClCompile Include="..\..\..\source\device\ThermalWeathering.cpp" />
+    <ClCompile Include="..\..\..\source\device\TurbulenceNoise2.cpp" />
+    <ClCompile Include="..\..\..\source\device\Voronoi.cpp" />
+    <ClCompile Include="..\..\..\source\device\Wind.cpp" />
+    <ClCompile Include="..\..\..\source\EvalGPU.cpp" />
+    <ClCompile Include="..\..\..\source\Evaluator.cpp" />
+    <ClCompile Include="..\..\..\source\HeightField.cpp" />
+    <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />
+    <ClCompile Include="..\..\..\source\HemanHelper.cpp" />
+    <ClCompile Include="..\..\..\source\Mask.cpp" />
+    <ClCompile Include="..\..\..\source\ScalarField2D.cpp" />
+    <ClCompile Include="..\..\..\source\TextureBaker.cpp" />
+    <ClCompile Include="..\..\..\source\Device.cpp" />
+    <ClCompile Include="..\..\..\source\RegistRTTR.cpp" />
+    <ClCompile Include="..\..\..\source\SplitMergeQueueROAM.cpp" />
+    <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp" />
+    <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp" />
+    <ClCompile Include="..\..\..\source\TerrainGraph.cpp" />
+    <ClCompile Include="..\..\..\source\TextureGen.cpp" />
+    <ClCompile Include="..\..\..\source\Utility.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>terraingraph</ProjectName>
+    <ProjectGuid>{AB6D016B-C413-4BF5-83DC-823C441A74F0}</ProjectGuid>
+    <RootNamespace>terraingraph</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.26730.12</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\terraingraph\x86\Debug\</OutDir>
+    <IntDir>..\terraingraph\x86\Debug\obj\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\terraingraph\x86\Release\</OutDir>
+    <IntDir>..\terraingraph\x86\Release\obj\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;NOISE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;NOISE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

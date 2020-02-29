@@ -1,9 +1,9 @@
-#include "wm/device/Voronoi.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/Voronoi.h"
+#include "terraingraph/HeightField.h"
 
 #include <noise/module/voronoi.h>
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

@@ -1,9 +1,9 @@
-#include "wm/device/Billow.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/Billow.h"
+#include "terraingraph/HeightField.h"
 
 #include <noise/module/billow.h>
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

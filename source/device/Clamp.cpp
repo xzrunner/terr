@@ -1,8 +1,8 @@
-#include "wm/device/Clamp.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/Clamp.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HeightField.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

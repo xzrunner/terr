@@ -1,7 +1,7 @@
-#include "wm/device/BasicNoise.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/BasicNoise.h"
+#include "terraingraph/HeightField.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

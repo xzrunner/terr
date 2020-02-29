@@ -1,13 +1,13 @@
-#include "wm/device/HeightOutput.h"
-#include "wm/DeviceHelper.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/HeightOutput.h"
+#include "terraingraph/DeviceHelper.h"
+#include "terraingraph/HeightField.h"
 
 #include <gimg_export.h>
 #include <gimg_typedef.h>
 
 #define OUTPUT_SINGLE_CHANNEL
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

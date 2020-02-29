@@ -1,9 +1,9 @@
-#include "wm/device/RidgedMulti.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/RidgedMulti.h"
+#include "terraingraph/HeightField.h"
 
 #include <noise/module/ridgedmulti.h>
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

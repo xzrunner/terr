@@ -1,9 +1,9 @@
-#include "wm/device/PerlinNoise2.h"
-#include "wm/HeightField.h"
+#include "terraingraph/device/PerlinNoise2.h"
+#include "terraingraph/HeightField.h"
 
 #include <noise/module/perlin.h>
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

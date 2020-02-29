@@ -1,9 +1,9 @@
-#include "wm/device/Archipelago.h"
-#include "wm/HemanHelper.h"
+#include "terraingraph/device/Archipelago.h"
+#include "terraingraph/HemanHelper.h"
 
 #include <heman.h>
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {

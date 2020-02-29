@@ -1,10 +1,10 @@
-#include "wm/Evaluator.h"
-#include "wm/Device.h"
-#include "wm/typedef.h"
+#include "terraingraph/Evaluator.h"
+#include "terraingraph/Device.h"
+#include "terraingraph/typedef.h"
 
 #include <dag/Evaluator.h>
 
-namespace wm
+namespace terraingraph
 {
 
 void Evaluator::DeviceChaged(const DevicePtr& device)

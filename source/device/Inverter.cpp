@@ -1,8 +1,8 @@
-#include "wm/device/Inverter.h"
-#include "wm/HeightField.h"
-#include "wm/DeviceHelper.h"
+#include "terraingraph/device/Inverter.h"
+#include "terraingraph/HeightField.h"
+#include "terraingraph/DeviceHelper.h"
 
-namespace wm
+namespace terraingraph
 {
 namespace device
 {
