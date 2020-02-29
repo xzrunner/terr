@@ -76,6 +76,9 @@
     <Filter Include="devices\07.converter\baking">
       <UniqueIdentifier>{e6db74cc-29b2-446e-aa31-b4afb2a9c2e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="devices\01.generator\1.input\brush">
+      <UniqueIdentifier>{6bafbc6a-f74c-4256-918c-e7b62799bb6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\wm\SplitOnlyROAM.h">
@@ -447,10 +450,16 @@
       <Filter>devices\04.filter</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\TemplateBrush.h">
-      <Filter>devices\01.generator\1.input</Filter>
+      <Filter>devices\01.generator\1.input\brush</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\wm\device\TemplateBrush.parm.h">
-      <Filter>devices\01.generator\1.input</Filter>
+      <Filter>devices\01.generator\1.input\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\NoiseBrush.h">
+      <Filter>devices\01.generator\1.input\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\wm\device\NoiseBrush.parm.h">
+      <Filter>devices\01.generator\1.input\brush</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -657,7 +666,10 @@
       <Filter>devices\04.filter</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\TemplateBrush.cpp">
-      <Filter>devices\01.generator\1.input</Filter>
+      <Filter>devices\01.generator\1.input\brush</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\device\NoiseBrush.cpp">
+      <Filter>devices\01.generator\1.input\brush</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

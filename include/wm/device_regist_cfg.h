@@ -16,12 +16,16 @@
 #define PARM_DEVICE_NAME gradient
 #include EXE_FILEPATH
 
-#define PARM_DEVICE_CLASS AutoGen
-#define PARM_DEVICE_NAME auto_gen
+#define PARM_DEVICE_CLASS NoiseBrush
+#define PARM_DEVICE_NAME noise_brush
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS TemplateBrush
 #define PARM_DEVICE_NAME template_brush
+#include EXE_FILEPATH
+
+#define PARM_DEVICE_CLASS AutoGen
+#define PARM_DEVICE_NAME auto_gen
 #include EXE_FILEPATH
 
 #define PARM_DEVICE_CLASS FileInput
