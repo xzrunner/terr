@@ -1,20 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="roam">
-      <UniqueIdentifier>{f701babb-b977-4c4b-aaa7-de072e68569e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="texture">
-      <UniqueIdentifier>{71597015-8dae-47f4-90fd-1674d64e7874}</UniqueIdentifier>
-    </Filter>
     <Filter Include="dataset">
       <UniqueIdentifier>{5ddc0814-efb6-4350-8a0c-0aa6a363388f}</UniqueIdentifier>
     </Filter>
     <Filter Include="tools">
       <UniqueIdentifier>{8ee19c45-7400-4801-8f1d-49bc55eacbfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="eval">
-      <UniqueIdentifier>{ad27c0a3-15ea-424d-a706-23aea9f65b1e}</UniqueIdentifier>
     </Filter>
     <Filter Include="devices">
       <UniqueIdentifier>{85173420-db50-48a6-adb8-7d30616a205f}</UniqueIdentifier>
@@ -79,25 +70,31 @@
     <Filter Include="devices\01.generator\1.input\brush">
       <UniqueIdentifier>{6bafbc6a-f74c-4256-918c-e7b62799bb6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tools\texture">
+      <UniqueIdentifier>{71597015-8dae-47f4-90fd-1674d64e7874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\roam">
+      <UniqueIdentifier>{f701babb-b977-4c4b-aaa7-de072e68569e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tools\eval">
+      <UniqueIdentifier>{ad27c0a3-15ea-424d-a706-23aea9f65b1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\terraingraph\SplitOnlyROAM.h">
-      <Filter>roam</Filter>
+      <Filter>tools\roam</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\SplitMergeROAM.h">
-      <Filter>roam</Filter>
+      <Filter>tools\roam</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\SplitMergeQueueROAM.h">
-      <Filter>roam</Filter>
+      <Filter>tools\roam</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\TextureGen.h">
-      <Filter>texture</Filter>
+      <Filter>tools\texture</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\Utility.h">
       <Filter>tools</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terraingraph\Evaluator.h">
-      <Filter>eval</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\typedef.h" />
     <ClInclude Include="..\..\..\include\terraingraph\device\Erosion.h">
@@ -125,7 +122,7 @@
       <Filter>dataset\heightfield</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\TextureBaker.h">
-      <Filter>texture</Filter>
+      <Filter>tools\texture</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\device\Combiner.h">
       <Filter>devices\03.combiner</Filter>
@@ -243,9 +240,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\device\LayoutGen.parm.h">
       <Filter>devices\01.generator\1.input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terraingraph\EvalGPU.h">
-      <Filter>eval</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\device\Wind.h">
       <Filter>devices\05.natural</Filter>
@@ -461,25 +455,25 @@
       <Filter>devices\01.generator\1.input\brush</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\TerrainGraph.h" />
+    <ClInclude Include="..\..\..\include\terraingraph\EvalGPU.h">
+      <Filter>tools\eval</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\SplitOnlyROAM.cpp">
-      <Filter>roam</Filter>
+      <Filter>tools\roam</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\SplitMergeROAM.cpp">
-      <Filter>roam</Filter>
+      <Filter>tools\roam</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\SplitMergeQueueROAM.cpp">
-      <Filter>roam</Filter>
+      <Filter>tools\roam</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\TextureGen.cpp">
-      <Filter>texture</Filter>
+      <Filter>tools\texture</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\Utility.cpp">
       <Filter>tools</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\Evaluator.cpp">
-      <Filter>eval</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Erosion.cpp">
       <Filter>devices\05.natural</Filter>
@@ -497,7 +491,7 @@
       <Filter>dataset\heightfield</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\TextureBaker.cpp">
-      <Filter>texture</Filter>
+      <Filter>tools\texture</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Combiner.cpp">
       <Filter>devices\03.combiner</Filter>
@@ -558,9 +552,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\LayoutGen.cpp">
       <Filter>devices\01.generator\1.input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\EvalGPU.cpp">
-      <Filter>eval</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\Wind.cpp">
       <Filter>devices\05.natural</Filter>
@@ -671,5 +662,8 @@
       <Filter>devices\01.generator\1.input\brush</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\TerrainGraph.cpp" />
+    <ClCompile Include="..\..\..\source\EvalGPU.cpp">
+      <Filter>tools\eval</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

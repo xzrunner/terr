@@ -121,7 +121,6 @@
     <ClInclude Include="..\..\..\include\terraingraph\device_regist_cfg.h" />
     <ClInclude Include="..\..\..\include\terraingraph\device_rttr_gen.h" />
     <ClInclude Include="..\..\..\include\terraingraph\EvalGPU.h" />
-    <ClInclude Include="..\..\..\include\terraingraph\Evaluator.h" />
     <ClInclude Include="..\..\..\include\terraingraph\HeightField.h" />
     <ClInclude Include="..\..\..\include\terraingraph\HeightFieldEval.h" />
     <ClInclude Include="..\..\..\include\terraingraph\HemanHelper.h" />
@@ -196,7 +195,6 @@
     <ClCompile Include="..\..\..\source\device\Voronoi.cpp" />
     <ClCompile Include="..\..\..\source\device\Wind.cpp" />
     <ClCompile Include="..\..\..\source\EvalGPU.cpp" />
-    <ClCompile Include="..\..\..\source\Evaluator.cpp" />
     <ClCompile Include="..\..\..\source\HeightField.cpp" />
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />
     <ClCompile Include="..\..\..\source\HemanHelper.cpp" />

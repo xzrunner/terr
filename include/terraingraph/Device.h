@@ -16,8 +16,6 @@ class Device : public dag::Node<DeviceVarType>
 public:
     Device() {}
 
-    virtual void Execute() = 0;
-
     auto GetHeightField() const { return m_hf; }
     auto GetBitmap() const { return m_bmp; }
     auto GetMask() const { return m_mask; }
