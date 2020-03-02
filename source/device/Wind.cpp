@@ -1,8 +1,8 @@
 #include "terraingraph/device/Wind.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/EvalGPU.h"
 
+#include <heightfield/HeightField.h>
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 #include <painting0/ShaderUniforms.h>
@@ -103,7 +103,7 @@ void Wind::Execute()
     vals.AddVar("strengh",   pt0::RenderVariant(m_strengh));
     vals.AddVar("strengh2",  pt0::RenderVariant(m_strengh2));
 
-    m_hf = std::make_shared<HeightField>(prev_hf->Width(), prev_hf->Height());
+    m_hf = std::make_shared<hf::HeightField>(prev_hf->Width(), prev_hf->Height());
     EVAL->RunPS(rc, textures, vals, *m_hf);
 }
 

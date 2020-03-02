@@ -33,7 +33,7 @@ private:
     void Init();
 
 private:
-    std::shared_ptr<HeightField> m_brush = nullptr;
+    std::shared_ptr<hf::HeightField> m_brush = nullptr;
 
     RTTR_ENABLE(Device)
 

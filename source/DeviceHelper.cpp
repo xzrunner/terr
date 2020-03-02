@@ -22,7 +22,7 @@ DevicePtr DeviceHelper::GetInputDevice(const Device& dev, size_t idx)
     return std::static_pointer_cast<Device>(in_dev);
 }
 
-std::shared_ptr<HeightField>
+std::shared_ptr<hf::HeightField>
 DeviceHelper::GetInputHeight(const Device& dev, size_t idx)
 {
     auto prev_dev = GetInputDevice(dev, idx);

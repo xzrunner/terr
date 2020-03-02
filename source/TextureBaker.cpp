@@ -1,10 +1,10 @@
 #include "terraingraph/TextureBaker.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/Bitmap.h"
 #include "terraingraph/Mask.h"
 #include "terraingraph/HemanHelper.h"
 #include "terraingraph/TextureGen.h"
 
+#include <heightfield/HeightField.h>
 #include <unirender/RenderContext.h>
 
 #include <algorithm>
@@ -12,7 +12,7 @@
 namespace terraingraph
 {
 
-bool TextureBaker::GenHeightMap(const HeightField& src,
+bool TextureBaker::GenHeightMap(const hf::HeightField& src,
                                 std::vector<unsigned char>& dst)
 {
     if (src.Width() == 0 || src.Height() == 0) {
@@ -30,7 +30,7 @@ bool TextureBaker::GenHeightMap(const HeightField& src,
 }
 
 ur::TexturePtr
-TextureBaker::GenHeightMap(const HeightField& hf,
+TextureBaker::GenHeightMap(const hf::HeightField& hf,
                            ur::RenderContext& rc,
                            const ur::TexturePtr& tex)
 {
@@ -114,7 +114,7 @@ TextureBaker::GenColorMap(const Mask& mask, ur::RenderContext& rc)
 
 #ifdef USE_LSCAPE
 //ur::TexturePtr
-//TextureBaker::GenNormalMap(const HeightField& hf, ur::RenderContext& rc)
+//TextureBaker::GenNormalMap(const hf::HeightField& hf, ur::RenderContext& rc)
 //{
 //    auto w = hf.Width();
 //    auto h = hf.Height();
@@ -138,7 +138,7 @@ TextureBaker::GenColorMap(const Mask& mask, ur::RenderContext& rc)
 //}
 #else
 ur::TexturePtr
-TextureBaker::GenNormalMap(const HeightField& hf, ur::RenderContext& rc)
+TextureBaker::GenNormalMap(const hf::HeightField& hf, ur::RenderContext& rc)
 {
     auto w = hf.Width();
     auto h = hf.Height();
@@ -162,7 +162,7 @@ TextureBaker::GenNormalMap(const HeightField& hf, ur::RenderContext& rc)
 #endif // USE_LSCAPE
 
 ur::TexturePtr
-TextureBaker::GenAmbientOcclusionMap(const HeightField& hf, ur::RenderContext& rc)
+TextureBaker::GenAmbientOcclusionMap(const hf::HeightField& hf, ur::RenderContext& rc)
 {
     auto w = hf.Width();
     auto h = hf.Height();
@@ -184,7 +184,7 @@ TextureBaker::GenAmbientOcclusionMap(const HeightField& hf, ur::RenderContext& r
 }
 
 ur::TexturePtr
-TextureBaker::GenShadowMap(const HeightField& hf, ur::RenderContext& rc, const sm::vec3& light_dir)
+TextureBaker::GenShadowMap(const hf::HeightField& hf, ur::RenderContext& rc, const sm::vec3& light_dir)
 {
     auto w = hf.Width();
     auto h = hf.Height();

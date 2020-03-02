@@ -7,28 +7,28 @@
 #include <vector>
 
 namespace ur { class RenderContext; }
+namespace hf { class HeightField; }
 
 namespace terraingraph
 {
 
-class HeightField;
 class Bitmap;
 class Mask;
 
 class TextureBaker
 {
 public:
-    static bool GenHeightMap(const HeightField& src,
+    static bool GenHeightMap(const hf::HeightField& src,
         std::vector<unsigned char>& dst);
-    static ur::TexturePtr GenHeightMap(const HeightField& hf,
+    static ur::TexturePtr GenHeightMap(const hf::HeightField& hf,
         ur::RenderContext& rc, const ur::TexturePtr& tex = nullptr);
 
     static ur::TexturePtr GenColorMap(const Bitmap& bmp, ur::RenderContext& rc);
     static ur::TexturePtr GenColorMap(const Mask& mask, ur::RenderContext& rc);
 
-    static ur::TexturePtr GenNormalMap(const HeightField& hf, ur::RenderContext& rc);
-    static ur::TexturePtr GenAmbientOcclusionMap(const HeightField& hf, ur::RenderContext& rc);
-    static ur::TexturePtr GenShadowMap(const HeightField& hf, ur::RenderContext& rc, const sm::vec3& light_dir);
+    static ur::TexturePtr GenNormalMap(const hf::HeightField& hf, ur::RenderContext& rc);
+    static ur::TexturePtr GenAmbientOcclusionMap(const hf::HeightField& hf, ur::RenderContext& rc);
+    static ur::TexturePtr GenShadowMap(const hf::HeightField& hf, ur::RenderContext& rc, const sm::vec3& light_dir);
 
 }; // TextureBaker
 

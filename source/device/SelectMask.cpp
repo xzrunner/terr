@@ -1,7 +1,8 @@
 #include "terraingraph/device/SelectMask.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/Mask.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -27,7 +28,7 @@ void SelectMask::Execute()
         return;
     }
 
-    m_hf = std::make_shared<HeightField>(w, h);
+    m_hf = std::make_shared<hf::HeightField>(w, h);
     std::vector<float> vals(w * h);
 
     auto& h_vals = prev_hf->GetValues();

@@ -1,14 +1,14 @@
 #include "terraingraph/HeightFieldEval.h"
-#include "terraingraph/HeightField.h"
 
 #include <SM_Calc.h>
+#include <heightfield/HeightField.h>
 
 #include <array>
 
 namespace terraingraph
 {
 
-sm::vec2 HeightFieldEval::Gradient(const HeightField& hf, size_t x, size_t y)
+sm::vec2 HeightFieldEval::Gradient(const hf::HeightField& hf, size_t x, size_t y)
 {
     if (x >= hf.Width() || y >= hf.Height()) {
         assert(0);
@@ -36,7 +36,7 @@ sm::vec2 HeightFieldEval::Gradient(const HeightField& hf, size_t x, size_t y)
 	return g;
 }
 
-sm::vec3 HeightFieldEval::Normal(const HeightField& hf, size_t x,
+sm::vec3 HeightFieldEval::Normal(const hf::HeightField& hf, size_t x,
                                  size_t y, const sm::vec3& scale)
 {
     const auto w = hf.Width();
@@ -96,7 +96,7 @@ sm::vec3 HeightFieldEval::Normal(const HeightField& hf, size_t x,
     return tot_norm / static_cast<float>(num);
 }
 
-void HeightFieldEval::Region(const HeightField& hf, float& min, float& max)
+void HeightFieldEval::Region(const hf::HeightField& hf, float& min, float& max)
 {
     min = std::numeric_limits<float>::max();
     max = -std::numeric_limits<float>::max();
@@ -112,26 +112,26 @@ void HeightFieldEval::Region(const HeightField& hf, float& min, float& max)
     }
 }
 
-ScalarField2D HeightFieldEval::DrainageArea(const HeightField& hf)
+hf::ScalarField2D HeightFieldEval::DrainageArea(const hf::HeightField& hf)
 {
     auto w = hf.Width();
     auto h = hf.Height();
 
 	// Sort all point by decreasing height
-	std::deque<ScalarValue> points;
+	std::deque<hf::ScalarValue> points;
     for (size_t y = 0; y < h; ++y) {
         for (size_t x = 0; x < w; ++x) {
-            points.push_back(ScalarValue(x, y, hf.Get(x, y)));
+            points.push_back(hf::ScalarValue(x, y, hf.Get(x, y)));
         }
     }
-	std::sort(points.begin(), points.end(), [](ScalarValue p1, ScalarValue p2) { return p1.value > p2.value; });
+	std::sort(points.begin(), points.end(), [](hf::ScalarValue p1, hf::ScalarValue p2) { return p1.value > p2.value; });
 
 	std::array<float, 8> slopes;
 	std::array<sm::ivec2, 8> coords;
-	ScalarField2D DA = ScalarField2D(w, h, 1.0f);
+	hf::ScalarField2D DA = hf::ScalarField2D(w, h, 1.0f);
 	while (!points.empty())
 	{
-		ScalarValue p = points.front();
+		hf::ScalarValue p = points.front();
 		points.pop_front();
 
 		slopes.fill(0.0f);
@@ -174,10 +174,10 @@ ScalarField2D HeightFieldEval::DrainageArea(const HeightField& hf)
 	return DA;
 }
 
-ScalarField2D HeightFieldEval::Wetness(const HeightField& hf)
+hf::ScalarField2D HeightFieldEval::Wetness(const hf::HeightField& hf)
 {
-    ScalarField2D DA = DrainageArea(hf);
-    ScalarField2D S = Slope(hf);
+    hf::ScalarField2D DA = DrainageArea(hf);
+    hf::ScalarField2D S = Slope(hf);
     for (size_t y = 0, h = hf.Height(); y < h; ++y) {
         for (size_t x = 0, w = hf.Width(); x < w; ++x) {
             DA.Set(x, y, abs(log(DA.Get(x, y) / (1.0f + S.Get(x, y)))));
@@ -187,10 +187,10 @@ ScalarField2D HeightFieldEval::Wetness(const HeightField& hf)
 }
 
 // Compute the StreamPower field, as described by http://geosci.uchicago.edu/~kite/doc/Whipple_and_Tucker_1999.pdf.
-ScalarField2D HeightFieldEval::StreamPower(const HeightField& hf)
+hf::ScalarField2D HeightFieldEval::StreamPower(const hf::HeightField& hf)
 {
-    ScalarField2D DA = DrainageArea(hf);
-    ScalarField2D S = Slope(hf);
+    hf::ScalarField2D DA = DrainageArea(hf);
+    hf::ScalarField2D S = Slope(hf);
     for (size_t y = 0, h = hf.Height(); y < h; ++y) {
         for (size_t x = 0, w = hf.Width(); x < w; ++x) {
             DA.Set(x, y, sqrt(DA.Get(x, y)) * S.Get(x, y));
@@ -199,11 +199,11 @@ ScalarField2D HeightFieldEval::StreamPower(const HeightField& hf)
     return DA;
 }
 
-ScalarField2D HeightFieldEval::Slope(const HeightField& hf)
+hf::ScalarField2D HeightFieldEval::Slope(const hf::HeightField& hf)
 {
     auto w = hf.Width();
     auto h = hf.Height();
-    ScalarField2D S = ScalarField2D(w, h);
+    hf::ScalarField2D S = hf::ScalarField2D(w, h);
     for (size_t y = 0; y < h; ++y) {
         for (size_t x = 0; x < w; ++x) {
             S.Set(x, y, Gradient(hf, x, y).Length());

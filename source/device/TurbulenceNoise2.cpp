@@ -1,6 +1,7 @@
 #include "terraingraph/device/TurbulenceNoise2.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/DeviceHelper.h"
+
+#include <heightfield/HeightField.h>
 
 #include <noise/module/turbulence.h>
 
@@ -10,7 +11,7 @@ namespace
 class NoiseModule : public noise::module::Module
 {
 public:
-    NoiseModule(const terraingraph::HeightField& hf)
+    NoiseModule(const hf::HeightField& hf)
         : Module(0), m_hf(hf) {}
 
     virtual int GetSourceModuleCount() const override { return 0; }
@@ -29,7 +30,7 @@ public:
     }
 
 private:
-    const terraingraph::HeightField& m_hf;
+    const hf::HeightField& m_hf;
 
 }; // NoiseModule
 
@@ -49,7 +50,7 @@ void TurbulenceNoise2::Execute()
 
     auto w = prev_hf->Width();
     auto h = prev_hf->Height();
-    m_hf = std::make_shared<HeightField>(w, h);
+    m_hf = std::make_shared<hf::HeightField>(w, h);
 
     noise::module::Turbulence noise;
     noise.SetFrequency(m_frequency);

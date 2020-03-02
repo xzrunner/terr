@@ -1,5 +1,6 @@
 #include "terraingraph/device/BasicNoise.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -8,7 +9,7 @@ namespace device
 
 void BasicNoise::Execute()
 {
-    m_hf = std::make_shared<HeightField>(m_width, m_height);
+    m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
 
     for (size_t y = 0; y < m_height; ++y) {
         for (size_t x = 0; x < m_width; ++x) {

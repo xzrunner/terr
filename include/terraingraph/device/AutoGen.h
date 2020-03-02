@@ -23,7 +23,7 @@ public:
     virtual void Execute() override;
 
 private:
-    std::shared_ptr<HeightField>
+    std::shared_ptr<hf::HeightField>
         MaskToHeightField(const Mask& mask) const;
 
     void InitDistMap(const Mask& mask, std::vector<float>& dist_map) const;

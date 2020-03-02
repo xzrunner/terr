@@ -1,8 +1,8 @@
 #include "terraingraph/device/Transform.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/EvalGPU.h"
 
+#include <heightfield/HeightField.h>
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 #include <painting0/ShaderUniforms.h>
@@ -89,7 +89,7 @@ void Transform::Execute()
     vals.AddVar("rotate",    pt0::RenderVariant(m_rotate * SM_DEG_TO_RAD));
     vals.AddVar("scale",     pt0::RenderVariant(sm::vec2(1.0f, 1.0f) / m_scale));
 
-    m_hf = std::make_shared<HeightField>(prev_hf->Width(), prev_hf->Height());
+    m_hf = std::make_shared<hf::HeightField>(prev_hf->Width(), prev_hf->Height());
     EVAL->RunPS(rc, textures, vals, *m_hf);
 }
 

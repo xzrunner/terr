@@ -1,6 +1,7 @@
 #include "terraingraph/device/HydraulicErosion.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -15,13 +16,13 @@ void HydraulicErosion::Execute()
         return;
     }
 
-    m_hf = std::make_shared<HeightField>(*prev_hf);
+    m_hf = std::make_shared<hf::HeightField>(*prev_hf);
 
     auto w = m_hf->Width();
     auto h = m_hf->Height();
 
-	ScalarField2D droplets(w, h, 1.0f);
-	ScalarField2D sediments(w, h, 1.0f);
+	hf::ScalarField2D droplets(w, h, 1.0f);
+	hf::ScalarField2D sediments(w, h, 1.0f);
 
 	const float Kd = 0.1f;
 	const float Kc = 5.0f;

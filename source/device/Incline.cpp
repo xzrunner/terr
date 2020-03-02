@@ -1,8 +1,8 @@
 #include "terraingraph/device/Incline.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/EvalGPU.h"
 
+#include <heightfield/HeightField.h>
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 #include <painting0/ShaderUniforms.h>
@@ -101,7 +101,7 @@ void Incline::Execute()
     vals.AddVar("factor",  pt0::RenderVariant(m_factor));
     vals.AddVar("invert",  pt0::RenderVariant(m_invert));
 
-    m_hf = std::make_shared<HeightField>(prev_hf->Width(), prev_hf->Height());
+    m_hf = std::make_shared<hf::HeightField>(prev_hf->Width(), prev_hf->Height());
     EVAL->RunPS(rc, textures, vals, *m_hf);
 }
 

@@ -1,7 +1,7 @@
 #include "terraingraph/device/HeightOutput.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
 
+#include <heightfield/HeightField.h>
 #include <gimg_export.h>
 #include <gimg_typedef.h>
 

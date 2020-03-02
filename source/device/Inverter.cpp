@@ -1,6 +1,7 @@
 #include "terraingraph/device/Inverter.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/DeviceHelper.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -21,7 +22,7 @@ void Inverter::Execute()
         v = 1.0f - v;
     }
 
-    m_hf = std::make_shared<HeightField>(w, h);
+    m_hf = std::make_shared<hf::HeightField>(w, h);
     m_hf->SetValues(vals);
 }
 

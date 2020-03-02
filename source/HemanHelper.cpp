@@ -1,11 +1,14 @@
 #include "terraingraph/HemanHelper.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
+
+#include <assert.h>
 
 namespace terraingraph
 {
 
 heman_image*
-HemanHelper::Encode(const HeightField& hf)
+HemanHelper::Encode(const hf::HeightField& hf)
 {
     size_t w = hf.Width();
     size_t h = hf.Height();
@@ -22,14 +25,14 @@ HemanHelper::Encode(const HeightField& hf)
     return he_height;
 }
 
-std::shared_ptr<HeightField>
+std::shared_ptr<hf::HeightField>
 HemanHelper::Decode(heman_image* img)
 {
     int width, height, nbands;
     heman_image_info(img, &width, &height, &nbands);
     assert(nbands == 1);
 
-    auto hf = std::make_shared<HeightField>(width, height);
+    auto hf = std::make_shared<hf::HeightField>(width, height);
 
     // filling
     auto he_height_data = heman_image_data(img);

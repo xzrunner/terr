@@ -22,8 +22,8 @@ public:
 
     virtual void Execute() override;
 
-    static std::shared_ptr<HeightField>
-        ResampleHeightField(const HeightField& hf, int width, int height);
+    static std::shared_ptr<hf::HeightField>
+        ResampleHeightField(const hf::HeightField& hf, int width, int height);
 
 private:
     void ResampleMask(const Mask& mask);

@@ -1,6 +1,7 @@
 #include "terraingraph/device/Clamp.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -16,7 +17,7 @@ void Clamp::Execute()
 
     auto w = prev_hf->Width();
     auto h = prev_hf->Height();
-    m_hf = std::make_shared<HeightField>(w, h);
+    m_hf = std::make_shared<hf::HeightField>(w, h);
     std::vector<float> vals(w * h);
 
     auto& p_vals = prev_hf->GetValues();

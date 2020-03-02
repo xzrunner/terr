@@ -1,8 +1,8 @@
 #include "terraingraph/device/CellularNoise.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/EvalGPU.h"
 
+#include <heightfield/HeightField.h>
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 #include <painting0/ShaderUniforms.h>
@@ -99,7 +99,7 @@ namespace device
 
 void CellularNoise::Execute()
 {
-    m_hf = std::make_shared<HeightField>(m_width, m_height);
+    m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
 
     std::vector<uint32_t> textures;
 

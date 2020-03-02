@@ -1,8 +1,8 @@
 #include "terraingraph/device/NoiseBrush.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/EvalGPU.h"
 
+#include <heightfield/HeightField.h>
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 #include <painting0/ShaderUniforms.h>
@@ -99,7 +99,7 @@ void NoiseBrush::Execute()
     if (!m_hf ||
         m_hf->Width() != prev_hf->Width() ||
         m_hf->Height() != prev_hf->Height()) {
-        m_hf = std::make_shared<HeightField>(prev_hf->Width(), prev_hf->Height());
+        m_hf = std::make_shared<hf::HeightField>(prev_hf->Width(), prev_hf->Height());
     }
     EVAL->RunPS(rc, textures, vals, *m_hf);
 }

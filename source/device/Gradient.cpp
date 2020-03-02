@@ -1,8 +1,8 @@
 #include "terraingraph/device/Gradient.h"
-#include "terraingraph/HeightField.h"
 
 #include <sm_const.h>
 #include <SM_Calc.h>
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -23,7 +23,7 @@ void Gradient::Execute()
         }
     }
 
-    m_hf = std::make_shared<HeightField>(m_width, m_height);
+    m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
     m_hf->SetValues(vals);
 }
 

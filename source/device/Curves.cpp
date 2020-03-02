@@ -1,7 +1,8 @@
 #include "terraingraph/device/Curves.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/HeightFieldEval.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -15,7 +16,7 @@ void Curves::Execute()
         return;
     }
 
-    m_hf = std::make_shared<HeightField>(*prev_hf);
+    m_hf = std::make_shared<hf::HeightField>(*prev_hf);
     if (m_ctrl_pts.empty()) {
         return;
     }

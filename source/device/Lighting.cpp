@@ -2,8 +2,9 @@
 #include "terraingraph/device/AlbedoMap.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HemanHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/Bitmap.h"
+
+#include <heightfield/HeightField.h>
 
 #include <heman.h>
 

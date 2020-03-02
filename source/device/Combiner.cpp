@@ -1,6 +1,7 @@
 #include "terraingraph/device/Combiner.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -74,7 +75,7 @@ void Combiner::Execute()
         assert(0);
     }
 
-    m_hf = std::make_shared<HeightField>(w, h);
+    m_hf = std::make_shared<hf::HeightField>(w, h);
     m_hf->SetValues(v);
 
     if (m_method == Method::Add) {

@@ -1,9 +1,10 @@
 #include "terraingraph/device/ShadowMap.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HemanHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/Bitmap.h"
 #include "terraingraph/TextureGen.h"
+
+#include <heightfield/HeightField.h>
 
 #include <heman.h>
 

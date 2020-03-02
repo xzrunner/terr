@@ -1,10 +1,10 @@
 #include "terraingraph/device/TemplateBrush.h"
-#include "terraingraph/device/FileInput.h"
 #include "terraingraph/device/Resample.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/EvalGPU.h"
 
+#include <heightfield/HeightField.h>
+#include <heightfield/Loader.h>
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 #include <unirender/Shader.h>
@@ -75,7 +75,7 @@ void TemplateBrush::Execute()
 {
     if (!m_brush)
     {
-        m_brush = FileInput::LoadHeightField(m_filepath);
+        m_brush = hf::Loader::Load(m_filepath);
         if (m_brush) {
             m_brush = Resample::ResampleHeightField(*m_brush, 256, 256);
         }
@@ -90,7 +90,7 @@ void TemplateBrush::Execute()
         return;
     }
 
-    m_hf = std::make_shared<HeightField>(*prev_hf);
+    m_hf = std::make_shared<hf::HeightField>(*prev_hf);
 
     auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 

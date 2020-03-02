@@ -121,12 +121,10 @@
     <ClInclude Include="..\..\..\include\terraingraph\device_regist_cfg.h" />
     <ClInclude Include="..\..\..\include\terraingraph\device_rttr_gen.h" />
     <ClInclude Include="..\..\..\include\terraingraph\EvalGPU.h" />
-    <ClInclude Include="..\..\..\include\terraingraph\HeightField.h" />
     <ClInclude Include="..\..\..\include\terraingraph\HeightFieldEval.h" />
     <ClInclude Include="..\..\..\include\terraingraph\HemanHelper.h" />
     <ClInclude Include="..\..\..\include\terraingraph\Mask.h" />
     <ClInclude Include="..\..\..\include\terraingraph\NoiseQuality.h" />
-    <ClInclude Include="..\..\..\include\terraingraph\ScalarField2D.h" />
     <ClInclude Include="..\..\..\include\terraingraph\TextureBaker.h" />
     <ClInclude Include="..\..\..\include\terraingraph\Device.h" />
     <ClInclude Include="..\..\..\include\terraingraph\DeviceVarType.h" />
@@ -195,11 +193,9 @@
     <ClCompile Include="..\..\..\source\device\Voronoi.cpp" />
     <ClCompile Include="..\..\..\source\device\Wind.cpp" />
     <ClCompile Include="..\..\..\source\EvalGPU.cpp" />
-    <ClCompile Include="..\..\..\source\HeightField.cpp" />
     <ClCompile Include="..\..\..\source\HeightFieldEval.cpp" />
     <ClCompile Include="..\..\..\source\HemanHelper.cpp" />
     <ClCompile Include="..\..\..\source\Mask.cpp" />
-    <ClCompile Include="..\..\..\source\ScalarField2D.cpp" />
     <ClCompile Include="..\..\..\source\TextureBaker.cpp" />
     <ClCompile Include="..\..\..\source\Device.cpp" />
     <ClCompile Include="..\..\..\source\RegistRTTR.cpp" />
@@ -253,7 +249,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\heightfield\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;NOISE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -268,7 +264,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\heightfield\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;NOISE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

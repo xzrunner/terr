@@ -1,6 +1,6 @@
 #include "terraingraph/EvalGPU.h"
-#include "terraingraph/HeightField.h"
 
+#include <heightfield/HeightField.h>
 #include <unirender/VertexAttrib.h>
 #include <unirender/RenderContext.h>
 //#include <renderpipeline/UniformNames.h>
@@ -36,7 +36,7 @@ EvalGPU::EvalGPU(ur::RenderContext& rc, const std::string& cs)
 }
 
 //bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
-//                    const pt0::ShaderUniforms& vals, HeightField& hf) const
+//                    const pt0::ShaderUniforms& vals, hf::HeightField& hf) const
 //{
 //    if (!m_shader) {
 //        return false;
@@ -96,7 +96,7 @@ EvalGPU::EvalGPU(ur::RenderContext& rc, const std::string& cs)
 //}
 
 bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
-                    const pt0::ShaderUniforms& vals, HeightField& hf) const
+                    const pt0::ShaderUniforms& vals, hf::HeightField& hf) const
 {
     if (!m_shader) {
         return false;
@@ -142,7 +142,7 @@ bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures
 }
 
 bool EvalGPU::RunCS(ur::RenderContext& rc, const pt0::ShaderUniforms& vals,
-                    int thread_group_count, HeightField& hf) const
+                    int thread_group_count, hf::HeightField& hf) const
 {
     auto values = hf.GetValues();
 

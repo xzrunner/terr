@@ -1,5 +1,6 @@
 #include "terraingraph/device/Voronoi.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
 
 #include <noise/module/voronoi.h>
 
@@ -10,7 +11,7 @@ namespace device
 
 void Voronoi::Execute()
 {
-    m_hf = std::make_shared<HeightField>(m_width, m_height);
+    m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
 
     noise::module::Voronoi noise;
     noise.SetDisplacement(m_displacement);

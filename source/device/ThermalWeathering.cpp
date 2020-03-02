@@ -1,8 +1,8 @@
 #include "terraingraph/device/ThermalWeathering.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/EvalGPU.h"
 
+#include <heightfield/HeightField.h>
 #include <unirender/Blackboard.h>
 #include <painting0/ShaderUniforms.h>
 
@@ -92,7 +92,7 @@ void ThermalWeathering::Execute()
         return;
     }
 
-    m_hf = std::make_shared<HeightField>(*prev_hf);
+    m_hf = std::make_shared<hf::HeightField>(*prev_hf);
 
 #ifdef THERMAL_WEATHERING_GPU
     auto num = m_hf->Width() * m_hf->Height();

@@ -1,11 +1,11 @@
 #include "terraingraph/device/SelectSlope.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/Bitmap.h"
 #include "terraingraph/TextureGen.h"
 #include "terraingraph/TextureBaker.h"
 
 #include <SM_Calc.h>
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -21,7 +21,7 @@ void SelectSlope::Execute()
 
     auto w = prev_hf->Width();
     auto h = prev_hf->Height();
-    m_hf = std::make_shared<HeightField>(w, h);
+    m_hf = std::make_shared<hf::HeightField>(w, h);
     std::vector<float> vals(w * h);
 
     std::vector<unsigned char> h_vals;

@@ -1,10 +1,10 @@
 #include "terraingraph/device/AutoGen.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/Mask.h"
 #include "terraingraph/Utility.h"
 
 #include <SM_Calc.h>
+#include <heightfield/HeightField.h>
 
 namespace
 {
@@ -42,12 +42,12 @@ void AutoGen::Execute()
     m_hf = MaskToHeightField(*mask);
 }
 
-std::shared_ptr<HeightField>
+std::shared_ptr<hf::HeightField>
 AutoGen::MaskToHeightField(const Mask& mask) const
 {
     std::vector<float> dists(m_width * m_height, 0);
 
-    auto hf = std::make_shared<HeightField>(m_width, m_height);
+    auto hf = std::make_shared<hf::HeightField>(m_width, m_height);
 
     std::vector<float> dist_map;
     InitDistMap(mask, dist_map);

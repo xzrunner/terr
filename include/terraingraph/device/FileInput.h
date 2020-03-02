@@ -20,8 +20,6 @@ public:
 
     virtual void Execute() override;
 
-    static std::shared_ptr<HeightField> LoadHeightField(const std::string& filepath);
-
     RTTR_ENABLE(Device)
 
 #define PARM_FILEPATH "terraingraph/device/FileInput.parm.h"

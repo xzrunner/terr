@@ -109,9 +109,6 @@
     <ClInclude Include="..\..\..\include\terraingraph\DeviceHelper.h">
       <Filter>tools</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\terraingraph\HeightField.h">
-      <Filter>dataset\heightfield</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\Device.h">
       <Filter>dataset\device</Filter>
     </ClInclude>
@@ -276,9 +273,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\device\ThermalWeathering.parm.h">
       <Filter>devices\05.natural</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terraingraph\ScalarField2D.h">
-      <Filter>dataset\heightfield</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\device\StreamPowerErosion.h">
       <Filter>devices\05.natural</Filter>
@@ -481,9 +475,6 @@
     <ClCompile Include="..\..\..\source\DeviceHelper.cpp">
       <Filter>tools</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\HeightField.cpp">
-      <Filter>dataset\heightfield</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\Device.cpp">
       <Filter>dataset\device</Filter>
     </ClCompile>
@@ -570,9 +561,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\ThermalWeathering.cpp">
       <Filter>devices\05.natural</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\ScalarField2D.cpp">
-      <Filter>dataset\heightfield</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\StreamPowerErosionh.cpp">
       <Filter>devices\05.natural</Filter>

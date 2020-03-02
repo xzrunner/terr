@@ -1,7 +1,8 @@
 ﻿#include "terraingraph/device/StreamPowerErosion.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HeightFieldEval.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -23,9 +24,9 @@ void StreamPowerErosion::Execute()
         return;
     }
 
-    m_hf = std::make_shared<HeightField>(*prev_hf);
+    m_hf = std::make_shared<hf::HeightField>(*prev_hf);
 
-    ScalarField2D SP = HeightFieldEval::StreamPower(*m_hf);
+    hf::ScalarField2D SP = HeightFieldEval::StreamPower(*m_hf);
     SP.Normalize();
     for (size_t y = 0, h = m_hf->Height(); y < h; ++y) {
         for (size_t x = 0, w = m_hf->Width(); x < w; ++x) {

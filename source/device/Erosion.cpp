@@ -1,13 +1,13 @@
 // from SebLague/Hydraulic-Erosion
 
 #include "terraingraph/device/Erosion.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HeightFieldEval.h"
 #include "terraingraph/EvalGPU.h"
 #include "terraingraph/Utility.h"
 
 #include <SM_Vector.h>
+#include <heightfield/HeightField.h>
 #include <unirender/Blackboard.h>
 #include <unirender/RenderContext.h>
 #include <unirender/Shader.h>
@@ -169,7 +169,7 @@ void Erosion::Execute()
         return;
     }
 
-    m_hf = std::make_shared<HeightField>(*prev_hf);
+    m_hf = std::make_shared<hf::HeightField>(*prev_hf);
 
 #ifdef EROSION_GPU
     RunGPU();

@@ -1,5 +1,6 @@
 #include "terraingraph/device/PerlinNoise2.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
 
 #include <noise/module/perlin.h>
 
@@ -10,7 +11,7 @@ namespace device
 
 void PerlinNoise2::Execute()
 {
-    m_hf = std::make_shared<HeightField>(m_width, m_height);
+    m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
 
     noise::NoiseQuality quality;
     switch (m_quality)

@@ -1,7 +1,8 @@
 #include "terraingraph/device/Resample.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/Mask.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -23,14 +24,14 @@ void Resample::Execute()
     }
 }
 
-std::shared_ptr<HeightField>
-Resample::ResampleHeightField(const HeightField& hf, int width, int height)
+std::shared_ptr<hf::HeightField>
+Resample::ResampleHeightField(const hf::HeightField& hf, int width, int height)
 {
     size_t prev_w = hf.Width();
     size_t prev_h = hf.Height();
     if (prev_w == width &&
         prev_h == height) {
-        return std::make_shared<HeightField>(hf);
+        return std::make_shared<hf::HeightField>(hf);
     }
 
     auto& prev_vals = hf.GetValues();
@@ -46,7 +47,7 @@ Resample::ResampleHeightField(const HeightField& hf, int width, int height)
         }
     }
 
-    auto new_hf = std::make_shared<HeightField>(width, height);
+    auto new_hf = std::make_shared<hf::HeightField>(width, height);
     new_hf->SetValues(vals);
     return new_hf;
 }

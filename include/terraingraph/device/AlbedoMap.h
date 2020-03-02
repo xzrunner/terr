@@ -6,11 +6,10 @@
 
 #include <heman.h>
 
+namespace hf { class HeightField; }
+
 namespace terraingraph
 {
-
-class HeightField;
-
 namespace device
 {
 

@@ -4,10 +4,11 @@
 
 #include <dag/Node.h>
 
+namespace hf { class HeightField; }
+
 namespace terraingraph
 {
 
-class HeightField;
 class Bitmap;
 class Mask;
 
@@ -21,7 +22,7 @@ public:
     auto GetMask() const { return m_mask; }
 
 protected:
-    std::shared_ptr<HeightField> m_hf   = nullptr;
+    std::shared_ptr<hf::HeightField> m_hf   = nullptr;
     std::shared_ptr<Bitmap>      m_bmp  = nullptr;
     std::shared_ptr<Mask>        m_mask = nullptr;
 

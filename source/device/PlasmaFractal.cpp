@@ -1,6 +1,7 @@
 #include "terraingraph/device/PlasmaFractal.h"
 #include "terraingraph/Utility.h"
-#include "terraingraph/HeightField.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -9,7 +10,7 @@ namespace device
 
 void PlasmaFractal::Execute()
 {
-    m_hf = std::make_shared<HeightField>(m_width, m_height);
+    m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
 
     MakePlasma(m_width, m_height);
 }

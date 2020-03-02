@@ -33,10 +33,10 @@ public:
     virtual void Execute() override;
 
 private:
-    void BlendHeightfield(const HeightField& a,
-        const HeightField& b, const HeightField& ctrl);
+    void BlendHeightfield(const hf::HeightField& a,
+        const hf::HeightField& b, const hf::HeightField& ctrl);
     void BlendBitmap(const Bitmap& a, const Bitmap& b,
-        const HeightField& ctrl);
+        const hf::HeightField& ctrl);
 
     RTTR_ENABLE(Device)
 

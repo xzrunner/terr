@@ -1,7 +1,8 @@
 #include "terraingraph/device/Chooser.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/HeightField.h"
 #include "terraingraph/Bitmap.h"
+
+#include <heightfield/HeightField.h>
 
 namespace terraingraph
 {
@@ -34,9 +35,9 @@ void Chooser::Execute()
     }
 }
 
-void Chooser::BlendHeightfield(const HeightField& a,
-                               const HeightField& b,
-                               const HeightField& ctrl)
+void Chooser::BlendHeightfield(const hf::HeightField& a,
+                               const hf::HeightField& b,
+                               const hf::HeightField& ctrl)
 {
     if (a.Width() == 0 || a.Height() == 0 ||
         a.Width() != b.Width() || a.Height() != b.Height() ||
@@ -54,12 +55,12 @@ void Chooser::BlendHeightfield(const HeightField& a,
     for (size_t i = 0, n = a_vals.size(); i < n; ++i) {
         vals[i] = a_vals[i] + (b_vals[i] - a_vals[i]) * ctrl_vals[i];
     }
-    m_hf = std::make_shared<HeightField>(a.Width(), a.Height());
+    m_hf = std::make_shared<hf::HeightField>(a.Width(), a.Height());
     m_hf->SetValues(vals);
 }
 
 void Chooser::BlendBitmap(const Bitmap& a, const Bitmap& b,
-                          const HeightField& ctrl)
+                          const hf::HeightField& ctrl)
 {
     if (a.Width() == 0 || a.Height() == 0 ||
         a.Width() != b.Width() || a.Height() != b.Height() ||
