@@ -17,7 +17,7 @@ and generally unrealistic height sometimes. Therefore it can be improved by chec
 
 \param amplitude maximum amount of matter eroded in one step. Something between [0.5, 1.0] gives plausible results.
 */
-void StreamPowerErosion::Execute()
+void StreamPowerErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf) {

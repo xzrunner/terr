@@ -6,7 +6,7 @@ namespace terraingraph
 namespace device
 {
 
-void Color::Execute()
+void Color::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     size_t w = 128;
     size_t h = 128;

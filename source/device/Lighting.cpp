@@ -13,7 +13,7 @@ namespace terraingraph
 namespace device
 {
 
-void Lighting::Execute()
+void Lighting::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf) {

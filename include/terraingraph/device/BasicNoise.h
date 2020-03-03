@@ -19,7 +19,7 @@ public:
         };
     }
 
-    virtual void Execute() override;
+    virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
 
 private:
     float GetValue(size_t x, size_t y) const;

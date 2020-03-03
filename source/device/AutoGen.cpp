@@ -32,7 +32,7 @@ namespace terraingraph
 namespace device
 {
 
-void AutoGen::Execute()
+void AutoGen::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto mask = DeviceHelper::GetInputMask(*this, 0);
     if (!mask) {

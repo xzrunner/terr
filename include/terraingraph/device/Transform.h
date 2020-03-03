@@ -25,7 +25,7 @@ public:
         Init();
     }
 
-    virtual void Execute() override;
+    virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
 
 private:
     void Init();

@@ -9,7 +9,7 @@ namespace terraingraph
 namespace device
 {
 
-void RidgedMulti::Execute()
+void RidgedMulti::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
 

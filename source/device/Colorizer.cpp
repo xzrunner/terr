@@ -10,7 +10,7 @@ namespace terraingraph
 namespace device
 {
 
-void Colorizer::Execute()
+void Colorizer::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf) {

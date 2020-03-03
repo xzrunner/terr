@@ -9,7 +9,7 @@ namespace terraingraph
 namespace device
 {
 
-void Resample::Execute()
+void Resample::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto prev_mask = DeviceHelper::GetInputMask(*this, 0);
     if (prev_mask) {

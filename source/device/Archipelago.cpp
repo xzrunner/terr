@@ -8,7 +8,7 @@ namespace terraingraph
 namespace device
 {
 
-void Archipelago::Execute()
+void Archipelago::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     heman_points* pts = heman_image_create(m_points.size(), 1, 3);
     sm::vec3* coords = (sm::vec3*)heman_image_data(pts);

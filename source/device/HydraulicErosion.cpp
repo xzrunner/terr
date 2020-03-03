@@ -9,7 +9,7 @@ namespace device
 {
 
 // from Outerrain
-void HydraulicErosion::Execute()
+void HydraulicErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf) {

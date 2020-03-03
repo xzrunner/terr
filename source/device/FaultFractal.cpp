@@ -8,7 +8,7 @@ namespace terraingraph
 namespace device
 {
 
-void FaultFractal::Execute()
+void FaultFractal::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
 

@@ -8,7 +8,7 @@ namespace terraingraph
 namespace device
 {
 
-void Combiner::Execute()
+void Combiner::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto hf0 = DeviceHelper::GetInputHeight(*this, 0);
     auto hf1 = DeviceHelper::GetInputHeight(*this, 1);

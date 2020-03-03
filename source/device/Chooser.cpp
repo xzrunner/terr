@@ -9,7 +9,7 @@ namespace terraingraph
 namespace device
 {
 
-void Chooser::Execute()
+void Chooser::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto blend = DeviceHelper::GetInputHeight(*this, ID_CTRL);
     if (!blend) {

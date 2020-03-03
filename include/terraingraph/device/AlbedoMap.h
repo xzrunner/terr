@@ -27,7 +27,7 @@ public:
         };
     }
 
-    virtual void Execute() override;
+    virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
 
     static heman_image* Baking(heman_image* height, float min_height = 0.0f,
         float max_height = 1.0f, bool contour_lines = false);

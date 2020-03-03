@@ -531,7 +531,7 @@ namespace terraingraph
 namespace device
 {
 
-void TurbulenceNoise::Execute()
+void TurbulenceNoise::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
 

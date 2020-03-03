@@ -71,7 +71,7 @@ namespace terraingraph
 namespace device
 {
 
-void TemplateBrush::Execute()
+void TemplateBrush::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     if (!m_brush)
     {

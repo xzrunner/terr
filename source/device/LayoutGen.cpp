@@ -5,7 +5,7 @@ namespace terraingraph
 namespace device
 {
 
-void LayoutGen::Execute()
+void LayoutGen::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
 }
 

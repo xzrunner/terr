@@ -8,7 +8,7 @@ namespace terraingraph
 namespace device
 {
 
-void FBM::Execute()
+void FBM::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     heman_image* he_height = heman_generate_simplex_fbm(
         m_width, m_height, m_frequency, m_amplitude, m_octaves, m_lacunarity, m_gain, m_seed

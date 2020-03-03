@@ -73,7 +73,7 @@ namespace terraingraph
 namespace device
 {
 
-void Gaussian::Execute()
+void Gaussian::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (!prev_hf) {

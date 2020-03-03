@@ -9,7 +9,7 @@ namespace terraingraph
 namespace device
 {
 
-void Gradient::Execute()
+void Gradient::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     std::vector<float> vals(m_width * m_height);
     const sm::vec2 center(m_width * 0.5f, m_height * 0.5f);

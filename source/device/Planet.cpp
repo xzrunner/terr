@@ -8,7 +8,7 @@ namespace terraingraph
 namespace device
 {
 
-void Planet::Execute()
+void Planet::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     heman_image* he_height = heman_generate_planet_heightmap(
         m_width, m_height, m_seed

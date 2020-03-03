@@ -6,7 +6,7 @@ namespace terraingraph
 namespace device
 {
 
-void OverlayView::Execute()
+void OverlayView::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, ID_HEIGHTFIELD);
     if (!prev_hf) {

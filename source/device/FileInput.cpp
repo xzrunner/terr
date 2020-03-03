@@ -12,7 +12,7 @@ namespace terraingraph
 namespace device
 {
 
-void FileInput::Execute()
+void FileInput::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     if (m_filepath.empty()) {
         return;

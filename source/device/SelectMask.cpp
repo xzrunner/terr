@@ -9,7 +9,7 @@ namespace terraingraph
 namespace device
 {
 
-void SelectMask::Execute()
+void SelectMask::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     auto prev_hf = DeviceHelper::GetInputHeight(*this, ID_SOURCE);
     if (!prev_hf) {

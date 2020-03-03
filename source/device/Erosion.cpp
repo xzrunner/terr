@@ -160,7 +160,7 @@ namespace terraingraph
 namespace device
 {
 
-void Erosion::Execute()
+void Erosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     bool new_hf = m_hf == nullptr;
 
