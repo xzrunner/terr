@@ -1,25 +1,15 @@
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/Device.h"
 
+#include <dag/Utility.h>
+
 namespace terraingraph
 {
 
 DevicePtr DeviceHelper::GetInputDevice(const Device& dev, size_t idx)
 {
-    auto& imports = dev.GetImports();
-    if (idx < 0 || idx >= imports.size()) {
-        return nullptr;
-    }
-
-    auto& conns = imports[idx].conns;
-    if (conns.empty()) {
-        return nullptr;
-    }
-
-    assert(imports[idx].conns.size() == 1);
-    auto in_dev = imports[idx].conns[0].node.lock();
-    assert(in_dev->get_type().is_derived_from<Device>());
-    return std::static_pointer_cast<Device>(in_dev);
+    auto prev = dag::Utility::GetInputNode(dev, idx);
+    return prev ? std::static_pointer_cast<Device>(prev) : nullptr;
 }
 
 std::shared_ptr<hf::HeightField>
