@@ -138,6 +138,8 @@ bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures
 
     rc.BindShader(0);
 
+    hf.SetCPUDirty();
+
     return true;
 }
 
