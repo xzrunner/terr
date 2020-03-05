@@ -124,6 +124,9 @@ bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures
     rc.SetClearColor(0x0000000);
     rc.Clear();
 
+    rc.SetZTest(ur::DEPTH_DISABLE);
+    rc.SetCullMode(ur::CULL_DISABLE);
+
     m_shader->SetUsedTextures(textures);
 
     m_shader->Use();
@@ -139,6 +142,9 @@ bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures
     rc.BindShader(0);
 
     hf.SetCPUDirty();
+
+    rc.SetZTest(ur::DEPTH_LESS_EQUAL);
+    rc.SetCullMode(ur::CULL_BACK);
 
     return true;
 }
