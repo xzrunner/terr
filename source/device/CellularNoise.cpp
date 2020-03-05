@@ -45,14 +45,15 @@ in VS_OUT {
 
 uniform vec2 u_resolution;
 uniform float u_seed;
+uniform vec2 u_offset;
 
 vec2 random2( vec2 p ) {
     return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453);
 }
 
 void main() {
-    vec2 st = fs_in.texcoord/u_resolution.xy;
-    st.x *= u_resolution.x/u_resolution.y;
+    vec2 st = (fs_in.texcoord + u_offset) / u_resolution.xy;
+    st.x *= u_resolution.x / u_resolution.y;
 
     // Scale
     st *= 3.;
@@ -106,6 +107,7 @@ void CellularNoise::Execute(const std::shared_ptr<dag::Context>& ctx)
     pt0::ShaderUniforms vals;
     vals.AddVar("u_resolution", pt0::RenderVariant(m_resolution));
     vals.AddVar("u_seed",       pt0::RenderVariant(m_seed));
+    vals.AddVar("u_offset",     pt0::RenderVariant(m_offset));
 
     auto& rc = ur::Blackboard::Instance()->GetRenderContext();
     EVAL->RunPS(rc, textures, vals, *m_hf);
