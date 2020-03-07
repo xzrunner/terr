@@ -18,8 +18,7 @@ class Mask;
 class TextureBaker
 {
 public:
-    static bool GenHeightMap(const hf::HeightField& src,
-        std::vector<unsigned char>& dst);
+    static bool GenHeightMap(const hf::HeightField& src, std::vector<short>& dst);
     static ur::TexturePtr GenHeightMap(const hf::HeightField& hf,
         ur::RenderContext& rc, const ur::TexturePtr& tex = nullptr);
 

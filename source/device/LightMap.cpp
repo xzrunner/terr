@@ -23,10 +23,10 @@ void LightMap::Execute(const std::shared_ptr<dag::Context>& ctx)
     size_t w = prev_hf->Width();
     size_t h = prev_hf->Height();
 
-    std::vector<uint8_t> heights(w * h);
+    std::vector<short> heights(w * h);
     auto& val = prev_hf->GetValues();
     for (size_t i = 0, n = w * h; i < n; ++i) {
-        heights[i] = static_cast<uint8_t>(val[i] * 255);
+        heights[i] = static_cast<short>(val[i] * 0xffff);
     }
 
     const float scale[] = { 1, 1, 1 };

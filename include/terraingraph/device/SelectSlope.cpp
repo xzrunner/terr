@@ -24,7 +24,7 @@ void SelectSlope::Execute(const std::shared_ptr<dag::Context>& ctx)
     m_hf = std::make_shared<hf::HeightField>(w, h);
     std::vector<float> vals(w * h);
 
-    std::vector<unsigned char> h_vals;
+    std::vector<short> h_vals;
     TextureBaker::GenHeightMap(*prev_hf, h_vals);
     assert(w == h);
     float scale[] = { 1, 1, 1 };

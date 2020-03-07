@@ -102,7 +102,7 @@ void TemplateBrush::Execute(const std::shared_ptr<dag::Context>& ctx)
     auto h = m_hf->Height();
 
 #ifdef USE_PINGPONG_TEXTURE
-    auto tex = rc.CreateTexture(nullptr, w, h, ur::TEXTURE_RED);
+    auto tex = rc.CreateTexture(nullptr, w, h, ur::TEXTURE_R16);
     assert(tex != 0);
 
     auto read_tex_id = m_hf->GetHeightmap()->TexID();
@@ -159,7 +159,7 @@ void TemplateBrush::Execute(const std::shared_ptr<dag::Context>& ctx)
 
 #ifdef USE_PINGPONG_TEXTURE
     if (write_tex_id == m_hf->GetHeightmap()->TexID()) {
-        rc.CopyTexture(0, 0, w, h, ur::TEXTURE_RED, m_hf->GetHeightmap()->TexID());
+        rc.CopyTexture(0, 0, w, h, ur::TEXTURE_R16, m_hf->GetHeightmap()->TexID());
     }
 #endif // USE_PINGPONG_TEXTURE
 
