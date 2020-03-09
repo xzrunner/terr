@@ -67,8 +67,8 @@ void Resample::ResampleMask(const Mask& mask)
     const float sx = static_cast<float>(prev_w) / m_width;
     const float sy = static_cast<float>(prev_h) / m_height;
     std::vector<bool> vals(m_width * m_height, false);
-    for (int y = 0; y < m_height; ++y) {
-        for (int x = 0; x < m_width; ++x) {
+    for (size_t y = 0; y < m_height; ++y) {
+        for (size_t x = 0; x < m_width; ++x) {
             size_t px = static_cast<size_t>(x * sx);
             size_t py = static_cast<size_t>(y * sy);
             vals[y * m_width + x] = prev_vals[py * prev_w + px];

@@ -2,8 +2,8 @@
 #error "You must define PARAM_INFO macro before include this file"
 #endif
 
-PARAM_INFO(Width,  Int,   width,  m_width,  (1024))
-PARAM_INFO(Height, Int,   height, m_height, (1024))
+PARAM_INFO(Width,  size_t, width,  m_width,  (1024))
+PARAM_INFO(Height, size_t, height, m_height, (1024))
 
 PARAM_INFO(Iterations, Int,   iterations, m_iter,      (64))
 PARAM_INFO(MinDelta,   Int,   min_delta,  m_min_delta, (-10000))

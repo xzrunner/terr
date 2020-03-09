@@ -20,8 +20,8 @@ void Voronoi::Execute(const std::shared_ptr<dag::Context>& ctx)
     noise.SetFrequency(m_frequency);
     noise.SetSeed(m_seed);
 
-    for (int y = 0; y < m_height; ++y) {
-        for (int x = 0; x < m_width; ++x) {
+    for (size_t y = 0; y < m_height; ++y) {
+        for (size_t x = 0; x < m_width; ++x) {
             const float fx = static_cast<float>(x) / m_width;
             const float fy = static_cast<float>(y) / m_height;
             double v = noise.GetValue(fx, 0, fy);
