@@ -93,7 +93,8 @@ AutoGen::MaskToHeightField(const Mask& mask) const
                     dist_map[mw * (iy + 1) + ix] * (1 - fx) * fy +
                     dist_map[mw * (iy + 1) + ix + 1] * fx * fy;
             }
-            heights[m_width * y + x] = static_cast<int32_t>(h * 256);
+
+            heights[m_width * y + x] = static_cast<int32_t>(h * 4096);
         }
     }
 
