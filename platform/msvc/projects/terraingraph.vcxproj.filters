@@ -37,9 +37,6 @@
     <Filter Include="dataset\heightfield">
       <UniqueIdentifier>{70e74652-ea7e-4465-9f08-76fb9a180668}</UniqueIdentifier>
     </Filter>
-    <Filter Include="dataset\bitmap">
-      <UniqueIdentifier>{a37d33b7-c147-4e23-bc6e-e8dedf2a2c60}</UniqueIdentifier>
-    </Filter>
     <Filter Include="dataset\mask">
       <UniqueIdentifier>{6aed1e66-8054-4ec1-82bb-16ea29bbbe62}</UniqueIdentifier>
     </Filter>
@@ -150,9 +147,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\device\SelectHeight.parm.h">
       <Filter>devices\06.selector</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\terraingraph\Bitmap.h">
-      <Filter>dataset\bitmap</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\terraingraph\device\SelectSlope.h">
       <Filter>devices\06.selector</Filter>
@@ -498,9 +492,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\device\SelectHeight.cpp">
       <Filter>devices\06.selector</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\Bitmap.cpp">
-      <Filter>dataset\bitmap</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\include\terraingraph\device\SelectSlope.cpp">
       <Filter>devices\06.selector</Filter>

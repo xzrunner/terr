@@ -1,6 +1,5 @@
 #include "terraingraph/device/SelectSlope.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/Bitmap.h"
 #include "terraingraph/TextureGen.h"
 #include "terraingraph/TextureBaker.h"
 

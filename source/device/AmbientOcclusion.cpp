@@ -1,7 +1,6 @@
 #include "terraingraph/device/AmbientOcclusion.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HemanHelper.h"
-#include "terraingraph/Bitmap.h"
 
 #include <heightfield/HeightField.h>
 

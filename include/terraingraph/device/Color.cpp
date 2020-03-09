@@ -1,5 +1,4 @@
 #include "terraingraph/device/Color.h"
-#include "terraingraph/Bitmap.h"
 
 namespace terraingraph
 {

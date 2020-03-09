@@ -1,5 +1,4 @@
 #include "terraingraph/TextureBaker.h"
-#include "terraingraph/Bitmap.h"
 #include "terraingraph/Mask.h"
 #include "terraingraph/HemanHelper.h"
 #include "terraingraph/TextureGen.h"

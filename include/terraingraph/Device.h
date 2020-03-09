@@ -1,6 +1,7 @@
 #pragma once
 
 #include "terraingraph/DeviceVarType.h"
+#include "terraingraph/typedef.h"
 
 #include <dag/Node.h>
 
@@ -9,7 +10,6 @@ namespace hf { class HeightField; }
 namespace terraingraph
 {
 
-class Bitmap;
 class Mask;
 
 class Device : public dag::Node<DeviceVarType>
@@ -23,8 +23,8 @@ public:
 
 protected:
     std::shared_ptr<hf::HeightField> m_hf   = nullptr;
-    std::shared_ptr<Bitmap>      m_bmp  = nullptr;
-    std::shared_ptr<Mask>        m_mask = nullptr;
+    std::shared_ptr<Bitmap>          m_bmp  = nullptr;
+    std::shared_ptr<Mask>            m_mask = nullptr;
 
     RTTR_ENABLE(dag::Node<DeviceVarType>)
 

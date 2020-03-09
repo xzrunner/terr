@@ -1,7 +1,6 @@
 #include "terraingraph/device/Colorizer.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HeightFieldEval.h"
-#include "terraingraph/Bitmap.h"
 
 #include <heightfield/HeightField.h>
 #include <heightfield/Utility.h>

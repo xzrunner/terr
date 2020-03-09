@@ -1,6 +1,5 @@
 #include "terraingraph/device/Chooser.h"
 #include "terraingraph/DeviceHelper.h"
-#include "terraingraph/Bitmap.h"
 
 #include <heightfield/HeightField.h>
 #include <heightfield/Utility.h>

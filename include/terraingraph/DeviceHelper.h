@@ -7,7 +7,6 @@ namespace hf { class HeightField; }
 namespace terraingraph
 {
 
-class Bitmap;
 class Mask;
 
 class DeviceHelper

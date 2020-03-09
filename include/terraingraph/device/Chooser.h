@@ -1,6 +1,7 @@
 #pragma once
 
 #include "terraingraph/Device.h"
+#include "terraingraph/typedef.h"
 
 namespace terraingraph
 {

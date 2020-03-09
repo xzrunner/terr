@@ -43,16 +43,9 @@ namespace terraingraph
 {
 
 Mask::Mask(size_t width, size_t height)
-    : m_width(width)
-    , m_height(height)
+    : prim::Bitmap<bool>(width, height, 1)
 {
     m_values.resize(m_width * m_height, false);
-}
-
-void Mask::SetValues(const std::vector<bool>& values)
-{
-    assert(m_values.size() == values.size());
-    m_values = values;
 }
 
 std::vector<std::vector<sm::ivec2>>

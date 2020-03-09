@@ -1,22 +1,15 @@
 #pragma once
 
+#include <primitive/Bitmap.h>
 #include <SM_Vector.h>
-
-#include <vector>
 
 namespace terraingraph
 {
 
-class Mask
+class Mask : public prim::Bitmap<bool>
 {
 public:
     Mask(size_t width, size_t height);
-
-    size_t Width() const { return m_width; }
-    size_t Height() const { return m_height; }
-
-    auto& GetValues() const { return m_values; }
-    void SetValues(const std::vector<bool>& values);
 
     std::vector<std::vector<sm::ivec2>>
         CalcBorders() const;
@@ -25,11 +18,6 @@ public:
 
 private:
     bool IsPixelMasked(size_t x, size_t y) const;
-
-private:
-    size_t m_width = 0, m_height = 0;
-
-    std::vector<bool> m_values;
 
 }; // Mask
 

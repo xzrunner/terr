@@ -1,7 +1,6 @@
 #include "terraingraph/device/LightMap.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HemanHelper.h"
-#include "terraingraph/Bitmap.h"
 #include "terraingraph/TextureGen.h"
 #include "terraingraph/Utility.h"
 

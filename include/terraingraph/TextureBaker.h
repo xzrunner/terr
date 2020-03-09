@@ -1,5 +1,7 @@
 #pragma once
 
+#include "terraingraph/typedef.h"
+
 #include <unirender/Texture.h>
 
 #include <SM_Vector.h>
@@ -12,7 +14,6 @@ namespace hf { class HeightField; }
 namespace terraingraph
 {
 
-class Bitmap;
 class Mask;
 
 class TextureBaker
