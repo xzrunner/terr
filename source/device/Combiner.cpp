@@ -2,6 +2,7 @@
 #include "terraingraph/DeviceHelper.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -28,13 +29,13 @@ void Combiner::Execute(const std::shared_ptr<dag::Context>& ctx)
     auto& v0 = hf0->GetValues();
     auto& v1 = hf1->GetValues();
     assert(v0.size() == sz && v1.size() == sz);
-    std::vector<float> v(sz, 0.0f);
+    std::vector<int32_t> v(sz, 0);
 
     switch (m_method)
     {
     case Method::Average:
         for (size_t i = 0; i < sz; ++i) {
-            v[i] = (v0[i] + v1[i]) * 0.5f;
+            v[i] = static_cast<int32_t>((v0[i] + v1[i]) * 0.5f);
         }
         break;
     case Method::Add:
@@ -57,7 +58,7 @@ void Combiner::Execute(const std::shared_ptr<dag::Context>& ctx)
             if (v1[i] == 0) {
                 v[i] = v0[i];
             } else {
-                v[i] = v0[i] / v1[i];
+                v[i] = hf::Utility::HeightFloatToShort(static_cast<float>(v0[i]) / v1[i]);
             }
         }
         break;
@@ -77,10 +78,6 @@ void Combiner::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     m_hf = std::make_shared<hf::HeightField>(w, h);
     m_hf->SetValues(v);
-
-    if (m_method == Method::Add) {
-        m_hf->Normalize();
-    }
 }
 
 }

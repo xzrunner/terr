@@ -3,6 +3,7 @@
 #include "terraingraph/Bitmap.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -51,9 +52,10 @@ void Chooser::BlendHeightfield(const hf::HeightField& a,
     assert(a_vals.size() == b_vals.size()
         || a_vals.size() == ctrl_vals.size());
 
-    std::vector<float> vals(a_vals.size(), 0);
+    std::vector<int32_t> vals(a_vals.size(), 0);
     for (size_t i = 0, n = a_vals.size(); i < n; ++i) {
-        vals[i] = a_vals[i] + (b_vals[i] - a_vals[i]) * ctrl_vals[i];
+        vals[i] = a_vals[i] + static_cast<int32_t>((b_vals[i] - a_vals[i]) *
+            hf::Utility::HeightShortToDouble(ctrl_vals[i]));
     }
     m_hf = std::make_shared<hf::HeightField>(a.Width(), a.Height());
     m_hf->SetValues(vals);

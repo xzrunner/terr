@@ -3,6 +3,7 @@
 
 #include <heightfield/Loader.h>
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -18,13 +19,10 @@ void FileInput::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     bool is_mask = true;
     for (auto& v : hf->GetValues()) {
-        if (v > 0.0f && v < 1.0f) {
+        if (v != 0 && v != hf::Utility::HeightFloatToShort(1.0f)) {
             is_mask = false;
             break;
         }
-    }
-    if (!hf->GetShortValues().empty()) {
-        is_mask = false;
     }
 
     if (is_mask)

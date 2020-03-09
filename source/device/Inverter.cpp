@@ -19,7 +19,7 @@ void Inverter::Execute(const std::shared_ptr<dag::Context>& ctx)
     auto h = prev_hf->Height();
     auto vals = prev_hf->GetValues();
     for (auto& v : vals) {
-        v = 1.0f - v;
+        v = -v;
     }
 
     m_hf = std::make_shared<hf::HeightField>(w, h);

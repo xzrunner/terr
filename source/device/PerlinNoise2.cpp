@@ -1,6 +1,7 @@
 #include "terraingraph/device/PerlinNoise2.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 #include <noise/module/perlin.h>
 
@@ -41,8 +42,8 @@ void PerlinNoise2::Execute(const std::shared_ptr<dag::Context>& ctx)
         for (int x = 0; x < m_width; ++x) {
             const float fx = static_cast<float>(x) / m_width;
             const float fy = static_cast<float>(y) / m_height;
-            float v = static_cast<float>(noise.GetValue(fx, 0, fy));
-            m_hf->Set(x, y, (v + 1.0f) * 0.5f);
+            double v = noise.GetValue(fx, 0, fy);
+            m_hf->Set(x, y, hf::Utility::HeightDoubleToShort(v));
         }
     }
 }

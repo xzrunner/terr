@@ -56,9 +56,9 @@ AutoGen::MaskToHeightField(const Mask& mask) const
 
     auto mw = mask.Width();
     auto mh = mask.Height();
-    std::vector<float> heights(m_width * m_height, 0.0f);
-    for (int y = 0; y < m_height; ++y) {
-        for (int x = 0; x < m_width; ++x) {
+    std::vector<int32_t> heights(m_width * m_height, 0);
+    for (size_t y = 0; y < m_height; ++y) {
+        for (size_t x = 0; x < m_width; ++x) {
             float mx = static_cast<float>(x) / m_width * mw;
             float my = static_cast<float>(y) / m_height * mh;
             size_t ix = static_cast<size_t>(std::floor(mx));
@@ -93,12 +93,11 @@ AutoGen::MaskToHeightField(const Mask& mask) const
                     dist_map[mw * (iy + 1) + ix] * (1 - fx) * fy +
                     dist_map[mw * (iy + 1) + ix + 1] * fx * fy;
             }
-            heights[m_width * y + x] = h;
+            heights[m_width * y + x] = static_cast<int32_t>(h * 256);
         }
     }
 
     hf->SetValues(heights);
-    hf->Normalize();
 
     return hf;
 }
@@ -227,7 +226,7 @@ void AutoGen::SplitDistMap(const Mask& mask, std::vector<float>& dist_map) const
                     }
                     ++c_idx;
                 }
-                assert(min_idx >= 0 && min_idx < sub_groups.size());
+                assert(min_idx >= 0 && min_idx < static_cast<int>(sub_groups.size()));
                 sub_groups[min_idx].push_back(i);
             }
 
@@ -299,8 +298,8 @@ void AutoGen::SplitDistMap(const Mask& mask, std::vector<float>& dist_map) const
 
                 auto g0 = group_ids[i];
                 auto g1 = group_ids[next];
-                assert(g0 >= 0 && g0 < group_centers.size());
-                assert(g1 >= 0 && g1 < group_centers.size());
+                assert(g0 >= 0 && g0 < static_cast<int>(group_centers.size()));
+                assert(g1 >= 0 && g1 < static_cast<int>(group_centers.size()));
                 auto c0 = group_centers[g0];
                 auto c1 = group_centers[g1];
                 assert(c0 >= 0 && c1 >= 0);
@@ -312,8 +311,8 @@ void AutoGen::SplitDistMap(const Mask& mask, std::vector<float>& dist_map) const
 
                 auto ang = sm::get_angle_in_direction(p0, pc0, pc1);
                 if (ang > SM_PI * 0.7f && ang < SM_PI * 1.3f) {
-                    dist_map[i] = 2.99;
-                    dist_map[next] = 2.99;
+                    dist_map[i] = 2.99f;
+                    dist_map[next] = 2.99f;
                 }
 
                 continue;

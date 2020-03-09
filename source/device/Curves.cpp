@@ -4,6 +4,8 @@
 
 #include <heightfield/HeightField.h>
 
+
+
 namespace terraingraph
 {
 namespace device
@@ -21,16 +23,16 @@ void Curves::Execute(const std::shared_ptr<dag::Context>& ctx)
         return;
     }
 
-    float min, max;
-    HeightFieldEval::Region(*m_hf, min, max);
+    int32_t min, max;
+    CalcHeightRegion(*m_hf, min, max);
     if (min == max) {
         return;
     }
 
     auto vals = m_hf->GetValues();
     for (auto& v : vals) {
-        float v01 = CalcHeight((v - min) / (max - min));
-        v = v01 * (max - min) + min;
+        float v01 = CalcHeight(static_cast<float>(v - min) / (max - min));
+        v = static_cast<int32_t>(v01 * (max - min) + min);
     }
     m_hf->SetValues(vals);
 }
@@ -74,6 +76,22 @@ float Curves::CalcHeight(float h) const
 
     assert(0);
     return h;
+}
+
+void Curves::CalcHeightRegion(const hf::HeightField& hf, int32_t& min, int32_t& max)
+{
+    min = std::numeric_limits<int32_t>::max();
+    max = -std::numeric_limits<int32_t>::max();
+    auto& vals = hf.GetValues();
+    for (auto& v : vals)
+    {
+        if (v < min) {
+            min = v;
+        }
+        if (v > max) {
+            max = v;
+        }
+    }
 }
 
 }

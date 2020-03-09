@@ -2,6 +2,7 @@
 #include "terraingraph/DeviceHelper.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -18,14 +19,14 @@ void SelectHeight::Execute(const std::shared_ptr<dag::Context>& ctx)
     auto w = prev_hf->Width();
     auto h = prev_hf->Height();
     m_hf = std::make_shared<hf::HeightField>(w, h);
-    std::vector<float> vals(w * h);
+    std::vector<int32_t> vals(w * h);
 
     auto& p_vals = prev_hf->GetValues();
     assert(p_vals.size() == w * h);
     for (size_t i = 0, n = p_vals.size(); i < n; ++i)
     {
         if (p_vals[i] >= m_min && p_vals[i] <= m_max) {
-            vals[i] = 1;
+            vals[i] = hf::Utility::HeightFloatToShort(1.0f);
         } else {
             vals[i] = 0;
         }

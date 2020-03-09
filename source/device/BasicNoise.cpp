@@ -1,6 +1,7 @@
 #include "terraingraph/device/BasicNoise.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -13,7 +14,7 @@ void BasicNoise::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     for (size_t y = 0; y < m_height; ++y) {
         for (size_t x = 0; x < m_width; ++x) {
-            m_hf->Set(x, y, GetValue(x, y));
+            m_hf->Set(x, y, hf::Utility::HeightFloatToShort(GetValue(x, y)));
         }
     }
 }

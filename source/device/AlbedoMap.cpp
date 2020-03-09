@@ -75,9 +75,9 @@ heman_image* AlbedoMap::Baking(heman_image* height, float min_height,
     {
         HEMAN_FLOAT* grad_data = heman_image_data(grad);
         for (int x = 0; x < 128; x += 8) {
-            grad_data[x * 3 + 0] *= 1 + x / 128.0;
-            grad_data[x * 3 + 1] *= 1 + x / 128.0;
-            grad_data[x * 3 + 2] *= 1 + x / 128.0;
+            grad_data[x * 3 + 0] *= 1 + x / 128.0f;
+            grad_data[x * 3 + 1] *= 1 + x / 128.0f;
+            grad_data[x * 3 + 2] *= 1 + x / 128.0f;
         }
     }
 

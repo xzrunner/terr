@@ -34,6 +34,8 @@ public:
 private:
     float CalcHeight(float h) const;
 
+    void CalcHeightRegion(const hf::HeightField& hf, int32_t& min, int32_t& max);
+
     RTTR_ENABLE(Device)
 
 #define PARM_FILEPATH "terraingraph/device/Curves.parm.h"

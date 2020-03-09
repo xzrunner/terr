@@ -22,8 +22,8 @@ public:
 private:
     void MakeFault(size_t width, size_t height);
 
-    static void FilterHeightBand(float* band, int stride, int count, float filter);
-    static void FilterHeightField(size_t width, size_t height, std::vector<float>& height_data, float filter);
+    static void FilterHeightBand(int32_t* band, int stride, int count, float filter);
+    static void FilterHeightField(size_t width, size_t height, std::vector<int32_t>& height_data, float filter);
 
     RTTR_ENABLE(Device)
 

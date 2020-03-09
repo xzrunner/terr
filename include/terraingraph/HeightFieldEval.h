@@ -17,13 +17,15 @@ public:
     static sm::vec3 Normal(const hf::HeightField& hf,
         size_t x, size_t y, const sm::vec3& scale);
 
-    static void Region(const hf::HeightField& hf, float& min, float& max);
-
     // from Outerrain
-    static hf::ScalarField2D DrainageArea(const hf::HeightField& hf);
-    static hf::ScalarField2D Wetness(const hf::HeightField& hf);
-    static hf::ScalarField2D StreamPower(const hf::HeightField& hf);
-    static hf::ScalarField2D Slope(const hf::HeightField& hf);
+    static hf::ScalarField2D<float>
+        DrainageArea(const hf::HeightField& hf);
+    static hf::ScalarField2D<float>
+        Wetness(const hf::HeightField& hf);
+    static hf::ScalarField2D<float>
+        StreamPower(const hf::HeightField& hf);
+    static hf::ScalarField2D<float>
+        Slope(const hf::HeightField& hf);
 
 }; // HeightFieldEval
 

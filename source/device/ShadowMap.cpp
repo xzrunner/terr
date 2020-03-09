@@ -23,11 +23,7 @@ void ShadowMap::Execute(const std::shared_ptr<dag::Context>& ctx)
     size_t w = prev_hf->Width();
     size_t h = prev_hf->Height();
 
-    std::vector<short> heights(w * h);
-    auto& val = prev_hf->GetValues();
-    for (size_t i = 0, n = w * h; i < n; ++i) {
-        heights[i] = static_cast<uint8_t>(val[i] * 0xffff);
-    }
+    std::vector<int32_t> heights = prev_hf->GetValues();
 
     const float scale[] = { 1, 1, 1 };
     uint8_t* shadows = TextureGen::CalcShadows(

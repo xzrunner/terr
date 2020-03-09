@@ -2,6 +2,7 @@
 #include "terraingraph/PerlinNoise.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -20,7 +21,7 @@ void PerlinNoise::Execute(const std::shared_ptr<dag::Context>& ctx)
             p.x = static_cast<float>(x) / m_width;
             p.y = static_cast<float>(y) / m_height;
             p.z = 0;
-            m_hf->Set(x, y, (noise.eval(p) + 1) * 0.5f);
+            m_hf->Set(x, y, hf::Utility::HeightFloatToShort(noise.eval(p)));
         }
     }
 
@@ -33,7 +34,6 @@ void PerlinNoise::AddFractalPattern(const terraingraph::PerlinNoise& noise)
         return;
     }
 
-    float max_val = 0;
     for (uint32_t j = 0; j < m_hf->Height(); ++j)
     {
         for (uint32_t i = 0; i < m_hf->Width(); ++i)
@@ -42,19 +42,12 @@ void PerlinNoise::AddFractalPattern(const terraingraph::PerlinNoise& noise)
             float amplitude = 1;
             Vec3f pt = Vec3f((float)i, (float)j, 0) * (1 / 128.f);
             for (int k = 0; k < m_fractal_layer; ++k) {
-                fractal += (1 + noise.eval(pt)) * 0.5f * amplitude;
+                fractal += noise.eval(pt) * amplitude;
                 pt *= 2;
                 amplitude *= 0.5f;
             }
-            if (fractal > max_val) {
-                max_val = fractal;
-            }
-            m_hf->Set(i, j, fractal);
+            m_hf->Set(i, j, hf::Utility::HeightFloatToShort(fractal));
         }
-    }
-
-    if (max_val != 0) {
-        m_hf->Scale(1.0f / max_val);
     }
 }
 

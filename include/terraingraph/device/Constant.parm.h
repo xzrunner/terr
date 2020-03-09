@@ -5,4 +5,4 @@
 PARAM_INFO(Width,  Int,   width,  m_width,  (1024))
 PARAM_INFO(Height, Int,   height, m_height, (1024))
 
-PARAM_INFO(Value, Float, value, m_value, (0))
+PARAM_INFO(Value, Int, value, m_value, (0))

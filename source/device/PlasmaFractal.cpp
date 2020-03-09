@@ -2,6 +2,7 @@
 #include "terraingraph/Utility.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -23,15 +24,15 @@ void PlasmaFractal::MakePlasma(size_t _width, size_t _height)
 
     int rect_size_x = _width;
     int rect_size_y = _height;
-	float height = (float)rect_size_y / 2;
+	float height = (float)hf::Utility::HeightFloatToShort(1.0f) * 2;
 	float height_reducer = (float)pow(2, -1 * m_roughness);
 
 	//allocate the memory for our height data
 
-	std::vector<float> temp_buf(_width * _height, 0);
+	std::vector<int32_t> temp_buf(_width * _height, 0);
 
 	//set the first value in the height field
-	temp_buf[0] = 0.0f;
+	temp_buf[0] = 0;
 
 	//being the displacement process
 	while (rect_size_x > 0 && rect_size_y > 0)
@@ -56,9 +57,9 @@ void PlasmaFractal::MakePlasma(size_t _width, size_t _height)
 		c = (i,nj)
 		d = (ni,nj)
 		e = (mi,mj)   */
-		for (int i = 0; i < _width; i += rect_size_x)
+		for (int i = 0; i < static_cast<int>(_width); i += rect_size_x)
 		{
-			for (int j = 0; j < _height; j += rect_size_y)
+			for (int j = 0; j < static_cast<int>(_height); j += rect_size_y)
 			{
                 int ni = (i + rect_size_x) % _width;
                 int nj = (j + rect_size_y) % _height;
@@ -66,7 +67,7 @@ void PlasmaFractal::MakePlasma(size_t _width, size_t _height)
                 int mi = (i + rect_size_x / 2);
                 int mj = (j + rect_size_y / 2);
 
-				temp_buf[mi + mj * _width] = (float)((temp_buf[i + j * _width] + temp_buf[ni + j * _width] + temp_buf[i + nj * _width] + temp_buf[ni + nj * _width]) / 4 + Utility::RangedRandom(-height / 2, height / 2));
+				temp_buf[mi + mj * _width] = static_cast<int32_t>((temp_buf[i + j * _width] + temp_buf[ni + j * _width] + temp_buf[i + nj * _width] + temp_buf[ni + nj * _width]) / 4 + Utility::RangedRandom(-height / 2, height / 2));
 			}
 		}
 
@@ -107,9 +108,9 @@ void PlasmaFractal::MakePlasma(size_t _width, size_t _height)
 		f = (mi,mj)
 		g = (mi,j)
 		h = (i,mj)*/
-		for (int i = 0; i<_width; i += rect_size_x)
+		for (int i = 0; i < static_cast<int>(_width); i += rect_size_x)
 		{
-			for (int j = 0; j<_height; j += rect_size_y)
+			for (int j = 0; j < static_cast<int>(_height); j += rect_size_y)
 			{
 
                 int ni = (i + rect_size_x) % _width;
@@ -122,14 +123,14 @@ void PlasmaFractal::MakePlasma(size_t _width, size_t _height)
                 int pmj = (j - rect_size_y / 2 + _height) % _height;
 
 				//Calculate the square value for the top side of the rectangle
-				temp_buf[mi + j * _width] = (float)((temp_buf[i + j * _width] +
+				temp_buf[mi + j * _width] = static_cast<int32_t>((temp_buf[i + j * _width] +
 					temp_buf[ni + j * _width] +
 					temp_buf[mi + pmj * _width] +
 					temp_buf[mi + mj * _width]) / 4 +
                     Utility::RangedRandom(-height / 2, height / 2));
 
 				//Calculate the square value for the left side of the rectangle
-				temp_buf[i + mj * _width] = (float)((temp_buf[i + j * _width] +
+				temp_buf[i + mj * _width] = static_cast<int32_t>((temp_buf[i + j * _width] +
 					temp_buf[i + nj * _width] +
 					temp_buf[pmi + mj * _width] +
 					temp_buf[mi + mj * _width]) / 4 +
@@ -147,7 +148,6 @@ void PlasmaFractal::MakePlasma(size_t _width, size_t _height)
 	}
 
     m_hf->SetValues(temp_buf);
-    m_hf->Normalize();
 }
 
 }

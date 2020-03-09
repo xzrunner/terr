@@ -2,6 +2,7 @@
 #include "terraingraph/DeviceHelper.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -21,8 +22,8 @@ void HydraulicErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
     auto w = m_hf->Width();
     auto h = m_hf->Height();
 
-	hf::ScalarField2D droplets(w, h, 1.0f);
-	hf::ScalarField2D sediments(w, h, 1.0f);
+	hf::ScalarField2D<double> droplets(w, h, 0);
+	hf::ScalarField2D<double> sediments(w, h, 0);
 
 	const float Kd = 0.1f;
 	const float Kc = 5.0f;
@@ -32,9 +33,9 @@ void HydraulicErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 	{
 		for (size_t y = 0; y < h; y++)
 		{
-			std::array<float, 8> waterTransport, neighbourHeightDiff;
+			std::array<double, 8> waterTransport, neighbourHeightDiff;
 			waterTransport.fill(0);
-			neighbourHeightDiff.fill(0.0f);
+			neighbourHeightDiff.fill(0);
 			int lowerVertexCount = 0;
 			int index = 0;
 			for (int k = -1; k <= 1; k++)
@@ -51,9 +52,9 @@ void HydraulicErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 						continue;
 					}
 
-					float a0 = droplets.Get(x, y);
-					float a1 = droplets.Get(x + k, y + l) + m_hf->Get(x + k, y + l);
-					float a2 = a0 + m_hf->Get(x, y);
+                    double a0 = droplets.Get(x, y);
+                    double a1 = droplets.Get(x + k, y + l) + hf::Utility::HeightShortToDouble(m_hf->Get(x + k, y + l));
+                    double a2 = a0 + hf::Utility::HeightShortToDouble(m_hf->Get(x, y));
 					waterTransport[index] = std::min(a0, a2 - a1);
 					lowerVertexCount++;
 					index++;
@@ -77,32 +78,31 @@ void HydraulicErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 					// Remake implementation based on http://hpcg.purdue.edu/bbenes/papers/Benes02WSCG.pdf
 					// Instead of Musgrave, which is not very precise and misses some details.
 					waterTransport[index] = waterTransport[index] * neighbourHeightDiff[index] / lowerVertexCount;
-					waterTransport[index] = std::min(std::max(waterTransport[index], 0.0f), 1.0f);
 					//cout << waterTransport[index] << endl;
 
 					if (waterTransport[index] <= 0.0f)
 					{
-                        m_hf->Add(x, y, Kd * sediments.Get(x, y));
+                        m_hf->Add(x, y, hf::Utility::HeightDoubleToShort(Kd * sediments.Get(x, y)));
 						sediments.Set(x, y, (1.0f - Kd) * sediments.Get(x, y));
 					}
 					else
 					{
 						droplets.Add(x, y, -waterTransport[index]);
 						droplets.Add(x + k, y + l, waterTransport[index]);
-						float Cs = Kc * waterTransport[index];
-						float sedA = sediments.Get(x, y);
+						double Cs = Kc * waterTransport[index];
+						double sedA = sediments.Get(x, y);
 
 						if (sedA > Cs)
 						{
 							sediments.Add(x + k, y + l, Cs);
-                            m_hf->Add(x, y, Kd * (sedA - Cs));
+                            m_hf->Add(x, y, hf::Utility::HeightDoubleToShort(Kd * (sedA - Cs)));
 							sediments.Set(x, y, (1 - Kd) * (sedA - Cs));
 						}
 						else
 						{
 							sediments.Add(x + k, y + l, sedA + Ks * (Cs - sedA));
-                            m_hf->Add(x, y, - Kd * (Cs - sedA));
-							sediments.Set(x, y, 0.0f);
+                            m_hf->Add(x, y, hf::Utility::HeightDoubleToShort(-Kd * (Cs - sedA)));
+							sediments.Set(x, y, 0);
 						}
 					}
 
@@ -111,8 +111,6 @@ void HydraulicErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 			}
 		}
 	}
-
-    m_hf->Normalize();
 }
 
 }

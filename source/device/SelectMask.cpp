@@ -29,7 +29,7 @@ void SelectMask::Execute(const std::shared_ptr<dag::Context>& ctx)
     }
 
     m_hf = std::make_shared<hf::HeightField>(w, h);
-    std::vector<float> vals(w * h);
+    std::vector<int32_t> vals(w * h);
 
     auto& h_vals = prev_hf->GetValues();
     auto& m_vals = prev_mask->GetValues();

@@ -26,12 +26,11 @@ void StreamPowerErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     m_hf = std::make_shared<hf::HeightField>(*prev_hf);
 
-    hf::ScalarField2D SP = HeightFieldEval::StreamPower(*m_hf);
-    SP.Normalize();
+    hf::ScalarField2D<float> SP = HeightFieldEval::StreamPower(*m_hf);
     for (size_t y = 0, h = m_hf->Height(); y < h; ++y) {
         for (size_t x = 0, w = m_hf->Width(); x < w; ++x) {
-            float oldH = m_hf->Get(x, y);
-            float newH = oldH - (SP.Get(x, y) * m_amplitude);
+            int32_t oldH = m_hf->Get(x, y);
+            int32_t newH = oldH - static_cast<int32_t>(SP.Get(x, y) * m_amplitude);
             m_hf->Set(x, y, newH);
         }
     }

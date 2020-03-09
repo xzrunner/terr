@@ -4,6 +4,7 @@
 #include "terraingraph/Bitmap.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -33,7 +34,7 @@ void Colorizer::Execute(const std::shared_ptr<dag::Context>& ctx)
     assert(heights.size() * 3 == vals.size());
     for (size_t i = 0, n = heights.size(); i < n; ++i)
     {
-        auto h = heights[i];
+        float h = hf::Utility::HeightShortToFloat(heights[i]);
         h = std::min(std::max(h, m_gradient.front().w), m_gradient.back().w);
         for (size_t j = 0, m = m_gradient.size(); j < m - 1; ++j)
         {

@@ -1,6 +1,7 @@
 #include "terraingraph/HemanHelper.h"
 
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 #include <assert.h>
 
@@ -19,7 +20,7 @@ HemanHelper::Encode(const hf::HeightField& hf)
     auto he_height_data = heman_image_data(he_height);
     auto& height_data = hf.GetValues();
     for (size_t i = 0, n = height_data.size(); i < n; ++i) {
-        he_height_data[i] = height_data[i];
+        he_height_data[i] = hf::Utility::HeightShortToFloat(height_data[i]);
     }
 
     return he_height;
@@ -36,9 +37,9 @@ HemanHelper::Decode(heman_image* img)
 
     // filling
     auto he_height_data = heman_image_data(img);
-    std::vector<float> height_data(width * height);
+    std::vector<int32_t> height_data(width * height);
     for (size_t i = 0, n = height_data.size(); i < n; ++i) {
-        height_data[i] = he_height_data[i] + 0.5f;
+        height_data[i] = hf::Utility::HeightFloatToShort(he_height_data[i]);
     }
 
     hf->SetValues(height_data);

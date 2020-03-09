@@ -6,6 +6,7 @@
 
 #include <SM_Calc.h>
 #include <heightfield/HeightField.h>
+#include <heightfield/Utility.h>
 
 namespace terraingraph
 {
@@ -22,16 +23,14 @@ void SelectSlope::Execute(const std::shared_ptr<dag::Context>& ctx)
     auto w = prev_hf->Width();
     auto h = prev_hf->Height();
     m_hf = std::make_shared<hf::HeightField>(w, h);
-    std::vector<float> vals(w * h);
+    std::vector<int32_t> vals(w * h);
 
-    std::vector<short> h_vals;
-    TextureBaker::GenHeightMap(*prev_hf, h_vals);
     assert(w == h);
     float scale[] = { 1, 1, 1 };
-    auto normals = TextureGen::CalcNormals(h_vals.data(), w, h, scale, 0, 0, 0);
+    auto normals = TextureGen::CalcNormals(prev_hf->GetValues().data(), w, h, scale, 0, 0, 0);
 
     size_t ptr = 0;
-    for (size_t i = 0, n = h_vals.size(); i < n; ++i)
+    for (size_t i = 0, n = prev_hf->GetValues().size(); i < n; ++i)
     {
         sm::vec3 norm;
         norm.x = normals[ptr++] / 255.0f;
@@ -42,7 +41,7 @@ void SelectSlope::Execute(const std::shared_ptr<dag::Context>& ctx)
         angle = std::max(0.0f, std::min(SM_PI * 0.5f, angle));
         float slope = angle / (SM_PI * 0.5f);
         if (slope >= m_min && slope <= m_max) {
-            vals[i] = 1;
+            vals[i] = hf::Utility::HeightFloatToShort(1.0f);
         } else {
             vals[i] = 0;
         }

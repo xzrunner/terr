@@ -38,7 +38,7 @@ Resample::ResampleHeightField(const hf::HeightField& hf, int width, int height)
 
     const float sx = static_cast<float>(prev_w) / width;
     const float sy = static_cast<float>(prev_h) / height;
-    std::vector<float> vals(width * height, false);
+    std::vector<int32_t> vals(width * height);
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
             size_t px = static_cast<size_t>(x * sx);

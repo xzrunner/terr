@@ -18,7 +18,7 @@ void FaultFractal::Execute(const std::shared_ptr<dag::Context>& ctx)
 void FaultFractal::MakeFault(size_t _width, size_t _height)
 {
 	//allocate the memory for our height data
-    std::vector<float> temp_buf(_width * _height, 0);
+    std::vector<int32_t> temp_buf(_width * _height, 0);
 
 	for (int curr_iter = 0; curr_iter < m_iter; curr_iter++)
 	{
@@ -54,7 +54,7 @@ void FaultFractal::MakeFault(size_t _width, size_t _height)
 				//if the result of ( dir_x2*dir_z1 - dir_x1*dir_z2 ) is "up" (above 0),
 				//then raise this point by height
 				if ((dir_x2*dir_z1 - dir_x1 * dir_z2)>0)
-					temp_buf[(z*_width) + x] += (float)height;
+					temp_buf[(z*_width) + x] += static_cast<int32_t>(height);
 			}
 		}
 
@@ -63,19 +63,18 @@ void FaultFractal::MakeFault(size_t _width, size_t _height)
 	}
 
     m_hf->SetValues(temp_buf);
-    m_hf->Normalize();
 }
 
 // Apply the erosion filter to an individual band of height values
-void FaultFractal::FilterHeightBand(float* band, int stride, int count, float filter)
+void FaultFractal::FilterHeightBand(int32_t* band, int stride, int count, float filter)
 {
-	float v = band[0];
+    int32_t v = band[0];
 	int j = stride;
 
 	//go through the height band and apply the erosion filter
 	for (int i = 0; i < count - 1; ++i)
 	{
-		band[j] = filter * v + (1 - filter)*band[j];
+		band[j] = static_cast<int32_t>(filter * v + (1 - filter)*band[j]);
 
 		v = band[j];
 		j += stride;
@@ -83,26 +82,26 @@ void FaultFractal::FilterHeightBand(float* band, int stride, int count, float fi
 }
 
 // Apply the erosion filter to an entire buffer of height values
-void FaultFractal::FilterHeightField(size_t width, size_t height, std::vector<float>& height_data, float filter)
+void FaultFractal::FilterHeightField(size_t width, size_t height, std::vector<int32_t>& height_data, float filter)
 {
 	//erode left to right
-    for (int i = 0; i < height; ++i) {
+    for (size_t i = 0; i < height; ++i) {
         FilterHeightBand(&height_data[width*i], 1, width, filter);
     }
 
 	//erode right to left
-    for (int i = 0; i < height; ++i) {
+    for (size_t i = 0; i < height; ++i) {
         FilterHeightBand(&height_data[width*i + width - 1], -1, width, filter);
     }
 
 	//erode top to bottom
-    for (int i = 0; i < width; ++i) {
+    for (size_t i = 0; i < width; ++i) {
         FilterHeightBand(&height_data[i], width, height, filter);
     }
 
 	//erode from bottom to top
-    for (int i = 0; i < width; ++i) {
-        FilterHeightBand(&height_data[width*(height - 1) + i], -width, height, filter);
+    for (size_t i = 0; i < width; ++i) {
+        FilterHeightBand(&height_data[width*(height - 1) + i], -static_cast<int>(width), height, filter);
     }
 }
 

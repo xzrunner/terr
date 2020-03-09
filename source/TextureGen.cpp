@@ -41,7 +41,7 @@ is used when casting a ray from a heightmap point. If the height of the
 heightmap at point x, y is less than the height z of the ray at point x, y
 then a full darkness shadow pixel is drawn.
 */
-void ShadowMapPut(uint8_t* shadow_map, const short* height_map,
+void ShadowMapPut(uint8_t* shadow_map, const int32_t* height_map,
                   int width, int height, int x, int y, float z)
 {
 	/* Assume size is a power of two */
@@ -194,7 +194,7 @@ const uint8_t* TextureGen::NormalMapGet(const uint8_t* normal_map, int width, in
 
   The bump map is deleted on completion.
 */
-uint8_t* TextureGen::CalcNormals(const short* height_map, int width, int height,
+uint8_t* TextureGen::CalcNormals(const int32_t* height_map, int width, int height,
 	                             const float scale[3], float rand_scale,
 	                             float cutoff, int frequency)
 {
@@ -396,7 +396,7 @@ uint8_t* TextureGen::CalcNormals(const short* height_map, int width, int height,
   points intersected in x-y which are below the ray in z are deemed to be in
   shadow.
 */
-uint8_t* TextureGen::CalcShadows(const short* height_map, int width, int height,
+uint8_t* TextureGen::CalcShadows(const int32_t* height_map, int width, int height,
 	                             const float scale[3], const float dir[3])
 {
 	const float scale_normal = 1.0f / 127.0f;

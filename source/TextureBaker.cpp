@@ -12,46 +12,6 @@
 namespace terraingraph
 {
 
-bool TextureBaker::GenHeightMap(const hf::HeightField& src,
-                                std::vector<short>& dst)
-{
-    if (src.Width() == 0 || src.Height() == 0) {
-        return false;
-    }
-
-    auto& s_vals = src.GetValues();
-    dst.resize(s_vals.size());
-    for (size_t i = 0, n = s_vals.size(); i < n; ++i) {
-        const auto f01 = std::min(std::max(s_vals[i], 0.0f), 1.0f);
-        dst[i] = static_cast<short>(f01 * 0xffff);
-    }
-
-    return true;
-}
-
-ur::TexturePtr
-TextureBaker::GenHeightMap(const hf::HeightField& hf,
-                           ur::RenderContext& rc,
-                           const ur::TexturePtr& tex)
-{
-    if (hf.Width() == 0 || hf.Height() == 0) {
-        return nullptr;
-    }
-
-    ur::TexturePtr ret = tex;
-    if (!ret) {
-        ret = std::make_shared<ur::Texture>();
-    }
-
-    std::vector<short> pixels;
-    if (!GenHeightMap(hf, pixels)) {
-        return nullptr;
-    }
-    ret->Upload(&rc, hf.Width(), hf.Height(), ur::TEXTURE_R16, pixels.data());
-
-    return ret;
-}
-
 ur::TexturePtr
 TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
 {
@@ -189,15 +149,9 @@ TextureBaker::GenShadowMap(const hf::HeightField& hf, ur::RenderContext& rc, con
     auto w = hf.Width();
     auto h = hf.Height();
 
-    std::vector<short> heights(w * h);
-    auto& val = hf.GetValues();
-    for (size_t i = 0, n = w * h; i < n; ++i) {
-        heights[i] = static_cast<short>(val[i] * 0xffff);
-    }
-
     const float scale[] = { 1, 1, 1 };
     uint8_t* shadows = TextureGen::CalcShadows(
-        heights.data(), w, h, scale, light_dir.xyz
+        hf.GetValues().data(), w, h, scale, light_dir.xyz
     );
 
     std::vector<uint8_t> shadows_rgb(w * h * 3);

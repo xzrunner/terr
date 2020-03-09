@@ -15,7 +15,7 @@ sm::vec2 HeightFieldEval::Gradient(const hf::HeightField& hf, size_t x, size_t y
         return sm::vec2();
     }
 
-    sm::vec2 g;
+    sm::ivec2 g;
 
     if (x == 0) {
         g.x = hf.Get(x + 1, y) - hf.Get(x, y);
@@ -33,7 +33,7 @@ sm::vec2 HeightFieldEval::Gradient(const hf::HeightField& hf, size_t x, size_t y
         g.y = (hf.Get(x, y + 1) - hf.Get(x, y - 1)) / 2;
     }
 
-	return g;
+	return sm::vec2(static_cast<float>(g.x), static_cast<float>(g.y));
 }
 
 sm::vec3 HeightFieldEval::Normal(const hf::HeightField& hf, size_t x,
@@ -45,12 +45,13 @@ sm::vec3 HeightFieldEval::Normal(const hf::HeightField& hf, size_t x,
     sm::vec3 tot_norm;
     size_t num = 0;
 
-    auto calc = [&](size_t x, size_t y) -> sm::vec3 {
-        return sm::vec3(
-            static_cast<float>(x),
-            hf.Get(x, y),
-            static_cast<float>(y)
-        ) * scale;
+    auto calc = [&](size_t x, size_t y) -> sm::vec3
+    {
+        sm::vec3 ret;
+        ret.x = x * scale.x;
+        ret.y = hf.Get(x, y) * scale.y;
+        ret.z = y * scale.z;
+        return ret;
     };
 
     if (x > 0 && y < h - 1)
@@ -96,47 +97,34 @@ sm::vec3 HeightFieldEval::Normal(const hf::HeightField& hf, size_t x,
     return tot_norm / static_cast<float>(num);
 }
 
-void HeightFieldEval::Region(const hf::HeightField& hf, float& min, float& max)
-{
-    min = std::numeric_limits<float>::max();
-    max = -std::numeric_limits<float>::max();
-    auto& vals = hf.GetValues();
-    for (auto& v : vals)
-    {
-        if (v < min) {
-            min = v;
-        }
-        if (v > max) {
-            max = v;
-        }
-    }
-}
-
-hf::ScalarField2D HeightFieldEval::DrainageArea(const hf::HeightField& hf)
+hf::ScalarField2D<float>
+HeightFieldEval::DrainageArea(const hf::HeightField& hf)
 {
     auto w = hf.Width();
     auto h = hf.Height();
 
 	// Sort all point by decreasing height
-	std::deque<hf::ScalarValue> points;
+	std::deque<hf::ScalarValue<float>> points;
     for (size_t y = 0; y < h; ++y) {
         for (size_t x = 0; x < w; ++x) {
-            points.push_back(hf::ScalarValue(x, y, hf.Get(x, y)));
+            points.push_back(hf::ScalarValue<float>(
+                x, y, static_cast<float>(hf.Get(x, y))
+            ));
         }
     }
-	std::sort(points.begin(), points.end(), [](hf::ScalarValue p1, hf::ScalarValue p2) { return p1.value > p2.value; });
+	std::sort(points.begin(), points.end(), [](hf::ScalarValue<float> p1, hf::ScalarValue<float> p2) { return p1.value > p2.value; });
 
 	std::array<float, 8> slopes;
 	std::array<sm::ivec2, 8> coords;
-	hf::ScalarField2D DA = hf::ScalarField2D(w, h, 1.0f);
+	hf::ScalarField2D<float> DA = hf::ScalarField2D<float>(w, h, 0);
 	while (!points.empty())
 	{
-		hf::ScalarValue p = points.front();
+		hf::ScalarValue<float> p = points.front();
 		points.pop_front();
 
 		slopes.fill(0.0f);
 		size_t i = p.x, j = p.y;
-		float h = hf.Get(i, j);
+        float h = static_cast<float>(hf.Get(i, j));
 		int neighbour_count = 0;
 		for (int k = -1; k <= 1; k++)
 		{
@@ -145,7 +133,7 @@ hf::ScalarField2D HeightFieldEval::DrainageArea(const hf::HeightField& hf)
 				if ((k == 0 && l == 0) || hf.Inside(i + k, j + l) == false)
 					continue;
 				// If current point has lower neighbour : compute slope to later distribute accordingly.
-				float nH = hf.Get(i + k, j + l);
+				float nH = static_cast<float>(hf.Get(i + k, j + l));
 				if (h > nH)
 				{
 					float dH = h - nH;
@@ -174,10 +162,11 @@ hf::ScalarField2D HeightFieldEval::DrainageArea(const hf::HeightField& hf)
 	return DA;
 }
 
-hf::ScalarField2D HeightFieldEval::Wetness(const hf::HeightField& hf)
+hf::ScalarField2D<float>
+HeightFieldEval::Wetness(const hf::HeightField& hf)
 {
-    hf::ScalarField2D DA = DrainageArea(hf);
-    hf::ScalarField2D S = Slope(hf);
+    hf::ScalarField2D<float> DA = DrainageArea(hf);
+    hf::ScalarField2D<float> S = Slope(hf);
     for (size_t y = 0, h = hf.Height(); y < h; ++y) {
         for (size_t x = 0, w = hf.Width(); x < w; ++x) {
             DA.Set(x, y, abs(log(DA.Get(x, y) / (1.0f + S.Get(x, y)))));
@@ -187,10 +176,11 @@ hf::ScalarField2D HeightFieldEval::Wetness(const hf::HeightField& hf)
 }
 
 // Compute the StreamPower field, as described by http://geosci.uchicago.edu/~kite/doc/Whipple_and_Tucker_1999.pdf.
-hf::ScalarField2D HeightFieldEval::StreamPower(const hf::HeightField& hf)
+hf::ScalarField2D<float>
+HeightFieldEval::StreamPower(const hf::HeightField& hf)
 {
-    hf::ScalarField2D DA = DrainageArea(hf);
-    hf::ScalarField2D S = Slope(hf);
+    hf::ScalarField2D<float> DA = DrainageArea(hf);
+    hf::ScalarField2D<float> S = Slope(hf);
     for (size_t y = 0, h = hf.Height(); y < h; ++y) {
         for (size_t x = 0, w = hf.Width(); x < w; ++x) {
             DA.Set(x, y, sqrt(DA.Get(x, y)) * S.Get(x, y));
@@ -199,11 +189,12 @@ hf::ScalarField2D HeightFieldEval::StreamPower(const hf::HeightField& hf)
     return DA;
 }
 
-hf::ScalarField2D HeightFieldEval::Slope(const hf::HeightField& hf)
+hf::ScalarField2D<float>
+HeightFieldEval::Slope(const hf::HeightField& hf)
 {
     auto w = hf.Width();
     auto h = hf.Height();
-    hf::ScalarField2D S = hf::ScalarField2D(w, h);
+    hf::ScalarField2D<float> S = hf::ScalarField2D<float>(w, h);
     for (size_t y = 0; y < h; ++y) {
         for (size_t x = 0; x < w; ++x) {
             S.Set(x, y, Gradient(hf, x, y).Length());

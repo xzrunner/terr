@@ -151,7 +151,7 @@ void ThermalWeathering::StepCPU()
                         m_hf->Inside(x + l, y + k) == false) {
                         continue;
                     }
-					float h = m_hf->Get(x, y) - m_hf->Get(x + l, y + k);
+					float h = static_cast<float>(m_hf->Get(x, y) - m_hf->Get(x + l, y + k));
 					if (h > max_y_diff)
 					{
 						max_y_diff = h;

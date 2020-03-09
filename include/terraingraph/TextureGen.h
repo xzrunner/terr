@@ -12,10 +12,10 @@ public:
 	static uint8_t LightMapGet(const uint8_t* light_map, int width, int height, int x, int y);
 	static const uint8_t* NormalMapGet(const uint8_t* normal_map, int width, int height, int x, int y);
 
-	static uint8_t* CalcNormals(const short* height_map, int width, int height,
+	static uint8_t* CalcNormals(const int32_t* height_map, int width, int height,
         const float scale[3], float rand_scale, float cutoff, int frequency);
 
-	static uint8_t* CalcShadows(const short* height_map, int width, int height,
+	static uint8_t* CalcShadows(const int32_t* height_map, int width, int height,
 		const float scale[3], const float dir[3]);
 
 	static uint8_t* CalcLighting(const uint8_t* normal_map, const uint8_t* shadow_map,
