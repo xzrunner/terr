@@ -4,6 +4,8 @@
 
 #include <SM_Vector.h>
 
+#define NORMAL_MAP_GPU
+
 namespace terraingraph
 {
 namespace device
@@ -20,9 +22,19 @@ public:
         m_exports = {
             {{ DeviceVarType::Bitmap, "out" }},
         };
+
+#ifdef NORMAL_MAP_GPU
+        Init();
+#endif // NORMAL_MAP_GPU
     }
 
     virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
+
+private:
+    void Init();
+
+    void RunGPU(const hf::HeightField& hf);
+    void RunCPU(const hf::HeightField& hf);
 
     RTTR_ENABLE(Device)
 

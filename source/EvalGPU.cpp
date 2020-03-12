@@ -35,66 +35,6 @@ EvalGPU::EvalGPU(ur::RenderContext& rc, const std::string& cs)
     m_compute_work_group_size = m_shader->GetComputeWorkGroupSize();
 }
 
-//bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
-//                    const pt0::ShaderUniforms& vals, hf::HeightField& hf) const
-//{
-//    if (!m_shader) {
-//        return false;
-//    }
-//
-//    auto w = hf.Width();
-//    auto h = hf.Height();
-//    if (w == 0 || h == 0) {
-//        return false;
-//    }
-//
-//    auto tex = rc.CreateTexture(nullptr, w, h, ur::TEXTURE_RGBA8);
-//    assert(tex != 0);
-//
-//    auto fbo = rc.CreateRenderTarget(0);
-//    assert(fbo != 0);
-//
-//    int vp_x, vp_y, vp_w, vp_h;
-//    rc.GetViewport(vp_x, vp_y, vp_w, vp_h);
-//
-//    rc.BindRenderTarget(fbo);
-//    rc.BindRenderTargetTex(tex, ur::ATTACHMENT_COLOR0);
-//    rc.SetViewport(0, 0, w, h);
-//    assert(rc.CheckRenderTargetStatus());
-//
-//    rc.SetClearFlag(ur::MASKC | ur::MASKD);
-//    rc.SetClearColor(0x0000000);
-//    rc.Clear();
-//
-//    m_shader->SetUsedTextures(textures);
-//
-//    m_shader->Use();
-//
-//    vals.Bind(*m_shader);
-//
-//    rc.RenderQuad(ur::RenderContext::VertLayout::VL_POS_TEX);
-//
-//    uint8_t* pixels = new uint8_t[w * h];
-//    rc.ReadPixels(pixels, 1, 0, 0, w, h);
-//
-//    std::vector<float> heights(w * h);
-//    for (size_t i = 0, n = heights.size(); i < n; ++i) {
-//        heights[i] = pixels[i] / 255.0f;
-//    }
-//    delete[] pixels;
-//
-//    hf.SetValues(heights);
-//
-//    rc.UnbindRenderTarget();
-//    rc.SetViewport(vp_x, vp_y, vp_w, vp_h);
-//    rc.ReleaseRenderTarget(fbo);
-//    rc.ReleaseTexture(tex);
-//
-//    rc.BindShader(0);
-//
-//    return true;
-//}
-
 bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
                     const pt0::ShaderUniforms& vals, hf::HeightField& hf) const
 {
@@ -109,42 +49,30 @@ bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures
         return false;
     }
 
-    auto fbo = rc.CreateRenderTarget(0);
-    assert(fbo != 0);
-
-    int vp_x, vp_y, vp_w, vp_h;
-    rc.GetViewport(vp_x, vp_y, vp_w, vp_h);
-
-    rc.BindRenderTarget(fbo);
-    rc.BindRenderTargetTex(tex->TexID(), ur::ATTACHMENT_COLOR0);
-    rc.SetViewport(0, 0, w, h);
-    assert(rc.CheckRenderTargetStatus());
-
-    rc.SetClearFlag(ur::MASKC | ur::MASKD);
-    rc.SetClearColor(0x0000000);
-    rc.Clear();
-
-    rc.SetZTest(ur::DEPTH_DISABLE);
-    rc.SetCullMode(ur::CULL_DISABLE);
-
-    m_shader->SetUsedTextures(textures);
-
-    m_shader->Use();
-
-    vals.Bind(*m_shader);
-
-    rc.RenderQuad(ur::RenderContext::VertLayout::VL_POS_TEX);
-
-    rc.UnbindRenderTarget();
-    rc.SetViewport(vp_x, vp_y, vp_w, vp_h);
-    rc.ReleaseRenderTarget(fbo);
-
-    rc.BindShader(0);
-
+    RunPS(rc, textures, vals, w, h, tex->TexID());
     hf.SetCPUDirty();
 
-    rc.SetZTest(ur::DEPTH_LESS_EQUAL);
-    rc.SetCullMode(ur::CULL_BACK);
+    return true;
+}
+
+bool EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures,
+                    const pt0::ShaderUniforms& vals, Bitmap& bmp) const
+{
+    if (!m_shader) {
+        return false;
+    }
+
+    auto w = bmp.Width();
+    auto h = bmp.Height();
+    auto tex = rc.CreateTexture(nullptr, w, h, ur::TEXTURE_RGBA8);
+    if (w == 0 || h == 0 || !tex) {
+        return false;
+    }
+
+    auto pixels = bmp.GetPixels();
+    RunPS(rc, textures, vals, w, h, tex, pixels);
+
+    rc.ReleaseTexture(tex);
 
     return true;
 }
@@ -184,6 +112,49 @@ bool EvalGPU::RunCS(ur::RenderContext& rc, const pt0::ShaderUniforms& vals,
     rc.BindShader(0);
 
     return true;
+}
+
+void EvalGPU::RunPS(ur::RenderContext& rc, const std::vector<uint32_t>& textures, const pt0::ShaderUniforms& vals,
+                    size_t dst_w, size_t dst_h, size_t dst_tex, unsigned char* out_pixels) const
+{
+    auto fbo = rc.CreateRenderTarget(0);
+    assert(fbo != 0);
+
+    int vp_x, vp_y, vp_w, vp_h;
+    rc.GetViewport(vp_x, vp_y, vp_w, vp_h);
+
+    rc.BindRenderTarget(fbo);
+    rc.BindRenderTargetTex(dst_tex, ur::ATTACHMENT_COLOR0);
+    rc.SetViewport(0, 0, dst_w, dst_h);
+    assert(rc.CheckRenderTargetStatus());
+
+    rc.SetClearFlag(ur::MASKC | ur::MASKD);
+    rc.SetClearColor(0x0000000);
+    rc.Clear();
+
+    rc.SetZTest(ur::DEPTH_DISABLE);
+    rc.SetCullMode(ur::CULL_DISABLE);
+
+    m_shader->SetUsedTextures(textures);
+
+    m_shader->Use();
+
+    vals.Bind(*m_shader);
+
+    rc.RenderQuad(ur::RenderContext::VertLayout::VL_POS_TEX);
+
+    if (out_pixels) {
+        rc.ReadPixels(out_pixels, 3, 0, 0, dst_w, dst_h);
+    }
+
+    rc.UnbindRenderTarget();
+    rc.SetViewport(vp_x, vp_y, vp_w, vp_h);
+    rc.ReleaseRenderTarget(fbo);
+
+    rc.BindShader(0);
+
+    rc.SetZTest(ur::DEPTH_LESS_EQUAL);
+    rc.SetCullMode(ur::CULL_BACK);
 }
 
 }
