@@ -27,17 +27,15 @@ void Lighting::Execute(const std::shared_ptr<dag::Context>& ctx)
     size_t w = prev_hf->Width();
     size_t h = prev_hf->Height();
 
-    std::vector<unsigned char> img_data(w * h * 3);
-    for (size_t i = 0, n = img_data.size(); i < n; ++i) {
+    m_bmp = std::make_shared<Bitmap>(w, h);
+    auto img_data = m_bmp->GetPixels();
+    for (size_t i = 0, n = w * h * 3; i < n; ++i) {
         img_data[i] = static_cast<unsigned char>(he_img_data[i] * 255);
     }
 
     heman_image_destroy(he_height);
     heman_image_destroy(he_albedo);
     heman_image_destroy(he_img);
-
-    m_bmp = std::make_shared<Bitmap>(w, h);
-    m_bmp->SetValues(img_data);
 }
 
 }

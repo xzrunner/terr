@@ -45,7 +45,7 @@ namespace terraingraph
 Mask::Mask(size_t width, size_t height)
     : prim::Bitmap<bool>(width, height, 1)
 {
-    m_values.resize(m_width * m_height, false);
+    memset(m_pixels, 0, width * height);
 }
 
 std::vector<std::vector<sm::ivec2>>
@@ -139,7 +139,7 @@ bool Mask::IsPixelBorder(size_t x, size_t y) const
 
 bool Mask::IsPixelMasked(size_t x, size_t y) const
 {
-    return m_values[y * m_width + x];
+    return m_pixels[y * m_width + x];
 }
 
 }

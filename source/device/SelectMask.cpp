@@ -32,12 +32,10 @@ void SelectMask::Execute(const std::shared_ptr<dag::Context>& ctx)
     std::vector<int32_t> vals(w * h);
 
     auto& h_vals = prev_hf->GetValues();
-    auto& m_vals = prev_mask->GetValues();
-    assert(h_vals.size() == w * h
-        && m_vals.size() == w * h);
+    auto mask_p = prev_mask->GetPixels();
     for (size_t i = 0, n = h_vals.size(); i < n; ++i)
     {
-        if (m_vals[i]) {
+        if (mask_p[i]) {
             vals[i] = h_vals[i];
         } else {
             vals[i] = 0;

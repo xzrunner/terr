@@ -107,12 +107,12 @@ void AutoGen::InitDistMap(const Mask& mask, std::vector<float>& dist_map) const
 {
     auto w = mask.Width();
     auto h = mask.Height();
-    auto& vals = mask.GetValues();
+    auto pixels = mask.GetPixels();
 
     dist_map.resize(w * h, 0);
     for (size_t i = 0, n = w * h; i < n; ++i)
     {
-        if (vals[i]) {
+        if (pixels[i]) {
             dist_map[i] = std::numeric_limits<float>::max();
         } else {
             dist_map[i] = 0;
@@ -329,7 +329,7 @@ void AutoGen::BuildDistMap(const Mask& mask, std::vector<float>& dist_map) const
 {
     auto w = mask.Width();
     auto h = mask.Height();
-    auto& vals = mask.GetValues();
+    auto pixels = mask.GetPixels();
     assert(dist_map.size() == w * h);
 
     std::set<size_t> buf;
@@ -359,7 +359,7 @@ void AutoGen::BuildDistMap(const Mask& mask, std::vector<float>& dist_map) const
                 }
 
                 auto next = w * nearby.y + nearby.x;
-                if (!vals[next]) {
+                if (!pixels[next]) {
                     continue;
                 }
 

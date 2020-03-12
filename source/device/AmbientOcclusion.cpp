@@ -29,7 +29,7 @@ void AmbientOcclusion::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     m_bmp = std::make_shared<Bitmap>(w, h);
 
-    std::vector<unsigned char> ao_data(w * h * 3);
+    auto ao_data = m_bmp->GetPixels();
     for (size_t i = 0, n = w * h; i < n; ++i) {
         const auto ao = static_cast<unsigned char>(he_ao_data[i] * 255);
         for (size_t j = 0; j < 3; ++j) {
@@ -39,8 +39,6 @@ void AmbientOcclusion::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     heman_image_destroy(he_height);
     heman_image_destroy(he_ao);
-
-    m_bmp->SetValues(ao_data);
 }
 
 }

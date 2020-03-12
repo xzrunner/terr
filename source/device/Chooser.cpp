@@ -69,21 +69,20 @@ void Chooser::BlendBitmap(const Bitmap& a, const Bitmap& b,
         return;
     }
 
-    auto& a_vals = a.GetValues();
-    auto& b_vals = b.GetValues();
+    auto a_vals = a.GetPixels();
+    auto b_vals = b.GetPixels();
     auto& ctrl_vals = ctrl.GetValues();
-    assert(a_vals.size() == b_vals.size()
-        || a_vals.size() == ctrl_vals.size());
 
-    std::vector<unsigned char> vals(a_vals.size(), 0);
+    m_bmp = std::make_shared<Bitmap>(a.Width(), a.Height());
+    auto dst = m_bmp->GetPixels();
+
+    std::vector<unsigned char> vals(a.Width() * a.Height() * a.Channels(), 0);
     for (size_t i = 0, n = ctrl_vals.size(); i < n; ++i) {
         for (size_t j = 0; j < 3; ++j) {
             auto d = (b_vals[i * 3 + j] - a_vals[i * 3 + j]) * ctrl_vals[i];
-            vals[i * 3 + j] = a_vals[i * 3 + j] + static_cast<unsigned char>(d);
+            dst[i * 3 + j] = a_vals[i * 3 + j] + static_cast<unsigned char>(d);
         }
     }
-    m_bmp = std::make_shared<Bitmap>(a.Width(), a.Height());
-    m_bmp->SetValues(vals);
 }
 
 }

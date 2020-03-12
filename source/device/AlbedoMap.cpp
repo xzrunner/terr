@@ -53,15 +53,13 @@ void AlbedoMap::Execute(const std::shared_ptr<dag::Context>& ctx)
     m_bmp = std::make_shared<Bitmap>(w, h);
 
     // filling
-    std::vector<unsigned char> albedo_data(w * h * 3);
-    for (size_t i = 0, n = albedo_data.size(); i < n; ++i) {
+    auto albedo_data = m_bmp->GetPixels();
+    for (size_t i = 0, n = w * h * 3; i < n; ++i) {
         albedo_data[i] = static_cast<unsigned char>(he_albedo_data[i] * 255);
     }
 
     heman_image_destroy(he_height);
     heman_image_destroy(he_albedo);
-
-    m_bmp->SetValues(albedo_data);
 }
 
 heman_image* AlbedoMap::Baking(heman_image* height, float min_height,

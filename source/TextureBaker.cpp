@@ -14,10 +14,7 @@ namespace terraingraph
 ur::TexturePtr
 TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
 {
-    auto& pixels = bmp.GetValues();
-    if (pixels.empty()) {
-        return nullptr;
-    }
+    auto pixels = bmp.GetPixels();
 
     ur::TexturePtr tex = nullptr;
 
@@ -28,15 +25,13 @@ TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
     {
     case 1:
     {
-        assert(pixels.size() == w * h);
-        int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_RED);
+        int tex_id = rc.CreateTexture(pixels, w, h, ur::TEXTURE_RED);
         tex = std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RED, tex_id);
     }
         break;
     case 3:
     {
-        assert(pixels.size() == w * h * 3);
-        int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_RGB);
+        int tex_id = rc.CreateTexture(pixels, w, h, ur::TEXTURE_RGB);
         tex = std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
     }
         break;
@@ -50,14 +45,11 @@ TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
 ur::TexturePtr
 TextureBaker::GenColorMap(const Mask& mask, ur::RenderContext& rc)
 {
-    auto& flags = mask.GetValues();
-    if (flags.empty()) {
-        return nullptr;
-    }
+    auto flags = mask.GetPixels();
 
     auto w = mask.Width();
     auto h = mask.Height();
-    assert(flags.size() == w * h);
+    assert(mask.Channels() == 1);
 
     std::vector<unsigned char> pixels(w * h * 3, 255);
     for (size_t i = 0, n = w * h; i < n; ++i) {

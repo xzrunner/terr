@@ -62,11 +62,12 @@ void Resample::ResampleMask(const Mask& mask)
         return;
     }
 
-    auto& prev_vals = mask.GetValues();
+    auto prev_vals = mask.GetPixels();
 
     const float sx = static_cast<float>(prev_w) / m_width;
     const float sy = static_cast<float>(prev_h) / m_height;
-    std::vector<bool> vals(m_width * m_height, false);
+    m_mask = std::make_shared<Mask>(m_width, m_height);
+    auto vals = m_mask->GetPixels();
     for (size_t y = 0; y < m_height; ++y) {
         for (size_t x = 0; x < m_width; ++x) {
             size_t px = static_cast<size_t>(x * sx);
@@ -74,9 +75,6 @@ void Resample::ResampleMask(const Mask& mask)
             vals[y * m_width + x] = prev_vals[py * prev_w + px];
         }
     }
-
-    m_mask = std::make_shared<Mask>(m_width, m_height);
-    m_mask->SetValues(vals);
 }
 
 }

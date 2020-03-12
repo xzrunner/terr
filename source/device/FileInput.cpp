@@ -32,13 +32,11 @@ void FileInput::Execute(const std::shared_ptr<dag::Context>& ctx)
     if (is_mask)
     {
         m_mask = std::make_shared<Mask>(hf->Width(), hf->Height());
-
+        auto dst = m_mask->GetPixels();
         auto& src = hf->GetValues();
-        std::vector<bool> dst(src.size());
         for (size_t i = 0, n = src.size(); i < n; ++i) {
             dst[i] = src[i] == min ? false : true;
         }
-        m_mask->SetValues(dst);
     }
     else
     {

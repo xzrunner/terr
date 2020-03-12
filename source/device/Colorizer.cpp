@@ -29,8 +29,7 @@ void Colorizer::Execute(const std::shared_ptr<dag::Context>& ctx)
     SortGradientColors();
 
     auto& heights = prev_hf->GetValues();
-    auto vals = m_bmp->GetValues();
-    assert(heights.size() * 3 == vals.size());
+    auto pixels = m_bmp->GetPixels();
     for (size_t i = 0, n = heights.size(); i < n; ++i)
     {
         float h = hf::Utility::HeightShortToFloat(heights[i]);
@@ -44,14 +43,13 @@ void Colorizer::Execute(const std::shared_ptr<dag::Context>& ctx)
                 assert(m_gradient[j].w != m_gradient[j + 1].w);
                 float p = (h - m_gradient[j].w) / (m_gradient[j + 1].w - m_gradient[j].w);
                 auto col = col0 + (col1 - col0) * p;
-                vals[i * 3 + 0] = static_cast<unsigned char>(col.x * 255);
-                vals[i * 3 + 1] = static_cast<unsigned char>(col.y * 255);
-                vals[i * 3 + 2] = static_cast<unsigned char>(col.z * 255);
+                pixels[i * 3 + 0] = static_cast<unsigned char>(col.x * 255);
+                pixels[i * 3 + 1] = static_cast<unsigned char>(col.y * 255);
+                pixels[i * 3 + 2] = static_cast<unsigned char>(col.z * 255);
                 break;
             }
         }
     }
-    m_bmp->SetValues(vals);
 }
 
 void Colorizer::SortGradientColors()

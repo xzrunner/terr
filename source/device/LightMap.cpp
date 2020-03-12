@@ -38,7 +38,7 @@ void LightMap::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     m_bmp = std::make_shared<Bitmap>(w, h);
 
-    std::vector<unsigned char> light_data(w * h * 3);
+    auto light_data = m_bmp->GetPixels();
     for (size_t i = 0, n = w * h; i < n; ++i) {
         for (size_t j = 0; j < 3; ++j) {
             light_data[i * 3 + j] = lights[i];
@@ -47,8 +47,6 @@ void LightMap::Execute(const std::shared_ptr<dag::Context>& ctx)
     delete[] normals;
     delete[] shadows;
     delete[] lights;
-
-    m_bmp->SetValues(light_data);
 }
 
 }

@@ -15,15 +15,13 @@ void Color::Execute(const std::shared_ptr<dag::Context>& ctx)
         rgb[i] = static_cast<unsigned char>(m_rgb.xyz[i]);
     }
 
-    m_bmp = std::make_shared<Bitmap>(w, h);
-
-    std::vector<unsigned char> pixels(w * h * 3);
+    m_bmp = std::make_shared<Bitmap>(w, h, 3);
+    auto pixels = m_bmp->GetPixels();
     for (size_t i = 0, n = w * h; i < n; ++i) {
         for (size_t j = 0; j < 3; ++j) {
             pixels[i * 3 + j] = rgb[j];
         }
     }
-    m_bmp->SetValues(pixels);
 }
 
 }
