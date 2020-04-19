@@ -2,6 +2,7 @@
 #include "terraingraph/device/AlbedoMap.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HemanHelper.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 
@@ -19,7 +20,9 @@ void Lighting::Execute(const std::shared_ptr<dag::Context>& ctx)
         return;
     }
 
-    auto he_height = HemanHelper::Encode(*prev_hf);
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
+    auto he_height = HemanHelper::Encode(dev, *prev_hf);
     auto he_albedo = AlbedoMap::Baking(he_height);
     auto he_img = heman_lighting_apply(he_height, he_albedo, 1, 1, 0.5, m_light_pos.xyz);
     auto he_img_data = heman_image_data(he_img);

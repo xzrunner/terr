@@ -22,17 +22,13 @@ public:
         m_exports = {
             {{ DeviceVarType::Heightfield, "out" }},
         };
-
-        Init();
     }
 
     virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
 
 private:
-    void Init();
-
 #ifdef EROSION_GPU
-    void RunGPU();
+    void RunGPU(const std::shared_ptr<dag::Context>& ctx);
 #else
     void RunCPU();
 #endif // EROSION_GPU

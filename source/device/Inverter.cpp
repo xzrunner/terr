@@ -1,5 +1,6 @@
 #include "terraingraph/device/Inverter.h"
 #include "terraingraph/DeviceHelper.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 
@@ -15,9 +16,11 @@ void Inverter::Execute(const std::shared_ptr<dag::Context>& ctx)
         return;
     }
 
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
     auto w = prev_hf->Width();
     auto h = prev_hf->Height();
-    auto vals = prev_hf->GetValues();
+    auto vals = prev_hf->GetValues(dev);
     for (auto& v : vals) {
         v = -v;
     }

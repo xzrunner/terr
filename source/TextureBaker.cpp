@@ -4,35 +4,41 @@
 #include "terraingraph/TextureGen.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender/RenderContext.h>
+#include <unirender2/TextureDescription.h>
+#include <unirender2/Device.h>
 
 #include <algorithm>
 
 namespace terraingraph
 {
 
-ur::TexturePtr
-TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
+ur2::TexturePtr
+TextureBaker::GenColorMap(const Bitmap& bmp, const ur2::Device& dev)
 {
     auto pixels = bmp.GetPixels();
 
-    ur::TexturePtr tex = nullptr;
+    ur2::TexturePtr tex = nullptr;
 
     auto w = bmp.Width();
     auto h = bmp.Height();
     auto c = bmp.Channels();
+
+    ur2::TextureDescription desc;
+    desc.target = ur2::TextureTarget::Texture2D;
+    desc.width = w;
+    desc.height = h;
     switch (c)
     {
     case 1:
     {
-        int tex_id = rc.CreateTexture(pixels, w, h, ur::TEXTURE_RED);
-        tex = std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RED, tex_id);
+        desc.format = ur2::TextureFormat::RED;
+        tex = dev.CreateTexture(desc, pixels);
     }
         break;
     case 3:
     {
-        int tex_id = rc.CreateTexture(pixels, w, h, ur::TEXTURE_RGB);
-        tex = std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
+        desc.format = ur2::TextureFormat::RGB;
+        tex = dev.CreateTexture(desc, pixels);
     }
         break;
     default:
@@ -42,8 +48,8 @@ TextureBaker::GenColorMap(const Bitmap& bmp, ur::RenderContext& rc)
     return tex;
 }
 
-ur::TexturePtr
-TextureBaker::GenColorMap(const Mask& mask, ur::RenderContext& rc)
+ur2::TexturePtr
+TextureBaker::GenColorMap(const Mask& mask, const ur2::Device& dev)
 {
     auto flags = mask.GetPixels();
 
@@ -59,13 +65,18 @@ TextureBaker::GenColorMap(const Mask& mask, ur::RenderContext& rc)
             }
         }
     }
-    int tex_id = rc.CreateTexture(pixels.data(), w, h, ur::TEXTURE_RGB);
-    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
+
+    ur2::TextureDescription desc;
+    desc.target = ur2::TextureTarget::Texture2D;
+    desc.width = w;
+    desc.height = h;
+    desc.format = ur2::TextureFormat::RGB;
+    return dev.CreateTexture(desc, pixels.data());
 }
 
 #ifdef USE_LSCAPE
-//ur::TexturePtr
-//TextureBaker::GenNormalMap(const hf::HeightField& hf, ur::RenderContext& rc)
+//ur2::TexturePtr
+//TextureBaker::GenNormalMap(const hf::HeightField& hf, const ur2::Device& dev)
 //{
 //    auto w = hf.Width();
 //    auto h = hf.Height();
@@ -88,14 +99,14 @@ TextureBaker::GenColorMap(const Mask& mask, ur::RenderContext& rc)
 //    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
 //}
 #else
-ur::TexturePtr
-TextureBaker::GenNormalMap(const hf::HeightField& hf, ur::RenderContext& rc)
+ur2::TexturePtr
+TextureBaker::GenNormalMap(const hf::HeightField& hf, const ur2::Device& dev)
 {
     auto w = hf.Width();
     auto h = hf.Height();
     std::vector<unsigned char> norm_data(w * h * 3, 255);
 
-    auto he_height = HemanHelper::Encode(hf);
+    auto he_height = HemanHelper::Encode(dev, hf);
 
     auto he_norm = heman_lighting_compute_normals(he_height);
     auto he_norm_data = heman_image_data(he_norm);
@@ -107,19 +118,23 @@ TextureBaker::GenNormalMap(const hf::HeightField& hf, ur::RenderContext& rc)
     heman_image_destroy(he_height);
     heman_image_destroy(he_norm);
 
-    int tex_id = rc.CreateTexture(norm_data.data(), w, h, ur::TEXTURE_RGB);
-    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
+    ur2::TextureDescription desc;
+    desc.target = ur2::TextureTarget::Texture2D;
+    desc.width = w;
+    desc.height = h;
+    desc.format = ur2::TextureFormat::RGB;
+    return dev.CreateTexture(desc, norm_data.data());
 }
 #endif // USE_LSCAPE
 
-ur::TexturePtr
-TextureBaker::GenAmbientOcclusionMap(const hf::HeightField& hf, ur::RenderContext& rc)
+ur2::TexturePtr
+TextureBaker::GenAmbientOcclusionMap(const hf::HeightField& hf, const ur2::Device& dev)
 {
     auto w = hf.Width();
     auto h = hf.Height();
     std::vector<unsigned char> ao_data(w * h);
 
-    auto he_height = HemanHelper::Encode(hf);
+    auto he_height = HemanHelper::Encode(dev, hf);
 
     auto he_ao = heman_lighting_compute_occlusion(he_height);
     auto he_ao_data = heman_image_data(he_ao);
@@ -130,19 +145,23 @@ TextureBaker::GenAmbientOcclusionMap(const hf::HeightField& hf, ur::RenderContex
     heman_image_destroy(he_height);
     heman_image_destroy(he_ao);
 
-    int tex_id = rc.CreateTexture(ao_data.data(), w, h, ur::TEXTURE_RED);
-    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RED, tex_id);
+    ur2::TextureDescription desc;
+    desc.target = ur2::TextureTarget::Texture2D;
+    desc.width = w;
+    desc.height = h;
+    desc.format = ur2::TextureFormat::RED;
+    return dev.CreateTexture(desc, ao_data.data());
 }
 
-ur::TexturePtr
-TextureBaker::GenShadowMap(const hf::HeightField& hf, ur::RenderContext& rc, const sm::vec3& light_dir)
+ur2::TexturePtr
+TextureBaker::GenShadowMap(const hf::HeightField& hf, const ur2::Device& dev, const sm::vec3& light_dir)
 {
     auto w = hf.Width();
     auto h = hf.Height();
 
     const float scale[] = { 1, 1, 1 };
     uint8_t* shadows = TextureGen::CalcShadows(
-        hf.GetValues().data(), w, h, scale, light_dir.xyz
+        hf.GetValues(dev).data(), w, h, scale, light_dir.xyz
     );
 
     std::vector<uint8_t> shadows_rgb(w * h * 3);
@@ -153,8 +172,12 @@ TextureBaker::GenShadowMap(const hf::HeightField& hf, ur::RenderContext& rc, con
     }
     delete[] shadows;
 
-    int tex_id = rc.CreateTexture(shadows_rgb.data(), w, h, ur::TEXTURE_RGB);
-    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
+    ur2::TextureDescription desc;
+    desc.target = ur2::TextureTarget::Texture2D;
+    desc.width = w;
+    desc.height = h;
+    desc.format = ur2::TextureFormat::RGB;
+    return dev.CreateTexture(desc, shadows_rgb.data());
 }
 
 }

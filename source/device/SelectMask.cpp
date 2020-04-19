@@ -1,6 +1,7 @@
 #include "terraingraph/device/SelectMask.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/Mask.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 
@@ -31,7 +32,8 @@ void SelectMask::Execute(const std::shared_ptr<dag::Context>& ctx)
     m_hf = std::make_shared<hf::HeightField>(w, h);
     std::vector<int32_t> vals(w * h);
 
-    auto& h_vals = prev_hf->GetValues();
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    auto& h_vals = prev_hf->GetValues(dev);
     auto mask_p = prev_mask->GetPixels();
     for (size_t i = 0, n = h_vals.size(); i < n; ++i)
     {

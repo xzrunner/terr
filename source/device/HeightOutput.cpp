@@ -1,5 +1,6 @@
 #include "terraingraph/device/HeightOutput.h"
 #include "terraingraph/DeviceHelper.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 #include <gimg_export.h>
@@ -22,7 +23,8 @@ void HeightOutput::Execute(const std::shared_ptr<dag::Context>& ctx)
     auto w = prev_hf->Width();
     auto h = prev_hf->Height();
 
-    auto& vals = prev_hf->GetValues();
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    auto& vals = prev_hf->GetValues(dev);
     assert(vals.size() == w * h);
 #ifdef OUTPUT_SINGLE_CHANNEL
     std::vector<uint8_t> pixels(vals.size());

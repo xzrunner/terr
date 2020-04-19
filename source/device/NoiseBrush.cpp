@@ -1,10 +1,9 @@
 #include "terraingraph/device/NoiseBrush.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/EvalGPU.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender/Blackboard.h>
-#include <unirender/RenderContext.h>
 #include <painting0/ShaderUniforms.h>
 
 #define PATH_MAX_NUM 128
@@ -78,11 +77,9 @@ void NoiseBrush::Execute(const std::shared_ptr<dag::Context>& ctx)
         return;
     }
 
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-
-    std::vector<uint32_t> textures;
-    auto heightmap = prev_hf->GetHeightmap();
-    textures.push_back(heightmap->TexID());
+    //std::vector<uint32_t> textures;
+    //auto heightmap = prev_hf->GetHeightmap();
+    //textures.push_back(heightmap);
 
     pt0::ShaderUniforms vals;
     vals.AddVar("path", pt0::RenderVariant(m_path.data(), std::min(static_cast<int>(m_path.size()), PATH_MAX_NUM)));
@@ -101,21 +98,15 @@ void NoiseBrush::Execute(const std::shared_ptr<dag::Context>& ctx)
         m_hf->Height() != prev_hf->Height()) {
         m_hf = std::make_shared<hf::HeightField>(prev_hf->Width(), prev_hf->Height());
     }
-    EVAL->RunPS(rc, textures, vals, *m_hf);
-}
 
-void NoiseBrush::Init()
-{
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
     if (!EVAL)
     {
-        auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-
-        std::vector<std::string> texture_names;
-        texture_names.push_back("heightmap");
-
+        // texture_names.push_back("heightmap");
         std::string _fs = "#version 330 core\n#define PATH_MAX_NUM " + std::to_string(PATH_MAX_NUM) + "\n" + fs;
-        EVAL = std::make_shared<EvalGPU>(rc, vs, _fs, texture_names);
+        EVAL = std::make_shared<EvalGPU>(dev, vs, _fs);
     }
+    EVAL->RunPS(dev, vals, *m_hf);
 }
 
 }

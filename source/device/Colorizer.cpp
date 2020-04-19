@@ -1,6 +1,7 @@
 #include "terraingraph/device/Colorizer.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HeightFieldEval.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 #include <heightfield/Utility.h>
@@ -28,7 +29,8 @@ void Colorizer::Execute(const std::shared_ptr<dag::Context>& ctx)
     assert(!m_gradient.empty());
     SortGradientColors();
 
-    auto& heights = prev_hf->GetValues();
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    auto& heights = prev_hf->GetValues(dev);
     auto pixels = m_bmp->GetPixels();
     for (size_t i = 0, n = heights.size(); i < n; ++i)
     {

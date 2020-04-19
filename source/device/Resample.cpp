@@ -1,6 +1,7 @@
 #include "terraingraph/device/Resample.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/Mask.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 
@@ -19,13 +20,14 @@ void Resample::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     auto prev_hf = DeviceHelper::GetInputHeight(*this, 0);
     if (prev_hf) {
-        m_hf = ResampleHeightField(*prev_hf, m_width, m_height);
+        auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+        m_hf = ResampleHeightField(dev, *prev_hf, m_width, m_height);
         return;
     }
 }
 
 std::shared_ptr<hf::HeightField>
-Resample::ResampleHeightField(const hf::HeightField& hf, int width, int height)
+Resample::ResampleHeightField(const ur2::Device& dev, const hf::HeightField& hf, int width, int height)
 {
     size_t prev_w = hf.Width();
     size_t prev_h = hf.Height();
@@ -34,7 +36,7 @@ Resample::ResampleHeightField(const hf::HeightField& hf, int width, int height)
         return std::make_shared<hf::HeightField>(hf);
     }
 
-    auto& prev_vals = hf.GetValues();
+    auto& prev_vals = hf.GetValues(dev);
 
     const float sx = static_cast<float>(prev_w) / width;
     const float sy = static_cast<float>(prev_h) / height;

@@ -2,6 +2,7 @@
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/TextureGen.h"
 #include "terraingraph/TextureBaker.h"
+#include "terraingraph/Context.h"
 
 #include <SM_Calc.h>
 #include <heightfield/HeightField.h>
@@ -24,12 +25,14 @@ void SelectSlope::Execute(const std::shared_ptr<dag::Context>& ctx)
     m_hf = std::make_shared<hf::HeightField>(w, h);
     std::vector<int32_t> vals(w * h);
 
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
     assert(w == h);
     float scale[] = { 1, 1, 1 };
-    auto normals = TextureGen::CalcNormals(prev_hf->GetValues().data(), w, h, scale, 0, 0, 0);
+    auto normals = TextureGen::CalcNormals(prev_hf->GetValues(dev).data(), w, h, scale, 0, 0, 0);
 
     size_t ptr = 0;
-    for (size_t i = 0, n = prev_hf->GetValues().size(); i < n; ++i)
+    for (size_t i = 0, n = prev_hf->GetValues(dev).size(); i < n; ++i)
     {
         sm::vec3 norm;
         norm.x = normals[ptr++] / 255.0f;

@@ -1,10 +1,9 @@
 #include "terraingraph/device/CellularNoise.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/EvalGPU.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender/Blackboard.h>
-#include <unirender/RenderContext.h>
 #include <painting0/ShaderUniforms.h>
 
 namespace
@@ -109,19 +108,11 @@ void CellularNoise::Execute(const std::shared_ptr<dag::Context>& ctx)
     vals.AddVar("u_seed",       pt0::RenderVariant(m_seed));
     vals.AddVar("u_offset",     pt0::RenderVariant(m_offset));
 
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-    EVAL->RunPS(rc, textures, vals, *m_hf);
-}
-
-void CellularNoise::Init()
-{
-    if (!EVAL)
-    {
-        auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-
-        std::vector<std::string> texture_names;
-        EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    if (!EVAL) {
+        EVAL = std::make_shared<EvalGPU>(dev, vs, fs);
     }
+    EVAL->RunPS(dev, vals, *m_hf);
 }
 
 }

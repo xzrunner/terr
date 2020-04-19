@@ -9,7 +9,7 @@ namespace terraingraph
 {
 
 heman_image*
-HemanHelper::Encode(const hf::HeightField& hf)
+HemanHelper::Encode(const ur2::Device& dev, const hf::HeightField& hf)
 {
     size_t w = hf.Width();
     size_t h = hf.Height();
@@ -18,7 +18,7 @@ HemanHelper::Encode(const hf::HeightField& hf)
 
     // filling
     auto he_height_data = heman_image_data(he_height);
-    auto& height_data = hf.GetValues();
+    auto& height_data = hf.GetValues(dev);
     for (size_t i = 0, n = height_data.size(); i < n; ++i) {
         he_height_data[i] = hf::Utility::HeightShortToFloat(height_data[i]);
     }

@@ -1,5 +1,6 @@
 #include "terraingraph/device/HydraulicErosion.h"
 #include "terraingraph/DeviceHelper.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 #include <heightfield/Utility.h>
@@ -29,6 +30,8 @@ void HydraulicErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 	const float Kc = 5.0f;
 	const float Ks = 0.3f;
 
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
 	for (size_t x = 0; x < w; x++)
 	{
 		for (size_t y = 0; y < h; y++)
@@ -45,7 +48,7 @@ void HydraulicErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 					if ((k == 0 && l == 0) || m_hf->Inside(x + k, y + l) == false)
 						continue;
 
-					neighbourHeightDiff[index] = m_hf->Get(x, y) - m_hf->Get(x + k, y + l);
+					neighbourHeightDiff[index] = m_hf->Get(dev, x, y) - m_hf->Get(dev, x + k, y + l);
 					if (neighbourHeightDiff[index] <= 0.0f)
 					{
 						index++;
@@ -53,8 +56,8 @@ void HydraulicErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 					}
 
                     double a0 = droplets.Get(x, y);
-                    double a1 = droplets.Get(x + k, y + l) + hf::Utility::HeightShortToDouble(m_hf->Get(x + k, y + l));
-                    double a2 = a0 + hf::Utility::HeightShortToDouble(m_hf->Get(x, y));
+                    double a1 = droplets.Get(x + k, y + l) + hf::Utility::HeightShortToDouble(m_hf->Get(dev, x + k, y + l));
+                    double a2 = a0 + hf::Utility::HeightShortToDouble(m_hf->Get(dev, x, y));
 					waterTransport[index] = std::min(a0, a2 - a1);
 					lowerVertexCount++;
 					index++;

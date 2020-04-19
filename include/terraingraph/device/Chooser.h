@@ -3,6 +3,8 @@
 #include "terraingraph/Device.h"
 #include "terraingraph/typedef.h"
 
+namespace ur2 { class Device; }
+
 namespace terraingraph
 {
 namespace device
@@ -34,10 +36,10 @@ public:
     virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
 
 private:
-    void BlendHeightfield(const hf::HeightField& a,
+    void BlendHeightfield(const ur2::Device& dev, const hf::HeightField& a,
         const hf::HeightField& b, const hf::HeightField& ctrl);
-    void BlendBitmap(const Bitmap& a, const Bitmap& b,
-        const hf::HeightField& ctrl);
+    void BlendBitmap(const ur2::Device& dev, const Bitmap& a,
+        const Bitmap& b, const hf::HeightField& ctrl);
 
     RTTR_ENABLE(Device)
 

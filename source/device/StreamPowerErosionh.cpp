@@ -1,6 +1,7 @@
 ﻿#include "terraingraph/device/StreamPowerErosion.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HeightFieldEval.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 
@@ -26,10 +27,12 @@ void StreamPowerErosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     m_hf = std::make_shared<hf::HeightField>(*prev_hf);
 
-    hf::ScalarField2D<float> SP = HeightFieldEval::StreamPower(*m_hf);
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
+    hf::ScalarField2D<float> SP = HeightFieldEval::StreamPower(dev, *m_hf);
     for (size_t y = 0, h = m_hf->Height(); y < h; ++y) {
         for (size_t x = 0, w = m_hf->Width(); x < w; ++x) {
-            int32_t oldH = m_hf->Get(x, y);
+            int32_t oldH = m_hf->Get(dev, x, y);
             int32_t newH = oldH - static_cast<int32_t>(SP.Get(x, y) * m_amplitude);
             m_hf->Set(x, y, newH);
         }

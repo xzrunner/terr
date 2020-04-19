@@ -1,10 +1,9 @@
 #include "terraingraph/device/Step.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/EvalGPU.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender/Blackboard.h>
-#include <unirender/RenderContext.h>
 #include <painting0/ShaderUniforms.h>
 
 namespace
@@ -65,31 +64,22 @@ void Step::Execute(const std::shared_ptr<dag::Context>& ctx)
         return;
     }
 
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
 
-    std::vector<uint32_t> textures;
-    auto heightmap = prev_hf->GetHeightmap();
-    textures.push_back(heightmap->TexID());
+    //std::vector<uint32_t> textures;
+    auto heightmap = prev_hf->GetHeightmap(dev);
+    //textures.push_back(heightmap->TexID());
 
     pt0::ShaderUniforms vals;
     vals.AddVar("low",  pt0::RenderVariant(m_low));
     vals.AddVar("high", pt0::RenderVariant(m_high));
 
     m_hf = std::make_shared<hf::HeightField>(prev_hf->Width(), prev_hf->Height());
-    EVAL->RunPS(rc, textures, vals, *m_hf);
-}
 
-void Step::Init()
-{
-    if (!EVAL)
-    {
-        auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-
-        std::vector<std::string> texture_names;
-        texture_names.push_back("heightmap");
-
-        EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
+    if (!EVAL) {
+        EVAL = std::make_shared<EvalGPU>(dev, vs, fs);
     }
+    EVAL->RunPS(dev, vals, *m_hf);
 }
 
 }

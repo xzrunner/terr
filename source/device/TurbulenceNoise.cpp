@@ -1,9 +1,10 @@
 #include "terraingraph/device/TurbulenceNoise.h"
 #include "terraingraph/EvalGPU.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender/Blackboard.h>
-#include <unirender/RenderContext.h>
+#include <unirender2/Device.h>
+#include <unirender2/TextureDescription.h>
 #include <painting0/ShaderUniforms.h>
 
 namespace
@@ -11,8 +12,8 @@ namespace
 
 std::shared_ptr<terraingraph::EvalGPU> EVAL = nullptr;
 
-int PERLIN_PERM_TEXID = 0;
-int PERLIN_GRAD_TEXID = 0;
+ur2::TexturePtr PERLIN_PERM_TEX = nullptr;
+ur2::TexturePtr PERLIN_GRAD_TEX = nullptr;
 
 // Original Ken Perlin's permutation table
 const uint8_t PERLIN_PERM_TABLE[256]={151,160,137,91,90,15,
@@ -535,9 +536,12 @@ void TurbulenceNoise::Execute(const std::shared_ptr<dag::Context>& ctx)
 {
     m_hf = std::make_shared<hf::HeightField>(m_width, m_height);
 
-    std::vector<uint32_t> textures;
-    textures.push_back(PERLIN_PERM_TEXID);
-    textures.push_back(PERLIN_GRAD_TEXID);
+    if (!PERLIN_PERM_TEX || !PERLIN_GRAD_TEX) {
+        InitLookupTextures(ctx);
+    }
+    //std::vector<uint32_t> textures;
+    //textures.push_back(PERLIN_PERM_TEXID);
+    //textures.push_back(PERLIN_GRAD_TEXID);
 
     pt0::ShaderUniforms vals;
 
@@ -572,27 +576,22 @@ void TurbulenceNoise::Execute(const std::shared_ptr<dag::Context>& ctx)
     vals.AddVar("damp",                pt0::RenderVariant(m_damp));
     vals.AddVar("damp_scale",          pt0::RenderVariant(m_damp_scale));
 
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-    EVAL->RunPS(rc, textures, vals, *m_hf);
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    if (!EVAL)
+    {
+        //std::vector<std::string> texture_names;
+        //texture_names.push_back("perlin_perm2d");
+        //texture_names.push_back("perlin_grad2d");
+        EVAL = std::make_shared<EvalGPU>(dev, vs, fs);
+    }
+    EVAL->RunPS(dev, vals, *m_hf);
 }
 
-void TurbulenceNoise::Init()
+void TurbulenceNoise::InitLookupTextures(const std::shared_ptr<dag::Context>& ctx)
 {
-    if (PERLIN_PERM_TEXID == 0 || PERLIN_GRAD_TEXID == 0) {
-        InitLookupTextures();
-    }
-    if (!EVAL) {
-        InitEval();
-    }
-}
-
-void TurbulenceNoise::InitLookupTextures()
-{
-    if (PERLIN_PERM_TEXID != 0 && PERLIN_GRAD_TEXID != 0) {
+    if (PERLIN_PERM_TEX && PERLIN_GRAD_TEX) {
         return;
     }
-
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 
     uint32_t pixels[256 * 256];
     memset(pixels, 0, sizeof(uint32_t) * 256 * 256);
@@ -616,7 +615,14 @@ void TurbulenceNoise::InitLookupTextures()
 		}
 	}
 
-    PERLIN_PERM_TEXID = rc.CreateTexture(pixels, 256, 256, ur::TEXTURE_RGBA8);
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
+    ur2::TextureDescription desc;
+    desc.target = ur2::TextureTarget::Texture2D;
+    desc.width  = 256;
+    desc.height = 256;
+    desc.format = ur2::TextureFormat::RGBA8;
+    PERLIN_PERM_TEX = dev.CreateTexture(desc, pixels);
 
     memset(pixels, 0, sizeof(uint32_t) * 256 * 256);
     ptr = &pixels[0];
@@ -638,18 +644,7 @@ void TurbulenceNoise::InitLookupTextures()
 		}
 	}
 
-    PERLIN_GRAD_TEXID = rc.CreateTexture(pixels, 256, 256, ur::TEXTURE_RGBA8);
-}
-
-void TurbulenceNoise::InitEval()
-{
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-
-    std::vector<std::string> texture_names;
-    texture_names.push_back("perlin_perm2d");
-    texture_names.push_back("perlin_grad2d");
-
-    EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
+    PERLIN_GRAD_TEX = dev.CreateTexture(desc, pixels);
 }
 
 void TurbulenceNoise::CalcOctaveAmps(sm::mat4& noise_octave_amps,

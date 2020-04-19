@@ -1,5 +1,6 @@
 #include "terraingraph/device/Clamp.h"
 #include "terraingraph/DeviceHelper.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 #include <heightfield/Utility.h>
@@ -21,7 +22,8 @@ void Clamp::Execute(const std::shared_ptr<dag::Context>& ctx)
     m_hf = std::make_shared<hf::HeightField>(w, h);
     std::vector<int32_t> vals(w * h);
 
-    auto& p_vals = prev_hf->GetValues();
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    auto& p_vals = prev_hf->GetValues(dev);
     assert(p_vals.size() == w * h);
     int32_t min = hf::Utility::HeightFloatToShort(m_lower_bound);
     int32_t max = hf::Utility::HeightFloatToShort(m_upper_bound);

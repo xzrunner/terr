@@ -4,6 +4,8 @@
 
 #include <SM_Vector.h>
 
+namespace ur2 { class Device; }
+
 namespace terraingraph
 {
 namespace device
@@ -34,7 +36,8 @@ public:
 private:
     float CalcHeight(float h) const;
 
-    void CalcHeightRegion(const hf::HeightField& hf, int32_t& min, int32_t& max);
+    void CalcHeightRegion(const ur2::Device& dev,
+        const hf::HeightField& hf, int32_t& min, int32_t& max);
 
     RTTR_ENABLE(Device)
 

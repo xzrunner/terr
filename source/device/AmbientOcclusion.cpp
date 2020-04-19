@@ -1,6 +1,7 @@
 #include "terraingraph/device/AmbientOcclusion.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HemanHelper.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 
@@ -21,7 +22,8 @@ void AmbientOcclusion::Execute(const std::shared_ptr<dag::Context>& ctx)
     size_t w = prev_hf->Width();
     size_t h = prev_hf->Height();
 
-    auto he_height = HemanHelper::Encode(*prev_hf);
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    auto he_height = HemanHelper::Encode(dev, *prev_hf);
 
     heman_lighting_set_occlusion_scale(m_scale);
     auto he_ao = heman_lighting_compute_occlusion(he_height);

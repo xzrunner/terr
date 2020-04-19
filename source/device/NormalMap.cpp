@@ -2,10 +2,10 @@
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HemanHelper.h"
 #include "terraingraph/EvalGPU.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender/Blackboard.h>
-#include <unirender/RenderContext.h>
+#include <unirender2/Texture.h>
 #include <painting0/ShaderUniforms.h>
 
 #include <heman.h>
@@ -96,51 +96,42 @@ void NormalMap::Execute(const std::shared_ptr<dag::Context>& ctx)
     }
 
 #ifdef NORMAL_MAP_GPU
-    RunGPU(*prev_hf);
+    RunGPU(ctx, *prev_hf);
 #else
     RunCPU(*prev_hf);
 #endif // NORMAL_MAP_GPU
 }
 
-void NormalMap::Init()
-{
-    if (!EVAL)
-    {
-        auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-
-        std::vector<std::string> texture_names;
-        texture_names.push_back("u_heightmap");
-
-        EVAL = std::make_shared<EvalGPU>(rc, vs, fs, texture_names);
-    }
-}
-
-void NormalMap::RunGPU(const hf::HeightField& hf)
+void NormalMap::RunGPU(const std::shared_ptr<dag::Context>& ctx, const hf::HeightField& hf)
 {
     size_t w = hf.Width();
     size_t h = hf.Height();
 
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
 
-    std::vector<uint32_t> textures;
-    auto heightmap = hf.GetHeightmap();
-    textures.push_back(heightmap->TexID());
+    //std::vector<uint32_t> textures;
+    auto heightmap = hf.GetHeightmap(dev);
+    //textures.push_back(heightmap->TexID());
 
     pt0::ShaderUniforms vals;
     vals.AddVar("u_scale", pt0::RenderVariant(m_scale));
-    sm::vec2 inv_res(1.0f / heightmap->Width(), 1.0f / heightmap->Height());
+    sm::vec2 inv_res(1.0f / heightmap->GetWidth(), 1.0f / heightmap->GetHeight());
     vals.AddVar("u_inv_res", pt0::RenderVariant(inv_res));
 
     m_bmp = std::make_shared<Bitmap>(w, h);
-    EVAL->RunPS(rc, textures, vals, *m_bmp);
+
+    if (!EVAL) {
+        EVAL = std::make_shared<EvalGPU>(dev, vs, fs);
+    }
+    EVAL->RunPS(dev, vals, *m_bmp);
 }
 
-void NormalMap::RunCPU(const hf::HeightField& hf)
+void NormalMap::RunCPU(const ur2::Device& dev, const hf::HeightField& hf)
 {
     size_t w = hf.Width();
     size_t h = hf.Height();
 
-    auto he_height = HemanHelper::Encode(hf);
+    auto he_height = HemanHelper::Encode(dev, hf);
 
     auto he_norm = heman_lighting_compute_normals(he_height);
     auto he_norm_data = heman_image_data(he_norm);

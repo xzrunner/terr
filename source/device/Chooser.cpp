@@ -1,5 +1,6 @@
 #include "terraingraph/device/Chooser.h"
 #include "terraingraph/DeviceHelper.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 #include <heightfield/Utility.h>
@@ -19,23 +20,26 @@ void Chooser::Execute(const std::shared_ptr<dag::Context>& ctx)
     m_hf.reset();
     m_bmp.reset();
 
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
     auto hf0 = DeviceHelper::GetInputHeight(*this, ID_A);
     auto hf1 = DeviceHelper::GetInputHeight(*this, ID_B);
     if (hf0 && hf1)
     {
-        BlendHeightfield(*hf0, *hf1, *blend);
+        BlendHeightfield(dev, *hf0, *hf1, *blend);
     }
     else
     {
         auto bmp0 = DeviceHelper::GetInputBitmap(*this, ID_A);
         auto bmp1 = DeviceHelper::GetInputBitmap(*this, ID_B);
         if (bmp0 && bmp1) {
-            BlendBitmap(*bmp0, *bmp1, *blend);
+            BlendBitmap(dev, *bmp0, *bmp1, *blend);
         }
     }
 }
 
-void Chooser::BlendHeightfield(const hf::HeightField& a,
+void Chooser::BlendHeightfield(const ur2::Device& dev,
+                               const hf::HeightField& a,
                                const hf::HeightField& b,
                                const hf::HeightField& ctrl)
 {
@@ -45,9 +49,9 @@ void Chooser::BlendHeightfield(const hf::HeightField& a,
         return;
     }
 
-    auto& a_vals = a.GetValues();
-    auto& b_vals = b.GetValues();
-    auto& ctrl_vals = ctrl.GetValues();
+    auto& a_vals = a.GetValues(dev);
+    auto& b_vals = b.GetValues(dev);
+    auto& ctrl_vals = ctrl.GetValues(dev);
     assert(a_vals.size() == b_vals.size()
         || a_vals.size() == ctrl_vals.size());
 
@@ -60,8 +64,8 @@ void Chooser::BlendHeightfield(const hf::HeightField& a,
     m_hf->SetValues(vals);
 }
 
-void Chooser::BlendBitmap(const Bitmap& a, const Bitmap& b,
-                          const hf::HeightField& ctrl)
+void Chooser::BlendBitmap(const ur2::Device& dev, const Bitmap& a,
+                          const Bitmap& b, const hf::HeightField& ctrl)
 {
     if (a.Width() == 0 || a.Height() == 0 ||
         a.Width() != b.Width() || a.Height() != b.Height() ||
@@ -71,7 +75,7 @@ void Chooser::BlendBitmap(const Bitmap& a, const Bitmap& b,
 
     auto a_vals = a.GetPixels();
     auto b_vals = b.GetPixels();
-    auto& ctrl_vals = ctrl.GetValues();
+    auto& ctrl_vals = ctrl.GetValues(dev);
 
     m_bmp = std::make_shared<Bitmap>(a.Width(), a.Height());
     auto dst = m_bmp->GetPixels();

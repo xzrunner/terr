@@ -1,9 +1,9 @@
 #include "terraingraph/device/ThermalWeathering.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/EvalGPU.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender/Blackboard.h>
 #include <painting0/ShaderUniforms.h>
 
 namespace
@@ -94,7 +94,12 @@ void ThermalWeathering::Execute(const std::shared_ptr<dag::Context>& ctx)
 
     m_hf = std::make_shared<hf::HeightField>(*prev_hf);
 
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
 #ifdef THERMAL_WEATHERING_GPU
+    if (!EVAL) {
+        EVAL = std::make_shared<EvalGPU>(dev, cs);
+    }
+
     auto num = m_hf->Width() * m_hf->Height();
     auto group_sz = EVAL->GetComputeWorkGroupSize();
     int thread_group_count = num / group_sz;
@@ -103,22 +108,11 @@ void ThermalWeathering::Execute(const std::shared_ptr<dag::Context>& ctx)
     }
 
     for (int i = 0; i < m_iter; ++i) {
-        StepGPU(thread_group_count);
+        StepGPU(dev, thread_group_count);
     }
 #else
     for (int i = 0; i < m_iter; ++i) {
-        StepCPU();
-    }
-#endif // THERMAL_WEATHERING_GPU
-}
-
-void ThermalWeathering::Init()
-{
-#ifdef THERMAL_WEATHERING_GPU
-    if (!EVAL)
-    {
-        auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-        EVAL = std::make_shared<EvalGPU>(rc, cs);
+        StepCPU(dev);
     }
 #endif // THERMAL_WEATHERING_GPU
 }
@@ -128,7 +122,7 @@ void ThermalWeathering::Init()
 \brief Perform a thermal erosion step with maximum amplitude defined by user. Based on http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.27.8939&rep=rep1&type=pdf.
 \param amplitude maximum amount of matter moved from one point to another. Something between [0.05, 0.1] gives plausible results.
 */
-void ThermalWeathering::StepCPU()
+void ThermalWeathering::StepCPU(const ur2::Device& dev)
 {
     size_t w = m_hf->Width();
     size_t h = m_hf->Height();
@@ -151,7 +145,7 @@ void ThermalWeathering::StepCPU()
                         m_hf->Inside(x + l, y + k) == false) {
                         continue;
                     }
-					float h = static_cast<float>(m_hf->Get(x, y) - m_hf->Get(x + l, y + k));
+					float h = static_cast<float>(m_hf->Get(dev, x, y) - m_hf->Get(dev, x + l, y + k));
 					if (h > max_y_diff)
 					{
 						max_y_diff = h;
@@ -170,10 +164,8 @@ void ThermalWeathering::StepCPU()
 	}
 }
 
-void ThermalWeathering::StepGPU(int thread_group_count)
+void ThermalWeathering::StepGPU(const ur2::Device& dev, int thread_group_count)
 {
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-
     pt0::ShaderUniforms vals;
     vals.AddVar("grid_sizex",          pt0::RenderVariant(static_cast<int>(m_hf->Width())));
     vals.AddVar("grid_sizey",          pt0::RenderVariant(static_cast<int>(m_hf->Height())));
@@ -181,7 +173,7 @@ void ThermalWeathering::StepGPU(int thread_group_count)
     vals.AddVar("tan_threshold_angle", pt0::RenderVariant(m_tan_threshold_angle));
     vals.AddVar("cell_size",           pt0::RenderVariant(1.0f / 50.0f));
 
-    EVAL->RunCS(rc, vals, thread_group_count, *m_hf);
+    EVAL->RunCS(dev, vals, thread_group_count, *m_hf);
 }
 
 }

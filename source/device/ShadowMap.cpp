@@ -2,6 +2,7 @@
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HemanHelper.h"
 #include "terraingraph/TextureGen.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 
@@ -22,7 +23,8 @@ void ShadowMap::Execute(const std::shared_ptr<dag::Context>& ctx)
     size_t w = prev_hf->Width();
     size_t h = prev_hf->Height();
 
-    std::vector<int32_t> heights = prev_hf->GetValues();
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    std::vector<int32_t> heights = prev_hf->GetValues(dev);
 
     const float scale[] = { 1, 1, 1 };
     uint8_t* shadows = TextureGen::CalcShadows(

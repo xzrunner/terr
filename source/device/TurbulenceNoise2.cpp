@@ -1,5 +1,6 @@
 #include "terraingraph/device/TurbulenceNoise2.h"
 #include "terraingraph/DeviceHelper.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 #include <heightfield/Utility.h>
@@ -12,8 +13,12 @@ namespace
 class NoiseModule : public noise::module::Module
 {
 public:
-    NoiseModule(const hf::HeightField& hf)
-        : Module(0), m_hf(hf) {}
+    NoiseModule(const ur2::Device& dev, const hf::HeightField& hf)
+        : Module(0)
+        , m_dev(dev)
+        , m_hf(hf)
+    {
+    }
 
     virtual int GetSourceModuleCount() const override { return 0; }
 
@@ -23,7 +28,7 @@ public:
             z < 0 || z > 1) {
             return 0;
         } else {
-            return m_hf.Get(
+            return m_hf.Get(m_dev,
                 static_cast<float>(x * m_hf.Width()),
                 static_cast<float>(z * m_hf.Height())
             );
@@ -31,6 +36,8 @@ public:
     }
 
 private:
+    const ur2::Device& m_dev;
+
     const hf::HeightField& m_hf;
 
 }; // NoiseModule
@@ -59,7 +66,8 @@ void TurbulenceNoise2::Execute(const std::shared_ptr<dag::Context>& ctx)
     noise.SetRoughness(m_roughness);
     noise.SetSeed(m_seed);
 
-    NoiseModule prev_mod(*prev_hf);
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    NoiseModule prev_mod(dev, *prev_hf);
     noise.SetSourceModule(0, prev_mod);
 
     for (size_t y = 0; y < h; ++y) {

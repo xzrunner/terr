@@ -21,8 +21,6 @@ public:
         m_exports = {
             {{ DeviceVarType::Heightfield, "out" }},
         };
-
-        Init();
     }
 
     virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
@@ -30,7 +28,7 @@ public:
     auto GetBrush() const { return m_brush; }
 
 private:
-    void Init();
+    void InitEval(const std::shared_ptr<dag::Context>& ctx);
 
 private:
     std::shared_ptr<hf::HeightField> m_brush = nullptr;

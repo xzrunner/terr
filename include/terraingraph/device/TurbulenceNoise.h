@@ -4,8 +4,6 @@
 
 #include <SM_Matrix.h>
 
-namespace ur { class RenderContext; }
-
 namespace terraingraph
 {
 namespace device
@@ -33,17 +31,12 @@ public:
         m_exports = {
             {{ DeviceVarType::Heightfield, "out" }},
         };
-
-        Init();
     }
 
     virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
 
 private:
-    void Init();
-
-    void InitLookupTextures();
-    void InitEval();
+    void InitLookupTextures(const std::shared_ptr<dag::Context>& ctx);
 
     void CalcOctaveAmps(sm::mat4& noise_octave_amps,
         sm::mat4& distort_octave_amps);

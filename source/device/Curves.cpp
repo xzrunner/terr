@@ -1,10 +1,9 @@
 #include "terraingraph/device/Curves.h"
 #include "terraingraph/DeviceHelper.h"
 #include "terraingraph/HeightFieldEval.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
-
-
 
 namespace terraingraph
 {
@@ -23,13 +22,15 @@ void Curves::Execute(const std::shared_ptr<dag::Context>& ctx)
         return;
     }
 
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
     int32_t min, max;
-    CalcHeightRegion(*m_hf, min, max);
+    CalcHeightRegion(dev, *m_hf, min, max);
     if (min == max) {
         return;
     }
 
-    auto vals = m_hf->GetValues();
+    auto vals = m_hf->GetValues(dev);
     for (auto& v : vals) {
         float v01 = CalcHeight(static_cast<float>(v - min) / (max - min));
         v = static_cast<int32_t>(v01 * (max - min) + min);
@@ -78,11 +79,12 @@ float Curves::CalcHeight(float h) const
     return h;
 }
 
-void Curves::CalcHeightRegion(const hf::HeightField& hf, int32_t& min, int32_t& max)
+void Curves::CalcHeightRegion(const ur2::Device& dev, const hf::HeightField& hf,
+                              int32_t& min, int32_t& max)
 {
     min = std::numeric_limits<int32_t>::max();
     max = -std::numeric_limits<int32_t>::max();
-    auto& vals = hf.GetValues();
+    auto& vals = hf.GetValues(dev);
     for (auto& v : vals)
     {
         if (v < min) {

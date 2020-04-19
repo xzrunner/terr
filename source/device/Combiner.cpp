@@ -1,5 +1,6 @@
 #include "terraingraph/device/Combiner.h"
 #include "terraingraph/DeviceHelper.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
 #include <heightfield/Utility.h>
@@ -26,8 +27,9 @@ void Combiner::Execute(const std::shared_ptr<dag::Context>& ctx)
     size_t h = hf0->Height();
     size_t sz = w * h;
 
-    auto& v0 = hf0->GetValues();
-    auto& v1 = hf1->GetValues();
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    auto& v0 = hf0->GetValues(dev);
+    auto& v1 = hf1->GetValues(dev);
     assert(v0.size() == sz && v1.size() == sz);
     std::vector<int32_t> v(sz, 0);
 

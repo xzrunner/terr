@@ -2,6 +2,8 @@
 
 #include "terraingraph/Device.h"
 
+namespace ur2 { class Device; }
+
 namespace terraingraph
 {
 namespace device
@@ -23,7 +25,7 @@ public:
     virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
 
     static std::shared_ptr<hf::HeightField>
-        ResampleHeightField(const hf::HeightField& hf, int width, int height);
+        ResampleHeightField(const ur2::Device& dev, const hf::HeightField& hf, int width, int height);
 
 private:
     void ResampleMask(const Mask& mask);

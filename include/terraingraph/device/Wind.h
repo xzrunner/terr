@@ -20,14 +20,9 @@ public:
         m_exports = {
             {{ DeviceVarType::Heightfield, "out" }},
         };
-
-        Init();
     }
 
     virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
-
-private:
-    void Init();
 
     RTTR_ENABLE(Device)
 

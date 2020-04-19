@@ -5,12 +5,13 @@
 #include "terraingraph/HeightFieldEval.h"
 #include "terraingraph/EvalGPU.h"
 #include "terraingraph/Utility.h"
+#include "terraingraph/Context.h"
 
 #include <SM_Vector.h>
 #include <heightfield/HeightField.h>
-#include <unirender/Blackboard.h>
-#include <unirender/RenderContext.h>
-#include <unirender/Shader.h>
+#include <unirender2/ShaderProgram.h>
+#include <unirender2/Device.h>
+#include <unirender2/ComputeBuffer.h>
 #include <painting0/ShaderUniforms.h>
 
 #include <vector>
@@ -172,37 +173,29 @@ void Erosion::Execute(const std::shared_ptr<dag::Context>& ctx)
     m_hf = std::make_shared<hf::HeightField>(*prev_hf);
 
 #ifdef EROSION_GPU
-    RunGPU();
+    RunGPU(ctx);
 #else
     RunCPU();
 #endif // EROSION_GPU
 }
 
-void Erosion::Init()
-{
-#ifdef EROSION_GPU
-    if (!EVAL)
-    {
-        auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-        EVAL = std::make_shared<EvalGPU>(rc, cs);
-    }
-#endif // EROSION_GPU
-}
-
 #ifdef EROSION_GPU
 
-void Erosion::RunGPU()
+void Erosion::RunGPU(const std::shared_ptr<dag::Context>& ctx)
 {
-    auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-
     int map_size = m_hf->Width();
     int erosion_brush_radius = 3;
     int map_size_with_border = m_hf->Width() + erosion_brush_radius * 2;
 
     int num_threads = m_iter / 1024;
 
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
     // Bind shader
-    EVAL->GetShader()->Use();
+    if (!EVAL) {
+        EVAL = std::make_shared<EvalGPU>(dev, cs);
+    }
+    EVAL->GetShader();
 
     // Create brush
     std::vector<int> brush_index_offsets;
@@ -224,8 +217,8 @@ void Erosion::RunGPU()
     }
 
     // Send brush data to compute shader
-    auto brush_index_buf = rc.CreateComputeBuffer(brush_index_offsets, 2);
-    auto brush_weight_buf = rc.CreateComputeBuffer(brush_weights, 3);
+    auto brush_index_buf = dev.CreateComputeBuffer(brush_index_offsets, 2);
+    auto brush_weight_buf = dev.CreateComputeBuffer(brush_weights, 3);
 
     // Generate random indices for droplet placement
     std::vector<int> random_indices(m_iter);
@@ -241,11 +234,11 @@ void Erosion::RunGPU()
     }
 
     // Send random indices to compute shader
-    auto random_idx_buf = rc.CreateComputeBuffer(random_indices, 1);
+    auto random_idx_buf = dev.CreateComputeBuffer(random_indices, 1);
 
     // Heightmap buffer
-    auto heights = m_hf->GetValues();
-    auto heights_buf = rc.CreateComputeBuffer(heights, 0);
+    auto heights = m_hf->GetValues(dev);
+    auto heights_buf = dev.CreateComputeBuffer(heights, 0);
 
     // Uniforms
     pt0::ShaderUniforms vals;
@@ -265,18 +258,14 @@ void Erosion::RunGPU()
     vals.Bind(*EVAL->GetShader());
 
     // Run compute shader
-    rc.DispatchCompute(num_threads);
+    dev.DispatchCompute(num_threads);
 
     // Update CPU data
-    rc.GetComputeBufferData(heights_buf, heights);
+    heights_buf->GetComputeBufferData(heights);
     m_hf->SetValues(heights);
 
     // Release buffers
-    rc.ReleaseComputeBuffer(heights_buf);
-    rc.ReleaseComputeBuffer(random_idx_buf);
-    rc.ReleaseComputeBuffer(brush_index_buf);
-    rc.ReleaseComputeBuffer(brush_weight_buf);
-    rc.BindShader(0);
+    //rc.BindShader(0);
 }
 
 #else

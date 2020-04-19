@@ -1,5 +1,6 @@
 #include "terraingraph/device/FileInput.h"
 #include "terraingraph/Mask.h"
+#include "terraingraph/Context.h"
 
 #include <heightfield/Loader.h>
 #include <heightfield/HeightField.h>
@@ -21,7 +22,8 @@ void FileInput::Execute(const std::shared_ptr<dag::Context>& ctx)
     const auto max = hf::Utility::HeightFloatToShort(1.0f);
 
     bool is_mask = true;
-    for (auto& v : hf->GetValues()) 
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+    for (auto& v : hf->GetValues(dev))
     {
         if (v != min && v != max) {
             is_mask = false;
@@ -33,7 +35,7 @@ void FileInput::Execute(const std::shared_ptr<dag::Context>& ctx)
     {
         m_mask = std::make_shared<Mask>(hf->Width(), hf->Height());
         auto dst = m_mask->GetPixels();
-        auto& src = hf->GetValues();
+        auto& src = hf->GetValues(dev);
         for (size_t i = 0, n = src.size(); i < n; ++i) {
             dst[i] = src[i] == min ? false : true;
         }
