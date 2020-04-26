@@ -86,7 +86,7 @@ bool EvalGPU::RunCS(const ur2::Device& dev, const pt0::ShaderUniforms& vals,
 {
     auto values = hf.GetValues(dev);
 
-    m_shader->Bind();
+//    m_shader->Bind();
 
     // Allocate buffers
     auto buf = dev.CreateComputeBuffer(values, 0);
