@@ -9,9 +9,9 @@
 
 #include <SM_Vector.h>
 #include <heightfield/HeightField.h>
-#include <unirender2/ShaderProgram.h>
-#include <unirender2/Device.h>
-#include <unirender2/ComputeBuffer.h>
+#include <unirender/ShaderProgram.h>
+#include <unirender/Device.h>
+#include <unirender/ComputeBuffer.h>
 #include <painting0/ShaderUniforms.h>
 
 #include <vector>

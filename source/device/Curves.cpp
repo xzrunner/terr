@@ -79,7 +79,7 @@ float Curves::CalcHeight(float h) const
     return h;
 }
 
-void Curves::CalcHeightRegion(const ur2::Device& dev, const hf::HeightField& hf,
+void Curves::CalcHeightRegion(const ur::Device& dev, const hf::HeightField& hf,
                               int32_t& min, int32_t& max)
 {
     min = std::numeric_limits<int32_t>::max();

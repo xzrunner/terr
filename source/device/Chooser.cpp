@@ -38,7 +38,7 @@ void Chooser::Execute(const std::shared_ptr<dag::Context>& ctx)
     }
 }
 
-void Chooser::BlendHeightfield(const ur2::Device& dev,
+void Chooser::BlendHeightfield(const ur::Device& dev,
                                const hf::HeightField& a,
                                const hf::HeightField& b,
                                const hf::HeightField& ctrl)
@@ -64,7 +64,7 @@ void Chooser::BlendHeightfield(const ur2::Device& dev,
     m_hf->SetValues(vals);
 }
 
-void Chooser::BlendBitmap(const ur2::Device& dev, const Bitmap& a,
+void Chooser::BlendBitmap(const ur::Device& dev, const Bitmap& a,
                           const Bitmap& b, const hf::HeightField& ctrl)
 {
     if (a.Width() == 0 || a.Height() == 0 ||

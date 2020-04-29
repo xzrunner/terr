@@ -4,7 +4,7 @@
 
 #define THERMAL_WEATHERING_GPU
 
-namespace ur2 { class Device; }
+namespace ur { class Device; }
 
 namespace terraingraph
 {
@@ -27,8 +27,8 @@ public:
     virtual void Execute(const std::shared_ptr<dag::Context>& ctx = nullptr) override;
 
 private:
-    void StepCPU(const ur2::Device& dev);
-    void StepGPU(const ur2::Device& dev, int thread_group_count);
+    void StepCPU(const ur::Device& dev);
+    void StepGPU(const ur::Device& dev, int thread_group_count);
 
     RTTR_ENABLE(Device)
 

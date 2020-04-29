@@ -27,7 +27,7 @@ void Resample::Execute(const std::shared_ptr<dag::Context>& ctx)
 }
 
 std::shared_ptr<hf::HeightField>
-Resample::ResampleHeightField(const ur2::Device& dev, const hf::HeightField& hf, int width, int height)
+Resample::ResampleHeightField(const ur::Device& dev, const hf::HeightField& hf, int width, int height)
 {
     size_t prev_w = hf.Width();
     size_t prev_h = hf.Height();

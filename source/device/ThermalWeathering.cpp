@@ -122,7 +122,7 @@ void ThermalWeathering::Execute(const std::shared_ptr<dag::Context>& ctx)
 \brief Perform a thermal erosion step with maximum amplitude defined by user. Based on http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.27.8939&rep=rep1&type=pdf.
 \param amplitude maximum amount of matter moved from one point to another. Something between [0.05, 0.1] gives plausible results.
 */
-void ThermalWeathering::StepCPU(const ur2::Device& dev)
+void ThermalWeathering::StepCPU(const ur::Device& dev)
 {
     size_t w = m_hf->Width();
     size_t h = m_hf->Height();
@@ -164,7 +164,7 @@ void ThermalWeathering::StepCPU(const ur2::Device& dev)
 	}
 }
 
-void ThermalWeathering::StepGPU(const ur2::Device& dev, int thread_group_count)
+void ThermalWeathering::StepGPU(const ur::Device& dev, int thread_group_count)
 {
     pt0::ShaderUniforms vals;
     vals.AddVar("grid_sizex",          pt0::RenderVariant(static_cast<int>(m_hf->Width())));

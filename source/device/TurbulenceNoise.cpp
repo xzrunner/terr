@@ -3,8 +3,8 @@
 #include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender2/Device.h>
-#include <unirender2/TextureDescription.h>
+#include <unirender/Device.h>
+#include <unirender/TextureDescription.h>
 #include <painting0/ShaderUniforms.h>
 
 namespace
@@ -12,8 +12,8 @@ namespace
 
 std::shared_ptr<terraingraph::EvalGPU> EVAL = nullptr;
 
-ur2::TexturePtr PERLIN_PERM_TEX = nullptr;
-ur2::TexturePtr PERLIN_GRAD_TEX = nullptr;
+ur::TexturePtr PERLIN_PERM_TEX = nullptr;
+ur::TexturePtr PERLIN_GRAD_TEX = nullptr;
 
 // Original Ken Perlin's permutation table
 const uint8_t PERLIN_PERM_TABLE[256]={151,160,137,91,90,15,
@@ -617,11 +617,11 @@ void TurbulenceNoise::InitLookupTextures(const std::shared_ptr<dag::Context>& ct
 
     auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
 
-    ur2::TextureDescription desc;
-    desc.target = ur2::TextureTarget::Texture2D;
+    ur::TextureDescription desc;
+    desc.target = ur::TextureTarget::Texture2D;
     desc.width  = 256;
     desc.height = 256;
-    desc.format = ur2::TextureFormat::RGBA8;
+    desc.format = ur::TextureFormat::RGBA8;
     PERLIN_PERM_TEX = dev.CreateTexture(desc, pixels);
 
     memset(pixels, 0, sizeof(uint32_t) * 256 * 256);

@@ -1,10 +1,10 @@
 #include "terraingraph/EvalGPU.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender2/Device.h>
-#include <unirender2/ShaderProgram.h>
-#include <unirender2/TextureDescription.h>
-#include <unirender2/ComputeBuffer.h>
+#include <unirender/Device.h>
+#include <unirender/ShaderProgram.h>
+#include <unirender/TextureDescription.h>
+#include <unirender/ComputeBuffer.h>
 //#include <renderpipeline/UniformNames.h>
 #include <painting0/ShaderUniforms.h>
 #include <painting3/Shader.h>
@@ -12,7 +12,7 @@
 namespace terraingraph
 {
 
-EvalGPU::EvalGPU(const ur2::Device& dev, const std::string& vs, const std::string& fs)
+EvalGPU::EvalGPU(const ur::Device& dev, const std::string& vs, const std::string& fs)
 {
     m_shader = dev.CreateShaderProgram(vs, fs);
 
@@ -28,13 +28,13 @@ EvalGPU::EvalGPU(const ur2::Device& dev, const std::string& vs, const std::strin
     //m_shader = std::make_shared<pt3::Shader>(&rc, sp);
 }
 
-EvalGPU::EvalGPU(const ur2::Device& dev, const std::string& cs)
+EvalGPU::EvalGPU(const ur::Device& dev, const std::string& cs)
 {
     m_shader = dev.CreateShaderProgram(cs);
     m_compute_work_group_size = m_shader->GetComputeWorkGroupSize();
 }
 
-bool EvalGPU::RunPS(const ur2::Device& dev, const pt0::ShaderUniforms& vals, hf::HeightField& hf) const
+bool EvalGPU::RunPS(const ur::Device& dev, const pt0::ShaderUniforms& vals, hf::HeightField& hf) const
 {
     if (!m_shader) {
         return false;
@@ -53,7 +53,7 @@ bool EvalGPU::RunPS(const ur2::Device& dev, const pt0::ShaderUniforms& vals, hf:
     return true;
 }
 
-bool EvalGPU::RunPS(const ur2::Device& dev, const pt0::ShaderUniforms& vals, Bitmap& bmp) const
+bool EvalGPU::RunPS(const ur::Device& dev, const pt0::ShaderUniforms& vals, Bitmap& bmp) const
 {
     if (!m_shader) {
         return false;
@@ -65,11 +65,11 @@ bool EvalGPU::RunPS(const ur2::Device& dev, const pt0::ShaderUniforms& vals, Bit
         return false;
     }
 
-    ur2::TextureDescription desc;
+    ur::TextureDescription desc;
     desc.width  = w;
     desc.height = h;
-    desc.format = ur2::TextureFormat::RGBA8;
-    desc.target = ur2::TextureTarget::Texture2D;
+    desc.format = ur::TextureFormat::RGBA8;
+    desc.target = ur::TextureTarget::Texture2D;
     auto tex = dev.CreateTexture(desc, nullptr);
     if (!tex) {
         return false;
@@ -81,7 +81,7 @@ bool EvalGPU::RunPS(const ur2::Device& dev, const pt0::ShaderUniforms& vals, Bit
     return true;
 }
 
-bool EvalGPU::RunCS(const ur2::Device& dev, const pt0::ShaderUniforms& vals,
+bool EvalGPU::RunCS(const ur::Device& dev, const pt0::ShaderUniforms& vals,
                     int thread_group_count, hf::HeightField& hf) const
 {
     auto values = hf.GetValues(dev);
@@ -119,7 +119,7 @@ bool EvalGPU::RunCS(const ur2::Device& dev, const pt0::ShaderUniforms& vals,
 }
 
 //void EvalGPU::RunPS(const std::vector<uint32_t>& textures, const pt0::ShaderUniforms& vals,
-//                    size_t dst_w, size_t dst_h, const ur2::TexturePtr& tex, unsigned char* out_pixels) const
+//                    size_t dst_w, size_t dst_h, const ur::TexturePtr& tex, unsigned char* out_pixels) const
 //{
 //    auto fbo = rc.CreateRenderTarget(0);
 //    assert(fbo != 0);
@@ -161,8 +161,8 @@ bool EvalGPU::RunCS(const ur2::Device& dev, const pt0::ShaderUniforms& vals,
 //    rc.SetCullMode(ur::CULL_BACK);
 //}
 
-void EvalGPU::RunPS(const ur2::Device& dev, const pt0::ShaderUniforms& vals, size_t dst_w, size_t dst_h,
-                    const ur2::TexturePtr& tex, unsigned char* out_pixels) const
+void EvalGPU::RunPS(const ur::Device& dev, const pt0::ShaderUniforms& vals, size_t dst_w, size_t dst_h,
+                    const ur::TexturePtr& tex, unsigned char* out_pixels) const
 {
     //auto fbo = rc.CreateRenderTarget(0);
     //assert(fbo != 0);

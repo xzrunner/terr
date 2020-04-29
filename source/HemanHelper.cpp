@@ -9,7 +9,7 @@ namespace terraingraph
 {
 
 heman_image*
-HemanHelper::Encode(const ur2::Device& dev, const hf::HeightField& hf)
+HemanHelper::Encode(const ur::Device& dev, const hf::HeightField& hf)
 {
     size_t w = hf.Width();
     size_t h = hf.Height();

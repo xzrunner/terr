@@ -8,7 +8,7 @@
 namespace terraingraph
 {
 
-sm::vec2 HeightFieldEval::Gradient(const ur2::Device& dev, const hf::HeightField& hf, size_t x, size_t y)
+sm::vec2 HeightFieldEval::Gradient(const ur::Device& dev, const hf::HeightField& hf, size_t x, size_t y)
 {
     if (x >= hf.Width() || y >= hf.Height()) {
         assert(0);
@@ -36,7 +36,7 @@ sm::vec2 HeightFieldEval::Gradient(const ur2::Device& dev, const hf::HeightField
 	return sm::vec2(static_cast<float>(g.x), static_cast<float>(g.y));
 }
 
-sm::vec3 HeightFieldEval::Normal(const ur2::Device& dev,
+sm::vec3 HeightFieldEval::Normal(const ur::Device& dev,
                                  const hf::HeightField& hf, size_t x,
                                  size_t y, const sm::vec3& scale)
 {
@@ -99,7 +99,7 @@ sm::vec3 HeightFieldEval::Normal(const ur2::Device& dev,
 }
 
 hf::ScalarField2D<float>
-HeightFieldEval::DrainageArea(const ur2::Device& dev, const hf::HeightField& hf)
+HeightFieldEval::DrainageArea(const ur::Device& dev, const hf::HeightField& hf)
 {
     auto w = hf.Width();
     auto h = hf.Height();
@@ -164,7 +164,7 @@ HeightFieldEval::DrainageArea(const ur2::Device& dev, const hf::HeightField& hf)
 }
 
 hf::ScalarField2D<float>
-HeightFieldEval::Wetness(const ur2::Device& dev, const hf::HeightField& hf)
+HeightFieldEval::Wetness(const ur::Device& dev, const hf::HeightField& hf)
 {
     hf::ScalarField2D<float> DA = DrainageArea(dev, hf);
     hf::ScalarField2D<float> S = Slope(dev, hf);
@@ -178,7 +178,7 @@ HeightFieldEval::Wetness(const ur2::Device& dev, const hf::HeightField& hf)
 
 // Compute the StreamPower field, as described by http://geosci.uchicago.edu/~kite/doc/Whipple_and_Tucker_1999.pdf.
 hf::ScalarField2D<float>
-HeightFieldEval::StreamPower(const ur2::Device& dev, const hf::HeightField& hf)
+HeightFieldEval::StreamPower(const ur::Device& dev, const hf::HeightField& hf)
 {
     hf::ScalarField2D<float> DA = DrainageArea(dev, hf);
     hf::ScalarField2D<float> S = Slope(dev, hf);
@@ -191,7 +191,7 @@ HeightFieldEval::StreamPower(const ur2::Device& dev, const hf::HeightField& hf)
 }
 
 hf::ScalarField2D<float>
-HeightFieldEval::Slope(const ur2::Device& dev, const hf::HeightField& hf)
+HeightFieldEval::Slope(const ur::Device& dev, const hf::HeightField& hf)
 {
     auto w = hf.Width();
     auto h = hf.Height();

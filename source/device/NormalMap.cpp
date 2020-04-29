@@ -5,7 +5,7 @@
 #include "terraingraph/Context.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender2/Texture.h>
+#include <unirender/Texture.h>
 #include <painting0/ShaderUniforms.h>
 
 #include <heman.h>
@@ -126,7 +126,7 @@ void NormalMap::RunGPU(const std::shared_ptr<dag::Context>& ctx, const hf::Heigh
     EVAL->RunPS(dev, vals, *m_bmp);
 }
 
-void NormalMap::RunCPU(const ur2::Device& dev, const hf::HeightField& hf)
+void NormalMap::RunCPU(const ur::Device& dev, const hf::HeightField& hf)
 {
     size_t w = hf.Width();
     size_t h = hf.Height();

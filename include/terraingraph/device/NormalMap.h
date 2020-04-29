@@ -6,7 +6,7 @@
 
 #define NORMAL_MAP_GPU
 
-namespace ur2 { class Device; }
+namespace ur { class Device; }
 
 namespace terraingraph
 {
@@ -30,7 +30,7 @@ public:
 
 private:
     void RunGPU(const std::shared_ptr<dag::Context>& ctx, const hf::HeightField& hf);
-    void RunCPU(const ur2::Device& dev, const hf::HeightField& hf);
+    void RunCPU(const ur::Device& dev, const hf::HeightField& hf);
 
     RTTR_ENABLE(Device)
 

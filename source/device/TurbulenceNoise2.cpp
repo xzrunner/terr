@@ -13,7 +13,7 @@ namespace
 class NoiseModule : public noise::module::Module
 {
 public:
-    NoiseModule(const ur2::Device& dev, const hf::HeightField& hf)
+    NoiseModule(const ur::Device& dev, const hf::HeightField& hf)
         : Module(0)
         , m_dev(dev)
         , m_hf(hf)
@@ -36,7 +36,7 @@ public:
     }
 
 private:
-    const ur2::Device& m_dev;
+    const ur::Device& m_dev;
 
     const hf::HeightField& m_hf;
 

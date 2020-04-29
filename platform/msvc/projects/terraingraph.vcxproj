@@ -251,7 +251,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\heightfield\include;..\..\..\..\unirender2\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\primitive\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\heightfield\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\primitive\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;NOISE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -265,7 +265,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\heightfield\include;..\..\..\..\unirender2\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\primitive\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\include;..\..\..\..\cu\src;..\..\..\..\sm\src\sm;..\..\..\..\memmgr\include;..\..\..\..\guard\include;..\..\..\..\heightfield\include;..\..\..\..\unirender\include;..\..\..\..\painting0\include;..\..\..\..\painting3\include;..\..\..\..\gimg\src\gimg;..\..\..\..\dag\include;..\..\..\..\primitive\include;..\..\..\..\external\boost\include;..\..\..\..\external\rttr\include;..\..\..\..\external\libnoise\include;..\..\..\..\external\heman\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;NOISE_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

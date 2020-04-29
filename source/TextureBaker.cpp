@@ -4,40 +4,40 @@
 #include "terraingraph/TextureGen.h"
 
 #include <heightfield/HeightField.h>
-#include <unirender2/TextureDescription.h>
-#include <unirender2/Device.h>
+#include <unirender/TextureDescription.h>
+#include <unirender/Device.h>
 
 #include <algorithm>
 
 namespace terraingraph
 {
 
-ur2::TexturePtr
-TextureBaker::GenColorMap(const Bitmap& bmp, const ur2::Device& dev)
+ur::TexturePtr
+TextureBaker::GenColorMap(const Bitmap& bmp, const ur::Device& dev)
 {
     auto pixels = bmp.GetPixels();
 
-    ur2::TexturePtr tex = nullptr;
+    ur::TexturePtr tex = nullptr;
 
     auto w = bmp.Width();
     auto h = bmp.Height();
     auto c = bmp.Channels();
 
-    ur2::TextureDescription desc;
-    desc.target = ur2::TextureTarget::Texture2D;
+    ur::TextureDescription desc;
+    desc.target = ur::TextureTarget::Texture2D;
     desc.width = w;
     desc.height = h;
     switch (c)
     {
     case 1:
     {
-        desc.format = ur2::TextureFormat::RED;
+        desc.format = ur::TextureFormat::RED;
         tex = dev.CreateTexture(desc, pixels);
     }
         break;
     case 3:
     {
-        desc.format = ur2::TextureFormat::RGB;
+        desc.format = ur::TextureFormat::RGB;
         tex = dev.CreateTexture(desc, pixels);
     }
         break;
@@ -48,8 +48,8 @@ TextureBaker::GenColorMap(const Bitmap& bmp, const ur2::Device& dev)
     return tex;
 }
 
-ur2::TexturePtr
-TextureBaker::GenColorMap(const Mask& mask, const ur2::Device& dev)
+ur::TexturePtr
+TextureBaker::GenColorMap(const Mask& mask, const ur::Device& dev)
 {
     auto flags = mask.GetPixels();
 
@@ -66,17 +66,17 @@ TextureBaker::GenColorMap(const Mask& mask, const ur2::Device& dev)
         }
     }
 
-    ur2::TextureDescription desc;
-    desc.target = ur2::TextureTarget::Texture2D;
+    ur::TextureDescription desc;
+    desc.target = ur::TextureTarget::Texture2D;
     desc.width = w;
     desc.height = h;
-    desc.format = ur2::TextureFormat::RGB;
+    desc.format = ur::TextureFormat::RGB;
     return dev.CreateTexture(desc, pixels.data());
 }
 
 #ifdef USE_LSCAPE
-//ur2::TexturePtr
-//TextureBaker::GenNormalMap(const hf::HeightField& hf, const ur2::Device& dev)
+//ur::TexturePtr
+//TextureBaker::GenNormalMap(const hf::HeightField& hf, const ur::Device& dev)
 //{
 //    auto w = hf.Width();
 //    auto h = hf.Height();
@@ -99,8 +99,8 @@ TextureBaker::GenColorMap(const Mask& mask, const ur2::Device& dev)
 //    return std::make_unique<ur::Texture>(&rc, w, h, ur::TEXTURE_RGB, tex_id);
 //}
 #else
-ur2::TexturePtr
-TextureBaker::GenNormalMap(const hf::HeightField& hf, const ur2::Device& dev)
+ur::TexturePtr
+TextureBaker::GenNormalMap(const hf::HeightField& hf, const ur::Device& dev)
 {
     auto w = hf.Width();
     auto h = hf.Height();
@@ -118,17 +118,17 @@ TextureBaker::GenNormalMap(const hf::HeightField& hf, const ur2::Device& dev)
     heman_image_destroy(he_height);
     heman_image_destroy(he_norm);
 
-    ur2::TextureDescription desc;
-    desc.target = ur2::TextureTarget::Texture2D;
+    ur::TextureDescription desc;
+    desc.target = ur::TextureTarget::Texture2D;
     desc.width = w;
     desc.height = h;
-    desc.format = ur2::TextureFormat::RGB;
+    desc.format = ur::TextureFormat::RGB;
     return dev.CreateTexture(desc, norm_data.data());
 }
 #endif // USE_LSCAPE
 
-ur2::TexturePtr
-TextureBaker::GenAmbientOcclusionMap(const hf::HeightField& hf, const ur2::Device& dev)
+ur::TexturePtr
+TextureBaker::GenAmbientOcclusionMap(const hf::HeightField& hf, const ur::Device& dev)
 {
     auto w = hf.Width();
     auto h = hf.Height();
@@ -145,16 +145,16 @@ TextureBaker::GenAmbientOcclusionMap(const hf::HeightField& hf, const ur2::Devic
     heman_image_destroy(he_height);
     heman_image_destroy(he_ao);
 
-    ur2::TextureDescription desc;
-    desc.target = ur2::TextureTarget::Texture2D;
+    ur::TextureDescription desc;
+    desc.target = ur::TextureTarget::Texture2D;
     desc.width = w;
     desc.height = h;
-    desc.format = ur2::TextureFormat::RED;
+    desc.format = ur::TextureFormat::RED;
     return dev.CreateTexture(desc, ao_data.data());
 }
 
-ur2::TexturePtr
-TextureBaker::GenShadowMap(const hf::HeightField& hf, const ur2::Device& dev, const sm::vec3& light_dir)
+ur::TexturePtr
+TextureBaker::GenShadowMap(const hf::HeightField& hf, const ur::Device& dev, const sm::vec3& light_dir)
 {
     auto w = hf.Width();
     auto h = hf.Height();
@@ -172,11 +172,11 @@ TextureBaker::GenShadowMap(const hf::HeightField& hf, const ur2::Device& dev, co
     }
     delete[] shadows;
 
-    ur2::TextureDescription desc;
-    desc.target = ur2::TextureTarget::Texture2D;
+    ur::TextureDescription desc;
+    desc.target = ur::TextureTarget::Texture2D;
     desc.width = w;
     desc.height = h;
-    desc.format = ur2::TextureFormat::RGB;
+    desc.format = ur::TextureFormat::RGB;
     return dev.CreateTexture(desc, shadows_rgb.data());
 }
 
