@@ -5,6 +5,7 @@
 #include <unirender/ShaderProgram.h>
 #include <unirender/TextureDescription.h>
 #include <unirender/ComputeBuffer.h>
+#include <shadertrans/ShaderTrans.h>
 //#include <renderpipeline/UniformNames.h>
 #include <painting0/ShaderUniforms.h>
 #include <painting3/Shader.h>
@@ -14,7 +15,10 @@ namespace terraingraph
 
 EvalGPU::EvalGPU(const ur::Device& dev, const std::string& vs, const std::string& fs)
 {
-    m_shader = dev.CreateShaderProgram(vs, fs);
+    std::vector<unsigned int> _vs, _fs;
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
+    m_shader = dev.CreateShaderProgram(_vs, _fs);
 
     //std::vector<ur::VertexAttrib> layout;
     //layout.push_back(ur::VertexAttrib(rp::VERT_POSITION_NAME, 3, 4, 20, 0));
@@ -30,7 +34,9 @@ EvalGPU::EvalGPU(const ur::Device& dev, const std::string& vs, const std::string
 
 EvalGPU::EvalGPU(const ur::Device& dev, const std::string& cs)
 {
-    m_shader = dev.CreateShaderProgram(cs);
+    std::vector<unsigned int> _cs;
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, cs, _cs);
+    m_shader = dev.CreateShaderProgram(_cs);
     m_compute_work_group_size = m_shader->GetComputeWorkGroupSize();
 }
 
