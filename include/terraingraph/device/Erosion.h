@@ -30,7 +30,7 @@ private:
 #ifdef EROSION_GPU
     void RunGPU(const std::shared_ptr<dag::Context>& ctx);
 #else
-    void RunCPU();
+    void RunCPU(const std::shared_ptr<dag::Context>& ctx);
 #endif // EROSION_GPU
 
 #ifndef EROSION_GPU

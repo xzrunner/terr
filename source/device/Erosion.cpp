@@ -175,7 +175,7 @@ void Erosion::Execute(const std::shared_ptr<dag::Context>& ctx)
 #ifdef EROSION_GPU
     RunGPU(ctx);
 #else
-    RunCPU();
+    RunCPU(ctx);
 #endif // EROSION_GPU
 }
 
@@ -270,8 +270,10 @@ void Erosion::RunGPU(const std::shared_ptr<dag::Context>& ctx)
 
 #else
 
-void Erosion::RunCPU()
+void Erosion::RunCPU(const std::shared_ptr<dag::Context>& ctx)
 {
+    auto& dev = *std::static_pointer_cast<Context>(ctx)->ur_dev;
+
     size_t w = m_hf->Width();
     size_t h = m_hf->Height();
     InitializeBrushIndices(w, h);
@@ -299,7 +301,7 @@ void Erosion::RunCPU()
             const float cell_off_x = pos.x - node_x;
             const float cell_off_y = pos.y - node_y;
 
-            const auto gradient = HeightFieldEval::Gradient(*m_hf, node_x, node_y);
+            const auto gradient = HeightFieldEval::Gradient(dev , *m_hf, node_x, node_y);
 
             // calc next pos
             //dir.x = (dir.x - gradient.x) * m_ki + gradient.x;
@@ -322,8 +324,8 @@ void Erosion::RunCPU()
             }
 
             // Find the droplet's new height and calculate the dh
-            float new_h = m_hf->Get(pos.x, pos.y);
-            float dh = new_h - m_hf->Get(node_x, node_y);
+            float new_h = m_hf->Get(dev, pos.x, pos.y);
+            float dh = new_h - m_hf->Get(dev, node_x, node_y);
 
             // Calculate the droplet's sediment capacity (higher when moving fast down a slope and contains lots of water)
             float sediment_cap = std::max(-dh * speed * water * m_kq, m_min_slope);
@@ -356,7 +358,7 @@ void Erosion::RunCPU()
                 {
                     size_t node_idx = m_brush_indices[droplet_idx][brush_pt_idx];
                     float weighed_erode_amount = amount_to_erode * m_brush_weights[droplet_idx][brush_pt_idx];
-                    float d_sediment = (m_hf->Get(node_idx) < weighed_erode_amount) ? m_hf->Get(node_idx) : weighed_erode_amount;
+                    float d_sediment = (m_hf->Get(dev, node_idx) < weighed_erode_amount) ? m_hf->Get(dev, node_idx) : weighed_erode_amount;
                     m_hf->Add(node_idx, -d_sediment);
                     sediment += d_sediment;
                 }
