@@ -5,4 +5,4 @@
 PARAM_INFO(Width,  size_t, width,  m_width,  (1024))
 PARAM_INFO(Height, size_t, height, m_height, (1024))
 
-PARAM_INFO(Seed, Int, seed, m_seed, (0))
+PARAM_INFO(Seed, int, seed, m_seed, (0))

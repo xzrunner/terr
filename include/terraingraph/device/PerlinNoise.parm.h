@@ -5,4 +5,4 @@
 PARAM_INFO(Width,  size_t, width,  m_width,  (1024))
 PARAM_INFO(Height, size_t, height, m_height, (1024))
 
-PARAM_INFO(FractalLayerNum, Int, fractal_layer, m_fractal_layer, (3))
+PARAM_INFO(FractalLayerNum, int, fractal_layer, m_fractal_layer, (3))

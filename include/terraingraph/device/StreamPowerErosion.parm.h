@@ -2,4 +2,4 @@
 #error "You must define PARAM_INFO macro before include this file"
 #endif
 
-PARAM_INFO(Amplitude, Float, amplitude, m_amplitude, (0.001))
+PARAM_INFO(Amplitude, float, amplitude, m_amplitude, (0.001))

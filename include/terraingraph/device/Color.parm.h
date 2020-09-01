@@ -5,4 +5,4 @@
 PARAM_INFO(Width,  size_t, width,  m_width,  (1024))
 PARAM_INFO(Height, size_t, height, m_height, (1024))
 
-PARAM_INFO(RGB, Float3, rgb, m_rgb, ())
+PARAM_INFO(RGB, sm::vec3, rgb, m_rgb, ())

@@ -5,4 +5,4 @@
 PARAM_INFO(Width,  size_t, width,  m_width,  (1024))
 PARAM_INFO(Height, size_t, height, m_height, (1024))
 
-PARAM_INFO(GroupCap, Float, group_cap, m_group_cap, (0.1f))
+PARAM_INFO(GroupCap, float, group_cap, m_group_cap, (0.1f))

@@ -7,7 +7,7 @@ PARAM_INFO(Height, size_t, height, m_height, (1024))
 
 PARAM_INFO(Quality, terraingraph::NoiseQuality, quality, m_quality, (terraingraph::NoiseQuality::Standard))
 
-PARAM_INFO(Frequency,   Float, frequency,    m_frequency,    (1.0f))
-PARAM_INFO(Lacunarity,  Float, lacunarity,   m_lacunarity,   (2.0f))
-PARAM_INFO(OctaveCount, Int,   octave_count, m_octave_count, (6))
-PARAM_INFO(Seed,        Int,   seed,         m_seed,         (0))
+PARAM_INFO(Frequency,   float, frequency,    m_frequency,    (1.0f))
+PARAM_INFO(Lacunarity,  float, lacunarity,   m_lacunarity,   (2.0f))
+PARAM_INFO(OctaveCount, int,   octave_count, m_octave_count, (6))
+PARAM_INFO(Seed,        int,   seed,         m_seed,         (0))

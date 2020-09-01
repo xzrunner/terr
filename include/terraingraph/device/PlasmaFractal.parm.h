@@ -5,4 +5,4 @@
 PARAM_INFO(Width,  size_t, width,  m_width,  (1024))
 PARAM_INFO(Height, size_t, height, m_height, (1024))
 
-PARAM_INFO(Roughness, Float, roughness, m_roughness, (1.0f))
+PARAM_INFO(Roughness, float, roughness, m_roughness, (1.0f))
