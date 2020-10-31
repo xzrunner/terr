@@ -19,6 +19,7 @@ EvalGPU::EvalGPU(const ur::Device& dev, const std::string& vs, const std::string
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, vs, _vs);
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::PixelShader, fs, _fs);
     m_shader = dev.CreateShaderProgram(_vs, _fs);
+    assert(m_shader);
 
     //std::vector<ur::VertexAttrib> layout;
     //layout.push_back(ur::VertexAttrib(rp::VERT_POSITION_NAME, 3, 4, 20, 0));
@@ -35,8 +36,9 @@ EvalGPU::EvalGPU(const ur::Device& dev, const std::string& vs, const std::string
 EvalGPU::EvalGPU(const ur::Device& dev, const std::string& cs)
 {
     std::vector<unsigned int> _cs;
-    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::VertexShader, cs, _cs);
+    shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::ComputeShader, cs, _cs);
     m_shader = dev.CreateShaderProgram(_cs);
+    assert(m_shader);
     m_compute_work_group_size = m_shader->GetComputeWorkGroupSize();
 }
 
@@ -92,7 +94,7 @@ bool EvalGPU::RunCS(const ur::Device& dev, const pt0::ShaderUniforms& vals,
 {
     auto values = hf.GetValues(dev);
 
-//    m_shader->Bind();
+    m_shader->Bind();
 
     // Allocate buffers
     auto buf = dev.CreateComputeBuffer(values, 0);

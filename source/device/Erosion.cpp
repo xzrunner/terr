@@ -30,21 +30,24 @@ layout(std430, binding=1) buffer RandomIndicesInt { int random_indices[]; };
 layout(std430, binding=2) buffer BrushIndicesInt { int brush_indices[]; };
 layout(std430, binding=3) buffer BrushWeightsFloat { float brush_weights[]; };
 
-uniform int map_size;
-uniform int brush_length;
-uniform int border_size;
+layout(std140) uniform UBO
+{
+    int map_size;
+    int brush_length;
+    int border_size;
 
-uniform int max_lifetime;
-uniform float inertia;
-uniform float sediment_capacity_factor;
-uniform float min_sediment_cap;
-uniform float deposit_spd;
-uniform float erode_spd;
+    int max_lifetime;
+    float inertia;
+    float sediment_capacity_factor;
+    float min_sediment_cap;
+    float deposit_spd;
+    float erode_spd;
 
-uniform float evaporate_spd;
-uniform float gravity;
-uniform float start_speed;
-uniform float start_water;
+    float evaporate_spd;
+    float gravity;
+    float start_speed;
+    float start_water;
+} ubo;
 
 vec3 CalculateHeightAndGradient(float pos_x, float pos_y)
 {
@@ -56,11 +59,11 @@ vec3 CalculateHeightAndGradient(float pos_x, float pos_y)
     float y = pos_y - coord_y;
 
     // Calculate heights of the four nodes of the droplet's cell
-    int node_idx_nw = coord_y * map_size + coord_x;
+    int node_idx_nw = coord_y * ubo.map_size + coord_x;
     float height_nw = heights[node_idx_nw];
     float height_ne = heights[node_idx_nw + 1];
-    float height_sw = heights[node_idx_nw + map_size];
-    float height_se = heights[node_idx_nw + map_size + 1];
+    float height_sw = heights[node_idx_nw + ubo.map_size];
+    float height_se = heights[node_idx_nw + ubo.map_size + 1];
 
     // Calculate droplet's direction of flow with bilinear interpolation of height difference along the edges
     float gradient_x = (height_ne - height_nw) * (1 - y) + (height_se - height_sw) * y;
@@ -76,18 +79,19 @@ layout(local_size_x = 1024) in;
 void main()
 {
     int index = random_indices[gl_GlobalInvocationID.x];
-    float pos_x = float(index % map_size);
-    float pos_y = float(index / map_size);
+    float pos_x = float(index % ubo.map_size);
+    float pos_y = float(index / ubo.map_size);
     float dir_x = 0;
     float dir_y = 0;
-    float speed = start_speed;
-    float water = start_water;
+    float speed = ubo.start_speed;
+    float water = ubo.start_water;
     float sediment = 0;
 
-    for (int lifetime = 0; lifetime < max_lifetime; lifetime ++) {
+    for (int lifetime = 0; lifetime < ubo.max_lifetime; lifetime ++) {
         int node_x = int(pos_x);
         int node_y = int(pos_y);
-        int droplet_index = node_y * map_size + node_x;
+        int droplet_index = node_y * ubo.map_size + node_x;
+
         // Calculate droplet's offset inside the cell (0,0) = at NW node, (1,1) = at SE node
         float cell_offset_x = pos_x - node_x;
         float cell_offset_y = pos_y - node_y;
@@ -96,8 +100,8 @@ void main()
         vec3 height_and_gradient = CalculateHeightAndGradient (pos_x, pos_y);
 
         // Update the droplet's direction and position (move position 1 unit regardless of speed)
-        dir_x = (dir_x * inertia - height_and_gradient.x * (1 - inertia));
-        dir_y = (dir_y * inertia - height_and_gradient.y * (1 - inertia));
+        dir_x = (dir_x * ubo.inertia - height_and_gradient.x * (1 - ubo.inertia));
+        dir_y = (dir_y * ubo.inertia - height_and_gradient.y * (1 - ubo.inertia));
         // Normalize direction
         float len = max(0.01, sqrt(dir_x * dir_x + dir_y * dir_y));
         dir_x /= len;
@@ -106,7 +110,7 @@ void main()
         pos_y += dir_y;
 
         // Stop simulating droplet if it's not moving or has flowed over edge of heights
-        if ((dir_x == 0 && dir_y == 0) || pos_x < border_size || pos_x > map_size - border_size || pos_y < border_size || pos_y > map_size - border_size) {
+        if ((dir_x == 0 && dir_y == 0) || pos_x < ubo.border_size || pos_x > ubo.map_size - ubo.border_size || pos_y < ubo.border_size || pos_y > ubo.map_size - ubo.border_size) {
             break;
         }
 
@@ -115,27 +119,27 @@ void main()
         float dh = new_h - height_and_gradient.z;
 
         // Calculate the droplet's sediment capacity (higher when moving fast down a slope and contains lots of water)
-        float sediment_cap = max(-dh * speed * water * sediment_capacity_factor, min_sediment_cap);
+        float sediment_cap = max(-dh * speed * water * ubo.sediment_capacity_factor, ubo.min_sediment_cap);
 
         // If carrying more sediment than capacity, or if flowing uphill:
         if (sediment > sediment_cap || dh > 0) {
             // If moving uphill (dh > 0) try fill up to the current height, otherwise deposit a fraction of the excess sediment
-            float amount_to_deposit = (dh > 0) ? min(dh, sediment) : (sediment - sediment_cap) * deposit_spd;
+            float amount_to_deposit = (dh > 0) ? min(dh, sediment) : (sediment - sediment_cap) * ubo.deposit_spd;
             sediment -= amount_to_deposit;
 
             // Add the sediment to the four nodes of the current cell using bilinear interpolation
             // Deposition is not distributed over a radius (like erosion) so that it can fill small pits
             heights[droplet_index] += amount_to_deposit * (1 - cell_offset_x) * (1 - cell_offset_y);
             heights[droplet_index + 1] += amount_to_deposit * cell_offset_x * (1 - cell_offset_y);
-            heights[droplet_index + map_size] += amount_to_deposit * (1 - cell_offset_x) * cell_offset_y;
-            heights[droplet_index + map_size + 1] += amount_to_deposit * cell_offset_x * cell_offset_y;
+            heights[droplet_index + ubo.map_size] += amount_to_deposit * (1 - cell_offset_x) * cell_offset_y;
+            heights[droplet_index + ubo.map_size + 1] += amount_to_deposit * cell_offset_x * cell_offset_y;
         }
         else {
             // Erode a fraction of the droplet's current carry capacity.
             // Clamp the erosion to the change in height so that it doesn't dig a hole in the terrain behind the droplet
-            float amount_to_erode = min ((sediment_cap - sediment) * erode_spd, -dh);
+            float amount_to_erode = min ((sediment_cap - sediment) * ubo.erode_spd, -dh);
 
-            for (int i = 0; i < brush_length; i ++) {
+            for (int i = 0; i < ubo.brush_length; i ++) {
                 int erode_idx = droplet_index + brush_indices[i];
 
                 float weighted_erode_amount = amount_to_erode * brush_weights[i];
@@ -146,10 +150,9 @@ void main()
         }
 
         // Update droplet's speed and water content
-        speed = sqrt(max(0, speed * speed + dh * gravity));
-        water *= (1 - evaporate_spd);
+        speed = sqrt(max(0, speed * speed + dh * ubo.gravity));
+        water *= (1 - ubo.evaporate_spd);
     }
-
 }
 
 )";
@@ -195,7 +198,7 @@ void Erosion::RunGPU(const std::shared_ptr<dag::Context>& ctx)
     if (!EVAL) {
         EVAL = std::make_shared<EvalGPU>(dev, cs);
     }
-    EVAL->GetShader();
+    EVAL->GetShader()->Bind();
 
     // Create brush
     std::vector<int> brush_index_offsets;
@@ -242,19 +245,19 @@ void Erosion::RunGPU(const std::shared_ptr<dag::Context>& ctx)
 
     // Uniforms
     pt0::ShaderUniforms vals;
-    vals.AddVar("border_size",              pt0::RenderVariant(/*erosionBrushRadius*/0));
-    vals.AddVar("map_size",                 pt0::RenderVariant(/*map_size_with_border*/map_size));
-    vals.AddVar("brush_length",             pt0::RenderVariant(static_cast<int>(brush_index_offsets.size())));
-    vals.AddVar("max_lifetime",             pt0::RenderVariant(30));
-    vals.AddVar("inertia",                  pt0::RenderVariant(m_ki));
-    vals.AddVar("sediment_capacity_factor", pt0::RenderVariant(m_kq));
-    vals.AddVar("min_sediment_cap",         pt0::RenderVariant(m_min_slope));
-    vals.AddVar("deposit_spd",              pt0::RenderVariant(m_kd));
-    vals.AddVar("erode_spd",                pt0::RenderVariant(m_kr));
-    vals.AddVar("evaporate_spd",            pt0::RenderVariant(m_kw));
-    vals.AddVar("gravity",                  pt0::RenderVariant(m_g));
-    vals.AddVar("start_speed",              pt0::RenderVariant(1.0f));
-    vals.AddVar("start_water",              pt0::RenderVariant(1.0f));
+    vals.AddVar("ubo.border_size",              pt0::RenderVariant(/*erosionBrushRadius*/0));
+    vals.AddVar("ubo.map_size",                 pt0::RenderVariant(/*map_size_with_border*/map_size));
+    vals.AddVar("ubo.brush_length",             pt0::RenderVariant(static_cast<int>(brush_index_offsets.size())));
+    vals.AddVar("ubo.max_lifetime",             pt0::RenderVariant(30));
+    vals.AddVar("ubo.inertia",                  pt0::RenderVariant(m_ki));
+    vals.AddVar("ubo.sediment_capacity_factor", pt0::RenderVariant(m_kq));
+    vals.AddVar("ubo.min_sediment_cap",         pt0::RenderVariant(m_min_slope));
+    vals.AddVar("ubo.deposit_spd",              pt0::RenderVariant(m_kd));
+    vals.AddVar("ubo.erode_spd",                pt0::RenderVariant(m_kr));
+    vals.AddVar("ubo.evaporate_spd",            pt0::RenderVariant(m_kw));
+    vals.AddVar("ubo.gravity",                  pt0::RenderVariant(m_g));
+    vals.AddVar("ubo.start_speed",              pt0::RenderVariant(1.0f));
+    vals.AddVar("ubo.start_water",              pt0::RenderVariant(1.0f));
     vals.Bind(*EVAL->GetShader());
 
     // Run compute shader

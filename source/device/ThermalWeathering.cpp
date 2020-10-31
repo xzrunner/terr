@@ -20,16 +20,19 @@ layout(binding = 0, std430) coherent buffer HeightfieldDataFloat
 	float height_buf[];
 };
 
-uniform int   grid_sizex;
-uniform int   grid_sizey;
-uniform float amplitude;
-uniform float cell_size;
-uniform float tan_threshold_angle;
+layout(std140) uniform UBO
+{
+	int   grid_sizex;
+	int   grid_sizey;
+	float amplitude;
+	float cell_size;
+	float tan_threshold_angle;
+} ubo;
 
 bool Inside(int x, int y)
 {
-	if (x < 0 || x >= grid_sizex ||
-        y < 0 || y >= grid_sizey) {
+	if (x < 0 || x >= ubo.grid_sizex ||
+        y < 0 || y >= ubo.grid_sizey) {
 		return false;
     }
 	return true;
@@ -37,7 +40,7 @@ bool Inside(int x, int y)
 
 int ToIndex1D(int x, int y)
 {
-	return y * grid_sizex + x;
+	return y * ubo.grid_sizex + x;
 }
 
 layout(local_size_x = 1024) in;
@@ -48,11 +51,11 @@ void main()
         return;
     }
 
-	int i_amplitude = int(amplitude);
+	int i_amplitude = int(ubo.amplitude);
 	float max_y_diff = 0;
 	int   max_idx = -1;
-	int y = int(id) / grid_sizex;
-	int x = int(id) % grid_sizex;
+	int y = int(id) / ubo.grid_sizex;
+	int x = int(id) % ubo.grid_sizex;
 	for (int k = -1; k <= 1; k += 2)
 	{
 		for (int l = -1; l <= 1; l += 2)
@@ -69,10 +72,10 @@ void main()
 			}
 		}
 	}
-	if (max_idx != -1 && max_y_diff / cell_size > tan_threshold_angle)
+	if (max_idx != -1 && max_y_diff / ubo.cell_size > ubo.tan_threshold_angle)
 	{
-		height_buf[id] = height_buf[id] - amplitude;
-		height_buf[max_idx] = height_buf[max_idx] + amplitude;
+		height_buf[id] = height_buf[id] - ubo.amplitude;
+		height_buf[max_idx] = height_buf[max_idx] + ubo.amplitude;
 	}
 }
 
@@ -167,11 +170,11 @@ void ThermalWeathering::StepCPU(const ur::Device& dev)
 void ThermalWeathering::StepGPU(const ur::Device& dev, int thread_group_count)
 {
     pt0::ShaderUniforms vals;
-    vals.AddVar("grid_sizex",          pt0::RenderVariant(static_cast<int>(m_hf->Width())));
-    vals.AddVar("grid_sizey",          pt0::RenderVariant(static_cast<int>(m_hf->Height())));
-    vals.AddVar("amplitude",           pt0::RenderVariant(m_amplitude));
-    vals.AddVar("tan_threshold_angle", pt0::RenderVariant(m_tan_threshold_angle));
-    vals.AddVar("cell_size",           pt0::RenderVariant(1.0f / 50.0f));
+    vals.AddVar("ubo.grid_sizex",          pt0::RenderVariant(static_cast<int>(m_hf->Width())));
+    vals.AddVar("ubo.grid_sizey",          pt0::RenderVariant(static_cast<int>(m_hf->Height())));
+    vals.AddVar("ubo.amplitude",           pt0::RenderVariant(m_amplitude));
+    vals.AddVar("ubo.tan_threshold_angle", pt0::RenderVariant(m_tan_threshold_angle));
+    vals.AddVar("ubo.cell_size",           pt0::RenderVariant(1.0f / 50.0f));
 
     EVAL->RunCS(dev, vals, thread_group_count, *m_hf);
 }

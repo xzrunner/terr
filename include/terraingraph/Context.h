@@ -13,8 +13,8 @@ class Context : public dag::Context
 {
 public:
     //ur::RenderState ur_rs;
-    std::shared_ptr<ur::Context> ur_ctx = nullptr;
-    std::shared_ptr<ur::Device>  ur_dev = nullptr;
+    ur::Context*      ur_ctx = nullptr;
+    const ur::Device* ur_dev = nullptr;
 
 }; // Context
 
