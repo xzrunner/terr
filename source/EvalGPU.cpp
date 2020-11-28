@@ -107,7 +107,7 @@ bool EvalGPU::RunCS(const ur::Device& dev, const pt0::ShaderUniforms& vals,
     vals.Bind(*m_shader);
 
     // Dispatch
-    dev.DispatchCompute(thread_group_count);
+    ctx.Compute(ds, thread_group_count, 1, 1);
     //glDispatchCompute(thread_group_count, 1, 1);
     //glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 

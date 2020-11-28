@@ -261,7 +261,7 @@ void Erosion::RunGPU(const std::shared_ptr<dag::Context>& ctx)
     vals.Bind(*EVAL->GetShader());
 
     // Run compute shader
-    dev.DispatchCompute(num_threads);
+    dev.DispatchCompute(num_threads, 1, 1);
 
     // Update CPU data
     heights_buf->GetComputeBufferData(heights);
