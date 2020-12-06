@@ -39,7 +39,10 @@ EvalGPU::EvalGPU(const ur::Device& dev, const std::string& cs)
     shadertrans::ShaderTrans::GLSL2SpirV(shadertrans::ShaderStage::ComputeShader, cs, _cs);
     m_shader = dev.CreateShaderProgram(_cs);
     assert(m_shader);
-    m_compute_work_group_size = m_shader->GetComputeWorkGroupSize();
+
+    sm::ivec3 sz;
+    m_shader->GetComputeWorkGroupSize(sz.x, sz.y, sz.z);
+    m_compute_work_group_size = sz.x;
 }
 
 bool EvalGPU::RunPS(const ur::Device& dev, const pt0::ShaderUniforms& vals, hf::HeightField& hf) const
